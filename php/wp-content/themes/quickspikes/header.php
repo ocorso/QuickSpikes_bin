@@ -15,18 +15,23 @@
 
 <body <?php body_class(); ?>>
 <div id="container">
-	<h1 id="header"><a href="<?php bloginfo('url'); ?>/"><span class="hide"><?php bloginfo('name'); ?></span></a></h1>
-	<div id="nav">
-			<ul>
-				<li><a href="<?php bloginfo('url'); ?>">Home</a></li>
-				<li><a href="/about">About</a></li>
-				<li><a href="/videos">Products</a></li>
-				<li><a href="/tips">FAQ</a></li>
-				<li><a href="/gallery">Gallery</a></li>
-				<li><a href="/partners">Partners</a></a></li>
-				<li><a href="/contact">Contact</a></li>
-			</ul>  
+	<div id="header"><
+		<h1 id="logo"><a href="<?php bloginfo('url'); ?>/"><?php bloginfo('name'); ?></a></h1>
+	
+			<div id="nav">
+				<ul>
+					<li id="nav_home" >		<a href="<?php bloginfo('url'); ?>">Home</a></li>
+					<li id="nav_about">		<a href="/about">About</a></li>
+					<li id="nav_products">	<a href="/products">Products</a></li>
+					<li id="nav_faq">		<a href="/faq">FAQ</a></li>
+					<li id="nav_gallery">	<a href="/gallery">Gallery</a></li>
+					<li id="nav_partners">	<a href="/partners">Partners</a></a></li>
+					<li id="nav_contact">	<a href="/contact">Contact</a></li>
+				</ul>  
+			</div>			
+		
 	</div>
+	
 <!-- end header -->
 <div id="content"> 
 

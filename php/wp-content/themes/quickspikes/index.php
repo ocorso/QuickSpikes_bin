@@ -7,6 +7,8 @@
 get_header(); ?>
 
 <!-- put page content here -->
-<h1>Welcome to Quick Spikes</h1>
+<div id="slideshow">
+	
+</div>
 
 <?php get_footer(); ?>

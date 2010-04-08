@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 */
 
-/*RESET*/
+	/*RESET*/
 html{color:#fff;background:#000;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
 /*creates consistant, accessible fonts on all browsers*/
 body{font:13px/1.231 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}select,input,button,textarea,button{font:99% arial,helvetica,clean,sans-serif;}table{font-size:inherit;font:100%;}pre,code,kbd,samp,tt{font-family:monospace;*font-size:108%;line-height:100%;}
@@ -45,18 +45,89 @@ a { text-decoration: none; }
 .italic{font-style:italic;}
 .underlined{text-decoration:underline;}
 .bold{font-weight:bold;}
+.pointer{cursor:pointer;}
 
+	/*GLOBAL STYLES*/
+#container{
+	width: 803px;
+	margin: 0 auto;
+}
+	/*HEADER STYLES*/
 #header{
 	background-image: url('img/header.jpg');
-}
-
-#nav ul{
-       
-	float: left;
+	background-repeat: no-repeat;
+	text-indent:-9999px;
+	width: 803px;
+	height: 187px;
 	
 }
+#logo, #logo a{
+	margin-left: 50%;
+	top:0px;
+	cursor:pointer;
+	height:150px;
+	left:-225px;
+	margin-left:50%;
+	position:absolute;
+	width:450px;
+	display: block;
+	outline:none;
+}
+#nav {
+	background-image: url('img/buttons.png');
+	position: absolute;
+	margin-left: 50%;
+	top: 157px;
+	left: -400px;
+	width: 801px;
+	height: 30px;
+
+}
+#nav ul{
+	margin: 0;
+	padding: 0;
+	position: relative;
+	line-height: normal;
+	width: 801px;
+	height: 30px;
+
+}
 #nav ul li{
-	display:inline;
-	text-transform:uppercase;
-	font-weight:bold;
+	background-color: #f00;
+	width: 92px;
+	height:30px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background: transparent;
+	position: absolute;
+	top: 0;
+}
+#nav a{
+	display: block;
+	height:30px;
+	outline:none;
+}
+#nav_home		{left: 1px;} 
+#nav_about		{left: 119px;} 
+#nav_products	{left: 237px;}
+#nav_gallery	{left: 355px;}
+#nav_faq		{left: 472px;}
+#nav_partners	{left: 590px;}
+#nav_contact	{left: 708px;}
+
+li#nav_home a:hover 	{ background:transparent url('img/buttons.png') 	-1px -30px no-repeat; }
+li#nav_about a:hover 	{ background:transparent url('img/buttons.png') 	-119px -60px no-repeat; }
+li#nav_products a:hover { background:transparent url('img/buttons.png') 	-237px -90px no-repeat; }
+li#nav_gallery a:hover 	{ background:transparent url('img/buttons.png') 	-355px -120px no-repeat; }
+li#nav_faq a:hover 		{ background:transparent url('img/buttons.png') 	-472px -150px no-repeat; }
+li#nav_partners a:hover { background:transparent url('img/buttons.png') 	-591px -180px no-repeat; }
+li#nav_contact a:hover 	{ background:transparent url('img/buttons.png') 	-709px -209px no-repeat; }
+
+	/*HOMEPAGE STYLES*/
+#slideshow{
+	background-image: url('img/slide2.png');
+	width: 807px;
+	height: 494px;
+	margin-top: 6px;
 }
