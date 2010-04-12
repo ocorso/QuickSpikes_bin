@@ -131,3 +131,9 @@ li#nav_contact a:hover 	{ background:transparent url('img/buttons.png') 	-709px 
 	height: 494px;
 	margin-top: 6px;
 }
+
+	/*ECOMMERCE STYLES*/
+tbody{
+	border: red;
+	border-style: double;
+}

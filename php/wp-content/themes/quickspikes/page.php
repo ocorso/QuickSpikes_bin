@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <!-- this is where page stuff goes -->
 <div id="body_container">
-	  
+
 	  <?php if(have_posts()): ?>
 	  <?php while(have_posts()):the_post(); ?>
 	  <div class="post">
@@ -23,9 +23,10 @@
 	    <h2>
 	      <?php _e('Not Found'); ?>
 	    </h2>
+	
 	  </div>
 	  <?php endif; ?>
-	 
+
 </div>
 
 
