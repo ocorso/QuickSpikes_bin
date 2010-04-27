@@ -121,15 +121,20 @@ add_filter('single_post_title','wpsc_post_title_seo');
  */
 function wpsc_change_canonical_url($url) {
   global $wpdb, $wpsc_query, $post;
- // exit('<pre>'.print_r($post,true).'</pre>');
-  if(preg_match("/\[productspage\]/",$post->post_content)) {
+//  exit('<pre>'.print_r($wpsc_query,true).'</pre>');
+  if(preg_match("/\[productspage\]/",$post->post_content) && $wpsc_query->query_vars['category_id'] == 0) {
   if(!is_numeric($_GET['product_id'])) {
 		$product_id = $wpdb->get_var("SELECT `product_id` FROM `".WPSC_TABLE_PRODUCTMETA."` WHERE `meta_key` IN ( 'url_name' ) AND `meta_value` IN ( '".$wpsc_query->query_vars['product_url_name']."' ) ORDER BY `product_id` DESC LIMIT 1");
   } else {
   	$product_id = absint($_GET['product_id']);
 	}
-	
+	//exit('prod id'.$product_id);
+	if($product_id > 0){
 	$url = wpsc_product_url($product_id);
+	}else{
+	$url = get_option('product_list_url');
+	}
+
   } else {
     if($wpsc_query->query_vars['category_id'] > 0) {
       $url = wpsc_category_url($wpsc_query->query_vars['category_id']);
@@ -153,6 +158,7 @@ add_filter('aioseop_canonical_url', 'wpsc_change_canonical_url');
 
 function wpsc_insert_canonical_url() {
 	$wpsc_url = wpsc_change_canonical_url(null);
+//	exit($wpsc_url);
 	echo "<link rel='canonical' href='$wpsc_url' />\n";
 }
 
@@ -745,4 +751,28 @@ function wpsc_clear_stock_claims( ) {
 	$wpdb->query("DELETE FROM `".WPSC_TABLE_CLAIMED_STOCK."` WHERE `last_activity` < '{$old_claimed_stock_datetime}' AND `cart_submitted` IN ('0')");
 }
 add_action('wpsc_daily_cron_tasks', 'wpsc_clear_stock_claims');
+
+/**
+ * Description Check PHP version to Compare
+ * @access public
+ *
+ * @param string of version to compare
+ * @return boolean true or false
+ */
+function phpMinV($v)
+{
+    $phpV = PHP_VERSION;
+
+    if ($phpV[0] >= $v[0]) {
+        if (empty($v[2]) || $v[2] == '*') {
+            return true;
+        } elseif ($phpV[2] >= $v[2]) {
+            if (empty($v[4]) || $v[4] == '*' || $phpV[4] >= $v[4]) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
 ?>

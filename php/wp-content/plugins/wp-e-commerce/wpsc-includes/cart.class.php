@@ -595,7 +595,7 @@ class wpsc_cart {
     }
 	  $this->update_location();
 	  $this->get_tax_rate();
-	  $this->unique_id = sha1(uniqid(rand(), true));
+	  $this->unique_id = sha1(uniqid(rand(),true));
 	  
 	  $this->get_shipping_method();
   }
@@ -1048,6 +1048,7 @@ class wpsc_cart {
 		$this->subtotal = null;
 		$this->total_price = null;
 		$this->uses_shipping = null;
+		$this->shipping_quotes = null;
 		$this->get_shipping_option();	
 	}
   

@@ -3,7 +3,7 @@
 Plugin Name:WP Shopping Cart
 Plugin URI: http://www.getshopped.org
 Description: A plugin that provides a WordPress Shopping Cart. Visit the <a href='http://getshopped.org/forums'>getshopped forums</a> for support.
-Version: 3.7.6
+Version: 3.7.6.1
 Author: Instinct
 Author URI: http://www.getshopped.org
 */
@@ -16,7 +16,7 @@ global $wpdb;
 define('WPSC_VERSION', '3.7');
 define('WPSC_MINOR_VERSION', '51');
 
-define('WPSC_PRESENTABLE_VERSION', '3.7.6');
+define('WPSC_PRESENTABLE_VERSION', '3.7.6.1');
 
 define('WPSC_DEBUG', false);
 define('WPSC_GATEWAY_DEBUG', false);
@@ -291,7 +291,13 @@ $shipping_directory = WPSC_FILE_PATH.'/shipping';
 $nzshpcrt_shipping_list = wpsc_list_dir($shipping_directory);
 foreach($nzshpcrt_shipping_list as $nzshpcrt_shipping) {
 	if(stristr( $nzshpcrt_shipping , '.php' )) {
-		require(WPSC_FILE_PATH."/shipping/".$nzshpcrt_shipping);
+		if($nzshpcrt_shipping == 'ups.php'){
+			if (phpMinV('5')){
+			require(WPSC_FILE_PATH."/shipping/".$nzshpcrt_shipping);
+			}
+		}else{
+			require(WPSC_FILE_PATH."/shipping/".$nzshpcrt_shipping);
+		}
 	}
 }
 $wpsc_shipping_modules = apply_filters('wpsc_shipping_modules',$wpsc_shipping_modules);

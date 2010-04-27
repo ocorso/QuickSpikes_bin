@@ -5,7 +5,11 @@
  */
 
 get_header(); ?>
-
+  <script type="text/javascript"> 
+		  	pageName = "home";
+		  	
+	</script>
+			
 <!-- put page content here -->
 <div id="slideshow">
 	
