@@ -54,11 +54,14 @@ function gateway_paypal_multiple($seperator, $sessionid) {
 //   $data['lc'] = 'US';
   $data['lc'] = $paypal_currency_code;
   $data['bn'] = 'wp-e-commerce';
-  
-  $data['no_shipping'] = (int)(bool)get_option('paypal_ship');
   if(get_option('address_override') == 1) {
 		$data['address_override'] = '1';
-	}
+  }
+  if((int)(bool)get_option('paypal_ship') == '1'){
+    $data['no_shipping'] = '0';
+	$data['address_override'] = '1';
+  }
+
   $data['no_note'] = '1';
   
   switch($paypal_currency_code) {
@@ -113,19 +116,19 @@ function gateway_paypal_multiple($seperator, $sessionid) {
 			}
 			$variation_count = count($product_variations);
 			$local_currency_productprice = $item['price'];
-			$local_currency_shipping = $item['pnp'];
+			$local_currency_shipping = $item['pnp']/$item['quantity'];
 			
 			if($paypal_currency_code != $local_currency_code) {
 				$paypal_currency_productprice = $curr->convert($local_currency_productprice,$paypal_currency_code,$local_currency_code);
 				$paypal_currency_shipping = $curr->convert($local_currency_shipping,$paypal_currency_code,$local_currency_code);
 			//	exit($paypal_currency_productprice . " " . $paypal_currency_shipping.' '.$local_currency_productprice . " " . $local_currency_code);
-				 $base_shipping = $curr->convert($wpsc_cart->calculate_total_shipping(),$paypal_currency_code, $local_currency_code);
+				 $base_shipping = $curr->convert($wpsc_cart->calculate_base_shipping(),$paypal_currency_code, $local_currency_code);
 				 	//exit($paypal_currency_productprice.' Local>'.$local_currency_productprice.' Base shp'.$base_shipping);
 				 $tax_price = $curr->convert($item['tax_charged'],$paypal_currency_code, $local_currency_code);
 			} else {
 				$paypal_currency_productprice = $local_currency_productprice;
 				$paypal_currency_shipping = $local_currency_shipping;
-				$base_shipping = $wpsc_cart->calculate_total_shipping();
+				$base_shipping = $wpsc_cart->calculate_base_shipping();
 				 $tax_price = $item['tax_charged'];
 			}
 			//exit("<pre>".print_r(, true).'</pre>');
@@ -225,6 +228,7 @@ function gateway_paypal_multiple($seperator, $sessionid) {
 
   $datacount = count($data);
   $num = 0;
+//  exit('<pre>'.print_r($data,true).'</pre>');
   foreach($data as $key=>$value) {
     $amp = '&';
     $num++;

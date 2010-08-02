@@ -46,6 +46,7 @@ function wpsc_generate_product_feed() {
 		                ON `p`.`image` = `pi`.`id`
 		               AND `pi`.`product_id` = `p`.`id`
 		             WHERE `active` = '1'
+		               AND `publish` = '1'
 		               AND p.id = '".$_GET['product_id']."'
 		             LIMIT 1";
 
@@ -62,6 +63,7 @@ function wpsc_generate_product_feed() {
 		     LEFT JOIN `".WPSC_TABLE_ITEM_CATEGORY_ASSOC."` ca
 		            ON `p`.`id` = `ca`.`product_id`
 		         WHERE `p`.`active` = '1'
+		           AND `p`.`publish` = '1'
 		           AND `ca`.`category_id` IN ('".$_GET['category_id']."')
 		        $limit";
 
@@ -74,6 +76,7 @@ function wpsc_generate_product_feed() {
 		            ON `p`.`image` = `pi`.`id`
 		           AND `pi`.`product_id` = `p`.`id`
 		         WHERE `active` ='1'
+		           AND `publish` = '1'
 		      ORDER BY `id`
 		          DESC $limit";
 
@@ -89,8 +92,15 @@ function wpsc_generate_product_feed() {
 	$output = "<?xml version='1.0' encoding='UTF-8' ?>\n\r";
 	$output .= "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'";
 
+	$google_checkout_note = FALSE;
+
 	if ($_GET['xmlformat'] == 'google') {
 		$output .= ' xmlns:g="http://base.google.com/ns/1.0"';
+		// Is Google Checkout available as a payment gateway
+        	$selected_gateways = get_option('custom_gateway_options');
+		if (in_array('google',$selected_gateways)) {
+			$google_checkout_note = TRUE;
+		}
 	} else {
 		$output .= ' xmlns:product="http://www.buy.com/rss/module/productV2/"';
 	}
@@ -108,6 +118,9 @@ function wpsc_generate_product_feed() {
 		$purchase_link = wpsc_product_url($product['id']);
 
 		$output .= "    <item>\n\r";
+		if ($google_checkout_note) {
+			$output .= "      <g:payment_notes>Google Checkout</g:payment_notes>\n\r";
+		}
 		$output .= "      <title><![CDATA[".stripslashes($product['name'])."]]></title>\n\r";
 		$output .= "      <link>$purchase_link</link>\n\r";
 		$output .= "      <description><![CDATA[".stripslashes($product['description'])."]]></description>\n\r";
@@ -144,12 +157,14 @@ function wpsc_generate_product_feed() {
 
 			$output .= "      <g:price>".$product['price']."</g:price>\n\r";
 			//$output .= "      <g:condition>new</g:condition>\n\r";
-		    $meta_sql = "SELECT *
+		    $meta_sql = "SELECT meta_key, meta_value 
 		                 FROM `".WPSC_TABLE_PRODUCTMETA."` pm
                          WHERE `pm`.`product_id` = '".$product['id']."'
                          AND `pm`.`meta_key` LIKE 'g:%'";
 
-                         $google_elements = $wpdb->get_results($meta_sql, ARRAY_A);
+                        $google_elements = $wpdb->get_results($meta_sql, ARRAY_A);
+			$google_elements = apply_filters('wpsc_google_elements', array('product_id'=>$product['id'],'elements'=>$google_elements));
+			$google_elements = $google_elements['elements'];
 
                          $done_condition = FALSE;
                          if (count($google_elements)) {

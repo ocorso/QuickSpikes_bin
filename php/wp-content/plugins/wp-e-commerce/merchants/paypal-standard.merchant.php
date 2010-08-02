@@ -60,16 +60,19 @@ class wpsc_merchant_paypal_standard extends wpsc_merchant {
 			'currency_code' => $this->cart_data['store_currency'],
 			'lc' => $this->cart_data['store_currency'],
 			'bn' => $this->cart_data['software_name'],
-			'no_shipping' => (int)(bool)get_option('paypal_ship'),
+			
 			'no_note' => '1',
 			'charset' => 'utf-8'
 			);
 			
-		if(get_option('address_override') == 1) {
+		//used to send shipping
+		if((int)(bool)get_option('paypal_ship') == 1) {
 			$paypal_vars += array(
-				'address_override' => '1'
+				'address_override' => '1',
+				'no_shipping' => '0'
 			);
 		}
+
 
 		// User settings to be sent to paypal
 		$paypal_vars += array(
@@ -173,17 +176,20 @@ class wpsc_merchant_paypal_standard extends wpsc_merchant {
 						"tax_$i" => $this->format_price($cart_row['tax']),
 						"quantity_$i" => $cart_row['quantity'],
 						"item_number_$i" => $cart_row['product_id'],
-						"shipping_$i" => $this->format_price($cart_row['shipping']), // additional shipping for the the (first item / total of the items)
-						"shipping2_$i" => $this->format_price($cart_row['shipping']), // additional shipping beyond the first item
+						"shipping_$i" => $this->format_price($cart_row['shipping']/$cart_row['quantity']), // additional shipping for the the (first item / total of the items)
+						"shipping2_$i" => $this->format_price($cart_row['shipping']/$cart_row['quantity']), // additional shipping beyond the first item
 						"handling_$i" => '',
 					);
 					++$i;
 				}
 			}
-			
-		// Payment Type settings to be sent to paypal
-
 		
+		//set base shipping
+		$paypal_vars += array(
+			"handling_cart" => $this->cart_data['base_shipping']
+		);		
+		
+		// Payment Type settings to be sent to paypal
 		if($this->cart_data['is_subscription'] == true) {
 			$paypal_vars += array(
 				'cmd'=> '_xclick-subscriptions'
@@ -219,7 +225,6 @@ class wpsc_merchant_paypal_standard extends wpsc_merchant {
 			echo "<pre>".print_r($this->collected_gateway_data,true)."</pre>";
 			exit();
 		}
-		//exit('<pre>'.print_r($gateway_values, true).'</pre>');
 		header("Location: ".get_option('paypal_multiple_url')."?".$gateway_values);
 		exit();
 	}
@@ -303,7 +308,6 @@ class wpsc_merchant_paypal_standard extends wpsc_merchant {
 		".print_r($this->cart_items, true)."
 		{$altered_count}
 		";
-		//mail('thomas.howard@gmail.com', "IPN Debugging", $message);
 	}
 
 

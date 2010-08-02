@@ -81,8 +81,7 @@ class wpsc_merchant {
 			$purchase_id = & $this->purchase_id;
 		}
 		
-		
-		$email_address = $wpdb->get_var("SELECT `value` FROM `wp_wpsc_checkout_forms` AS `form_field` INNER JOIN `wp_wpsc_submited_form_data` AS `collected_data` ON `form_field`.`id` = `collected_data`.`form_id` WHERE `form_field`.`type` IN ( 'email' ) AND `collected_data`.`log_id` IN ( '{$purchase_id}' )");
+		$email_address = $wpdb->get_var("SELECT `value` FROM `" . WPSC_TABLE_CHECKOUT_FORMS . "` AS `form_field` INNER JOIN `" . WPSC_TABLE_SUBMITED_FORM_DATA . "` AS `collected_data` ON `form_field`.`id` = `collected_data`.`form_id` WHERE `form_field`.`type` IN ( 'email' ) AND `collected_data`.`log_id` IN ( '{$purchase_id}' )");
 
 		$currency_code = $wpdb->get_var("SELECT `code` FROM `".WPSC_TABLE_CURRENCY_LIST."` WHERE `id`='".get_option('currency_type')."' LIMIT 1");
 
@@ -127,7 +126,7 @@ class wpsc_merchant {
 			if($address_key == null) {
 				continue;
 			}
-			if($address_key == 'billingcountry' || $address_key == 'shippingcountry'){
+			if($collected_form_row['unique_name'] == 'billingcountry' || $collected_form_row['unique_name'] == 'shippingcountry'){
 				$country = maybe_unserialize($collected_form_row['value']);
 				$address_data[$address_data_set][$address_key] =$country[0];
 			}elseif($collected_form_row['unique_name'] == 'shippingstate'){
@@ -152,6 +151,7 @@ class wpsc_merchant {
 			'transaction_results_url' => get_option('transact_url'),
 			'shopping_cart_url' => get_option('shopping_cart_url'),
 			'products_page_url' => get_option('product_list_url'),
+			'base_shipping' => $purchase_logs['base_shipping'],
 			'total_price' => $purchase_logs['totalprice'],
 			'session_id' => $purchase_logs['sessionid'],
  			'transaction_id' => $purchase_logs['transaction_id'], // Transaction ID might not  be set yet
@@ -170,7 +170,6 @@ class wpsc_merchant {
 		global $wpdb;
 		$purchase_id = & $this->purchase_id;
 		$original_cart_data = $wpdb->get_results("SELECT * FROM `".WPSC_TABLE_CART_CONTENTS."` WHERE `purchaseid` = {$purchase_id}", ARRAY_A);
-		//print_r($original_cart_data);
 		//return;
 		foreach((array)$original_cart_data as $cart_row) {
 		  $is_downloadable = false;

@@ -77,6 +77,7 @@ if(wpsc_cart_item_count() > 0) :
 	<?php if($_SESSION['categoryAndShippingCountryConflict'] != '') : ?>
 		<p class='validation-error'><?php echo $_SESSION['categoryAndShippingCountryConflict']; ?></p>
 	<?php
+		$_SESSION['categoryAndShippingCountryConflict'] = '';
 	endif;
 	
 	if($_SESSION['WpscGatewayErrorMessage'] != '') :
@@ -87,7 +88,7 @@ if(wpsc_cart_item_count() > 0) :
 	?>
 	<?php do_action('wpsc_before_shipping_of_shopping_cart'); ?>
 	<div id='wpsc_shopping_cart_container'>
-	<?php if(wpsc_uses_shipping()) : ?>
+	<?php if(wpsc_uses_shipping()  && wpsc_has_shipping_form()): ?>
 		<h2><?php echo __('Calculate Shipping Price', 'wpsc'); ?></h2>
 		<table class="productcart">
 			<tr>
@@ -354,7 +355,7 @@ if(wpsc_cart_item_count() > 0) :
 		<tr>
 			<td colspan='2'>
      			 <input type='checkbox' value='yes' name='agree' /> <?php echo __('I agree to The ', 'wpsc');?><a class='thickbox' target='_blank' href='<?php
-      echo get_option('siteurl')."?termsandconds=true&amp;width=360&amp;height=400'"; ?>' class='termsandconds'><?php echo __('Terms and Conditions', 'wpsc');?></a>
+      echo site_url('?termsandconds=true&amp;width=360&amp;height=400'); ?>' class='termsandconds'><?php echo __('Terms and Conditions', 'wpsc');?></a>
    		   </td>
  	   </tr>
 		<?php endif; ?>	
@@ -380,7 +381,7 @@ if(wpsc_cart_item_count() > 0) :
 </div>
 <?php
 else:
-	echo __('Oops, there is nothing in your cart.', 'wpsc') . "<a href=".get_option("product_list_url").">" . __('Please visit our shop', 'wpsc') . "</a>";
+	echo __('Oops, there is nothing in your cart.', 'wpsc') . " <a href=".get_option("product_list_url").">" . __('Please visit our shop', 'wpsc') . "</a>";
 endif;
 do_action('wpsc_bottom_of_shopping_cart');
 ?>

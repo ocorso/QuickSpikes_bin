@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name:WP Shopping Cart
+Plugin Name: WP e-Commerce Plugin
 Plugin URI: http://www.getshopped.org
 Description: A plugin that provides a WordPress Shopping Cart. Visit the <a href='http://getshopped.org/forums'>getshopped forums</a> for support.
-Version: 3.7.6.1
+Version: 3.7.6.7
 Author: Instinct
 Author URI: http://www.getshopped.org
 */
@@ -13,10 +13,11 @@ Author URI: http://www.getshopped.org
 */
 // this is to make sure it sets up the table name constants correctly on activation
 global $wpdb;
+if ( function_exists('memory_get_usage') && ( (int) @ini_get('memory_limit') < 64 ) ) @ini_set('memory_limit', '64M');
 define('WPSC_VERSION', '3.7');
-define('WPSC_MINOR_VERSION', '51');
+define('WPSC_MINOR_VERSION', '57');
 
-define('WPSC_PRESENTABLE_VERSION', '3.7.6.1');
+define('WPSC_PRESENTABLE_VERSION', '3.7.6.7');
 
 define('WPSC_DEBUG', false);
 define('WPSC_GATEWAY_DEBUG', false);
@@ -117,7 +118,7 @@ require_once(WPSC_FILE_PATH.'/wpsc-includes/cart.class.php');
 require_once(WPSC_FILE_PATH.'/wpsc-includes/checkout.class.php');
 require_once(WPSC_FILE_PATH.'/wpsc-includes/display.functions.php');
 require_once(WPSC_FILE_PATH.'/wpsc-includes/pagination.class.php');
-require_once(WPSC_FILE_PATH.'/wpsc-includes/theme.functions.php');
+
 require_once(WPSC_FILE_PATH.'/wpsc-includes/shortcode.functions.php');
 require_once(WPSC_FILE_PATH.'/wpsc-includes/coupons.class.php');
 require_once(WPSC_FILE_PATH.'/wpsc-includes/purchaselogs.class.php');
@@ -128,8 +129,12 @@ require_once(WPSC_FILE_PATH."/wpsc-includes/merchant.class.php");
 require_once(WPSC_FILE_PATH."/wpsc-includes/meta.functions.php");
 require_once(WPSC_FILE_PATH."/wpsc-includes/productfeed.php");
 
+require_once(WPSC_FILE_PATH.'/wpsc-includes/theme.functions.php');
+
 //Add deprecated functions in this file please
 require_once(WPSC_FILE_PATH."/wpsc-includes/deprecated.functions.php");
+
+
 //exit(print_r($v1,true));
 if($v1[0] >= 2.8){
 	require_once(WPSC_FILE_PATH."/wpsc-includes/upgrades.php");
@@ -265,23 +270,23 @@ define('WPSC_UPGRADES_URL', $wpsc_upgrades_url);
 
 define('WPSC_THEMES_URL', $wpsc_themes_url);
 
-
-
 /* 
  * This plugin gets the merchants from the merchants directory and
  * needs to search the merchants directory for merchants, the code to do this starts here
  */
 $gateway_directory = WPSC_FILE_PATH.'/merchants';
 $nzshpcrt_merchant_list = wpsc_list_dir($gateway_directory);
- //exit("<pre>".print_r($nzshpcrt_merchant_list,true)."</pre>");
+
 $num=0;
-foreach($nzshpcrt_merchant_list as $nzshpcrt_merchant) {
+foreach((array)$nzshpcrt_merchant_list as $nzshpcrt_merchant) {
   if(stristr( $nzshpcrt_merchant , '.php' )) {
     //echo $nzshpcrt_merchant;
     require(WPSC_FILE_PATH."/merchants/".$nzshpcrt_merchant);
 	}
   $num++;
 }
+
+$nzshpcrt_gateways = apply_filters('wpsc_gateway_modules',$nzshpcrt_gateways);
 /* 
  * and ends here
  */
@@ -289,7 +294,7 @@ foreach($nzshpcrt_merchant_list as $nzshpcrt_merchant) {
 // include shipping modules here.
 $shipping_directory = WPSC_FILE_PATH.'/shipping';
 $nzshpcrt_shipping_list = wpsc_list_dir($shipping_directory);
-foreach($nzshpcrt_shipping_list as $nzshpcrt_shipping) {
+foreach((array)$nzshpcrt_shipping_list as $nzshpcrt_shipping) {
 	if(stristr( $nzshpcrt_shipping , '.php' )) {
 		if($nzshpcrt_shipping == 'ups.php'){
 			if (phpMinV('5')){
@@ -301,7 +306,6 @@ foreach($nzshpcrt_shipping_list as $nzshpcrt_shipping) {
 	}
 }
 $wpsc_shipping_modules = apply_filters('wpsc_shipping_modules',$wpsc_shipping_modules);
-
 // if the gold cart file is present, include it, this must be done before the admin file is included
 if(is_file(WPSC_UPGRADES_DIR . "gold_cart_files/gold_shopping_cart.php")) {
   require_once(WPSC_UPGRADES_DIR . "gold_cart_files/gold_shopping_cart.php");
@@ -320,7 +324,6 @@ $wpsc_gateways = array();
 foreach((array)$nzshpcrt_gateways as $key => $gateway) {
 	$wpsc_gateways[$gateway['internalname']] = &$nzshpcrt_gateways[$key];
 }
-
 
 $theme_path = WPSC_FILE_PATH . '/themes/';
 if((get_option('wpsc_selected_theme') != '') && (file_exists($theme_path.get_option('wpsc_selected_theme')."/".get_option('wpsc_selected_theme').".php") )) {    
@@ -510,5 +513,28 @@ function wpsc_break_canonical_redirects($redirect_url, $requested_url) {
 }
 
 add_filter('redirect_canonical', 'wpsc_break_canonical_redirects', 10, 2);
+
+
+
+/**
+ * Update Notice
+ *
+ * Displays an update message below the auto-upgrade link in the WordPress admin
+ * to notify users that they should check the upgrade information and changelog
+ * before upgrading in case they need to may updates to their theme files.
+ *
+ * @package wp-e-commerce
+ * @since 3.7.6.1
+ */
+function wpsc_update_notice() {
+	$info_title = __( 'Please Note', 'wpsc' );
+	$info_text = sprintf( __( 'Before upgrading you should check the <a %s>upgrade information</a> and changelog as you may need to make updates to your template files.', 'wpsc' ), 'href="http://getshopped.org/resources/docs/upgrades/staying-current/" target="_blank"' );
+	echo '<div style="border-top:1px solid #CCC; margin-top:3px; padding-top:3px; font-weight:normal;"><strong style="color:#CC0000">' . strip_tags( $info_title ) . '</strong>: ' . strip_tags( $info_text, '<br><a><strong><em><span>' ) . '</div>';
+}
+
+if ( is_admin() ) {
+	add_action( 'in_plugin_update_message-' . plugin_basename( __FILE__ ), 'wpsc_update_notice' );
+}
+
 
 ?>

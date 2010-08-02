@@ -127,7 +127,7 @@ function wpsc_admin_pages(){
 			}
 			//exit('base page:'.$base_page);
 //			exit($GLOBALS['wp_version']);
-			if(IS_WPMU || $GLOBALS['wp_version'] == '3.0-alpha'){
+			if(IS_WPMU || $GLOBALS['wp_version'] == '3.0'){
 				$page_hooks[] = add_submenu_page($base_page,__('Marketing', 'wpsc'), __('Marketing', 'wpsc'), 10,'wpsc_display_coupons_page','wpsc_display_coupons_page');
 			}else{
 				$page_hooks[] = add_submenu_page($base_page,__('Marketing', 'wpsc'), __('Marketing', 'wpsc'), 7,'wpsc_display_coupons_page','wpsc_display_coupons_page');
@@ -238,14 +238,8 @@ function  wpsc_admin_include_css_and_js() {
 		'separate' => __('Separate tags with commas'),
 	));
 	if(defined('WPSC_GOLD_DIR_NAME') && WPSC_GOLD_DIR_NAME != ''){
-		wp_enqueue_style('gold_cart', WPSC_UPGRADES_URL . 'gold_cart_files/gold_cart.css',false, $version_identifier, 'all');
+		wp_enqueue_style('gold_cart', WPSC_GOLD_FILE_URL.'/gold_cart.css',false, $version_identifier, 'all');
 	}
-	//jQuery wysiwyg
-	//  	if ( user_can_richedit() ) {
-	// 		wp_enqueue_script('editor');
-	// 	}
-	// 	wp_enqueue_script('media-upload');
-	//   wp_enqueue_style('thickbox');
 
 	// Prototype breaks dragging and dropping, I need it gone
 	wp_deregister_script('prototype');
@@ -446,7 +440,7 @@ function wpsc_admin_latest_activity() {
 		$month = date("m");
 		$start_timestamp = mktime(0, 0, 0, $month, 1, $year);
 		$end_timestamp = mktime(0, 0, 0, ($month+1), 0, $year);
-		$sql = "SELECT COUNT(*) FROM `".WPSC_TABLE_PURCHASE_LOGS."` WHERE `date` BETWEEN '$start_timestamp' AND '$end_timestamp' ORDER BY `date` DESC";
+		$sql = "SELECT COUNT(*) FROM `".WPSC_TABLE_PURCHASE_LOGS."` WHERE `date` BETWEEN '$start_timestamp' AND '$end_timestamp' AND `processed` IN (2,3,4) ORDER BY `date` DESC";
 		$currentMonthOrders = $wpdb->get_var($sql);
 		
 		//calculates amount of money made for the month

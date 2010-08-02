@@ -7,6 +7,17 @@
  * @package wp-e-commerce
  * @since 3.7
  */
+ if(!isset($_REQUEST['wpsc_ajax_action'])){
+ 	$_REQUEST['wpsc_ajax_action'] = '';
+ }
+ if(!isset($_REQUEST['wpsc_ajax_actions'])){
+ 	$_REQUEST['wpsc_ajax_actions'] = '';
+ }
+
+ if(!isset($_REQUEST['wpsc_action'])){
+ 	$_REQUEST['wpsc_action'] = '';
+ }
+
  function wpsc_special_widget(){
  	global $wpdb; 
 
@@ -57,12 +68,16 @@ function wpsc_add_to_cart() {
   foreach((array)$_POST['variation'] as $key => $variation) {
     $provided_parameters['variation_values'][(int)$key] = (int)$variation;
   }
-//exit('<pre>'.print_r($_POST['wpsc_quantity_update'][$_POST['product_id']], true).'</pre>');
+//exit('<pre>'.print_r($_POST, true).'</pre>');
   if($_POST['quantity'] > 0 && (!isset($_POST['wpsc_quantity_update']))) {
 		$provided_parameters['quantity'] = (int)$_POST['quantity'];
   } else if (isset($_POST['wpsc_quantity_update'])) {
 		$wpsc_cart->remove_item($_POST['key']);
-		$provided_parameters['quantity'] = (int)$_POST['wpsc_quantity_update'][$_POST['product_id']];
+		if(is_numeric($_POST['wpsc_quantity_update'])){
+			$provided_parameters['quantity'] = (int)$_POST['wpsc_quantity_update'];
+		}else{
+			$provided_parameters['quantity'] = (int)$_POST['wpsc_quantity_update'][$_POST['product_id']];
+		}
   }
 //  exit('<pre>'.print_r($_POST, true).'</pre>');
   if($_POST['is_customisable'] == 'true') {
@@ -226,7 +241,7 @@ function wpsc_empty_cart() {
 
 
 // execute on POST and GET
-if(($_REQUEST['wpsc_ajax_action'] == 'empty_cart') || ($_GET['sessionid'] > 0)) {
+if(($_REQUEST['wpsc_ajax_action'] == 'empty_cart') || (isset($_GET['sessionid']) && $_GET['sessionid'] > 0)) {
 	add_action('init', 'wpsc_empty_cart');
 }
 
@@ -314,7 +329,7 @@ function wpsc_update_item_quantity() {
 }
   
 // execute on POST and GET
-if($_REQUEST['wpsc_update_quantity'] == 'true') {
+if(isset($_REQUEST['wpsc_update_quantity']) && $_REQUEST['wpsc_update_quantity'] == 'true') {
 	add_action('init', 'wpsc_update_item_quantity');
 }
 
@@ -442,7 +457,7 @@ function wpsc_get_rating_count() {
 	exit();
 }
 // execute on POST and GET
-if(($_REQUEST['get_rating_count'] == 'true') && is_numeric($_POST['product_id'])) {
+if(isset($_REQUEST['get_rating_count']) && ($_REQUEST['get_rating_count'] == 'true') && is_numeric($_POST['product_id'])) {
 	add_action('init', 'wpsc_get_rating_count');
 }
 
@@ -466,7 +481,7 @@ function wpsc_update_product_price() {
 	exit();
 }
 // execute on POST and GET
-if(($_REQUEST['update_product_price'] == 'true') && is_numeric($_POST['product_id'])) {
+if(isset($_REQUEST['update_product_price']) && ($_REQUEST['update_product_price'] == 'true') && is_numeric($_POST['product_id'])) {
 	add_action('init', 'wpsc_update_product_price');
 }
 
@@ -646,7 +661,17 @@ function wpsc_submit_checkout() {
 
 		$tax = $wpsc_cart->calculate_total_tax();
 		$total = $wpsc_cart->calculate_total_price();
-		$sql = "INSERT INTO `".WPSC_TABLE_PURCHASE_LOGS."` (`totalprice`,`statusno`, `sessionid`, `user_ID`, `date`, `gateway`, `billing_country`,`shipping_country`, `billing_region`, `shipping_region`, `base_shipping`,`shipping_method`, `shipping_option`, `plugin_version`, `discount_value`, `discount_data`,`find_us`) VALUES ('$total' ,'0', '{$sessionid}', '".(int)$user_ID."', UNIX_TIMESTAMP(), '{$submitted_gateway}', '{$wpsc_cart->delivery_country}', '{$wpsc_cart->selected_country}','{$wpsc_cart->selected_region}', '{$wpsc_cart->delivery_region}', '{$base_shipping}', '{$wpsc_cart->selected_shipping_method}', '{$wpsc_cart->selected_shipping_option}', '".WPSC_VERSION."', '{$wpsc_cart->coupons_amount}','{$wpsc_cart->coupons_name}', '{$find_us}')";
+		// Make sure delivery and selected region are onlly saved if the country does have regions 
+		// Im unsure how this would effect countries that HAVE regions, i.e if you select Canada as country,, will your 			// region be alabama if no region was selected?
+		$wpsc_cart->update_location();
+		if(!wpsc_has_regions($wpsc_cart->selected_country)){
+			$wpsc_cart->selected_region = '';
+		}
+		if(!wpsc_has_regions($wpsc_cart->delivery_country)){
+			$wpsc_cart->delivery_region = '';
+		}
+
+		$sql = "INSERT INTO `".WPSC_TABLE_PURCHASE_LOGS."` (`totalprice`,`statusno`, `sessionid`, `user_ID`, `date`, `gateway`, `billing_country`,`shipping_country`, `billing_region`, `shipping_region`, `base_shipping`,`shipping_method`, `shipping_option`, `plugin_version`, `discount_value`, `discount_data`,`find_us`) VALUES ('$total' ,'0', '{$sessionid}', '".(int)$user_ID."', UNIX_TIMESTAMP(), '{$submitted_gateway}', '{$wpsc_cart->selected_country}', '{$wpsc_cart->delivery_country}','{$wpsc_cart->selected_region}', '{$wpsc_cart->delivery_region}', '{$base_shipping}', '{$wpsc_cart->selected_shipping_method}', '{$wpsc_cart->selected_shipping_option}', '".WPSC_VERSION."', '{$wpsc_cart->coupons_amount}','{$wpsc_cart->coupons_name}', '{$find_us}')";
 		
 		//exit($sql);
 		$wpdb->query($sql);
@@ -672,6 +697,10 @@ function wpsc_submit_checkout() {
 		}
 
 
+		if($total <= 0){
+			$transaction_url_with_sessionid = add_query_arg('sessionid', $session_id, get_option('transact_url'));
+			wp_redirect($transaction_url_with_sessionid);
+		}
 		
 		/// submit to gateway
 		
@@ -751,9 +780,10 @@ if($_REQUEST['wpsc_action'] == 'gateway_notification') {
 	add_action('init', 'wpsc_gateway_notification');
 }
 
-if($_GET['termsandconds'] === 'true'){
+if(isset($_GET['termsandconds']) && $_GET['termsandconds'] === 'true'){
 	echo stripslashes(get_option('terms_and_conditions'));
 	exit();
+
 }
 
 
@@ -773,7 +803,7 @@ function wpsc_change_tax() {
 	$wpsc_delivery_region = $wpsc_cart->delivery_region;
   
 
-  $previous_country = $_SESSION['wpsc_selected_country'];
+	$previous_country = $_SESSION['wpsc_selected_country'];
 	if(isset($_POST['billing_country'])){
 		$wpsc_selected_country = $wpdb->escape($_POST['billing_country']);
 		$_SESSION['wpsc_selected_country'] = $wpsc_selected_country;
@@ -784,6 +814,12 @@ function wpsc_change_tax() {
 		$_SESSION['wpsc_selected_region'] = $wpsc_selected_region;
 	}
 
+	//if(!wpsc_has_shipping_form()) {
+	//	$_POST['shipping_country'] = $wpsc_selected_country;
+	//	$_POST['shipping_region'] = $wpsc_selected_region;
+	//}
+	
+	
 	$check_country_code = $wpdb->get_var(" SELECT `country`.`isocode` FROM `".WPSC_TABLE_REGION_TAX."` AS `region` INNER JOIN `".WPSC_TABLE_CURRENCY_LIST."` AS `country` ON `region`.`country_id` = `country`.`id` WHERE `region`.`id` = '".$_SESSION['wpsc_selected_region']."' LIMIT 1");
 	
 	if($_SESSION['wpsc_selected_country'] != $check_country_code) {
@@ -806,7 +842,7 @@ function wpsc_change_tax() {
 	}
 
 	
-  $wpsc_cart->update_location();
+	$wpsc_cart->update_location();
 	$wpsc_cart->get_shipping_method();
 	$wpsc_cart->get_shipping_option();
 	if($wpsc_cart->selected_shipping_method != '') {
@@ -864,17 +900,19 @@ function wpsc_change_tax() {
 		$form_selected_country = $wpsc_selected_country;
 		$form_selected_region = $wpsc_selected_region;
 		$onchange_function = 'set_billing_country';
+	  	$title = 'billingregion';
 	} else if(($_POST['shipping_country'] != 'undefined') && !isset($_POST['billing_country'])) {
 		$form_selected_country = $wpsc_delivery_country;
 		$form_selected_region = $wpsc_delivery_region;
 		$onchange_function = 'set_shipping_country';
+	  	$title = 'shippingregion';
 	}
 	
 	if(($form_selected_country != null) && ($onchange_function != null)) {
 		$region_list = $wpdb->get_results("SELECT `".WPSC_TABLE_REGION_TAX."`.* FROM `".WPSC_TABLE_REGION_TAX."`, `".WPSC_TABLE_CURRENCY_LIST."`  WHERE `".WPSC_TABLE_CURRENCY_LIST."`.`isocode` IN('".$form_selected_country."') AND `".WPSC_TABLE_CURRENCY_LIST."`.`id` = `".WPSC_TABLE_REGION_TAX."`.`country_id`",ARRAY_A) ;
 		if($region_list != null) {
 		
-			$output = "<select name='collected_data[".$form_id."][1]' class='current_region' onchange='$onchange_function(\"region_country_form_$form_id\", \"$form_id\");'>\n\r";
+			$output = "<select title='{$title}' name='collected_data[".$form_id."][1]' class='current_region' onchange='$onchange_function(\"region_country_form_$form_id\", \"$form_id\");'>\n\r";
 		
 			foreach($region_list as $region) {
 				if($form_selected_region == $region['id']) {
@@ -949,7 +987,6 @@ function nzshpcrt_download_file() {
 				exit(_e('This download is no longer valid, Please contact the site administrator for more information.','wpsc'));
 		  }
 		}
-   
     if($download_data != null) {
 			if($download_data['fileid'] > 0) {
 				$file_data = $wpdb->get_row("SELECT * FROM `".WPSC_TABLE_PRODUCT_FILES."` WHERE `id`='".$download_data['fileid']."' LIMIT 1", ARRAY_A);

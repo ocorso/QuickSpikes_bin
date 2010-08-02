@@ -145,6 +145,30 @@ $form_types = get_option('wpsc_checkout_form_fields');
 			<label for='shippingsameasbilling2'><?php echo __('No', 'wpsc');?></label>
 			</td>
 		</tr>
+		
+		<tr>
+			<?php
+				$billing_unless_shipping_setting = get_option('use_billing_unless_is_shipping');
+
+				switch($billing_unless_shipping_setting) {
+					case 1:
+					$billing_unless_shipping['on'] = "checked ='checked'";
+					break;
+					
+					case 0:
+					$billing_unless_shipping['off'] = "checked ='checked'";
+					break;
+				}
+			?>
+			<td scope="row"><?php echo __('Use The Billing country for Shipping unless a shipping form is present: ', 'wpsc'); ?>:</td>
+			<td>
+			<input type='radio' value='1' name='wpsc_options[use_billing_unless_is_shipping]' id='use_billing_unless_is_shipping1' <?php echo $billing_unless_shipping['on']; ?> /> 
+			<label for='use_billing_unless_is_shipping1'><?php echo __('Yes', 'wpsc');?></label> &nbsp;
+			<input type='radio' value='0' name='wpsc_options[use_billing_unless_is_shipping]' id='use_billing_unless_is_shipping2' <?php echo $billing_unless_shipping['off']; ?> /> 
+			<label for='use_billing_unless_is_shipping2'><?php echo __('No', 'wpsc');?></label>
+			</td>
+		</tr>
+		
 			</table>
 		</div>
 		</div>
@@ -205,13 +229,10 @@ $form_types = get_option('wpsc_checkout_form_fields');
 		
 			<tbody id='wpsc_checkout_list_body'>
 			<?php
-					foreach((array)$form_data as $form_field) {
+				foreach((array)$form_data as $form_field) {
 			    echo "<tr id='checkout_".$form_field['id']."' class='checkout_form_field'>\n\r";
 			    echo '<td class="drag"><a href="" onclick="return false;" title="Click and Drag to Order Checkout Fields"><img src="'.WPSC_URL.'/images/roll-over-drag.jpg" alt="roll-over-drag" /></a></td>';
 			    echo "<td class='namecol'><input type='text' name='form_name[".$form_field['id']."]' value='".htmlentities(stripslashes($form_field['name']), ENT_QUOTES, "UTF-8")."' /></td>";
-			  
-			    //echo "<td class='namecol'><input type='text' name='form_name[".$form_field['id']."]' value='".$form_field['name']."' /></td>";
-			    
 			    echo "      <td class='typecol'>";
 			    echo "<select class='wpsc_checkout_selectboxes' name='form_type[".$form_field['id']."]'>";
 			    foreach($form_types as $form_type_name => $form_type) {

@@ -332,7 +332,7 @@ $conditions = unserialize($coupon['condition']);
   $end_timestamp = strtotime($coupon['expiry']);
   $id = $coupon['id'];
   $output = '';
-  $output .= "<form class='displaynone' name='edit_coupon' id='".$coupon['coupon_code']."' method='post' action=''>\n\r";
+  $output .= "<form name='edit_coupon' id='".$coupon['coupon_code']."' method='post' action=''>\n\r";
     $output .= "   <input type='hidden' value='true' name='is_edit_coupon' />\n\r";
   $output .= "<table class='add-coupon'>\n\r";
   $output .= " <tr>\n\r";
@@ -360,53 +360,10 @@ $conditions = unserialize($coupon['condition']);
   $output .= "  <td>\n\r";
   $coupon_start = explode(" ",$coupon['start']);
   $output .= "<input type='text' class='pickdate' size='8' name='edit_coupon[".$id."][start]' value='{$coupon_start[0]}'>";
-/*  $output .= "   <select name='edit_coupon[".$id."][start][day]'>\n\r";
-   for($i = 1; $i <=31; ++$i) {
-     $selected = '';
-     if($i == date("d", $start_timestamp)) { $selected = "selected='true'"; }
-     $output .= "    <option $selected value='$i'>$i</option>";
-     }
-  $output .= "   </select>\n\r";
-  $output .= "   <select name='edit_coupon[".$id."][start][month]'>\n\r";
-   for($i = 1; $i <=12; ++$i) {
-     $selected = '';
-     if($i == (int)date("m", $start_timestamp)) { $selected = "selected='true'"; }
-     $output .= "    <option $selected value='$i'>".date("M",mktime(0, 0, 0, $i, 1, date("Y")))."</option>";
-     }
-  $output .= "   </select>\n\r";
-  $output .= "   <select name='edit_coupon[".$id."][start][year]'>\n\r";
-   for($i = date("Y"); $i <= (date("Y") +12); ++$i) {
-     $selected = '';
-     if($i == date("Y", $start_timestamp)) { $selected = "selected='true'"; }
-     $output .= "    <option $selected value='$i'>".$i."</option>";
-     }
-  $output .= "   </select>\n\r";*/
   $output .= "  </td>\n\r";
   $output .= "  <td>\n\r";
   $coupon_expiry = explode(" ",$coupon['expiry']);
   $output .= "<input type='text' class='pickdate' size='8' name='edit_coupon[".$id."][expiry]' value='{$coupon_expiry[0]}'>";
-  /*$output .= "   <select name='edit_coupon[".$id."][expiry][day]'>\n\r";
-   for($i = 1; $i <=31; ++$i) {
-     $selected = '';
-     if($i == date("d", $end_timestamp)) { $selected = "selected='true'"; }
-     $output .= "    <option $selected value='$i'>$i</option>";
-     }
-  $output .= "   </select>\n\r";
-  $output .= "   <select name='edit_coupon[".$id."][expiry][month]'>\n\r";
-
-   for($i = 1; $i <=12; ++$i) {
-     $selected = '';
-     if($i == (int)date("m", $end_timestamp)) { $selected = "selected='true'"; }
-     $output .= "    <option $selected value='$i'>".date("M",mktime(0, 0, 0, $i, 1, date("Y")))."</option>";
-     }
-  $output .= "   </select>\n\r";
-  $output .= "   <select name='edit_coupon[".$id."][expiry][year]'>\n\r";
-   for($i = date("Y"); $i <= (date("Y") +12); ++$i) {
-     $selected = '';
-     if($i == (date("Y", $end_timestamp))) { $selected = "selected='true'"; }
-     $output .= "    <option $selected value='$i'>".$i."</option>\n\r";
-     }
-  $output .= "   </select>\n\r";*/
   $output .= "  </td>\n\r";
   $output .= "  <td>\n\r";
   $output .= "   <input type='hidden' value='0' name='edit_coupon[".$id."][use-once]' />\n\r";
@@ -422,12 +379,6 @@ $conditions = unserialize($coupon['condition']);
   $output .= "  </td>\n\r";
   $output .= "  <td>\n\r";
   $output .= "   <input type='hidden' value='".$id."' name='edit_coupon[".$id."][id]' />\n\r";
-  //$output .= "   <input type='hidden' value='false' name='add_coupon' />\n\r";
- /*
- $output .= "   <input type='submit' value='".__('Update Coupon', 'wpsc')."' name='edit_coupon[".$id."][submit_coupon]' />\n\r";
-  $output .= "   <input type='submit' value='".__('Delete Coupon', 'wpsc')."' name='edit_coupon[".$id."][delete_coupon]' />\n\r";
-*/
-
   $output .= "  </td>\n\r";
   $output .= " </tr>\n\r";
 
@@ -475,40 +426,6 @@ $conditions = unserialize($coupon['condition']);
   	$output .=	wpsc_coupons_conditions( $id);
 
   }
-  ?>
-<!--
-  <tr><td colspan="8">
-	<div class="coupon_condition">
-		<div><img height="16" width="16" class="delete" alt="Delete" src="<?=WPSC_URL?>/images/cross.png"/></button>
-			<select class="ruleprops" name="rules[property][]">
-				<option value="item_name" rel="order">Item name</option>
-				<option value="item_quantity" rel="order">Item quantity</option>
-				<option value="total_quantity" rel="order">Total quantity</option>
-				<option value="subtotal_amount" rel="order">Subtotal amount</option>
-			</select>
-			<select name="rules[logic][]">
-				<option value="equal">Is equal to</option>
-				<option value="greater">Is greater than</option>
-				<option value="less">Is less than</option>
-				<option value="contains">Contains</option>
-				<option value="not_contain">Does not contain</option>
-				<option value="begins">Begins with</option>
-				<option value="ends">Ends with</option>
-			</select>
-			<span>
-				<input type="text" name="rules[value][]"/>
-			</span>
-			<span>
-				<button class="add" type="button">
-					<img height="16" width="16" alt="Add" src="<?php //WPSC_URL?>/images/add.png"/>
-				</button>
-			</span>
-		</div>
-	</div>
-</tr>
--->
-
-  <?php
   $output .= "</table>\n\r";
   $output .= "</form>\n\r";
   echo $output;
@@ -560,13 +477,7 @@ return $output;
 
 }  
 function setting_button(){
-	$itemsFeedURL = "http://www.google.com/base/feeds/items";
 	$next_url  = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']."?page=wpsc-edit-products";
-	$redirect_url = 'https://www.google.com/accounts/AuthSubRequest?session=1';
-	$redirect_url .= '&next=';
-	$redirect_url .= urlencode($next_url);
-	$redirect_url .= "&scope=";
-	$redirect_url .= urlencode($itemsFeedURL);
 	
 // 	$output.="<div><img src='".get_option('siteurl')."/wp-content/plugins/".WPSC_DIR_NAME."/images/settings_button.jpg' onclick='display_settings_button()'>";
 	$output.="<div style='float: right; margin-top: 0px; position: relative;'> | <a href='#' onclick='display_settings_button(); return false;' style='text-decoration: underline;'>".__('Settings', 'wpsc')." &raquo;</a>";
@@ -577,7 +488,6 @@ function setting_button(){
 	$output.="<li><a href='admin.php?page=wpsc-settings&amp;tab=gateway'>".__('Money and Payment', 'wpsc')."</a></li>";
 	$output.="<li><a href='admin.php?page=wpsc-settings&amp;tab=checkout'>".__('Checkout Page Settings', 'wpsc')."</a></li>";
 	//$output.="<li><a href='?page=".WPSC_DIR_NAME."/instructions.php'>Help/Upgrade</a></li>";
-	//$output.="<li><a href='{$redirect_url}'>".__('Login to Google base', 'wpsc')."</a></li>";
 	$output.="</ul>";
 //	$output.="<div>Checkout Settings</div>";
 	$output.="</span>&emsp;&emsp;</div>";
@@ -716,10 +626,14 @@ function wpsc_right_now($hidden = '') {
 
 
 function wpsc_packing_slip($purchase_id) {
-  global $wpdb;
+  global $wpdb, $purchlogitem, $wpsc_cart,$purchlog;
+  if(isset($_REQUEST['purchaselog_id'])){
+	$purchlogitem = new wpsc_purchaselogs_items((int)$_REQUEST['purchaselog_id']);
+  }
+
 	$purch_sql = "SELECT * FROM `".WPSC_TABLE_PURCHASE_LOGS."` WHERE `id`='".$purchase_id."'";
 		$purch_data = $wpdb->get_row($purch_sql,ARRAY_A) ;
-			//exit('<pre>'.print_r($purch_data, true).'</pre>');
+			
 
 	  //echo "<p style='padding-left: 5px;'><strong>".__('Date', 'wpsc')."</strong>:".date("jS M Y", $purch_data['date'])."</p>";
 
@@ -729,15 +643,67 @@ function wpsc_packing_slip($purchase_id) {
 	
 		if($cart_log != null) {
       echo "<div class='packing_slip'>\n\r";
-			echo "<h2>".__('Packing Slip', 'wpsc')."</h2>\n\r";
+			echo apply_filters( 'wpsc_packing_slip_header', '<h2>' . __( 'Packing Slip', 'wpsc' ) . "</h2>\n\r" );
 			echo "<strong>".__('Order', 'wpsc')." #</strong> ".$purchase_id."<br /><br />\n\r";
 			
 			echo "<table>\n\r";
-			
+	/*
+		
 			$form_sql = "SELECT * FROM `".WPSC_TABLE_SUBMITED_FORM_DATA."` WHERE  `log_id` = '".(int)$purchase_id."'";
 			$input_data = $wpdb->get_results($form_sql,ARRAY_A);
+	
+*/		
+			echo "<tr class='heading'><td colspan='2'><strong>Billing Info</strong></td></tr>";
+			foreach((array)$purchlogitem->userinfo as $userinfo){
+				if($userinfo['unique_name'] != 'billingcountry'){
+					echo "<tr><td>".$userinfo['name'].": </td><td>".$userinfo['value']."</td></tr>";
+				}else{
+					$userinfo['value'] = maybe_unserialize($userinfo['value']);
+					if(is_array($userinfo['value'] )){
+						if(!empty($userinfo['value'][1]) && !is_numeric($userinfo['value'][1])){
+							echo "<tr><td>State: </td><td>".$userinfo['value'][1]."</td></tr>";
+						}elseif(is_numeric($userinfo['value'][1])){
+							echo "<tr><td>State: </td><td>".wpsc_get_state_by_id($userinfo['value'][1],'name')."</td></tr>";
+						}
+						if(!empty($userinfo['value'][0])){
+							echo "<tr><td>Country: </td><td>".$userinfo['value'][0]."</td></tr>";
+						}
+					}else{
+						echo "<tr><td>".$userinfo['name'].": </td><td>".$userinfo['value']."</td></tr>";	
+					}
+				}
+			}
 			
-			foreach($input_data as $input_row) {
+			echo "<tr class='heading'><td colspan='2'><strong>Shipping Info</strong></td></tr>";
+			foreach((array)$purchlogitem->shippinginfo as $userinfo){
+				if($userinfo['unique_name'] != 'shippingcountry' && $userinfo['unique_name'] != 'shippingstate'){
+					echo "<tr><td>".$userinfo['name'].": </td><td>".$userinfo['value']."</td></tr>";
+				}elseif($userinfo['unique_name'] == 'shippingcountry'){
+					$userinfo['value'] = maybe_unserialize($userinfo['value']);
+					if(is_array($userinfo['value'] )){
+						if(!empty($userinfo['value'][1]) && !is_numeric($userinfo['value'][1])){
+							echo "<tr><td>State: </td><td>".$userinfo['value'][1]."</td></tr>";
+						}elseif(is_numeric($userinfo['value'][1])){
+							echo "<tr><td>State: </td><td>".wpsc_get_state_by_id($userinfo['value'][1],'name')."</td></tr>";
+						}
+						if(!empty($userinfo['value'][0])){
+							echo "<tr><td>Country: </td><td>".$userinfo['value'][0]."</td></tr>";
+						}
+					}else{
+						echo "<tr><td>".$userinfo['name'].": </td><td>".$userinfo['value']."</td></tr>";	
+					}
+				}elseif($userinfo['unique_name'] == 'shippingstate'){
+					if(!empty($userinfo['value']) && !is_numeric($userinfo['value'])){
+						echo "<tr><td>".$userinfo['name'].": </td><td>".$userinfo['value']."</td></tr>";
+					}elseif(is_numeric($userinfo['value'])){
+							echo "<tr><td>State: </td><td>".wpsc_get_state_by_id($userinfo['value'],'name')."</td></tr>";
+					}
+				}
+			}
+	//		echo('<pre>'.print_r($purchlogitem,true).'</pre>');
+			
+		/*
+	foreach($input_data as $input_row) {
 			  $rekeyed_input[$input_row['form_id']] = $input_row;
 			}
 			
@@ -780,6 +746,7 @@ function wpsc_packing_slip($purchase_id) {
         echo "  <tr><td>".__('Phone', 'wpsc').":</td><td>".$purch_data['phone']."</td></tr>\n\r";
         echo "  <tr><td>".__('Email', 'wpsc').":</td><td>".$purch_data['email']."</td></tr>\n\r";
 			}
+*/
 			
 			if(get_option('payment_method') == 2) {
 				$gateway_name = '';
@@ -820,14 +787,16 @@ function wpsc_packing_slip($purchase_id) {
 				echo " <th>".__('Price', 'wpsc')." </th>";
 				
 				echo " <th>".__('Shipping', 'wpsc')." </th>";
-				echo '<th>Tax</th>';
+				echo "<th>".wpsc_display_tax_label(false)."</th>";
 				echo '</tr>';
 			$endtotal = 0;
 			$all_donations = true;
 			$all_no_shipping = true;
 			$file_link_list = array();
+//			exit('<pre>'.print_r($cart_log,true).'</pre>');
 			foreach($cart_log as $cart_row) {
-			
+			$purchlogitem->the_purch_item();
+//			exit('<pre>'.print_r, true).'</pre>');
 				$alternate = "";
 				$j++;
 				if(($j % 2) != 0) {
@@ -907,13 +876,21 @@ function wpsc_packing_slip($purchase_id) {
 	
 
 				echo '<td>';
-				echo nzshpcrt_currency_display($cart_row['tax_charged'],1);
+				if(wpsc_tax_isincluded()){
+					echo (wpsc_purchaselog_details_tax());
+				}else{
+					echo nzshpcrt_currency_display($cart_row['tax_charged'],1);
+				}
 				echo '<td>';
 				echo '</tr>';
-				}
-			echo '<tr><td>Total Shipping</td><td>'.$purch_data['base_shipping'].'</td></tr>';
-			echo '<tr><td>Total Price</td><td>'.$purch_data['totalprice'].'</td></tr>';
+			}
 			echo "</table>";
+			
+			echo '<table class="packing-slip-totals">';
+			echo '<tr><th>Base Shipping</th><td>' . nzshpcrt_currency_display( $purch_data['base_shipping'], 1 ) . '</td></tr>';
+			echo '<tr><th>Total Shipping</th><td>' . nzshpcrt_currency_display( $purch_data['base_shipping'] + $total_shipping, 1 ) . '</td></tr>';
+			echo '<tr><th>Total Price</th><td>' . nzshpcrt_currency_display( $purch_data['totalprice'], 1 ) . '</td></tr>';
+			echo '</table>';
 
 			echo "</div>\n\r";
 		} else {

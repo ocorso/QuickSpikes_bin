@@ -215,7 +215,7 @@ if(strpos($_SERVER['SCRIPT_NAME'], "wp-admin") === false) {
 }
 
 function wpsc_product_list_rss_feed() {
-	$rss_url = add_query_arg('wpsc_action', 'rss');
+	$rss_url = htmlentities(add_query_arg('wpsc_action', 'rss'));
   echo "<link rel='alternate' type='application/rss+xml' title='".get_option('blogname')." Product List RSS' href='{$rss_url}'/>";
 }
 add_action('wp_head', 'wpsc_product_list_rss_feed');
@@ -244,7 +244,7 @@ function wpsc_user_dynamic_js() {
   exit();
 }
 
-if($_GET['wpsc_user_dynamic_js'] == 'true') {
+if(isset($_GET['wpsc_user_dynamic_js']) && $_GET['wpsc_user_dynamic_js'] == 'true') {
   add_action("init", 'wpsc_user_dynamic_js');  
 }
 
@@ -422,7 +422,7 @@ function wpsc_user_dynamic_css() {
 	exit();
 }
 
-if($_GET['wpsc_user_dynamic_css'] == 'true') {
+if(isset($_GET['wpsc_user_dynamic_css']) && $_GET['wpsc_user_dynamic_css'] == 'true') {
   add_action("init", 'wpsc_user_dynamic_css');  
 }
 

@@ -108,6 +108,7 @@ if(!isset($purchlogs)){
 			<?php /* end of sidebar start of main column */ ?>
 			<div id='post-body' class='has-sidebar metabox-holder' style='width:95%;'>
 				<div id='dashboard-widgets-main-content-wpsc' class='has-sidebar-content'>
+					<?php if(function_exists('fetch_feed')){ ?>
 					<div class='postbox <?php  echo ((array_search('wpsc_getshopped_news', $dashboard_data['closed_postboxes']) !== false) ? 'closed' : ''); ?>' id="wpsc_getshopped_news">	 
 						<h3 class='hndle'>
 							<span><?php _e('GetShopped News', 'wpsc'); ?></span>
@@ -124,6 +125,7 @@ if(!isset($purchlogs)){
 						</div>
 					</div>
 					<?php
+					}
 				//	add_meta_box("wpsc_getshopped_news", __('GetShopped News', 'wpsc'), "wpsc_getshopped_news_meta_box", "wpsc");
 				//	do_meta_boxes('wpsc','advanced',null);
 			
@@ -637,7 +639,7 @@ function wpsc_purchlogs_notes() {
 				<input type='hidden' name='wpsc_admin_action' value='purchlogs_update_notes' />
 				<input type="hidden" name="wpsc_purchlogs_update_notes_nonce" id="wpsc_purchlogs_update_notes_nonce" value="<?php echo wp_create_nonce( 'wpsc_purchlogs_update_notes' ); ?>" />
 				<input type='hidden' name='purchlog_id' value='<?php echo $_GET['purchaselog_id']; ?>' />
-				<p><textarea name="purchlog_notes" rows="3" wrap="virtual" id="purchlog_notes" style="width:100%;"><?php if ( isset($_POST['purchlog_notes']) ) { echo $_POST['purchlog_notes']; } else { echo wpsc_display_purchlog_notes(); } ?></textarea></p>
+				<p><textarea name="purchlog_notes" rows="3" wrap="virtual" id="purchlog_notes" style="width:100%;"><?php if ( isset($_POST['purchlog_notes']) ) { echo stripslashes($_POST['purchlog_notes']); } else { echo wpsc_display_purchlog_notes(); } ?></textarea></p>
 				<p><input class="button" type="submit" name="button" id="button" value="Update Notes" /></p>
 			</form>
 		</div>

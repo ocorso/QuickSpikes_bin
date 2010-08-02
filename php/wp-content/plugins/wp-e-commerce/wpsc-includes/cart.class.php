@@ -15,10 +15,7 @@
  * The WPSC Cart API for templates
  */
 
-/**
-* cart item count function, no parameters
-* * @return integer the item count
-*/
+
 /**
 * tax is included function, no parameters
 * * @return boolean true or false depending on settings>general page
@@ -31,6 +28,10 @@ function wpsc_tax_isincluded() {
 	}
 }
 
+/**
+* cart item count function, no parameters
+* * @return integer the item count
+*/
 function wpsc_cart_item_count() {
 	global $wpsc_cart;
 	$count = 0;
@@ -77,20 +78,37 @@ function wpsc_cart_total($forDisplay=true) {
 	}
 }
 
-function wpsc_cart_total_widget(){
+/**
+ * Cart Total Widget
+ *
+ * Can be used to display the cart total excluding shipping, tax or coupons.
+ *
+ * @since 3.7.6.2
+ *
+ * @return string The subtotal price of the cart, with a currency sign.
+ */
+function wpsc_cart_total_widget( $shipping = true, $tax = true, $coupons = true ) {
+	
 	global $wpsc_cart; 
+	
 	$total = $wpsc_cart->calculate_subtotal();
-	$total += $wpsc_cart->calculate_total_shipping();
-	if(wpsc_tax_isincluded() == false){
+	
+	if ( $shipping ) {
+		$total += $wpsc_cart->calculate_total_shipping();
+	}
+	if ( $tax && wpsc_tax_isincluded() == false ) {
 		$total += $wpsc_cart->calculate_total_tax();
 	}
-
-	$total -= $wpsc_cart->coupons_amount;
-	if(get_option('add_plustax') == 1){
-		return $wpsc_cart->process_as_currency($wpsc_cart->calculate_subtotal());
-	}else{
-		return $wpsc_cart->process_as_currency($total);
+	if ( $coupons ) {
+		$total -= $wpsc_cart->coupons_amount;
 	}
+	
+	if ( get_option( 'add_plustax' ) == 1 ) {
+		return $wpsc_cart->process_as_currency( $wpsc_cart->calculate_subtotal() );
+	} else {
+		return $wpsc_cart->process_as_currency( $total );
+	}
+	
 }
 
 /**
@@ -670,7 +688,7 @@ class wpsc_cart {
 					$this->shipping_quotes = $wpsc_shipping_modules[$this->selected_shipping_method]->getQuote();
 				}
 			} else {
-//				exit('Here <pre>'.print_r($custom_shipping, true).'</pre>');
+
 				// otherwise select the first one with any quotes
 				foreach((array)$custom_shipping as $shipping_module) {
 					// if the shipping module does not require a weight, or requires one and the weight is larger than zero
@@ -685,9 +703,8 @@ class wpsc_cart {
 				
 			}
 		}
-		//		exit('<pre>'.print_r($this, true).'</pre>');
-		//echo('<pre>'.print_r($custom_shipping,true).'</pre>');
-  }
+
+		}
   
   /**
 	* get_shipping_option method, gets the shipping option from the selected method and associated quotes
@@ -861,6 +878,7 @@ class wpsc_cart {
 		}	
 		$this->cart_item_count = count($this->cart_items);
 		$this->clear_cache();
+		do_action ("wpsc_cart_updated", &$this);
 		return $status;
 	}
   
@@ -992,16 +1010,18 @@ class wpsc_cart {
 	*/
   function remove_item($key) {
     if(isset($this->cart_items[$key])) {
-			unset($this->cart_items[$key]);
+		$cart_item =& $this->cart_items[$key];
+		$cart_item->update_item(0);
+		unset($this->cart_items[$key]);
 	    $this->cart_items = array_values($this->cart_items);
-			$this->cart_item_count = count($this->cart_items);
+		$this->cart_item_count = count($this->cart_items);
 	    $this->current_cart_item = -1;
-			$this->clear_cache();
-			return true;
-		} else {
-			$this->clear_cache();
-			return false;
-		}
+		$this->clear_cache();
+		return true;
+	} else {
+		$this->clear_cache();
+		return false;
+	}
 	
   }
   
@@ -1029,7 +1049,7 @@ class wpsc_cart {
 		$this->clear_cache();
 		$this->cleanup();
 		
-		do_action('wpsc-empty-cart', &$this);
+		do_action('wpsc_empty_cart', &$this);
   }
   
   
@@ -1134,26 +1154,23 @@ class wpsc_cart {
 	 * calculate total tax method 
 	 * @access public
 	 * @return float returns the price as a floating point value
-	*/
+	 */
    function calculate_total_tax() {
     global $wpdb, $wpsc_cart;
     $total = 0;
 	if(wpsc_tax_isincluded() == false){
-
     	if($this->total_tax == null) {
 			foreach($this->cart_items as $key => $cart_item) {
 				$total += $cart_item->tax;
 			}
-	
 			$this->total_tax = $total;
-				//	exit('<pre>'.print_r($this,true).'</pre>');
 		} else {
 		  $total = $this->total_tax;
 		}
 		if($this->total_tax != null && $this->coupons_amount > 0){
 			$total = ($this->calculate_subtotal()-$this->coupons_amount)/$this->tax_percentage;
-			//exit(($this->calculate_subtotal()-$this->coupons_amount)/$wpsc_cart->tax_percentage);
 		}
+		
 	}else{
 		if($this->total_tax == null) {
 			foreach($this->cart_items as $key => $cart_item) {
@@ -1163,11 +1180,13 @@ class wpsc_cart {
 		} else {
 		  $total = $this->total_tax;
 		}
-	
-	
 	}
 		$total = apply_filters('wpsc_convert_tax_prices', $total);
+		//If coupon is larger or equal to the total price, then the tax should be 0 as the product is going to be free.
 
+		if($this->coupons_amount >= $this->total_price && !empty($this->coupons_amount)){
+			$total = 0;
+		}
 		return $total;
   }
   
@@ -1563,6 +1582,11 @@ class wpsc_cart {
 		$this->coupons_name = $coupons;
 		$this->coupons_amount = $couponAmount;	
 		$this->calculate_total_price();
+		if ( $this->total_price < 0 ) {
+			$this->coupons_amount += $this->total_price;
+			$this->total_price = null;
+			$this->calculate_total_price();
+		}
 	}
 	
 }
@@ -1645,7 +1669,7 @@ class wpsc_cart_item {
 		$this->refresh_item();
 	}
 
-		/**
+	/**
 	 * update item method, currently can only update the quantity
 	 * will require the parameters to update (no, you cannot change the product ID, delete the item and make a new one)
 	 * @access public
@@ -1656,6 +1680,9 @@ class wpsc_cart_item {
 	*/
 	function update_item($quantity) {
 		$this->quantity = (int)$quantity;
+		$this->refresh_item();
+		$this->update_claimed_stock();
+
 	}
 			/**
 	 * refresh_item method, refreshes the item, calculates the prices, gets the name
@@ -1906,15 +1933,15 @@ class wpsc_cart_item {
 	function save_to_db($purchase_log_id) {
 		global $wpdb, $wpsc_shipping_modules;
 		
-    if($method === null) {
-      $method = $this->cart->selected_shipping_method;
-    }
+	    if($method === null) {
+	      $method = $this->cart->selected_shipping_method;
+	    }
 		if(method_exists( $wpsc_shipping_modules[$method], "get_item_shipping"  )) {
 			$shipping = $wpsc_shipping_modules[$this->cart->selected_shipping_method]->get_item_shipping( $this );
 		}
-    if($this->cart->has_total_shipping_discount()) {
-			$shipping = 0;
-    }
+	    if($this->cart->has_total_shipping_discount()) {
+				$shipping = 0;
+	    }
 		if($this->apply_tax == true && wpsc_tax_isincluded() == false) {
 			if(is_numeric($this->custom_tax_rate)) {
 				$tax_rate = $this->custom_tax_rate;

@@ -336,7 +336,7 @@ function wpsc_purchaselog_details_price(){
 function wpsc_purchaselog_details_shipping(){
 	global $purchlogitem;
 //	exit('<pre>'.print_r($purchlogitem->purchitem, true).'</pre>');
-	return $purchlogitem->purchitem->pnp;
+	return $purchlogitem->purchitem->pnp/$purchlogitem->purchitem->quantity;
 }
 
 function wpsc_purchaselog_details_tax(){
@@ -359,6 +359,7 @@ function wpsc_purchaselog_details_tax(){
 					$price = $purchlogitem->purchitem->price;
 				}
 				$tax = ($price/(100+$wpsc_cart->tax_percentage)*$wpsc_cart->tax_percentage);
+
 				$tax = $wpsc_cart->process_as_currency($tax);
 				return $tax.' ('.$wpsc_cart->tax_percentage.'%)';
 			}else{
@@ -390,7 +391,7 @@ function wpsc_purchaselog_details_total(){
 	global $purchlogitem;
 	$total = 0;
   $total += ($purchlogitem->purchitem->price * $purchlogitem->purchitem->quantity);
-  $total += ($purchlogitem->purchitem->pnp * $purchlogitem->purchitem->quantity);
+  $total += ($purchlogitem->purchitem->pnp);
   $total += ($purchlogitem->purchitem->tax_charged * $purchlogitem->purchitem->quantity);
   //$total -= $purchlogitem->extrainfo->discount_value;
 	$purchlogitem->totalAmount += $total;
@@ -442,7 +443,7 @@ function wpsc_display_purchlog_shipping($numeric = false){
 			$per_item_shipping += ($cart_item->pnp * $cart_item->quantity);
 	  }
 	}
-	$total_shipping = $per_item_shipping + $base_shipping;
+	$total_shipping = $base_shipping;
 	if($numeric == true) {
 		return $total_shipping;
 	} else {
@@ -455,7 +456,7 @@ function wpsc_display_purchlog_totalprice(){
 	$purchlogitem->totalAmount -= wpsc_display_purchlog_discount(true);
 	$purchlogitem->totalAmount += wpsc_display_purchlog_shipping(true);
 	//$purchlogitem->totalAmount += $purchlogitem->extrainfo->base_shipping;
-	return nzshpcrt_currency_display($purchlogitem->totalAmount, true);
+	return nzshpcrt_currency_display($purchlogitem->extrainfo->totalprice, true);
 }
 function wpsc_display_purchlog_buyers_name(){
 	global $purchlogitem;

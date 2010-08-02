@@ -115,7 +115,7 @@ global $wpdb;
 			<h3 class="form_group"><?php echo __('Custom Messages', 'wpsc');?>:</h3>
 			<table class='wpsc_options form-table'>
 				<tr>
-					<th colspan="2"><?php echo __('Tags can be used', 'wpsc');?>: %shop_name%,<!-- %order_status%,--> %product_list%, %total_price%, %total_shipping%</th>
+					<th colspan="2"><?php echo __('Tags can be used', 'wpsc');?>: %shop_name%,<!-- %order_status%,--> %product_list%, %total_price%, %total_shipping%, %find_us%</th>
 				</tr>
 				<tr>
 					<td class='wpsc_td_note' colspan='2'>
@@ -208,11 +208,13 @@ global $wpdb;
 					</td>
 				</tr>
 			<?php
+			do_action('wpsc_admin_settings_page');
 			}
+			$sendback = wp_get_referer();
 			?>
 				<tr class='merged'>
-					<td colspan="2"><a href='<?php echo wp_nonce_url("page.php?wpsc_admin_action=update_page_urls"); ?>' ><?php echo __('Update Page URLs', 'wpsc'); ?></a> &nbsp; | &nbsp;
-					<a href='<?php echo wp_nonce_url("page.php?wpsc_admin_action=clean_categories"); ?>'><?php echo __('Fix Product Group Permalinks', 'wpsc'); ?></a>
+					<td colspan="2"><a href='<?php echo wp_nonce_url($sendback."&wpsc_admin_action=update_page_urls"); ?>' ><?php echo __('Update Page URLs', 'wpsc'); ?></a> &nbsp; | &nbsp;
+					<a href='<?php echo wp_nonce_url($sendback."&wpsc_admin_action=clean_categories"); ?>'><?php echo __('Fix Product Group Permalinks', 'wpsc'); ?></a>
 					</td>
 				</tr>
 			</table>					  

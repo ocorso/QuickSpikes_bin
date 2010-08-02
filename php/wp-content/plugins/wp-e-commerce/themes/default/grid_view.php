@@ -7,7 +7,7 @@ $image_height = get_option('product_image_height');
 	
 <?php if(wpsc_has_breadcrumbs()) : ?>
 		<div class='breadcrumb'>
-			<a href='<?php echo get_option('home'); ?>'><?php echo get_option('blogname'); ?></a> &raquo;
+			<a href='<?php echo get_option('product_list_url'); ?>'><?php echo get_option('blogname'); ?></a> &raquo;
 			<?php while (wpsc_have_breadcrumbs()) : wpsc_the_breadcrumb(); ?>
 				<?php if(wpsc_breadcrumb_url()) :?> 	   
 					<a href='<?php echo wpsc_breadcrumb_url(); ?>'><?php echo wpsc_breadcrumb_name(); ?></a> &raquo;
@@ -104,7 +104,7 @@ $image_height = get_option('product_image_height');
 					<div class="grid_product_info">
 						<div class="product_text">
 
-							<div id="product_price_<?php echo wpsc_the_product_id(); ?>"  class="pricedisplay"><?php echo wpsc_the_product_price(true); ?></div> 
+							<div id="product_price_<?php echo wpsc_the_product_id(); ?>"  class="pricedisplay"><?php echo wpsc_the_product_price(get_option('wpsc_hide_decimals')); ?></div> 
 							<strong><?php echo wpsc_the_product_title(); ?></strong>
 							
 							<?php if(get_option('display_moredetails') == 1) : ?>

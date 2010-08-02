@@ -51,7 +51,7 @@ jQuery(document).ready( function () {
 		jQuery(this).click(function(event){
 			form_id = jQuery(this).attr('title');	
 			id = form_id.replace('form_options', '');
-			output = "<tr class='wpsc_grey'><td></td><td><input type='text' value='' name='wpsc_checkout_option_label["+id+"][]' /></td><td colspan='4'><input type='text' value='' name='wpsc_checkout_option_value["+id+"][]' />&nbsp;<a class='wpsc_delete_option' href='' ><img src='"+WPSC_URL+"/images/trash.gif' alt='"+TXT_WPSC_DELETE+"' title='"+TXT_WPSC_DELETE+"' /></a></td></tr>";
+			output = "<tr class='wpsc_grey'><td></td><td><input type='text' value='' name='wpsc_checkout_option_label"+id+"[]' /></td><td colspan='4'><input type='text' value='' name='wpsc_checkout_option_value"+id+"[]' />&nbsp;<a class='wpsc_delete_option' href='' ><img src='"+WPSC_URL+"/images/trash.gif' alt='"+TXT_WPSC_DELETE+"' title='"+TXT_WPSC_DELETE+"' /></a></td></tr>";
 			jQuery(this).parent().parent('tr').after(output);
   			event.preventDefault();
 		});
@@ -195,7 +195,7 @@ jQuery(document).ready( function () {
 	    axis: 'y',
 	    containment: 'table#wpsc_checkout_list',
 	    placeholder: 'checkout-placeholder',
-	    handle: '.drag',
+	    handle: '.drag'
     	
 	  }); 
 	  jQuery(this).bind('sortupdate', function(event, ui) {
@@ -954,7 +954,8 @@ function add_form_field() {
   new_element = document.createElement('tr');
   new_element.id = new_element_id;
   document.getElementById("wpsc_checkout_list_body").appendChild(new_element);
-  document.getElementById(new_element_id).innerHTML = new_element_contents;
+  //document.getElementById(new_element_id).innerHTML = new_element_contents;
+  jQuery('#'+new_element_id).append(new_element_contents);
   jQuery('#'+new_element_id).addClass('checkout_form_field');
   return false;
 }
