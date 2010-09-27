@@ -283,7 +283,7 @@ global $wpdb;
 		<div style='clear:both;'></div>
 		
 		<h3 class="form_group"><?php echo __('Product Page Settings', 'wpsc');?></h3>
-		<table class='wpsc_options form-table'>		
+		<table class='wpsc_options form-table'>
 		<tr>
 			<th scope="row"><?php echo __('Catalog View', 'wpsc');?>:</th>
 			<td>
@@ -471,22 +471,35 @@ global $wpdb;
 				$show_breadcrumbs2 = "";
 				switch($show_breadcrumbs) {
 					case 0:
-					$show_breadcrumbs2 = "checked ='checked'";
-					break;
-					
+						$show_breadcrumbs2 = "checked ='checked'";
+						break;
 					case 1:
-					$show_breadcrumbs1 = "checked ='checked'";
-					break;
-				}
-	
-				?>
-				<input type='radio' value='1' name='wpsc_options[show_breadcrumbs]' id='show_breadcrumbs1' <?php echo $show_breadcrumbs1; ?> /> <label for='show_breadcrumbs1'><?php echo __('Yes', 'wpsc');?></label> &nbsp;
-				<input type='radio' value='0' name='wpsc_options[show_breadcrumbs]' id='show_breadcrumbs2' <?php echo $show_breadcrumbs2; ?> /> <label for='show_breadcrumbs2'><?php echo __('No', 'wpsc');?></label>
+						$show_breadcrumbs1 = "checked ='checked'";
+						break;
+				} ?>
+					<input type='radio' value='1' name='wpsc_options[show_breadcrumbs]' id='show_breadcrumbs1' <?php echo $show_breadcrumbs1; ?> /> <label for='show_breadcrumbs1'><?php echo __('Yes', 'wpsc');?></label> &nbsp;
+					<input type='radio' value='0' name='wpsc_options[show_breadcrumbs]' id='show_breadcrumbs2' <?php echo $show_breadcrumbs2; ?> /> <label for='show_breadcrumbs2'><?php echo __('No', 'wpsc');?></label>
 				</td>
-			</tr>							
-	
-
-				
+			</tr>
+			<tr>
+				<th scope="row"><?php echo __('Show Product List RSS', 'wpsc');?>:</th>
+				<td>
+				<?php
+				$show_rss = get_option('show_products_rss');
+				$show_rss1 = "";
+				$show_rss2 = "";
+				switch($show_rss) {
+					case 0:
+						$show_rss2 = "checked ='checked'";
+						break;
+					case 1:
+						$show_rss1 = "checked ='checked'";
+						break;
+					} ?>
+					<input type='radio' value='1' name='wpsc_options[show_products_rss]' id='show_rss1' <?php echo $show_rss1; ?> /> <label for='show_rss1'><?php echo __('Yes', 'wpsc');?></label> &nbsp;
+					<input type='radio' value='0' name='wpsc_options[show_products_rss]' id='show_rss2' <?php echo $show_rss2; ?> /> <label for='show_rss2'><?php echo __('No', 'wpsc');?></label>
+				</td>
+			</tr>
 			<tr>
 				<th scope="row">
 				<?php echo __('Product Groups/Products Display', 'wpsc');?>:
@@ -666,7 +679,8 @@ global $wpdb;
 					<?php
 				}
 				
-				if(function_exists('drag_and_drop_cart')) {
+				if(function_exists('widget_wpec_dropshop') || function_exists('drag_and_drop_cart')) {
+
 					?>
 					<input type='radio' onclick='hideelement1("dropshop_option", this.value)' value='5' name='wpsc_options[cart_location]' id='cart5' <?php echo $cart5; ?> /> <label for='cart5'><?php echo __('DropShop', 'wpsc');?></label> &nbsp;
 					<?php
@@ -682,12 +696,15 @@ global $wpdb;
 		<input type="radio" id="drop1" value="all" <?php if (get_option('dropshop_display') == 'all') { echo "checked='checked'"; } ?> name="wpsc_options[dropshop_display]" /><label for="drop1"><?php echo __('Show Dropshop on every page', 'wpsc');?></label>
 		<input type="radio" id="drop2" value="product" <?php if (get_option('dropshop_display') == 'product') { echo "checked='checked'"; } ?> name="wpsc_options[dropshop_display]"/><label for="drop2"><?php echo __('Show Dropshop only on product page', 'wpsc');?></label>
 		</p>
-		<p>
+		<?php if (!function_exists('widget_wpec_dropshop')) { ?>
+        <p>
 		<input type="radio" id="wpsc_dropshop_theme1" value="light" <?php if (get_option('wpsc_dropshop_theme') != 'dark') { echo "checked='checked'"; } ?> name="wpsc_options[wpsc_dropshop_theme]" /><label for="wpsc_dropshop_theme1"><?php echo __('Use light Dropshop style', 'wpsc');?></label>
 		<input type="radio" id="wpsc_dropshop_theme2" value="dark" <?php if (get_option('wpsc_dropshop_theme') == 'dark') { echo "checked='checked'"; } ?> name="wpsc_options[wpsc_dropshop_theme]"/><label for="wpsc_dropshop_theme2"><?php echo __('Use dark Dropshop style', 'wpsc');?></label>
 		<input type="radio" id="wpsc_dropshop_theme3" value="craftyc" <?php if (get_option('wpsc_dropshop_theme') == 'craftyc') { echo "checked='checked'"; } ?> name="wpsc_options[wpsc_dropshop_theme]"/><label for="wpsc_dropshop_theme2"><?php echo __('Crafty', 'wpsc');?></label>
 		
 		</p>
+        <?php } ?>
+
 		</div>
 				</td>
 			</tr>

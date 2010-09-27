@@ -186,7 +186,7 @@ function wpsc_admin_pages(){
 
 
 function wpsc_product_log_rss_feed() {
-  echo "<link type='application/rss+xml' href='".get_option('siteurl')."/wp-admin/index.php?rss=true&amp;rss_key=key&amp;action=purchase_log&amp;type=rss' title='WP E-Commerce Purchase Log RSS' rel='alternate'/>";
+  echo "<link type='application/rss+xml' href='".get_option('siteurl')."/wp-admin/index.php?rss=true&amp;rss_key=key&amp;action=purchase_log&amp;type=rss' title='WP e-Commerce Purchase Log RSS' rel='alternate'/>";
 }
 
 function wpsc_admin_include_coupon_js() {
@@ -433,7 +433,7 @@ function wpsc_admin_latest_activity() {
 		 * This is the right hand side for the past 30 days revenue on the wp dashboard
 		 */
 		echo "<div id='leftDashboard'>";
-		echo "<strong class='dashboardHeading'>".__('Last 30 Days', 'wpsc')."</strong><br />";
+		echo "<strong class='dashboardHeading'>".__('This Month', 'wpsc')."</strong><br />";
 		echo "<p class='dashboardWidgetSpecial'>";
 		// calculates total amount of orders for the month
 		$year = date("Y");
@@ -532,7 +532,7 @@ function wpsc_dashboard_widget_setup() {
 	get_currentuserinfo();
 	if($current_user->user_level>9) {
 		wp_enqueue_style( 'wp-e-commerce-admin', WPSC_URL.'/wpsc-admin/css/admin.css', false, $version_identifier, 'all' );
-    wp_add_dashboard_widget('wpsc_dashboard_widget', __('E-Commerce'),'wpsc_dashboard_widget');
+    wp_add_dashboard_widget('wpsc_dashboard_widget', __('e-Commerce'),'wpsc_dashboard_widget');
 	}
 }
 /*

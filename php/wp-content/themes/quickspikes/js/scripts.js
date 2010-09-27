@@ -1,17 +1,20 @@
-var pageName;
+/* Author: Owen Corso
 
- jQuery(document).ready(function(){
- 		
- 		addHandlers();
-		
-		
-		
-		
- 
+*/
 
- });//end doc ready
-
-function addHandlers(){
+ jQuery(document).ready(function($){
+ 	$("#nav ul li").addClass("nav-link");
+ 	addHandlers();
+	function addHandlers(){
+	
+		$("#nav ul li").hover(
+  			function () {
+  				$(this).removeClass("nav-link").addClass("nav-hover");
+  			},
+  			function () {
+  				$(this).removeClass("nav-hover").addClass("nav-link");
+  			}
+		);
 	switch(pageName){
 		case "home":
 			jQuery("#slideshow").click(function(jQueryevt){	
@@ -41,3 +44,5 @@ function addHandlers(){
 	}//end switch
 
 }//end function
+ });//end doc ready
+
