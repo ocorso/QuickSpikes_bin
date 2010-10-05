@@ -16,10 +16,10 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'QuickSpikesDB');
+define('DB_NAME', 'quickspikesdb');
 
 /** MySQL database username */
-define('DB_USER', 'QuickSpikes_usr');
+define('DB_USER', 'quickspikesdb');
 
 /** MySQL database password */
 define('DB_PASSWORD', 'Vamp5near');
