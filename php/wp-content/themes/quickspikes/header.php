@@ -23,30 +23,39 @@
 
   <!-- hook the head -->
   <?php wp_head(); ?>
+    <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <script>!window.jQuery && document.write('<script src="<?= get_bloginfo('template_directory'); ?>/js/libs/jquery.js"><\/script>')</script>
 </head>
 
 <body <?php body_class(); ?>>
   <script type="text/javascript"> var pageName = "home";</script>
-  <img src="<?= get_bloginfo('template_directory'); ?>/img/backgrounds/course1.jpg" alt="background image" id="bg" />
+  <img src="<?= get_bloginfo('template_directory'); ?>/img/backgrounds/grassBG_v2.jpg" alt="background image" id="bg" />
   <div id="container">
   	<header>
-		<div id="logo"><h1><a id="logo_big_q" href="<?php bloginfo('url'); ?>/"><?php bloginfo('name'); ?></a></h1></div>
-	
-			<div id="nav">
-				<ul>
-					<li id="nav_home">		<a href="<?php bloginfo('url'); ?>">Home</a></li>
-					<li id="nav_about">		<a href="/about">About		</a></li>
-					<li id="nav_products">	<a href="/products">Products</a></li>
-					<li id="nav_faq">		<a href="/faq">FAQ			</a></li>
-					<li id="nav_gallery">	<a href="/gallery">Gallery	</a></li>
-					<li id="nav_partners">	<a href="/partners">Partners</a></li>
-					<li id="nav_contact">	<a href="/contact">Contact	</a></li>
-				</ul>  
-			</div>			
+		<div id="logo">
+			<a id="logo_big_q" href="<?php bloginfo('url'); ?>/"><?php bloginfo('name'); ?></a>
+			<div id="logo_reveal">
+				<div id="logo_reveal_inner"><img src="<?= get_bloginfo('template_directory'); ?>/img/logo/quick_spikes.png" alt="Quick Spikes"/>
+					<h2>The Temporary Golf Spike Solution.</h2>
+				</div>
+			</div>
+			<div id="logo_handle"></div>
+			<div class="clearfix"></div>
+		</div> <!-- end logo -->	
+		<nav>
+			<ul>
+				<li id="nav_home">		<a href="<?php bloginfo('url'); ?>">Home</a></li>
+				<li id="nav_about">		<a href="/about">About		</a></li>
+				<li id="nav_products">	<a href="/products">Products</a></li>
+				<li id="nav_faq">		<a href="/faq">FAQ			</a></li>
+				<li id="nav_gallery">	<a href="/gallery">Gallery	</a></li>
+				<li id="nav_partners">	<a href="/partners">Partners</a></li>
+				<li id="nav_contact">	<a href="/contact">Contact	</a></li>
+			</ul>  
+		</nav>			
 		
 	</header>
 	
 <!-- end header -->
 <div id="content_wrapper"> 
-	<div id="content_top" class="content-border"></div>
 	<div id="content">
