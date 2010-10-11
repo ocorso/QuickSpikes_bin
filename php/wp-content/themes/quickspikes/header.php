@@ -32,6 +32,7 @@
   <img src="<?= get_bloginfo('template_directory'); ?>/img/backgrounds/grassBG_v2.jpg" alt="background image" id="bg" />
   <div id="container">
   	<header>
+  		<div class="shadow-left"></div>
 		<div id="logo">
 			<a id="logo_big_q" href="<?php bloginfo('url'); ?>/"><?php bloginfo('name'); ?></a>
 			<div id="logo_reveal">
@@ -53,9 +54,11 @@
 				<li id="nav_contact">	<a href="/contact">Contact	</a></li>
 			</ul>  
 		</nav>			
-		
+		<div class="shadow-right"></div>
+		<div class="clearfix"></div>
 	</header>
 	
 <!-- end header -->
 <div id="content_wrapper"> 
+	<div class="shadow-left"></div>
 	<div id="content">

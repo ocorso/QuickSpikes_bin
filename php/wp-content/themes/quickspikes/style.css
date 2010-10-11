@@ -24,10 +24,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-
-*/
-/* 
+ 
   style.css contains a reset, font normalization and some base styles.
   
   credit is left where credit is due.
@@ -35,12 +32,27 @@ THE SOFTWARE.
     yui.yahooapis.com/2.8.1/build/base/base.css
     camendesign.com/design/
     praegnanz.de/weblog/htmlcssjs-kickstart
-*/
-
-/* 
+ 
   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
   v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark
   html5doctor.com/html-5-reset-stylesheet/
+
+------------------------
+O Red Table of Contents
+------------------------
+-find these hooks to jump to a section.
+
+@utility
+@admin
+@global
+@header
+@logo
+@nav
+@homepage
+@footer
+
+
+
 */
 
 html, body, div, span, object, iframe,
@@ -240,7 +252,7 @@ button {  width: auto; overflow: visible; }
    										 Author: Owen Corso
   /*************************************************************************************/
 
-	/*UTILITY STYLES*/
+/*UTILITY STYLES*/
 
 .left{ float:left;}
 .right{	float:right;}
@@ -253,8 +265,11 @@ button {  width: auto; overflow: visible; }
 .bold{font-weight:bold;}
 .pointer{cursor:pointer; cursor: hand;}
 
+/* @ADMIN STYLES */
+.wp-admin{ background-color: #F7F6F1}
+.wp-admin a:link{ color: #999;}
 
-	/*@GLOBAL STYLES*/
+/*@GLOBAL STYLES*/
 html, body{
 	background-size: 100%;
 	background-color: #000;
@@ -263,6 +278,7 @@ html, body{
 	margin: 0;
 	padding: 0;
 }
+
 img#bg {
 	position:absolute;
 	top:0;
@@ -274,6 +290,36 @@ img#bg {
 	width: 1000px;
 	margin: 0 auto;
 }
+.shadow-left{ 
+	background: url('img/shadows/left-content-shadow.png') repeat-y; 
+	width: 100px;
+	height: 100%;
+	position: relative;
+	float: left;
+}
+.shadow-right{ 
+	background: url('img/shadows/right-content-shadow.png') repeat-y; 
+	width: 100px;
+	height: 100%;
+	position: relative;
+	float: right;
+}
+.shadow-left-corner{
+	background: url('img/shadows/left-corner-shadow.png') no-repeat; 
+	width: 100px;
+	height: 113px;
+	position: relative;
+	float: left;
+
+}
+.shadow-right-corner{
+	background: url('img/shadows/right-corner-shadow.png') no-repeat; 
+	width: 100px;
+	height: 113px;
+	position: relative;
+	float: right;
+}
+
 p{
 	padding-top: 12px;
 	font-size: 93%; 
@@ -286,29 +332,15 @@ a:link{
 }
 a:hover{ text-decoration: underline;}
 a:visited{color: #ccc;}
-#content_wrapper{height=100%;}
+#content_wrapper{
+	width:1000px;
+}
 
 #content{
 	background: rgb(0,0,0,.2);
-
 	position: relative;
-	
-	
+	float: left;
 }
-
-#body_container{padding: 0px 25px; }
-.entry{
-	width: 500px;
-}
-#side_nav{
-	width: 250px;
-}
-.side-nav-item{
-	font-size: 123.1%;
-	display: block;
-	cursor:pointer; 
-}
-
 h2{
 	font-size: 138.5%;
 	padding-top: 25px;
@@ -318,24 +350,14 @@ h5{
 	font-weight: lighter;
 	padding-top: 12px;
 }
-html>body .entry ul {
-	margin-left: 0px;
-	padding: 0 0 0 30px;
-	list-style: none;
-	padding-left: 10px;
-	text-indent: -10px;
-	}
+header{
+	width: 1000px;
+	height: 52px;
+	position: relative;
+}
 
-html>body .entry li {
-	margin: 7px 0 8px 10px;
-	}
-.entry ul li:before, #sidebar ul ul li:before {
-	content: "\00BB \0020";
-	}
-
-	/* @logo */
+	/* @LOGO STYLES */
 #logo{
-
 	margin-left: 50%;
 	z-index: 2;
 	top:65px;
@@ -346,6 +368,7 @@ html>body .entry li {
 	display: block;
 	outline:none;
 }
+
 #logo a{ 
 	text-indent: -9999px;
 	float: left;
@@ -399,17 +422,16 @@ html>body .entry li {
 	font-size: 93%;
 	padding-left: 10px
 }
-	/*@HEADER STYLES*/
-header{
-	width: 800px;
-	height: 52px;
-	position: relative;
-}
+
+/* @NAV STYLES */
 nav {
+/*
 	position: absolute;
 	margin-left: 50%;
 	left: -400px;
-	width: 801px;
+*/
+	width: 800px;
+	float: left;
 }
 nav ul{
 	margin: 0;
@@ -484,8 +506,8 @@ nav a:hover, nav a:active{
 #slideshow{
 	display: block;
 	background: transparent url('img/slides/slide1BG.png') no-repeat;
-	width: 807px;
-	height: 494px;
+	width: 800px;
+	height: 488px;
 	cursor:pointer;
 }
 	
@@ -494,23 +516,51 @@ nav a:hover, nav a:active{
 
 	/*@FOOTER STYLES*/
 footer{
+
+	
+	
+
+}
+#footer_wrapper{
+	background: url('img/shadows/footer-content-shadow.png') repeat-x; 
+	height: 113px;
+	width: 800px;
+	float: left;
 	position: relative;
-	color: #fff;
 }
 footer .share-bubble{
 	background-color: rgba(255,255,255, .2);
 	float: left;
-	margin-right: 20px;	
+	margin-top: 12px;
+	margin-right: 30px;	
 	height: 34px;
 	width: 232px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
+.share-bubble img{
+	float:left;
+	margin: 5px 8px 0 5px;
+}
+.share-bubble a:link,.share-bubble a:hover, .share-bubble a:visited{
+	color: #ddd;
+	font-weight: lighter;	
+	font-size: 108%;
+	text-decoration: none;
+	padding-top: 11px;
+	display:block;
+	float: left;
+	
+}
+#footer_logo{ 
+	float:right;
+	margin-right: 20px;
+}
 #footer_logo p{
 	font-weight: lighter;
 	color: #aaa;
-	float: left;	
 	margin-left: 0px;
+	float: left;
 }
 #footer_logo img {
 	width: 183px;
@@ -520,6 +570,7 @@ footer .share-bubble{
 
 footer p{
 	margin-left: 12px;	
+	color: white;
 }
 /***************************************************************************************
  									@end End Primary Styles
