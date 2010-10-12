@@ -2,10 +2,20 @@
 <!-- this is where page stuff goes -->
 
 <div id="body_container">
-	
+<?php
+  if($post->post_parent)
+  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0");
+  else
+  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0");
+  if ($children) { ?>
+  <ul>
+  <?php echo $children; ?>
+  </ul>
+  <?php } ?>
+
 	<?php if(have_posts()): ?>
 		  <?php while(have_posts()):the_post(); ?>
-		  <?php 	$data = get_post_custom();  ?>
+		  <?php 	$data = get_post_custom();  var_dump($data); ?>
 		  <?php		$pg_name = $data['pg_name'][0] ?>
 		  <script type="text/javascript"> 
 		  	pageName = "<?=$pg_name;?>";

@@ -5,8 +5,7 @@
  */
 ?>   	
 	</div>  <!-- end of content div -->
-	<div class="shadow-right"></div>
-	<div class="clearfix"></div>
+
 	</div> <!-- end of content wrapper -->
 	<footer>
 		<div class="shadow-left-corner"></div>

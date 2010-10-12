@@ -290,6 +290,9 @@ img#bg {
 	width: 1000px;
 	margin: 0 auto;
 }
+.shadow-content{
+	background: url('img/shadows/content-shadow.png') repeat-y; 
+}
 .shadow-left{ 
 	background: url('img/shadows/left-content-shadow.png') repeat-y; 
 	width: 100px;
@@ -333,13 +336,16 @@ a:link{
 a:hover{ text-decoration: underline;}
 a:visited{color: #ccc;}
 #content_wrapper{
+
 	width:1000px;
+	display: bl
 }
 
 #content{
-	background: rgb(0,0,0,.2);
+	background: url('img/shadows/content-shadow.png') repeat-y; 
 	position: relative;
-	float: left;
+	padding: 0 100px;
+	width: 800px;
 }
 h2{
 	font-size: 138.5%;
@@ -350,10 +356,13 @@ h5{
 	font-weight: lighter;
 	padding-top: 12px;
 }
+/* @HEADER STYLES */
 header{
-	width: 1000px;
-	height: 52px;
+	background: url('img/shadows/content-shadow.png') repeat-y; 
 	position: relative;
+	padding: 0 100px;
+	width: 800px;
+	height: 52px;
 }
 
 	/* @LOGO STYLES */
@@ -425,11 +434,7 @@ header{
 
 /* @NAV STYLES */
 nav {
-/*
-	position: absolute;
-	margin-left: 50%;
-	left: -400px;
-*/
+background:  rgba(255,255,255, .2) ;
 	width: 800px;
 	float: left;
 }
