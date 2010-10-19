@@ -1,19 +1,7 @@
 <?php get_header(); ?>
 <!-- this is where page stuff goes -->
-
+<?php if (!is_home()) get_sidebar(); ?>
 <div id="body_container">
-<?php
-//wp_page_menu();
-
-  if($post->post_parent)
-  $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0");
-  else
-  $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0");
-  if ($children) { ?>
-  <ul>
-  <?php echo $children; ?>
-  </ul>
-  <?php } ?>
 
 	<?php if(have_posts()): ?>
 		  <?php while(have_posts()):the_post(); ?>

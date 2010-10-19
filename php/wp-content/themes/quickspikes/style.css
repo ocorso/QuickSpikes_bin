@@ -277,6 +277,7 @@ html, body{
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	color: #aaa;
 }
 
 img#bg {
@@ -285,7 +286,18 @@ img#bg {
 	left:0;
 	width:100%;
 }
+img#sunset_bg{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+}
+.post{
+	background: url('img/backgrounds/postBG.png') no-repeat; 
+	width: 800px;
+	height: 488px;
 
+}
 #container{
 	width: 1000px;
 	margin: 0 auto;
@@ -429,7 +441,8 @@ header{
 #logo_reveal_inner h2{
 	text-transform: uppercase;
 	font-size: 93%;
-	padding-left: 10px
+	padding-left: 20px;
+	color: #444;
 }
 
 /* @NAV STYLES */
@@ -475,7 +488,7 @@ nav ul li{
 .nav-link{
 	background: rgba(0, 0, 0, 0.2);
 }
-nav a:link, nav a:hover, nav a:visited{
+nav a:link, nav a:hover, nav a:visited, .nav-link-hover{
 	height:52px;
 	outline:none;
 	font-size: 85%;
@@ -489,10 +502,62 @@ nav a:visited{
 nav a:hover, nav a:active{
 	color: #ff0;
 }	
+/* @SIDEBAR STYLES */
+section{
+	width: 106px;
+	height: 217px;
+	position: absolute;
+	left: -6px;
+	top: 140px;
+	list-style: none;
+}
+section h1{
+	background: url('img/sidebar/sidebar-top.png') no-repeat;
+	width: 107px;
+	height: 24px;
+	padding-top: 13px;
+	color: #fff;
+	text-transform:uppercase;
+	text-align: right;
+	font-size: 108%;
+	font-weight: normal;
+	font-family: Arial;
+}
+section ul {
+	background: url('img/sidebar/sidebarBG.png') no-repeat;
+	width: 99px;
+	height: 71px;
+	padding-top: 10px;
+	margin-left: 7px;
+	text-align: right;
+}
+section ul li {
+	list-style: none;
+	margin-top: 5px;
+	font-size: 85%;
+	
+}
+section a:link, section a:visited{color:#666; margin-right: 6px; text-decoration: none;}
+section a:hover{ color: #ff4500;}
+section #sidebar_account_body{
+	background: url('img/sidebar/sidebar-loginBG.png') no-repeat;
+	width: 99px;
+	height: 26px;
+	padding-top: 10px;
+	margin-left: 7px;
+	text-align: right;	
+}
 
+section #sidebar_account_body li, #sidebar_account_body>a {
+	display: inline;
+	text-align: right;
+	font-size: 85%;
+}
 /*HEADING BACKGROUNDS*/
 .headings{
+	float: right;
 	height: 31px;
+	margin-top: 10px;
 	margin-bottom: 25px;
 	text-indent: -9999px;
 }
@@ -510,7 +575,7 @@ nav a:hover, nav a:active{
 }
 #slideshow{
 	display: block;
-	background: transparent url('img/slides/slide1BG.png') no-repeat;
+	background: transparent url('img/backgrounds/postBG.png') no-repeat;
 	width: 800px;
 	height: 488px;
 	cursor:pointer;

@@ -29,7 +29,12 @@
 
 <body <?php body_class(); ?>>
   <script type="text/javascript"> var pageName = "home";</script>
-  <img src="<?= get_bloginfo('template_directory'); ?>/img/backgrounds/grassBG_v2.jpg" alt="background image" id="bg" />
+  
+  <?php if (is_page("About") || is_page("FAQ")) : ?>
+  <img id="sunset_bg" src="<?= get_bloginfo('template_directory'); ?>/img/backgrounds/sunsetBG.jpg" alt="background image" />
+  <?php else : ?>
+   <img id="bg" src="<?= get_bloginfo('template_directory'); ?>/img/backgrounds/grassBG.jpg" alt="background image" />
+   <?php endif; ?>
   <div id="container">
   	<header>
 		<div id="logo">

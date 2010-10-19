@@ -11,9 +11,11 @@
 		$("nav ul li").hover(
   			function () {//over
   				$(this).removeClass("nav-link").addClass("nav-hover");
+  				$(".nav-hover a").addClass("nav-link-hover");
   			},
   			function () {//out
   				$(this).removeClass("nav-hover").addClass("nav-link");
+  				$(this).children("a").removeClass("nav-link-hover");
   			}
 		);
 		$("#logo").hover(
@@ -26,30 +28,21 @@
 				$("#logo_reveal").animate({width:"0px"},400);
 			}
 		);
+		
 	switch(pageName){
 		case "home":
 			jQuery("#slideshow").click(function(jQueryevt){	
-					jQuery(this).addClass('.pointer');
+					$(this).addClass('.pointer');
    					parent.location='/products';
    			});//end slideshow click	
 	 		jQuery("body.home").children(".content-border").hide();
 		break;
 		case "about":
-			jQuery(".why-to-use").hide();
-			jQuery(".side-nav-1").click(function(){
-				jQuery(".section").hide();
-				jQuery(".story").show();
-			});
-				
-			jQuery(".side-nav-2").click(function(){
-				jQuery(".section").hide();
-				jQuery(".why-to-use").show();
-			});
+			//about specific progressive enhancement
 		break;
 		case "products":
-			jQuery(".side-nav-1").click(function(){parent.location='/products/checkout';});
-			jQuery(".side-nav-2").click(function(){parent.location='/products/transaction-results';});
-			jQuery(".side-nav-3").click(function(){parent.location='/products/your-account';});
+			//product
+			
 		break;
 		
 	}//end switch

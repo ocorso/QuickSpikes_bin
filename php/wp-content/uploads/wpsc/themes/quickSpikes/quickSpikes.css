@@ -269,10 +269,10 @@ div.single_product_display div.textcol{
  margin-right:15px;
 }
 
-
+/* @product */
 
 div.producttext{
- color: #232323;
+ color: #fff;
  font-size: 1.2em;
  width: 100%;
  text-align: left !important; 
