@@ -23,8 +23,7 @@
 				<p>golf.com</p>
 			</div>
 			<div class="clearfix"></div>
-		   	<p>&copy; 2010 Quick Spikes Golf LLC  |  All Rights Reserved  |  Quick Spikes Patents and Trademarks Pending  |  <a href="/privacy_policy">Privacy Policy</a>  |  <a href="/php/wp-login.php">Login</a>  |  <a href="/sitemap">Site Map</a>  </p>
-
+		   	<p>&copy; 2010 Quick Spikes Golf LLC  |  All Rights Reserved  |  Quick Spikes Patents and Trademarks Pending  |  <a href="/privacy_policy">Privacy Policy</a>  |  <a href="/sitemap">Site Map</a>   |  <?php wp_loginout( $redirect ); ?>  </p>
 		</div>
 		<div class="shadow-right-corner"></div>
 		<div class="clearfix"></div>

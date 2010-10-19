@@ -3,6 +3,8 @@
 
 <div id="body_container">
 <?php
+//wp_page_menu();
+
   if($post->post_parent)
   $children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0");
   else
@@ -15,7 +17,7 @@
 
 	<?php if(have_posts()): ?>
 		  <?php while(have_posts()):the_post(); ?>
-		  <?php 	$data = get_post_custom();  var_dump($data); ?>
+		  <?php 	$data = get_post_custom(); ?>
 		  <?php		$pg_name = $data['pg_name'][0] ?>
 		  <script type="text/javascript"> 
 		  	pageName = "<?=$pg_name;?>";
@@ -24,13 +26,8 @@
 		  		
 		  
 		  <div class="post">
-			<div id="side_nav" class="left">
-				<div id="<?= $data['pg_name'][0];?>_heading" class="headings">"<?= strtoupper($data['pg_name'][0]); ?></div> 
-				<?php for($i=0; $i<count($data['side_nav_title']); $i++): ?>
-					<div class="side-nav-<?=$i+1; ?> side-nav-item"><?= $data['side_nav_title'][$i]; ?></div>
-				<?php endfor; ?>
-			</div>	
-		    <div class="entry right" id="post-<?php the_ID(); ?>">
+				<div id="<?= $pg_name?>_heading" class="headings">"<?= strtoupper($pg_name); ?></div> 
+		    <div class="entry" id="post-<?php the_ID(); ?>">
 		
 		      <?php the_content("[Read more &rarr;]"); ?>
 		    </div>
