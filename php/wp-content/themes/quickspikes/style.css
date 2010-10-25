@@ -268,7 +268,9 @@ button {  width: auto; overflow: visible; }
 /* @ADMIN STYLES */
 .wp-admin{ background-color: #F7F6F1}
 .wp-admin a:link{ color: #999;}
-
+#editorcontainer #content {
+	background: white;
+}
 /*@GLOBAL STYLES*/
 html, body{
 	background-size: 100%;
@@ -293,9 +295,9 @@ img#sunset_bg{
 	width:100%;
 }
 .post{
-	background: url('img/backgrounds/postBG.png') no-repeat; 
+	background: url('img/backgrounds/postBG.png') repeat-y; 
 	width: 800px;
-	height: 488px;
+	min-height: 487px;
 
 }
 #container{
@@ -340,13 +342,14 @@ p{
 	font-size: 93%; 
 	font-weight: lighter;
 }
-a:link{
+
+a:link, a:visited{
 	color: #fff; 
 	size: 93%;
 	text-decoration: none;
 }
 a:hover{ text-decoration: underline;}
-a:visited{color: #ccc;}
+
 #content_wrapper{
 
 	width:1000px;
@@ -424,7 +427,6 @@ header{
 	background: url('img/backgrounds/logo-revealed-BG.jpg') #ff7745 no-repeat;
 	width: 325px;
 	height:98px;
-
 	border-left: gray solid 1px;	
 	-moz-border-radius-topright: 5px;
 	-moz-border-radius-bottomright: 5px;
@@ -433,6 +435,11 @@ header{
 	position: absolute;
 	display: block;
 	overflow: hidden;
+}
+#logo_reveal_inner a{ 
+	display: block;
+	text-indent: 0px;
+	float: none;
 }
 #logo_reveal_inner img, #logo_reveal_inner h2{
 	margin: 13px 0 0 10px;
@@ -456,7 +463,7 @@ nav ul{
 	padding: 0;
 	position: relative;
 	line-height: normal;
-	width: 801px;
+	width: 800px;
 	height: 52px;
 	
 }
@@ -466,10 +473,10 @@ nav ul li{
   	/* background: rgb(0, 0, 0); */
 	/* RGBa with 0.6 opacity */
 	/* background: rgba(0, 0, 0, 0.2); */
-	border-left-color: rgba(255,255,255,.2);
+	border-left-color: rgba(255,255,255,.1);
 	border-left-style: solid;
 	border-left-width: 1px;
-	border-right-color: rgba(0,0,0,.4);
+	border-right-color: rgba(0,0,0,.2);
 	border-right-style: solid;
 	border-right-width: 1px;
 	height: 52px;
@@ -483,10 +490,10 @@ nav ul li{
 	cursor: pointer;
 }
 .nav-hover{
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, .8);
 }
 .nav-link{
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.7);
 }
 nav a:link, nav a:hover, nav a:visited, .nav-link-hover{
 	height:52px;
@@ -516,6 +523,15 @@ section h1{
 	width: 107px;
 	height: 24px;
 	padding-top: 13px;
+	margin-right: 6px;
+	color: #fff;
+	text-transform:uppercase;
+	text-align: right;
+	font-size: 108%;
+	font-weight: normal;
+	font-family: Arial;
+}
+section h1 a:link, section h1 a:hover, section h1 a:visited {
 	color: #fff;
 	text-transform:uppercase;
 	text-align: right;
@@ -585,7 +601,7 @@ section #sidebar_account_body li, #sidebar_account_body>a {
 	
 
 	/*@FOOTER STYLES*/
-footer{
+footer a{
 
 	
 	
@@ -628,8 +644,9 @@ footer .share-bubble{
 }
 #footer_logo p{
 	font-weight: lighter;
-	color: #aaa;
-	margin-left: 0px;
+	color: #888;
+	margin-top: 11px;
+	margin-left: 2px;
 	float: left;
 }
 #footer_logo img {

@@ -19,11 +19,11 @@
 				<a href="http://www.facebook.com/pages/Quick-Spikes/114826768579293" title="Fan Us On Facebook" target="_blank>">FAN US ON FACEBOOK</a>
 			</div>
 			<div id="footer_logo">
-				<img src="<?= get_bloginfo('template_directory'); ?>/img/logo/quick_spikes.png" alt="Quick Spikes"/>
-				<p>golf.com</p>
+				<a href="<?php bloginfo('url'); ?>/" title="Quick Spikes Home"><img src="<?= get_bloginfo('template_directory'); ?>/img/logo/quick_spikes.png" alt="Quick Spikes"/>
+				<p>golf.com</p></a>
 			</div>
 			<div class="clearfix"></div>
-		   	<p>&copy; 2010 Quick Spikes Golf LLC  |  All Rights Reserved  |  Quick Spikes Patents and Trademarks Pending  |  <a href="/privacy_policy">Privacy Policy</a>  |  <a href="/sitemap">Site Map</a>   |  <?php wp_loginout( $redirect ); ?>  </p>
+		   	<p>&copy; 2010 Quick Spikes Golf LLC  |  All Rights Reserved  |  Quick Spikes Patents and Trademarks Pending  |  <a href="/privacy_policy" title="View the Quick Spikes Privacy Policy">Privacy Policy</a>  |  <a href="/sitemap" title="View the Quick Spikes Site Map">Site Map</a>   |  <?php wp_loginout( $redirect ); ?>  </p>
 		</div>
 		<div class="shadow-right-corner"></div>
 		<div class="clearfix"></div>

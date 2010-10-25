@@ -38,11 +38,11 @@
   <div id="container">
   	<header>
 		<div id="logo">
-			<a id="logo_big_q" href="<?php bloginfo('url'); ?>/"><?php bloginfo('name'); ?></a>
+			<a id="logo_big_q" href="<?php bloginfo('url'); ?>/" title="Quick Spikes Home"><?php bloginfo('name'); ?></a>
 			<div id="logo_reveal">
-				<div id="logo_reveal_inner"><img src="<?= get_bloginfo('template_directory'); ?>/img/logo/quick_spikes.png" alt="Quick Spikes"/>
+				<div id="logo_reveal_inner"><a href="<?php bloginfo('url'); ?>/" title="Quick Spikes Home"><img src="<?= get_bloginfo('template_directory'); ?>/img/logo/quick_spikes.png" alt="Quick Spikes"/>
 					<h2>The Temporary Golf Spike Solution.</h2>
-				</div>
+				</a></div>
 			</div>
 			<div id="logo_handle"></div>
 			<div class="clearfix"></div>
