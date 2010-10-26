@@ -267,7 +267,7 @@ button {  width: auto; overflow: visible; }
 
 /* @ADMIN STYLES */
 .wp-admin{ background-color: #F7F6F1}
-.wp-admin a:link{ color: #999;}
+.wp-admin a:link, .wp-admin a:visited{ color: #999;}
 #editorcontainer #content {
 	background: white;
 }
