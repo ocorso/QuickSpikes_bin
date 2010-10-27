@@ -266,7 +266,7 @@ button {  width: auto; overflow: visible; }
 .pointer{cursor:pointer; cursor: hand;}
 
 /* @ADMIN STYLES */
-.wp-admin{ background-color: #F7F6F1}
+.wp-admin, .update-php{ background-color: #F7F6F1}
 .wp-admin a:link, .wp-admin a:visited{ color: #999;}
 #editorcontainer #content {
 	background: white;
@@ -300,6 +300,7 @@ img#sunset_bg{
 	min-height: 487px;
 
 }
+.entry{ }
 #container{
 	width: 1000px;
 	margin: 0 auto;
@@ -383,7 +384,7 @@ header{
 	/* @LOGO STYLES */
 #logo{
 	margin-left: 50%;
-	z-index: 2;
+	z-index: 100;
 	top:65px;
 	cursor:pointer;
 	left:-500px;
@@ -506,7 +507,7 @@ nav a:link, nav a:hover, nav a:visited, .nav-link-hover{
 nav a:visited{ 
 	color: #fff;
 }
-nav a:hover, nav a:active{
+nav a:hover, nav a:active, nav a.selected{
 	color: #ff0;
 }	
 /* @SIDEBAR STYLES */
@@ -571,19 +572,27 @@ section #sidebar_account_body li, #sidebar_account_body>a {
 }
 /*HEADING BACKGROUNDS*/
 .headings{
+	background-image: url('img/headings.png');
 	float: right;
-	height: 31px;
-	margin-top: 10px;
-	margin-bottom: 25px;
-	text-indent: -9999px;
+	width: 641px;
+	height: 35px;
+	margin-top: 14px;
+	margin-right: 15px;
+	margin-bottom: 6px;
+
 }
-#about_heading{
-	background:transparent url('img/headings.png') 	0px 0px no-repeat;
-	width: 191px;
-}
-#products_heading{
-	background:transparent url('img/headings.png') 	0px -33px no-repeat;
-	width: 200px;
+.headings h1{ 	text-indent: -9999px;}
+#about_heading{		background-position: 0 0;}
+#products_heading{	background-position: 0px -35px;}
+#faq_heading{		background-position: 0px -70px;}
+#gallery_heading{	background-position: 0px -105px;}
+#partners_heading{	background-position: 0px -140px;}
+#contact_heading{	background-position: 0px -175px;}
+.holding-line{ 
+	background: url('img/holding-line.png');
+	width: 794px;
+	height: 1px;
+	float: right;
 }
 	/*@HOMEPAGE STYLES*/
 .home .content-border{
@@ -591,12 +600,22 @@ section #sidebar_account_body li, #sidebar_account_body>a {
 }
 #slideshow{
 	display: block;
-	background: transparent url('img/backgrounds/postBG.png') no-repeat;
-	width: 800px;
-	height: 488px;
+	position: relative;
+
 	cursor:pointer;
 }
-	
+#slider {
+	width: 800px;
+	height: 488px;
+	position:relative;
+	background: url('img/slides/ajax-loader.gif') no-repeat 50% 50%; 
+}
+#slider img {
+	position:absolute;
+	top:0px;
+	left:0px;
+	display:none;
+}
 	/*@ECOMMERCE STYLES*/
 	
 

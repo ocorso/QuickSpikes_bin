@@ -4,24 +4,20 @@
 <div id="body_container">
 
 	<?php if(have_posts()): ?>
-		  <?php while(have_posts()):the_post(); ?>
-		  <?php 	$data = get_post_custom(); ?>
-		  <?php		$pg_name = $data['pg_name'][0] ?>
-		  <script type="text/javascript"> 
-		  	pageName = "<?=$pg_name;?>";
-		  </script>
-			
-		  		
-		  
-		  <div class="post">
-				<div id="<?= $pg_name?>_heading" class="headings">"<?= strtoupper($pg_name); ?></div> 
-		    <div class="entry" id="post-<?php the_ID(); ?>">
-		
-		      <?php the_content("[Read more &rarr;]"); ?>
+		<?php while(have_posts()):the_post(); ?>	
+		<div class="post">
+			<div id="heading">
+				<div class="holding-line"></div>			
+				<div id="<?= strtolower(get_the_title()); ?>_heading" class="headings"><h1><?php the_title(); ?></h1></div> 
+				<div class="holding-line"></div>			
+				<div class="clearfix"></div>
+			</div>
+		    <div class="entry" id="post-<?php the_ID(); ?>">	
+			      <?php the_content("[Read more &rarr;]"); ?>
 		    </div>
-		  </div>
-		  <?php endwhile; ?>
-			  <?php else: ?>
+	  	</div>
+		<?php endwhile; ?>
+	<?php else: ?>
 		  <div class="post" id="post-<?php the_ID(); ?>">
 		    <h2>
 		      <?php _e('Not Found'); ?>
@@ -29,7 +25,7 @@
 		
 		  </div>
 	<?php endif; ?>
-		<div class="clear-both"></div>
+	<div class="clear-both"></div>
 </div>
 
 <?php get_footer(); ?>

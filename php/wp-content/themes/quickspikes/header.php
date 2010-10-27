@@ -28,8 +28,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-  <script type="text/javascript"> var pageName = "home";</script>
-  
+
   <?php if (is_page("About") || is_page("FAQ")) : ?>
   <img id="sunset_bg" src="<?= get_bloginfo('template_directory'); ?>/img/backgrounds/sunsetBG.jpg" alt="background image" />
   <?php else : ?>
@@ -49,13 +48,13 @@
 		</div> <!-- end logo -->	
 		<nav>
 			<ul>
-				<li id="nav_home">		<a href="<?php bloginfo('url'); ?>">Home</a></li>
-				<li id="nav_about">		<a href="/about">About		</a></li>
-				<li id="nav_products">	<a href="/products">Products</a></li>
-				<li id="nav_faq">		<a href="/faq">FAQ			</a></li>
-				<li id="nav_gallery">	<a href="/gallery">Gallery	</a></li>
-				<li id="nav_partners">	<a href="/partners">Partners</a></li>
-				<li id="nav_contact">	<a href="/contact">Contact	</a></li>
+				<li id="nav_home">		<a <?php if (is_front_page()) echo 'class="selected"'; ?> href="<?php bloginfo('url'); ?>">Home</a></li>
+				<li id="nav_about">		<a <?php if (is_page("About")) echo 'class="selected"'; ?> href="/about">About		</a></li>
+				<li id="nav_products">	<a <?php if (is_page("Products")) echo 'class="selected"'; ?> href="/products">Products</a></li>
+				<li id="nav_faq">		<a <?php if (is_page("FAQ")) echo 'class="selected"'; ?> href="/faq">FAQ			</a></li>
+				<li id="nav_gallery">	<a <?php if (is_page("Gallery")) echo 'class="selected"'; ?> href="/gallery">Gallery	</a></li>
+				<li id="nav_partners">	<a <?php if (is_page("Partners")) echo 'class="selected"'; ?> href="/partners">Partners</a></li>
+				<li id="nav_contact">	<a <?php if (is_page("Contact")) echo 'class="selected"'; ?> href="/contact">Contact	</a></li>
 			</ul>  
 		</nav>			
 	</header>
