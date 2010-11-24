@@ -49,12 +49,12 @@
 		<nav>
 			<ul>
 				<li id="nav_home">		<a <?php if (is_front_page()) echo 'class="selected"'; ?> href="<?php bloginfo('url'); ?>">Home</a></li>
-				<li id="nav_about">		<a <?php if (is_page("About")) echo 'class="selected"'; ?> href="/about">About		</a></li>
-				<li id="nav_products">	<a <?php if (is_page("Products")) echo 'class="selected"'; ?> href="/products">Products</a></li>
-				<li id="nav_faq">		<a <?php if (is_page("FAQ")) echo 'class="selected"'; ?> href="/faq">FAQ			</a></li>
-				<li id="nav_gallery">	<a <?php if (is_page("Gallery")) echo 'class="selected"'; ?> href="/gallery">Gallery	</a></li>
-				<li id="nav_partners">	<a <?php if (is_page("Partners")) echo 'class="selected"'; ?> href="/partners">Partners</a></li>
-				<li id="nav_contact">	<a <?php if (is_page("Contact")) echo 'class="selected"'; ?> href="/contact">Contact	</a></li>
+				<li id="nav_about">		<a <?php if (is_page("About")) echo 'class="selected"'; ?> href="<?php bloginfo('url'); ?>/about">About		</a></li>
+				<li id="nav_products">	<a <?php if (is_page("Products")) echo 'class="selected"'; ?> href="<?php bloginfo('url'); ?>/products">Products</a></li>
+				<li id="nav_faq">		<a <?php if (is_page("FAQ")) echo 'class="selected"'; ?> href="<?php bloginfo('url'); ?>/faq">FAQ			</a></li>
+				<li id="nav_gallery">	<a <?php if (is_page("Gallery")) echo 'class="selected"'; ?> href="<?php bloginfo('url'); ?>/gallery">Gallery	</a></li>
+				<li id="nav_partners">	<a <?php if (is_page("Partners")) echo 'class="selected"'; ?> href="<?php bloginfo('url'); ?>/partners">Partners</a></li>
+				<li id="nav_contact">	<a <?php if (is_page("Contact")) echo 'class="selected"'; ?> href="<?php bloginfo('url'); ?>/contact">Contact	</a></li>
 			</ul>  
 		</nav>			
 	</header>
