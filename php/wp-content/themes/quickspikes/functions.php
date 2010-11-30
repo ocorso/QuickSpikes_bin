@@ -37,8 +37,7 @@ function form_shortcode_handler($atts, $content=null, $code="") {
 	
 	switch($atts['type']){
 		case "faq" 		: $labels = _make_labels($faqArr);
-			$form 	= "<form id='qs_form' method='post' action='/php/form/submit.php'>";
-
+			$form 	= "<form id='qs_form' method='post' action='/thank-you'>";
 			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
 			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
 			$inputs.= "<li><input name='form_email' type='email' required /></li>";
@@ -47,7 +46,7 @@ function form_shortcode_handler($atts, $content=null, $code="") {
 			break;	
 		
 		case "partner" 	: $labels = _make_labels($partnerArr);
-			$form 	= "<form id='qs_form' method='post' action='/php/form/submit.php'>";
+			$form 	= "<form id='qs_form' method='post' action='/thank-you'>";
 			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
 			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
 			$inputs.= "<li><input name='form_email' type='email' required /></li>";
@@ -62,7 +61,7 @@ function form_shortcode_handler($atts, $content=null, $code="") {
 			break;
 		
 		case "contact" 	: $labels = _make_labels($contactArr);
-			$form 	= "<form id='contact_form' method='post' action='/php/form/submit.php'>";
+			$form 	= "<form id='contact_form' method='post' action='/thank-you'>";
 			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
 			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
 			$inputs.= "<li><input name='form_email' type='email' required /></li>";
@@ -86,15 +85,18 @@ function parse_subheadings($theTitle){
 		case "Submit New" :	
 			return "faq_heading";
 			break;
+		case "Affiliates" :
+		case "Wholesalers" :
 		case "Submit Inquiry" :	
 			return "partners_heading";
 			break;
+		case "Checkout" :
+		case "Your Account" :
+		case "Transactions" :
+			return "products_heading";
+			break;
 		default : return strtolower(str_replace(" ", "_",$theTitle)."_heading");
 	}//end switch
-	//products
-	//checkout
-	//transactions
-	//your account
 
 }//end function parse_subheadings
 
