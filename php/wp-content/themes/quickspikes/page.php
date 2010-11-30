@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <!-- this is where page stuff goes -->
-<?php if (!is_home()) get_sidebar(); ?>
+<?php if (we_need_sidebar(is_home(), get_the_title())) get_sidebar(); ?>
 <div id="body_container">
 
 	<?php if(have_posts()): ?>
@@ -8,7 +8,7 @@
 		<div class="post">
 			<div id="heading">
 				<div class="holding-line"></div>			
-				<div id="<?= strtolower(get_the_title()); ?>_heading" class="headings"><h1><?php the_title(); ?></h1></div> 
+				<div id="<?= parse_subheadings(get_the_title())	;?>" class="headings"><h1><?php the_title(); ?></h1></div> 
 				<div class="holding-line"></div>			
 				<div class="clearfix"></div>
 			</div>

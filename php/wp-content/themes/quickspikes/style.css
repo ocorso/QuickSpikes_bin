@@ -300,7 +300,9 @@ img#sunset_bg{
 	min-height: 487px;
 
 }
-.entry{ }
+.entry{ 
+	margin-left: 40px;
+}
 #container{
 	width: 1000px;
 	margin: 0 auto;
@@ -367,11 +369,30 @@ h2{
 	font-size: 138.5%;
 	padding-top: 25px;
 }
+h4{
+	margin-top: 15px;
+	color: #ffff00;
+	font-style:italic
+}
 h5{
 	font-size: 100%;
 	font-weight: lighter;
 	padding-top: 12px;
 }
+li { 	height: 30px; }
+/*@FORM STYLES*/
+form { 
+	width: 550px;
+	border: 1px solid grey;
+	padding: 10px;
+}
+#form_labels, #form_inputs{ 
+	float: left;
+}
+#form_labels{
+	width: 75px;
+}
+
 /* @HEADER STYLES */
 header{
 	background: url('img/shadows/content-shadow.png') repeat-y; 

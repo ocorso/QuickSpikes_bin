@@ -1,0 +1,8 @@
+.svn
+.DS_Store
+profile
+*.tmproj
+.buildpath
+.project
+.settings
+.settings/*
