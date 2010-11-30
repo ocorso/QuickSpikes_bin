@@ -302,6 +302,7 @@ img#sunset_bg{
 }
 .entry{ 
 	margin-left: 40px;
+	width: 650px;
 }
 #container{
 	width: 1000px;
@@ -341,9 +342,10 @@ img#sunset_bg{
 }
 
 p{
-	padding-top: 12px;
-	font-size: 93%; 
+	padding-top: 8px;
+	font-size: 85%; 
 	font-weight: lighter;
+	color: #dddddd;
 }
 
 a:link, a:visited{
@@ -368,8 +370,9 @@ a:hover{ text-decoration: underline;}
 h2{
 	font-size: 138.5%;
 	padding-top: 25px;
+	margin-left: 35%;
 }
-h4{
+h4, form li{
 	margin-top: 15px;
 	color: #ffff00;
 	font-style:italic
@@ -379,20 +382,47 @@ h5{
 	font-weight: lighter;
 	padding-top: 12px;
 }
-li { 	height: 30px; }
+ul, ol{ margin: 0 1.8em;}
+
 /*@FORM STYLES*/
-form { 
-	width: 550px;
-	border: 1px solid grey;
-	padding: 10px;
+#qs_form, #contact_form { 
+	padding: 7px;
+	margin-top: 5px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+#qs_form{
+	background: rgba(0, 0, 0, 0.5);
+	width: 700px;
+	border: 2px solid grey;
+
+}
+#qs_form li, #contact_form li { 	
+	
+	height: 20px; 	
+	list-style: none;
 }
 #form_labels, #form_inputs{ 
 	float: left;
+
 }
 #form_labels{
-	width: 75px;
-}
+	width: 70px;
 
+}
+#form_inputs select{
+	margin-top: 16px;
+}
+.comment{
+	width: 360px;
+	height: 200px;
+	margin: 10px 0;
+}
+.contact-comment{
+	width: 260px;
+	height: 150px;
+
+}
 /* @HEADER STYLES */
 header{
 	background: url('img/shadows/content-shadow.png') repeat-y; 
@@ -609,6 +639,10 @@ section #sidebar_account_body li, #sidebar_account_body>a {
 #gallery_heading{	background-position: 0px -105px;}
 #partners_heading{	background-position: 0px -140px;}
 #contact_heading{	background-position: 0px -175px;}
+#sitemap_heading{	background-position: 0px -210px;}
+#thank_you_heading{	background-position: 0px -245px;}
+#privacy_policy_heading{background-position: 0px -280px;}
+
 .holding-line{ 
 	background: url('img/holding-line.png');
 	width: 794px;

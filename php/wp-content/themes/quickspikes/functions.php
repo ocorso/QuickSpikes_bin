@@ -27,82 +27,75 @@ add_shortcode('form-shortcode', 'form_shortcode_handler');
 
 function form_shortcode_handler($atts, $content=null, $code="") {
 	
-	$faqArr			= array('first_name', 'last_name', 'email', 'question', 'telephone');
-	$partnerArr 	= array('first_name', 'last_name', 'email', 'telephone', 'fax', 'comment');
+	$faqArr			= array('first_name', 'last_name', 'email', 'telephone');
+	$partnerArr 	= array('first_name', 'last_name', 'email', 'telephone', 'fax', 'address 1', 'address 2', 'city', 'state', 'zip code');
+	$contactArr		= array('first_name', 'last_name', 'email', 'telephone', 'comment');
 	
 	$form 			= "";
 	$labels			= "";
-	$inputs			= "<ul id='inputs'>";
+	$inputs			= "<input class='hide' name='form_type' value=".$atts['type']." /><ul id='form_inputs'>";
 	
 	switch($atts['type']){
-		case "faq" 		: 
-			$form 	= "<form method='post' action='/php/form/submit.php'>";
-			$inputs.= "<li><input name='form_email' type='email' ></li>";
-			break;		
+		case "faq" 		: $labels = _make_labels($faqArr);
+			$form 	= "<form id='qs_form' method='post' action='/php/form/submit.php'>";
+
+			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_email' type='email' required /></li>";
+			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
+			$inputs.= "</ul><h4>Question:</h4><input name='form_comment' class='comment' type='text' />";
+			break;	
 		
 		case "partner" 	: $labels = _make_labels($partnerArr);
-			$form 	= "<form method='post' action='/php/form/submit.php'>";
-			$inputs.= "<li><input name='form_fname' type='text' ></li>";
-			$inputs.= "<li><input name='form_lname' type='text' ></li>";
-			$inputs.= "<li><input name='form_email' type='email' ></li>";
-			$inputs.= "<li><input name='form_phone' type='telephone' ></li>";
-			$inputs.= "<li><input name='form_fax'	type='telephone' ></li>";
-			$inputs.= "<li><input name='form_comment' type='text' ></li>";
-			$inputs.= _get_state_select();	
+			$form 	= "<form id='qs_form' method='post' action='/php/form/submit.php'>";
+			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_email' type='email' required /></li>";
+			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
+			$inputs.= "<li><input name='form_fax'	type='telephone' /></li>";
+			$inputs.= "<li><input name='form_address1' type='text' /></li>";
+			$inputs.= "<li><input name='form_address2' type='text' /></li>";
+			$inputs.= "<li><input name='form_city' type='text' /></li>";
+			$inputs.= _get_state_select();
+			$inputs.= "<li><input name='form_zip' type='number' size='5' minlength='5' maxlength='5' /></li>";
+			$inputs.= "</ul><h4>Comment:</h4><input name='form_comment' class='comment' type='text' />";
 			break;
 		
-		case "contact" 	: 
-			$form 	= "<form method='post' action='/php/form/submit.php'>";
-			$inputs.= "<li><input name='form_email' type='email' ></li>";
-			break;		
+		case "contact" 	: $labels = _make_labels($contactArr);
+			$form 	= "<form id='contact_form' method='post' action='/php/form/submit.php'>";
+			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_email' type='email' required /></li>";
+			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
+			$inputs.= "<li><input name='form_comment' class='contact-comment' type='text' /></li></ul>";
+			break;	
 	
 		default : "error: bad shortcode form type";
 		
 	}//end switch
 	
-	$form 		   .= $labels . $inputs;	
-	$form 		   .= "<input type='submit' /><div class='clearfix'></div></form>";
+	$form 		   .= $labels . $inputs . "<input class='right' type='submit' value='Submit' />";	
+	$form 		   .= "<div class='clearfix'></div></form>";
 	
 	return $form;
-    
-   
-   //fields for faq 
-   			//first name
-   			//last name 
-   			//email
-   			//question
-   			//phone number
-   //add'l fields for partner
-   			//company
-   			//address 1
-   			//address 2
-   			//city 
-   			//state
-   			//zip
-   			//country
-   			//fax
-   			//comments instead of
-   			//
 
 }//end function
 
 function parse_subheadings($theTitle){
-//	switch ($theTitle){
-//		case "p" :	
-			
-//	}
+	switch ($theTitle){
+		case "Submit New" :	
+			return "faq_heading";
+			break;
+		case "Submit Inquiry" :	
+			return "partners_heading";
+			break;
+		default : return strtolower(str_replace(" ", "_",$theTitle)."_heading");
+	}//end switch
 	//products
 	//checkout
 	//transactions
 	//your account
-	
-	//faq
-	//submit new
-	
-	//gallery
-	
-	//partner
-return strtolower($theTitle."_heading");
+
 }//end function parse_subheadings
 
 function we_need_sidebar($isHome, $theTitle){
@@ -119,7 +112,7 @@ function we_need_sidebar($isHome, $theTitle){
 }//end function
 function _make_labels($a){
 	$ul = "<ul id='form_labels'>";
-	foreach($a as $l){ $ul .= "<li>".ucwords(str_replace("_"," ", $l))."</li>";}
+	foreach($a as $l){ $ul .= "<li>".ucwords(str_replace("_"," ", $l)).": </li>";}
 	$ul.="</ul>";
 	return $ul;
 }
