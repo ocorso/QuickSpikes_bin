@@ -399,23 +399,33 @@ ul, ol{ margin: 0 1.8em;}
 }
 #qs_form li, #contact_form li { 	
 	
-	height: 20px; 	
+ 	
 	list-style: none;
+}
+#qs_form li input, #contact_form li input{
+	width: 260px;
+	height: 20px;
 }
 #form_labels, #form_inputs{ 
 	float: left;
 
 }
-#form_labels{
+#form_labels li{
 	width: 70px;
-
+	height: 20px;
 }
 #form_inputs select{
 	margin-top: 16px;
 }
+#faq_question_list{
+	margin: 0;
+	width: 260px;
+	float: left;
+}
+#faq_question_list li{ margin-top: 0px;}
 .comment{
-	width: 360px;
-	height: 200px;
+	width: 260px;
+	height: 100px;
 	margin: 10px 0;
 }
 .contact-comment{

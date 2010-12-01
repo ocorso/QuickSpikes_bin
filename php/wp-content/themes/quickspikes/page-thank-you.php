@@ -2,7 +2,7 @@
 /*
 Template Name: Thank You      
 */
-
+if (isset($_POST['form_type']))	handle_form_results($_POST);
 get_header(); ?>
 <!-- this is where page stuff goes -->
 <?php if (we_need_sidebar(is_home(), get_the_title())) get_sidebar(); ?>

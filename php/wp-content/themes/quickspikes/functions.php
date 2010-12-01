@@ -1,4 +1,12 @@
 <?php
+// =================================================
+// ================ @Add
+// =================================================
+add_action('init', "my_init_method");
+add_shortcode('form-shortcode', 'form_shortcode_handler');        
+// =================================================
+// ================ @Enqueue
+// =================================================
 function my_init_method() {
 	$ver = 1.0;
 
@@ -22,64 +30,9 @@ function my_init_method() {
     wp_enqueue_style( 'handheld-css', get_bloginfo('template_url').'/css/handheld.css', false, $ver, 'handheld');
 } //end my init methond function   
  
-add_action('init', "my_init_method");
-add_shortcode('form-shortcode', 'form_shortcode_handler');
-
-function form_shortcode_handler($atts, $content=null, $code="") {
-	
-	$faqArr			= array('first_name', 'last_name', 'email', 'telephone');
-	$partnerArr 	= array('first_name', 'last_name', 'email', 'telephone', 'fax', 'address 1', 'address 2', 'city', 'state', 'zip code');
-	$contactArr		= array('first_name', 'last_name', 'email', 'telephone', 'comment');
-	
-	$form 			= "";
-	$labels			= "";
-	$inputs			= "<input class='hide' name='form_type' value=".$atts['type']." /><ul id='form_inputs'>";
-	
-	switch($atts['type']){
-		case "faq" 		: $labels = _make_labels($faqArr);
-			$form 	= "<form id='qs_form' method='post' action='/thank-you'>";
-			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
-			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
-			$inputs.= "<li><input name='form_email' type='email' required /></li>";
-			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
-			$inputs.= "</ul><h4>Question:</h4><input name='form_comment' class='comment' type='text' />";
-			break;	
-		
-		case "partner" 	: $labels = _make_labels($partnerArr);
-			$form 	= "<form id='qs_form' method='post' action='/thank-you'>";
-			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
-			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
-			$inputs.= "<li><input name='form_email' type='email' required /></li>";
-			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
-			$inputs.= "<li><input name='form_fax'	type='telephone' /></li>";
-			$inputs.= "<li><input name='form_address1' type='text' /></li>";
-			$inputs.= "<li><input name='form_address2' type='text' /></li>";
-			$inputs.= "<li><input name='form_city' type='text' /></li>";
-			$inputs.= _get_state_select();
-			$inputs.= "<li><input name='form_zip' type='number' size='5' minlength='5' maxlength='5' /></li>";
-			$inputs.= "</ul><h4>Comment:</h4><input name='form_comment' class='comment' type='text' />";
-			break;
-		
-		case "contact" 	: $labels = _make_labels($contactArr);
-			$form 	= "<form id='contact_form' method='post' action='/thank-you'>";
-			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
-			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
-			$inputs.= "<li><input name='form_email' type='email' required /></li>";
-			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
-			$inputs.= "<li><input name='form_comment' class='contact-comment' type='text' /></li></ul>";
-			break;	
-	
-		default : "error: bad shortcode form type";
-		
-	}//end switch
-	
-	$form 		   .= $labels . $inputs . "<input class='right' type='submit' value='Submit' />";	
-	$form 		   .= "<div class='clearfix'></div></form>";
-	
-	return $form;
-
-}//end function
-
+// =================================================
+// ================ @External
+// =================================================
 function parse_subheadings($theTitle){
 	switch ($theTitle){
 		case "Submit New" :	
@@ -112,12 +65,89 @@ function we_need_sidebar($isHome, $theTitle){
 		}//end switch
 	}//end else
 }//end function
+ 
+function handle_form_results($postData){
+	//todo: send email with form results to brendan
+	//todo: send email to the submitter.
+	
+	foreach ($postData as $key => $value){
+		$key
+	}
+}//end function handle_form_results
+        
+// =================================================
+// ================ @Shortcodes
+// =================================================
+function form_shortcode_handler($atts, $content=null, $code="") {
+	
+	$faqArr			= array('first_name', 'last_name', 'email', 'telephone');
+	$partnerArr 	= array('first_name', 'last_name', 'email', 'telephone', 'fax', 'address 1', 'address 2', 'city', 'state', 'zip code');
+	$contactArr		= array('first_name', 'last_name', 'email', 'telephone', 'comment');
+	
+	$form 			= "";
+	$labels			= "";
+	$inputs			= "<input class='hide' name='form_type' value=".$atts['type']." /><ul id='form_inputs'>";
+	
+	switch($atts['type']){
+		case "faq" 		: $labels = _make_labels($faqArr);
+			$form 	= "<form id='qs_form' method='post' action='/thank-you'>";
+			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_email' type='email' required /></li>";
+			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
+			$inputs.= "</ul><ul id='faq_question_list'>";
+			$inputs.= "<li><h4>Question:</h4></li>";
+			$inputs.= "<li><textarea name='form_comment' class='comment'></textarea></li>";
+			$inputs.= "<li><input type='submit' value='Submit' /></li></ul><div class='clearboth'></div>";
+			break;	
+		
+		case "partner" 	: $labels = _make_labels($partnerArr);
+			$form 	= "<form id='qs_form' method='post' action='/thank-you'>";
+			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_email' type='email' required /></li>";
+			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
+			$inputs.= "<li><input name='form_fax'	type='telephone' /></li>";
+			$inputs.= "<li><input name='form_address1' type='text' /></li>";
+			$inputs.= "<li><input name='form_address2' type='text' /></li>";
+			$inputs.= "<li><input name='form_city' type='text' /></li>";
+			$inputs.= _get_state_select();
+			$inputs.= "<li><input name='form_zip' type='number' size='5' minlength='5' maxlength='5' /></li>";
+			$inputs.= "</ul><h4>Comment:</h4><textarea rows='6' col='20' name='form_comment' class='comment' ></textarea>";
+			$inputs.= "<input type='submit' value='Submit' />";
+			break;
+		
+		case "contact" 	: $labels = _make_labels($contactArr);
+			$form 	= "<form id='contact_form' method='post' action='/thank-you'>";
+			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
+			$inputs.= "<li><input name='form_email' type='email' required /></li>";
+			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
+			$inputs.= "<li><textarea rows='6' col='40' name='form_comment' class='contact-comment' type='text'> </textarea></li>";
+			$inputs.= "<li><input type='submit' value='Submit' /></li></ul>";
+			break;	
+	
+		default : "error: bad shortcode form type";
+		
+	}//end switch
+	
+	$form 		   .= $labels . $inputs;	
+	$form 		   .= "<div class='clearfix'></div></form>";
+	
+	return $form;
+
+}//end function
+        
+// =================================================
+// ================ @Utility
+// =================================================
 function _make_labels($a){
 	$ul = "<ul id='form_labels'>";
 	foreach($a as $l){ $ul .= "<li>".ucwords(str_replace("_"," ", $l)).": </li>";}
 	$ul.="</ul>";
 	return $ul;
 }
+        
 function _get_state_select(){
 	$state_list = array('AL'=>"Alabama",  
 				'AK'=>"Alaska",  
