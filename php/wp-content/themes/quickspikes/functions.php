@@ -71,7 +71,7 @@ function handle_form_results($postData){
 	//todo: send email to the submitter.
 	
 	foreach ($postData as $key => $value){
-		$key
+		$key;
 	}
 }//end function handle_form_results
         
@@ -119,10 +119,10 @@ function form_shortcode_handler($atts, $content=null, $code="") {
 		
 		case "contact" 	: $labels = _make_labels($contactArr);
 			$form 	= "<form id='contact_form' method='post' action='/thank-you'>";
-			$inputs.= "<li><input name='form_fname' type='text' required /></li>";
-			$inputs.= "<li><input name='form_lname' type='text' required /></li>";
-			$inputs.= "<li><input name='form_email' type='email' required /></li>";
-			$inputs.= "<li><input name='form_phone' type='telephone' required /></li>";
+			$inputs.= "<li><input name='form_fname' class='required' type='text' required /></li>";
+			$inputs.= "<li><input name='form_lname' class='required' type='text' required /></li>";
+			$inputs.= "<li><input name='form_email' class='required' type='email' required /></li>";
+			$inputs.= "<li><input name='form_phone' class='required' type='telephone' required /></li>";
 			$inputs.= "<li><textarea rows='6' col='40' name='form_comment' class='contact-comment' type='text'> </textarea></li>";
 			$inputs.= "<li><input type='submit' value='Submit' /></li></ul>";
 			break;	

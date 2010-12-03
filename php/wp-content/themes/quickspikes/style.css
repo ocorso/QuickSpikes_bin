@@ -433,6 +433,9 @@ ul, ol{ margin: 0 1.8em;}
 	height: 150px;
 
 }
+.required{
+	
+}
 /* @HEADER STYLES */
 header{
 	background: url('img/shadows/content-shadow.png') repeat-y; 
