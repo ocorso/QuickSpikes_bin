@@ -6,17 +6,25 @@
 ?>
 <!DOCTYPE HTML <?= language_attributes(); ?>>  
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ --> 
-<!--[if lt IE 7 ]> <html <?= language_attributes(); ?>class="no-js ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html <?= language_attributes(); ?>class="no-js ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html <?= language_attributes(); ?>class="no-js ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html <?= language_attributes(); ?>class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html <?= language_attributes(); ?>class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7 ]> <html <?= language_attributes(); ?>class="no-js ie6" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 7 ]>    <html <?= language_attributes(); ?>class="no-js ie7" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 8 ]>    <html <?= language_attributes(); ?>class="no-js ie8" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 9 ]>    <html <?= language_attributes(); ?>class="no-js ie9" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html <?= language_attributes(); ?>class="no-js" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <!-- configure title -->
   <title><?php wp_title('&laquo;', true, 'right'); ?> <?php bloginfo('name'); ?></title>
   <meta name="description" content="Quick Spikes are the temporary golf spikes solution. Quick Spikes are superior quality golf products.">
   <meta name="author" content="Owen Corso">
+	<meta property="og:title" content="<?php wp_title('&laquo;', true, 'right'); ?> <?php bloginfo('name'); ?>"/>
+    <meta property="og:type" content="product"/>
+    <meta property="og:url" content="http://www.quickspikesgolf.com/"/>
+    <meta property="og:image" content="http://ia.media-imdb.com/rock.jpg"/>
+    <meta property="og:site_name" content="Quick Spikes"/>
+    <meta property="fb:admins" content="514569323, 1110939581"/>
+    <meta property="og:description"
+          content="Quick Spikes is the tempory golf spike solution. The perfect golf gear for any golfer."/>
 
   <!--  Mobile viewport optimized: j.mp/bplateviewport -->
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
