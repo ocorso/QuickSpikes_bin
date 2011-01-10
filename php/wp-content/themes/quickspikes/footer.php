@@ -11,12 +11,12 @@
 		<div class="shadow-left-corner"></div>
 		<div id="footer_wrapper">
 			<div class="share-bubble">
-				<img src="<?= get_bloginfo('template_directory'); ?>/img/sharing-twitter-icon.png" alt="Twitter Icon"/>
+				<img src="<?= get_bloginfo('template_directory'); ?>/img/icons/sharing-twitter-icon.png" alt="Twitter Icon"/>
 				<a href="http://twitter.com/quickspikesgolf" title="Follow Us On Twitter" target="_blank>">FOLLOW US ON TWITTER</a>
 			</div>
 			<div class="share-bubble">
-				<img src="<?= get_bloginfo('template_directory'); ?>/img/sharing-facebook-icon.png" alt="Facebook Icon"/>
-				<a href="http://www.facebook.com/pages/Quick-Spikes/114826768579293" title="Fan Us On Facebook" target="_blank>">FAN US ON FACEBOOK</a>
+				<img src="<?= get_bloginfo('template_directory'); ?>/img/icons/sharing-facebook-icon.png" alt="Facebook Icon"/>
+				<a href="http://www.facebook.com/quickspikes" title="Fan Us On Facebook" target="_blank>">FAN US ON FACEBOOK</a>
 			</div>
 			<div id="footer_logo">
 				<a href="<?php bloginfo('url'); ?>/" title="Quick Spikes Home"><img src="<?= get_bloginfo('template_directory'); ?>/img/logo/quick_spikes.png" alt="Quick Spikes"/>

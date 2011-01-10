@@ -3,7 +3,9 @@
 // ================ @Add
 // =================================================
 add_action('init', "my_init_method");
-add_shortcode('form-shortcode', 'form_shortcode_handler');        
+add_shortcode('form-shortcode', 'form_shortcode_handler');    
+add_shortcode('image','image_shortcode');
+    
 // =================================================
 // ================ @Enqueue
 // =================================================
@@ -138,6 +140,29 @@ function form_shortcode_handler($atts, $content=null, $code="") {
 
 }//end function
         
+//image insertion shortcode
+function image_shortcode($atts, $content = null) {
+    extract( shortcode_atts( array(
+    'name' => '',
+    'align' => 'right',
+    'ext' => 'png',
+    'path' => '/wp-content/themes/quickspikes/img/',
+    'url' => ''
+    ), $atts ) );
+    $file=ABSPATH."$path$name.$ext";
+    if (file_exists($file)) {
+        $size=getimagesize($file);
+        if ($size!==false) $size=$size[3];
+        $output = "<img src='".get_option('siteurl')."$path$name.$ext' alt='$name' $size class='align$align' />";
+        if ($url) $output = "<a href='$url' title='$name'>".$output.'</a>';
+        return $output;
+    }
+    else {
+        trigger_error("'$path$name.$ext' image not found", E_USER_WARNING);
+        return '';
+    }
+}//end function
+
 // =================================================
 // ================ @Utility
 // =================================================
