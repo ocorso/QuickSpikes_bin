@@ -45,6 +45,7 @@ O Red Table of Contents
 @utility
 @admin
 @global
+@form
 @header
 @logo
 @nav
@@ -343,9 +344,10 @@ img#sunset_bg{
 
 p{
 	padding-top: 8px;
-	font-size: 85%; 
+	font-size: 108%; 
 	font-weight: lighter;
 	color: #dddddd;
+	
 }
 
 a:link, a:visited{
@@ -368,9 +370,12 @@ a:hover{ text-decoration: underline;}
 	width: 800px;
 }
 h2{
-	font-size: 138.5%;
+	font-size: 167%;
+	text-transform: uppercase;
 	padding-top: 25px;
-	margin-left: 35%;
+	text-align: center;
+	font-weight: lighter;
+	color: #fff;
 }
 h4, form li{
 	margin-top: 15px;
@@ -384,7 +389,7 @@ h5{
 }
 ul, ol{ margin: 0 1.8em;}
 
-/*@FORM STYLES*/
+	/*@form styles*/
 #qs_form, #contact_form { 
 	padding: 7px;
 	margin-top: 5px;
@@ -519,7 +524,7 @@ header{
 
 /* @NAV STYLES */
 nav {
-background:  rgba(255,255,255, .2) ;
+	background:  rgba(255,255,255, .2) ;
 	width: 800px;
 	float: left;
 }
@@ -560,7 +565,7 @@ nav ul li{
 .nav-link{
 	background: rgba(0, 0, 0, 0.7);
 }
-nav a:link, nav a:hover, nav a:visited, .nav-link-hover{
+nav a:link, nav a:hover, nav a:visited{
 	height:52px;
 	outline:none;
 	font-size: 85%;
@@ -571,7 +576,7 @@ nav a:link, nav a:hover, nav a:visited, .nav-link-hover{
 nav a:visited{ 
 	color: #fff;
 }
-nav a:hover, nav a:active, nav a.selected{
+nav a:hover, nav a:active, nav a.selected, .nav-hover a{
 	color: #ff0;
 }	
 /* @SIDEBAR STYLES */
@@ -684,12 +689,17 @@ section #sidebar_account_body li, #sidebar_account_body>a {
 	left:0px;
 	display:none;
 }
-	/*@ECOMMERCE STYLES*/
+
+	/*@about and partner styles*/
 	
+#post-2, #post-33, #post-35, #post-38, /* partner */#post-41, #post-43{
+	margin: 0 auto;
+	width: 515px;
+}
 
 	/*@FOOTER STYLES*/
-footer a{
-
+footer p{
+	font-size: 93%;
 	
 	
 

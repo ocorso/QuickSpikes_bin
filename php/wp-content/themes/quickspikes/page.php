@@ -12,7 +12,7 @@
 				<div class="holding-line"></div>			
 				<div class="clearfix"></div>
 			</div>
-		    <div class="entry" id="post-<?php the_ID(); ?>">	
+		    <div id="post-<?php the_ID(); ?>" class="entry">	
 			      <?php the_content("[Read more &rarr;]"); ?>
 		    </div>
 	  	</div>

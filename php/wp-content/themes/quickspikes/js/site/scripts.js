@@ -3,23 +3,31 @@
 */
 
  jQuery(document).ready(function($){
- 	log("jquery ready");
+ 	log("dom is ready");
+ 	
  	$("nav ul li").addClass("nav-link");
  	
  	
  	addHandlers();
+ 	
+ 	
 	function addHandlers(){
 	
 		$("nav ul li").hover(
   			function () {//over
+  				log("we're over");
   				$(this).removeClass("nav-link").addClass("nav-hover");
-  				$(".nav-hover a").addClass("nav-link-hover");
+  				$(this).find('.nav-a').css("color", "#ff0");
   			},
   			function () {//out
   				$(this).removeClass("nav-hover").addClass("nav-link");
-  				$(this).children("a").removeClass("nav-link-hover");
+  				$(this).find('.nav-a').css("color", "#fff");
   			}
-		);
+		).click(function($e){
+			var url = $(this).find('.nav-a').attr('href');
+			log("clicked on: "+ url);
+			document.location.replace(url);
+		});//end nav li event handler
 		$("#logo").hover(
 			function (){//over
 				log('logo over');

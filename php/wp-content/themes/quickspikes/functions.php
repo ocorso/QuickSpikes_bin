@@ -14,8 +14,8 @@ function my_init_method() {
 
     //scripts
     wp_deregister_script( 'jquery' );
-	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js' );
-	//wp_register_script( 'jquery', get_bloginfo('template_url').'/js/libs/jquery.js' );
+	//wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js' );
+	wp_register_script( 'jquery', get_bloginfo('template_url').'/js/libs/jquery.js' );
     wp_enqueue_script('swfaddress',get_bloginfo('template_url').'/js/libs/swfaddress.js');
  	wp_enqueue_script('modernizr', get_bloginfo('template_url').'/js/libs/modernizr-1.5.min.js');
     wp_enqueue_script('qs_plugins',get_bloginfo('template_url').'/js/site/plugins.js', array('swfobject', 'jquery'), $ver, true);    
@@ -36,7 +36,12 @@ function my_init_method() {
 // ================ @External
 // =================================================
 function parse_subheadings($theTitle){
+
 	switch ($theTitle){
+		case "Story":
+		case "Why To Use":
+		case "Where To Find":
+			break;
 		case "Submit New" :	
 			return "faq_heading";
 			break;
