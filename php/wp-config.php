@@ -30,6 +30,7 @@ define('DB_HOST', 'localhost');
 
 //production on ored
 //define('DB_HOST', 'quickspikesdb.db.5977079.hostedresource.com');
+
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
 

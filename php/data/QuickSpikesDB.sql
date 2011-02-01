@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 27, 2011 at 11:40 PM
+-- Generation Time: Jan 27, 2011 at 11:49 PM
 -- Server version: 5.1.50
 -- PHP Version: 5.3.3
 
@@ -25,6 +25,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `wp_commentmeta`
 --
 
+DROP TABLE IF EXISTS `wp_commentmeta`;
 CREATE TABLE IF NOT EXISTS `wp_commentmeta` (
   `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `comment_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -33,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `wp_commentmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `comment_id` (`comment_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_commentmeta`
@@ -46,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `wp_commentmeta` (
 -- Table structure for table `wp_comments`
 --
 
+DROP TABLE IF EXISTS `wp_comments`;
 CREATE TABLE IF NOT EXISTS `wp_comments` (
   `comment_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `comment_post_ID` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -68,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `wp_comments` (
   KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
   KEY `comment_date_gmt` (`comment_date_gmt`),
   KEY `comment_parent` (`comment_parent`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_comments`
@@ -81,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `wp_comments` (
 -- Table structure for table `wp_links`
 --
 
+DROP TABLE IF EXISTS `wp_links`;
 CREATE TABLE IF NOT EXISTS `wp_links` (
   `link_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `link_url` varchar(255) NOT NULL DEFAULT '',
@@ -97,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `wp_links` (
   `link_rss` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`link_id`),
   KEY `link_visible` (`link_visible`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_links`
@@ -118,6 +121,7 @@ INSERT INTO `wp_links` (`link_id`, `link_url`, `link_name`, `link_image`, `link_
 -- Table structure for table `wp_options`
 --
 
+DROP TABLE IF EXISTS `wp_options`;
 CREATE TABLE IF NOT EXISTS `wp_options` (
   `option_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `blog_id` int(11) NOT NULL DEFAULT '0',
@@ -126,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `wp_options` (
   `autoload` varchar(20) NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=969 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_options`
@@ -415,6 +419,7 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 -- Table structure for table `wp_postmeta`
 --
 
+DROP TABLE IF EXISTS `wp_postmeta`;
 CREATE TABLE IF NOT EXISTS `wp_postmeta` (
   `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -423,7 +428,7 @@ CREATE TABLE IF NOT EXISTS `wp_postmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `post_id` (`post_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_postmeta`
@@ -497,6 +502,7 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 -- Table structure for table `wp_posts`
 --
 
+DROP TABLE IF EXISTS `wp_posts`;
 CREATE TABLE IF NOT EXISTS `wp_posts` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_author` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -526,7 +532,7 @@ CREATE TABLE IF NOT EXISTS `wp_posts` (
   KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
   KEY `post_parent` (`post_parent`),
   KEY `post_author` (`post_author`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=122 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_posts`
@@ -658,6 +664,7 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 -- Table structure for table `wp_terms`
 --
 
+DROP TABLE IF EXISTS `wp_terms`;
 CREATE TABLE IF NOT EXISTS `wp_terms` (
   `term_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL DEFAULT '',
@@ -666,7 +673,7 @@ CREATE TABLE IF NOT EXISTS `wp_terms` (
   PRIMARY KEY (`term_id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_terms`
@@ -682,6 +689,7 @@ INSERT INTO `wp_terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
 -- Table structure for table `wp_term_relationships`
 --
 
+DROP TABLE IF EXISTS `wp_term_relationships`;
 CREATE TABLE IF NOT EXISTS `wp_term_relationships` (
   `object_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `term_taxonomy_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -736,6 +744,7 @@ INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_orde
 -- Table structure for table `wp_term_taxonomy`
 --
 
+DROP TABLE IF EXISTS `wp_term_taxonomy`;
 CREATE TABLE IF NOT EXISTS `wp_term_taxonomy` (
   `term_taxonomy_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `term_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -746,7 +755,7 @@ CREATE TABLE IF NOT EXISTS `wp_term_taxonomy` (
   PRIMARY KEY (`term_taxonomy_id`),
   UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
   KEY `taxonomy` (`taxonomy`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_term_taxonomy`
@@ -762,6 +771,7 @@ INSERT INTO `wp_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `desc
 -- Table structure for table `wp_usermeta`
 --
 
+DROP TABLE IF EXISTS `wp_usermeta`;
 CREATE TABLE IF NOT EXISTS `wp_usermeta` (
   `umeta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -770,7 +780,7 @@ CREATE TABLE IF NOT EXISTS `wp_usermeta` (
   PRIMARY KEY (`umeta_id`),
   KEY `user_id` (`user_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_usermeta`
@@ -822,6 +832,7 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 -- Table structure for table `wp_users`
 --
 
+DROP TABLE IF EXISTS `wp_users`;
 CREATE TABLE IF NOT EXISTS `wp_users` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_login` varchar(60) NOT NULL DEFAULT '',
@@ -836,7 +847,7 @@ CREATE TABLE IF NOT EXISTS `wp_users` (
   PRIMARY KEY (`ID`),
   KEY `user_login_key` (`user_login`),
   KEY `user_nicename` (`user_nicename`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_users`
@@ -853,13 +864,14 @@ INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_
 -- Table structure for table `wp_wpsc_also_bought`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_also_bought`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_also_bought` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `selected_product` bigint(20) unsigned NOT NULL DEFAULT '0',
   `associated_product` bigint(20) unsigned NOT NULL DEFAULT '0',
   `quantity` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_also_bought`
@@ -872,6 +884,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_also_bought` (
 -- Table structure for table `wp_wpsc_cart_contents`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_cart_contents`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_cart_contents` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `prodid` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -889,7 +902,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_cart_contents` (
   `meta` longtext,
   PRIMARY KEY (`id`),
   KEY `purchaseid` (`purchaseid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_cart_contents`
@@ -920,13 +933,14 @@ INSERT INTO `wp_wpsc_cart_contents` (`id`, `prodid`, `name`, `purchaseid`, `pric
 -- Table structure for table `wp_wpsc_cart_item_variations`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_cart_item_variations`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_cart_item_variations` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `cart_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `variation_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `value_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_cart_item_variations`
@@ -951,6 +965,7 @@ INSERT INTO `wp_wpsc_cart_item_variations` (`id`, `cart_id`, `variation_id`, `va
 -- Table structure for table `wp_wpsc_categorisation_groups`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_categorisation_groups`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_categorisation_groups` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
@@ -959,7 +974,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_categorisation_groups` (
   `default` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `group_name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_categorisation_groups`
@@ -975,6 +990,7 @@ INSERT INTO `wp_wpsc_categorisation_groups` (`id`, `name`, `description`, `activ
 -- Table structure for table `wp_wpsc_category_tm`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_category_tm`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_category_tm` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `visible` int(2) unsigned NOT NULL DEFAULT '0',
@@ -982,7 +998,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_category_tm` (
   `categoryid` int(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `countryid_and_categoryid` (`countryid`,`categoryid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=969 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_category_tm`
@@ -1480,6 +1496,7 @@ INSERT INTO `wp_wpsc_category_tm` (`id`, `visible`, `countryid`, `categoryid`) V
 -- Table structure for table `wp_wpsc_checkout_forms`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_checkout_forms`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_checkout_forms` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
@@ -1494,7 +1511,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_checkout_forms` (
   `checkout_set` varchar(64) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `order` (`order`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_checkout_forms`
@@ -1525,6 +1542,7 @@ INSERT INTO `wp_wpsc_checkout_forms` (`id`, `name`, `type`, `mandatory`, `displa
 -- Table structure for table `wp_wpsc_claimed_stock`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_claimed_stock`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_claimed_stock` (
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `variation_stock_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -1552,6 +1570,7 @@ INSERT INTO `wp_wpsc_claimed_stock` (`product_id`, `variation_stock_id`, `stock_
 -- Table structure for table `wp_wpsc_coupon_codes`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_coupon_codes`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_coupon_codes` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `coupon_code` varchar(255) DEFAULT '',
@@ -1569,7 +1588,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_coupon_codes` (
   KEY `active` (`active`),
   KEY `start` (`start`),
   KEY `expiry` (`expiry`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_coupon_codes`
@@ -1582,6 +1601,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_coupon_codes` (
 -- Table structure for table `wp_wpsc_currency_list`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_currency_list`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_currency_list` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `country` varchar(255) NOT NULL DEFAULT '',
@@ -1595,7 +1615,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_currency_list` (
   `continent` varchar(20) NOT NULL DEFAULT '',
   `visible` varchar(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=243 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_currency_list`
@@ -1851,6 +1871,7 @@ INSERT INTO `wp_wpsc_currency_list` (`id`, `country`, `isocode`, `currency`, `sy
 -- Table structure for table `wp_wpsc_download_status`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_download_status`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_download_status` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned DEFAULT NULL,
@@ -1865,7 +1886,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_download_status` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniqueid` (`uniqueid`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_download_status`
@@ -1899,13 +1920,14 @@ INSERT INTO `wp_wpsc_download_status` (`id`, `product_id`, `fileid`, `purchid`, 
 -- Table structure for table `wp_wpsc_item_category_assoc`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_item_category_assoc`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_item_category_assoc` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `category_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `product_id` (`product_id`,`category_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_item_category_assoc`
@@ -1922,6 +1944,7 @@ INSERT INTO `wp_wpsc_item_category_assoc` (`id`, `product_id`, `category_id`) VA
 -- Table structure for table `wp_wpsc_logged_subscriptions`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_logged_subscriptions`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_logged_subscriptions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `cart_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -1933,7 +1956,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_logged_subscriptions` (
   KEY `cart_id` (`cart_id`),
   KEY `user_id` (`user_id`),
   KEY `start_time` (`start_time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_logged_subscriptions`
@@ -1946,6 +1969,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_logged_subscriptions` (
 -- Table structure for table `wp_wpsc_meta`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_meta`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_meta` (
   `meta_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `object_type` varchar(24) NOT NULL DEFAULT 'cart_Item',
@@ -1955,7 +1979,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_meta` (
   PRIMARY KEY (`meta_id`),
   KEY `object_type__meta_key` (`object_type`,`meta_key`),
   KEY `object_type__object_id__meta_key` (`object_type`,`object_id`,`meta_key`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_meta`
@@ -1971,6 +1995,7 @@ INSERT INTO `wp_wpsc_meta` (`meta_id`, `object_type`, `object_id`, `meta_key`, `
 -- Table structure for table `wp_wpsc_productmeta`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_productmeta`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_productmeta` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -1981,7 +2006,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_productmeta` (
   KEY `product_id` (`product_id`),
   KEY `meta_key` (`meta_key`),
   KEY `custom` (`custom`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_productmeta`
@@ -2034,6 +2059,7 @@ INSERT INTO `wp_wpsc_productmeta` (`id`, `product_id`, `meta_key`, `meta_value`,
 -- Table structure for table `wp_wpsc_product_categories`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_product_categories`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_categories` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `group_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2051,7 +2077,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_categories` (
   PRIMARY KEY (`id`),
   KEY `group_id` (`group_id`),
   KEY `nice-name` (`nice-name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_product_categories`
@@ -2067,6 +2093,7 @@ INSERT INTO `wp_wpsc_product_categories` (`id`, `group_id`, `name`, `nice-name`,
 -- Table structure for table `wp_wpsc_product_files`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_product_files`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_files` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned DEFAULT NULL,
@@ -2077,7 +2104,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_files` (
   `preview_mimetype` varchar(128) NOT NULL DEFAULT '',
   `date` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_product_files`
@@ -2095,6 +2122,7 @@ INSERT INTO `wp_wpsc_product_files` (`id`, `product_id`, `filename`, `mimetype`,
 -- Table structure for table `wp_wpsc_product_images`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_product_images`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_images` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2105,7 +2133,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_images` (
   `meta` longtext,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_product_images`
@@ -2123,6 +2151,7 @@ INSERT INTO `wp_wpsc_product_images` (`id`, `product_id`, `image`, `width`, `hei
 -- Table structure for table `wp_wpsc_product_list`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_product_list`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_list` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
@@ -2149,7 +2178,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_list` (
   `thumbnail_state` int(11) NOT NULL DEFAULT '0',
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_product_list`
@@ -2166,6 +2195,7 @@ INSERT INTO `wp_wpsc_product_list` (`id`, `name`, `description`, `additional_des
 -- Table structure for table `wp_wpsc_product_order`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_product_order`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_order` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2174,7 +2204,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_order` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `category_id` (`category_id`,`product_id`),
   KEY `order` (`order`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_product_order`
@@ -2193,6 +2223,7 @@ INSERT INTO `wp_wpsc_product_order` (`id`, `category_id`, `product_id`, `order`)
 -- Table structure for table `wp_wpsc_product_rating`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_product_rating`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_rating` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ipnum` varchar(30) NOT NULL DEFAULT '',
@@ -2201,7 +2232,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_rating` (
   `time` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `rating_time` (`time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_product_rating`
@@ -2214,13 +2245,14 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_rating` (
 -- Table structure for table `wp_wpsc_product_variations`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_product_variations`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_variations` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL DEFAULT '',
   `variation_association` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `variation_association` (`variation_association`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_product_variations`
@@ -2236,6 +2268,7 @@ INSERT INTO `wp_wpsc_product_variations` (`id`, `name`, `variation_association`)
 -- Table structure for table `wp_wpsc_purchase_logs`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_purchase_logs`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_purchase_logs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `totalprice` decimal(11,2) NOT NULL DEFAULT '0.00',
@@ -2269,7 +2302,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_purchase_logs` (
   KEY `gateway` (`gateway`),
   KEY `date` (`date`),
   KEY `processed_and_date` (`processed`,`date`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_purchase_logs`
@@ -2294,13 +2327,14 @@ INSERT INTO `wp_wpsc_purchase_logs` (`id`, `totalprice`, `statusno`, `sessionid`
 -- Table structure for table `wp_wpsc_purchase_statuses`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_purchase_statuses`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_purchase_statuses` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL DEFAULT '',
   `active` varchar(1) NOT NULL DEFAULT '0',
   `colour` varchar(6) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_purchase_statuses`
@@ -2318,6 +2352,7 @@ INSERT INTO `wp_wpsc_purchase_statuses` (`id`, `name`, `active`, `colour`) VALUE
 -- Table structure for table `wp_wpsc_region_tax`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_region_tax`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_region_tax` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `country_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2326,7 +2361,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_region_tax` (
   `tax` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `country_id` (`country_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=65 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_region_tax`
@@ -2404,6 +2439,7 @@ INSERT INTO `wp_wpsc_region_tax` (`id`, `country_id`, `name`, `code`, `tax`) VAL
 -- Table structure for table `wp_wpsc_submited_form_data`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_submited_form_data`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_submited_form_data` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `log_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2411,7 +2447,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_submited_form_data` (
   `value` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `log_id` (`log_id`,`form_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=126 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_submited_form_data`
@@ -2550,6 +2586,7 @@ INSERT INTO `wp_wpsc_submited_form_data` (`id`, `log_id`, `form_id`, `value`) VA
 -- Table structure for table `wp_wpsc_variation_assoc`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_variation_assoc`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_assoc` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(64) NOT NULL DEFAULT '',
@@ -2559,7 +2596,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_assoc` (
   PRIMARY KEY (`id`),
   KEY `associated_id` (`associated_id`),
   KEY `variation_id` (`variation_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_variation_assoc`
@@ -2574,6 +2611,7 @@ INSERT INTO `wp_wpsc_variation_assoc` (`id`, `type`, `name`, `associated_id`, `v
 -- Table structure for table `wp_wpsc_variation_combinations`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_variation_combinations`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_combinations` (
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `priceandstock_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2605,6 +2643,7 @@ INSERT INTO `wp_wpsc_variation_combinations` (`product_id`, `priceandstock_id`, 
 -- Table structure for table `wp_wpsc_variation_properties`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_variation_properties`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_properties` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2616,7 +2655,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_properties` (
   `file` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_variation_properties`
@@ -2634,13 +2673,14 @@ INSERT INTO `wp_wpsc_variation_properties` (`id`, `product_id`, `stock`, `price`
 -- Table structure for table `wp_wpsc_variation_values`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_variation_values`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_values` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL DEFAULT '',
   `variation_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `variation_id` (`variation_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_variation_values`
@@ -2660,6 +2700,7 @@ INSERT INTO `wp_wpsc_variation_values` (`id`, `name`, `variation_id`) VALUES
 -- Table structure for table `wp_wpsc_variation_values_assoc`
 --
 
+DROP TABLE IF EXISTS `wp_wpsc_variation_values_assoc`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_values_assoc` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2668,7 +2709,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_values_assoc` (
   `variation_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`,`value_id`,`variation_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wp_wpsc_variation_values_assoc`
