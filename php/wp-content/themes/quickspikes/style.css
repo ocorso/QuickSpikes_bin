@@ -301,6 +301,9 @@ img#sunset_bg{
 	min-height: 487px;
 
 }
+.page-id-18 .post, .page-id-4 .post, .page-id-6 .post{
+	background: url('img/backgrounds/tinted_bg.png') repeat-y;
+}
 .entry{ 
 	margin-left: 40px;
 	width: 740px;
