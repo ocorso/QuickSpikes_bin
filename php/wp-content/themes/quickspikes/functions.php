@@ -5,6 +5,7 @@
 add_action('init', "my_init_method");
 add_shortcode('form-shortcode', 'form_shortcode_handler');    
 add_shortcode('image','image_shortcode');
+add_shortcode('flash', 'flash_shortcode_handler');
     
 // =================================================
 // ================ @Remove
@@ -30,7 +31,7 @@ function my_init_method() {
 
     //scripts
     wp_deregister_script( 'jquery' );
-	//wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js' );
+	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js' );
 	wp_register_script( 'jquery', get_bloginfo('template_url').'/js/libs/jquery.js' );
     wp_enqueue_script('swfaddress',get_bloginfo('template_url').'/js/libs/swfaddress.js');
  	wp_enqueue_script('modernizr', get_bloginfo('template_url').'/js/libs/modernizr-1.5.min.js');
@@ -39,8 +40,8 @@ function my_init_method() {
   	wp_enqueue_script('niv_slider',get_bloginfo('template_url').'/js/libs/jquery.nivo.slider.pack.js', array('jquery'), $ver, true);
   	
   	//yui profiler and profileviewer - remove for production
-  	wp_enqueue_script('yahoo_profiling', get_bloginfo('template_url').'/js/libs/profiling/yahoo-profiling.min.js', null, $ver, true);
-  	wp_enqueue_script('config_profiling', get_bloginfo('template_url').'/js/libs/profiling/config.js?v='.$ver, null, $ver, true);
+  //	wp_enqueue_script('yahoo_profiling', get_bloginfo('template_url').'/js/libs/profiling/yahoo-profiling.min.js', null, $ver, true);
+  //	wp_enqueue_script('config_profiling', get_bloginfo('template_url').'/js/libs/profiling/config.js?v='.$ver, null, $ver, true);
  	
     //styles
     wp_enqueue_style( 'qs-theme-css', get_bloginfo('template_url').'/style.css', false, $ver, 'all');
@@ -183,6 +184,17 @@ function image_shortcode($atts, $content = null) {
         return '';
     }
 }//end function
+
+function flash_shortcode_handler($atts, $content=null, $code=""){
+		return '<script type="text/javascript">
+
+		  	var flashvars = {baseUrl: "/swf/site/", themeUrl: "/"};
+			var params = {};
+			params.wmode = "transparent";
+		  	swfobject.embedSWF("php/wp-content/themes/quickspikes/swf/gallery/gallery.swf", "flash_container", "713", "370", "9.0.0", null, flashvars, params);
+		</script>';
+}//end function 
+
 
 // =================================================
 // ================ @Utility

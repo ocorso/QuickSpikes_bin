@@ -16,6 +16,18 @@
  	setupHomepageCarousel();
 	cookieMonster();
 	
+	var swfEmbed = {};
+		swfEmbed.flashvars = { baseUrl: "baseURL"};
+		swfEmbed.parameters= { salign:"tl", allowfullscreen:true, allowscriptaccess:"always", bgcolor:"#000", wmode:"transparent" };
+		swfEmbed.attributes = { name: "site" };
+		swfEmbed.minimumVersion = '10.0.0';
+
+	if(swfobject.hasFlashPlayerVersion("6.0.65"))
+	{
+		if(!swfobject.hasFlashPlayerVersion(swfEmbed.minimumVersion)) swfEmbed.parameters = {};
+		swfobject.embedSWF("php/wp-content/themes/quickspikes/swf/logo/logo.swf","logo", "425", "98",swfEmbed.minimumVersion,"../../swf/expressInstall.swf",swfEmbed.flashvars,swfEmbed.parameters,swfEmbed.attributes);
+	}
+	
 	//**********************************************************
 	//						Workers
 	//**********************************************************

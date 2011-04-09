@@ -3,6 +3,7 @@
  * @package Quick Spikes
  * @subpackage quickspikes
  */
+ 
 ?>
 <!DOCTYPE HTML <?= language_attributes(); ?>>  
 <!--[if lt IE 7 ]> <html <?= language_attributes(); ?>class="no-js ie6" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->

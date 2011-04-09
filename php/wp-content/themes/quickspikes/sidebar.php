@@ -9,7 +9,7 @@ if($post->post_parent){
 }else {
 	$isSub = false;
 	$anchor = '<a href="' . get_permalink()
-    . '\" title="' . get_the_title() . '">' . get_the_title()
+    . '/" title="' . get_the_title() . '">' . get_the_title()
     . '</a>';
 }
 ?>
