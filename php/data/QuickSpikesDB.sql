@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 27, 2011 at 11:49 PM
+-- Generation Time: Apr 09, 2011 at 07:19 PM
 -- Server version: 5.1.50
 -- PHP Version: 5.3.3
 
@@ -25,7 +25,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `wp_commentmeta`
 --
 
-DROP TABLE IF EXISTS `wp_commentmeta`;
 CREATE TABLE IF NOT EXISTS `wp_commentmeta` (
   `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `comment_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -34,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `wp_commentmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `comment_id` (`comment_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `wp_commentmeta`
@@ -47,7 +46,6 @@ CREATE TABLE IF NOT EXISTS `wp_commentmeta` (
 -- Table structure for table `wp_comments`
 --
 
-DROP TABLE IF EXISTS `wp_comments`;
 CREATE TABLE IF NOT EXISTS `wp_comments` (
   `comment_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `comment_post_ID` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -70,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `wp_comments` (
   KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
   KEY `comment_date_gmt` (`comment_date_gmt`),
   KEY `comment_parent` (`comment_parent`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `wp_comments`
@@ -83,7 +81,6 @@ CREATE TABLE IF NOT EXISTS `wp_comments` (
 -- Table structure for table `wp_links`
 --
 
-DROP TABLE IF EXISTS `wp_links`;
 CREATE TABLE IF NOT EXISTS `wp_links` (
   `link_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `link_url` varchar(255) NOT NULL DEFAULT '',
@@ -100,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `wp_links` (
   `link_rss` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`link_id`),
   KEY `link_visible` (`link_visible`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `wp_links`
@@ -121,7 +118,6 @@ INSERT INTO `wp_links` (`link_id`, `link_url`, `link_name`, `link_image`, `link_
 -- Table structure for table `wp_options`
 --
 
-DROP TABLE IF EXISTS `wp_options`;
 CREATE TABLE IF NOT EXISTS `wp_options` (
   `option_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `blog_id` int(11) NOT NULL DEFAULT '0',
@@ -130,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `wp_options` (
   `autoload` varchar(20) NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2486 ;
 
 --
 -- Dumping data for table `wp_options`
@@ -174,7 +170,7 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 (35, 0, 'blog_charset', 'UTF-8', 'yes'),
 (36, 0, 'moderation_keys', '', 'no'),
 (37, 0, 'active_plugins', 'a:4:{i:0;s:19:"akismet/akismet.php";i:1;s:45:"gold_cart_files_plugin/gold_shopping_cart.php";i:2;s:9:"hello.php";i:3;s:34:"wp-e-commerce/wp-shopping-cart.php";}', 'yes'),
-(310, 0, 'recently_activated', 'a:0:{}', 'yes'),
+(310, 0, 'recently_activated', 'a:1:{s:25:"wp-firephp/wp-firephp.php";i:1302389613;}', 'yes'),
 (38, 0, 'home', 'http://qs.local/', 'yes'),
 (39, 0, 'category_base', '', 'yes'),
 (40, 0, 'ping_sites', 'http://rpc.pingomatic.com/', 'yes'),
@@ -182,7 +178,7 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 (42, 0, 'comment_max_links', '2', 'yes'),
 (43, 0, 'gmt_offset', '', 'yes'),
 (44, 0, 'default_email_category', '1', 'yes'),
-(45, 0, 'recently_edited', 'a:4:{i:0;s:129:"/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/plugins/gold_cart_files_plugin/gold_shopping_cart.php";i:1;s:105:"/Users/ocorso/Desktop/O-Red/Clients/Quick Spikes/site/dev/bin/php/wp-content/themes/quickspikes/style.css";i:2;s:125:"/Volumes/O-Red-Media/O-Red-Productions/Clients/Quick Spikes/Projects/site/dev/bin/php/wp-content/themes/quickspikes/style.css";i:3;s:0:"";}', 'no'),
+(45, 0, 'recently_edited', 'a:5:{i:0;s:109:"/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/plugins/wp-firephp/wp-firephp.php";i:2;s:129:"/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/plugins/gold_cart_files_plugin/gold_shopping_cart.php";i:3;s:105:"/Users/ocorso/Desktop/O-Red/Clients/Quick Spikes/site/dev/bin/php/wp-content/themes/quickspikes/style.css";i:4;s:125:"/Volumes/O-Red-Media/O-Red-Productions/Clients/Quick Spikes/Projects/site/dev/bin/php/wp-content/themes/quickspikes/style.css";i:5;s:0:"";}', 'no'),
 (47, 0, 'template', 'quickspikes', 'yes'),
 (48, 0, 'stylesheet', 'quickspikes', 'yes'),
 (49, 0, 'comment_whitelist', '1', 'yes'),
@@ -192,7 +188,7 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 (53, 0, 'html_type', 'text/html', 'yes'),
 (54, 0, 'use_trackback', '0', 'yes'),
 (55, 0, 'default_role', 'subscriber', 'yes'),
-(56, 0, 'db_version', '15477', 'yes'),
+(56, 0, 'db_version', '17516', 'yes'),
 (57, 0, 'uploads_use_yearmonth_folders', '1', 'yes'),
 (58, 0, 'upload_path', '', 'yes'),
 (60, 0, 'blog_public', '1', 'yes'),
@@ -231,9 +227,9 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 (93, 0, 'embed_autourls', '1', 'yes'),
 (94, 0, 'embed_size_w', '', 'yes'),
 (95, 0, 'embed_size_h', '600', 'yes'),
-(96, 0, 'wp_user_roles', 'a:5:{s:13:"administrator";a:2:{s:4:"name";s:13:"Administrator";s:12:"capabilities";a:62:{s:13:"switch_themes";b:1;s:11:"edit_themes";b:1;s:16:"activate_plugins";b:1;s:12:"edit_plugins";b:1;s:10:"edit_users";b:1;s:10:"edit_files";b:1;s:14:"manage_options";b:1;s:17:"moderate_comments";b:1;s:17:"manage_categories";b:1;s:12:"manage_links";b:1;s:12:"upload_files";b:1;s:6:"import";b:1;s:15:"unfiltered_html";b:1;s:10:"edit_posts";b:1;s:17:"edit_others_posts";b:1;s:20:"edit_published_posts";b:1;s:13:"publish_posts";b:1;s:10:"edit_pages";b:1;s:4:"read";b:1;s:8:"level_10";b:1;s:7:"level_9";b:1;s:7:"level_8";b:1;s:7:"level_7";b:1;s:7:"level_6";b:1;s:7:"level_5";b:1;s:7:"level_4";b:1;s:7:"level_3";b:1;s:7:"level_2";b:1;s:7:"level_1";b:1;s:7:"level_0";b:1;s:17:"edit_others_pages";b:1;s:20:"edit_published_pages";b:1;s:13:"publish_pages";b:1;s:12:"delete_pages";b:1;s:19:"delete_others_pages";b:1;s:22:"delete_published_pages";b:1;s:12:"delete_posts";b:1;s:19:"delete_others_posts";b:1;s:22:"delete_published_posts";b:1;s:20:"delete_private_posts";b:1;s:18:"edit_private_posts";b:1;s:18:"read_private_posts";b:1;s:20:"delete_private_pages";b:1;s:18:"edit_private_pages";b:1;s:18:"read_private_pages";b:1;s:12:"delete_users";b:1;s:12:"create_users";b:1;s:17:"unfiltered_upload";b:1;s:14:"edit_dashboard";b:1;s:14:"update_plugins";b:1;s:14:"delete_plugins";b:1;s:15:"install_plugins";b:1;s:13:"update_themes";b:1;s:14:"install_themes";b:1;s:11:"update_core";b:1;s:10:"list_users";b:1;s:12:"remove_users";b:1;s:9:"add_users";b:1;s:13:"promote_users";b:1;s:18:"edit_theme_options";b:1;s:13:"delete_themes";b:1;s:6:"export";b:1;}}s:6:"editor";a:2:{s:4:"name";s:6:"Editor";s:12:"capabilities";a:34:{s:17:"moderate_comments";b:1;s:17:"manage_categories";b:1;s:12:"manage_links";b:1;s:12:"upload_files";b:1;s:15:"unfiltered_html";b:1;s:10:"edit_posts";b:1;s:17:"edit_others_posts";b:1;s:20:"edit_published_posts";b:1;s:13:"publish_posts";b:1;s:10:"edit_pages";b:1;s:4:"read";b:1;s:7:"level_7";b:1;s:7:"level_6";b:1;s:7:"level_5";b:1;s:7:"level_4";b:1;s:7:"level_3";b:1;s:7:"level_2";b:1;s:7:"level_1";b:1;s:7:"level_0";b:1;s:17:"edit_others_pages";b:1;s:20:"edit_published_pages";b:1;s:13:"publish_pages";b:1;s:12:"delete_pages";b:1;s:19:"delete_others_pages";b:1;s:22:"delete_published_pages";b:1;s:12:"delete_posts";b:1;s:19:"delete_others_posts";b:1;s:22:"delete_published_posts";b:1;s:20:"delete_private_posts";b:1;s:18:"edit_private_posts";b:1;s:18:"read_private_posts";b:1;s:20:"delete_private_pages";b:1;s:18:"edit_private_pages";b:1;s:18:"read_private_pages";b:1;}}s:6:"author";a:2:{s:4:"name";s:6:"Author";s:12:"capabilities";a:10:{s:12:"upload_files";b:1;s:10:"edit_posts";b:1;s:20:"edit_published_posts";b:1;s:13:"publish_posts";b:1;s:4:"read";b:1;s:7:"level_2";b:1;s:7:"level_1";b:1;s:7:"level_0";b:1;s:12:"delete_posts";b:1;s:22:"delete_published_posts";b:1;}}s:11:"contributor";a:2:{s:4:"name";s:11:"Contributor";s:12:"capabilities";a:5:{s:10:"edit_posts";b:1;s:4:"read";b:1;s:7:"level_1";b:1;s:7:"level_0";b:1;s:12:"delete_posts";b:1;}}s:10:"subscriber";a:2:{s:4:"name";s:10:"Subscriber";s:12:"capabilities";a:2:{s:4:"read";b:1;s:7:"level_0";b:1;}}}', 'yes'),
-(97, 0, 'cron', 'a:5:{i:1296192121;a:1:{s:22:"wpsc_hourly_cron_tasks";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:6:"hourly";s:4:"args";a:0:{}s:8:"interval";i:3600;}}}i:1296195997;a:3:{s:16:"wp_version_check";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}s:17:"wp_update_plugins";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}s:16:"wp_update_themes";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}}i:1296235321;a:1:{s:21:"wpsc_daily_cron_tasks";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:5:"daily";s:4:"args";a:0:{}s:8:"interval";i:86400;}}}i:1296239205;a:1:{s:19:"wp_scheduled_delete";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:5:"daily";s:4:"args";a:0:{}s:8:"interval";i:86400;}}}s:7:"version";i:2;}', 'yes'),
-(98, 0, '_transient_doing_cron', '1296188998', 'yes'),
+(96, 0, 'wp_user_roles', 'a:5:{s:13:"administrator";a:2:{s:4:"name";s:13:"Administrator";s:12:"capabilities";a:64:{s:13:"switch_themes";b:1;s:11:"edit_themes";b:1;s:16:"activate_plugins";b:1;s:12:"edit_plugins";b:1;s:10:"edit_users";b:1;s:10:"edit_files";b:1;s:14:"manage_options";b:1;s:17:"moderate_comments";b:1;s:17:"manage_categories";b:1;s:12:"manage_links";b:1;s:12:"upload_files";b:1;s:6:"import";b:1;s:15:"unfiltered_html";b:1;s:10:"edit_posts";b:1;s:17:"edit_others_posts";b:1;s:20:"edit_published_posts";b:1;s:13:"publish_posts";b:1;s:10:"edit_pages";b:1;s:4:"read";b:1;s:8:"level_10";b:1;s:7:"level_9";b:1;s:7:"level_8";b:1;s:7:"level_7";b:1;s:7:"level_6";b:1;s:7:"level_5";b:1;s:7:"level_4";b:1;s:7:"level_3";b:1;s:7:"level_2";b:1;s:7:"level_1";b:1;s:7:"level_0";b:1;s:17:"edit_others_pages";b:1;s:20:"edit_published_pages";b:1;s:13:"publish_pages";b:1;s:12:"delete_pages";b:1;s:19:"delete_others_pages";b:1;s:22:"delete_published_pages";b:1;s:12:"delete_posts";b:1;s:19:"delete_others_posts";b:1;s:22:"delete_published_posts";b:1;s:20:"delete_private_posts";b:1;s:18:"edit_private_posts";b:1;s:18:"read_private_posts";b:1;s:20:"delete_private_pages";b:1;s:18:"edit_private_pages";b:1;s:18:"read_private_pages";b:1;s:12:"delete_users";b:1;s:12:"create_users";b:1;s:17:"unfiltered_upload";b:1;s:14:"edit_dashboard";b:1;s:14:"update_plugins";b:1;s:14:"delete_plugins";b:1;s:15:"install_plugins";b:1;s:13:"update_themes";b:1;s:14:"install_themes";b:1;s:11:"update_core";b:1;s:10:"list_users";b:1;s:12:"remove_users";b:1;s:9:"add_users";b:1;s:13:"promote_users";b:1;s:18:"edit_theme_options";b:1;s:13:"delete_themes";b:1;s:6:"export";b:1;s:17:"read_wpsc-product";b:1;s:22:"read_wpsc-product-file";b:1;}}s:6:"editor";a:2:{s:4:"name";s:6:"Editor";s:12:"capabilities";a:34:{s:17:"moderate_comments";b:1;s:17:"manage_categories";b:1;s:12:"manage_links";b:1;s:12:"upload_files";b:1;s:15:"unfiltered_html";b:1;s:10:"edit_posts";b:1;s:17:"edit_others_posts";b:1;s:20:"edit_published_posts";b:1;s:13:"publish_posts";b:1;s:10:"edit_pages";b:1;s:4:"read";b:1;s:7:"level_7";b:1;s:7:"level_6";b:1;s:7:"level_5";b:1;s:7:"level_4";b:1;s:7:"level_3";b:1;s:7:"level_2";b:1;s:7:"level_1";b:1;s:7:"level_0";b:1;s:17:"edit_others_pages";b:1;s:20:"edit_published_pages";b:1;s:13:"publish_pages";b:1;s:12:"delete_pages";b:1;s:19:"delete_others_pages";b:1;s:22:"delete_published_pages";b:1;s:12:"delete_posts";b:1;s:19:"delete_others_posts";b:1;s:22:"delete_published_posts";b:1;s:20:"delete_private_posts";b:1;s:18:"edit_private_posts";b:1;s:18:"read_private_posts";b:1;s:20:"delete_private_pages";b:1;s:18:"edit_private_pages";b:1;s:18:"read_private_pages";b:1;}}s:6:"author";a:2:{s:4:"name";s:6:"Author";s:12:"capabilities";a:10:{s:12:"upload_files";b:1;s:10:"edit_posts";b:1;s:20:"edit_published_posts";b:1;s:13:"publish_posts";b:1;s:4:"read";b:1;s:7:"level_2";b:1;s:7:"level_1";b:1;s:7:"level_0";b:1;s:12:"delete_posts";b:1;s:22:"delete_published_posts";b:1;}}s:11:"contributor";a:2:{s:4:"name";s:11:"Contributor";s:12:"capabilities";a:5:{s:10:"edit_posts";b:1;s:4:"read";b:1;s:7:"level_1";b:1;s:7:"level_0";b:1;s:12:"delete_posts";b:1;}}s:10:"subscriber";a:2:{s:4:"name";s:10:"Subscriber";s:12:"capabilities";a:2:{s:4:"read";b:1;s:7:"level_0";b:1;}}}', 'yes'),
+(97, 0, 'cron', 'a:5:{i:1302391321;a:1:{s:22:"wpsc_hourly_cron_tasks";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:6:"hourly";s:4:"args";a:0:{}s:8:"interval";i:3600;}}}i:1302416797;a:3:{s:16:"wp_version_check";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}s:17:"wp_update_plugins";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}s:16:"wp_update_themes";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:10:"twicedaily";s:4:"args";a:0:{}s:8:"interval";i:43200;}}}i:1302456121;a:1:{s:21:"wpsc_daily_cron_tasks";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:5:"daily";s:4:"args";a:0:{}s:8:"interval";i:86400;}}}i:1302460005;a:1:{s:19:"wp_scheduled_delete";a:1:{s:32:"40cd750bba9870f18aada2478b24840a";a:3:{s:8:"schedule";s:5:"daily";s:4:"args";a:0:{}s:8:"interval";i:86400;}}}s:7:"version";i:2;}', 'yes'),
+(98, 0, '_transient_doing_cron', '1302387981', 'yes'),
 (345, 0, '_transient_update_core', 'O:8:"stdClass":3:{s:7:"updates";a:1:{i:0;O:8:"stdClass":5:{s:8:"response";s:7:"upgrade";s:3:"url";s:30:"http://wordpress.org/download/";s:7:"package";s:40:"http://wordpress.org/wordpress-3.0.1.zip";s:7:"current";s:5:"3.0.1";s:6:"locale";s:5:"en_US";}}s:12:"last_checked";i:1280715048;s:15:"version_checked";s:5:"2.9.2";}', 'yes'),
 (104, 0, 'auth_salt', 'jqGa#6pguLgGFj12HHVTspx#YEi@j6#5o^nHvAT$j#XH@HrMP%L(ObM&RJ@S&V71', 'yes'),
 (105, 0, 'logged_in_salt', 'Y&oj%ZE(UxW&f*i!@8%gv9@Orh3X3ANBEZAXKBlmSew0!F6O2iZtCL5)*qqu1zKS', 'yes'),
@@ -260,33 +256,76 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 (366, 0, '_transient_feed_mod_1a5f760f2e2b48827d4974a60857e7c2', '1272334034', 'no'),
 (364, 0, '_transient_timeout_feed_1a5f760f2e2b48827d4974a60857e7c2', '1272377234', 'no'),
 (137, 0, '_transient_timeout_feed_mod_1a5f760f2e2b48827d4974a60857e7c2', '1269757610', 'no'),
-(276, 0, '_transient_timeout_plugin_slugs', '1296012003', 'no'),
-(277, 0, '_transient_plugin_slugs', 'a:4:{i:0;s:19:"akismet/akismet.php";i:1;s:45:"gold_cart_files_plugin/gold_shopping_cart.php";i:2;s:9:"hello.php";i:3;s:34:"wp-e-commerce/wp-shopping-cart.php";}', 'no'),
+(276, 0, '_transient_timeout_plugin_slugs', '1302476013', 'no'),
+(277, 0, '_transient_plugin_slugs', 'a:5:{i:0;s:19:"akismet/akismet.php";i:1;s:45:"gold_cart_files_plugin/gold_shopping_cart.php";i:2;s:9:"hello.php";i:3;s:34:"wp-e-commerce/wp-shopping-cart.php";i:4;s:25:"wp-firephp/wp-firephp.php";}', 'no'),
 (671, 0, '_transient_timeout_feed_mod_867bd5c64f85878d03a060509cd2f92c', '1288060324', 'no'),
 (672, 0, '_transient_feed_mod_867bd5c64f85878d03a060509cd2f92c', '1288017124', 'no'),
 (358, 0, '_transient_timeout_feed_a5420c83891a9c88ad2a4f04584a5efc', '1272377234', 'no'),
 (359, 0, '_transient_feed_a5420c83891a9c88ad2a4f04584a5efc', 'a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:3:"\n\n\n";s:7:"attribs";a:1:{s:0:"";a:1:{s:7:"version";s:3:"2.0";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:1:{s:7:"channel";a:1:{i:0;a:6:{s:4:"data";s:23:"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:6:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:12:"Most Popular";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:36:"http://wordpress.org/extend/plugins/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:12:"Most Popular";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"language";a:1:{i:0;a:5:{s:4:"data";s:2:"en";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Tue, 27 Apr 2010 02:07:14 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"item";a:15:{i:0;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:30:"arnee on "Google XML Sitemaps"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:70:"http://wordpress.org/extend/plugins/google-sitemap-generator/#post-132";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 09 Mar 2007 22:31:32 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:40:"132@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:105:"This plugin will generate a special XML sitemap which will help search engines to better index your blog.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:5:"arnee";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:1;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:23:"GamerZ on "WP-PageNavi"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:57:"http://wordpress.org/extend/plugins/wp-pagenavi/#post-363";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 09 Mar 2007 23:17:57 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:40:"363@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:62:"Adds a more advanced paging navigation to your WordPress site.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"GamerZ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:2;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:33:"uberdose on "All in One SEO Pack"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:65:"http://wordpress.org/extend/plugins/all-in-one-seo-pack/#post-753";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 30 Mar 2007 20:08:18 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:40:"753@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:92:"Automatically optimizes your Wordpress blog for Search Engines (Search Engine Optimization).";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:8:"uberdose";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:3;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:29:"alexrabe on "NextGEN Gallery"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:62:"http://wordpress.org/extend/plugins/nextgen-gallery/#post-1169";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Mon, 23 Apr 2007 20:08:06 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:41:"1169@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:102:"NextGEN Gallery is a full integrated Image Gallery plugin for WordPress with a Flash slideshow option.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:8:"alexrabe";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:4;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:32:"takayukister on "Contact Form 7"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:61:"http://wordpress.org/extend/plugins/contact-form-7/#post-2141";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 02 Aug 2007 12:45:03 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:41:"2141@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:54:"Just another contact form plugin. Simple but flexible.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:12:"takayukister";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:5;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:51:"micropat on "AddToAny: Share/Bookmark/Email Button"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:56:"http://wordpress.org/extend/plugins/add-to-any/#post-498";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sat, 17 Mar 2007 23:08:16 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:40:"498@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:141:"Help readers share, bookmark, and email your posts and pages using any service, such as Facebook, Twitter, Digg, Delicious and over 100 more.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:8:"micropat";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:6;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:37:"cavemonkey50 on "Google Analyticator"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:65:"http://wordpress.org/extend/plugins/google-analyticator/#post-130";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 09 Mar 2007 22:31:18 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:40:"130@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:107:"Adds the necessary JavaScript code to enable Google Analytics. Includes widgets for Analytics data display.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:12:"cavemonkey50";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:7;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:45:"MikeChallis on "Fast and Secure Contact Form"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:63:"http://wordpress.org/extend/plugins/si-contact-form/#post-12636";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 27 Aug 2009 01:20:04 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:42:"12636@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:133:"This contact form lets your visitors send you a quick E-mail message. Blocks all common spammer tactics. Spam is no longer a problem.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:11:"MikeChallis";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:8;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:25:"mufasa on "WP e-Commerce"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:59:"http://wordpress.org/extend/plugins/wp-e-commerce/#post-739";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 30 Mar 2007 06:08:41 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:40:"739@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:101:"WP e-Commerce is a Web 2.0 application designed with usability, aesthetics, and presentation in mind.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:6:"mufasa";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:9;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:29:"eight7teen on "SexyBookmarks"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:60:"http://wordpress.org/extend/plugins/sexybookmarks/#post-9249";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sun, 22 Feb 2009 11:30:11 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:41:"9249@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:104:"Adds an attractive social bookmarking menu to your posts, pages, index, or any combination of the three.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:10:"eight7teen";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:10;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:29:"andy on "WordPress.com Stats"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:52:"http://wordpress.org/extend/plugins/stats/#post-1355";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sun, 06 May 2007 02:15:03 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:41:"1355@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:119:"You can have simple, concise stats with no additional load on your server by plugging into WordPress.com''s stat system.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:4:"andy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:11;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:45:"orenshmu on "Post videos and photo galleries"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:84:"http://wordpress.org/extend/plugins/post-rich-videos-and-photos-galleries/#post-7094";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sun, 21 Sep 2008 12:15:38 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:41:"7094@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:76:"Post your videos and photo galleries/flash slideshows easily and in seconds.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:8:"orenshmu";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:12;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:27:"donncha on "WP Super Cache"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:61:"http://wordpress.org/extend/plugins/wp-super-cache/#post-2572";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Mon, 05 Nov 2007 11:40:04 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:41:"2572@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:73:"A very fast caching engine for WordPress that produces static html files.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:7:"donncha";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:13;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:38:"bravenewcode on "WPtouch iPhone Theme"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:54:"http://wordpress.org/extend/plugins/wptouch/#post-5468";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 01 May 2008 04:58:09 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:41:"5468@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:150:"WPtouch automatically transforms your WordPress blog into an iPhone application-style theme, complete with ajax loading articles and effects, when vie";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:12:"bravenewcode";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:14;a:6:{s:4:"data";s:7:"\n\n\n\n\n\n\n";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:2:{s:0:"";a:5:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:32:"simonwheatley on "Exclude Pages"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:60:"http://wordpress.org/extend/plugins/exclude-pages/#post-2370";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sat, 22 Sep 2007 09:45:05 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:41:"2370@http://wordpress.org/extend/plugins/";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:147:"This plugin adds a checkbox, “include this page in menus”, uncheck this to exclude pages from the \npage navigation that users see on your site.";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:13:"simonwheatley";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}}}}}}}}}}s:4:"type";i:128;s:7:"headers";a:7:{s:13:"last-modified";s:19:"2007-03-09 22:31:32";s:4:"etag";s:34:""15af6c8beba68d06f3cc0efb9f868c43"";s:12:"content-type";s:23:"text/xml; charset=UTF-8";s:14:"content-length";s:4:"6916";s:4:"date";s:29:"Tue, 27 Apr 2010 02:07:14 GMT";s:6:"server";s:9:"LiteSpeed";s:10:"connection";s:5:"close";}s:5:"build";s:14:"20090627192103";}', 'no'),
-(188, 0, 'wporg_popular_tags', 'O:8:"stdClass":2:{s:7:"timeout";i:1293479130;s:6:"cached";a:40:{s:6:"widget";a:3:{s:4:"name";s:6:"widget";s:4:"slug";s:6:"widget";s:5:"count";s:4:"2071";}s:4:"post";a:3:{s:4:"name";s:4:"Post";s:4:"slug";s:4:"post";s:5:"count";s:4:"1465";}s:6:"plugin";a:3:{s:4:"name";s:6:"plugin";s:4:"slug";s:6:"plugin";s:5:"count";s:4:"1281";}s:5:"posts";a:3:{s:4:"name";s:5:"posts";s:4:"slug";s:5:"posts";s:5:"count";s:4:"1111";}s:5:"admin";a:3:{s:4:"name";s:5:"admin";s:4:"slug";s:5:"admin";s:5:"count";s:4:"1081";}s:7:"sidebar";a:3:{s:4:"name";s:7:"sidebar";s:4:"slug";s:7:"sidebar";s:5:"count";s:4:"1054";}s:8:"comments";a:3:{s:4:"name";s:8:"comments";s:4:"slug";s:8:"comments";s:5:"count";s:3:"797";}s:6:"images";a:3:{s:4:"name";s:6:"images";s:4:"slug";s:6:"images";s:5:"count";s:3:"719";}s:7:"twitter";a:3:{s:4:"name";s:7:"twitter";s:4:"slug";s:7:"twitter";s:5:"count";s:3:"653";}s:4:"page";a:3:{s:4:"name";s:4:"page";s:4:"slug";s:4:"page";s:5:"count";s:3:"642";}s:6:"google";a:3:{s:4:"name";s:6:"google";s:4:"slug";s:6:"google";s:5:"count";s:3:"629";}s:5:"links";a:3:{s:4:"name";s:5:"links";s:4:"slug";s:5:"links";s:5:"count";s:3:"615";}s:5:"image";a:3:{s:4:"name";s:5:"image";s:4:"slug";s:5:"image";s:5:"count";s:3:"564";}s:3:"seo";a:3:{s:4:"name";s:3:"seo";s:4:"slug";s:3:"seo";s:5:"count";s:3:"509";}s:3:"rss";a:3:{s:4:"name";s:3:"rss";s:4:"slug";s:3:"rss";s:5:"count";s:3:"483";}s:7:"gallery";a:3:{s:4:"name";s:7:"gallery";s:4:"slug";s:7:"gallery";s:5:"count";s:3:"439";}s:5:"pages";a:3:{s:4:"name";s:5:"pages";s:4:"slug";s:5:"pages";s:5:"count";s:3:"391";}s:4:"ajax";a:3:{s:4:"name";s:4:"AJAX";s:4:"slug";s:4:"ajax";s:5:"count";s:3:"388";}s:7:"widgets";a:3:{s:4:"name";s:7:"widgets";s:4:"slug";s:7:"widgets";s:5:"count";s:3:"353";}s:9:"wordpress";a:3:{s:4:"name";s:9:"wordpress";s:4:"slug";s:9:"wordpress";s:5:"count";s:3:"332";}s:6:"social";a:3:{s:4:"name";s:6:"social";s:4:"slug";s:6:"social";s:5:"count";s:3:"327";}s:4:"feed";a:3:{s:4:"name";s:4:"feed";s:4:"slug";s:4:"feed";s:5:"count";s:3:"325";}s:8:"facebook";a:3:{s:4:"name";s:8:"Facebook";s:4:"slug";s:8:"facebook";s:5:"count";s:3:"307";}s:5:"photo";a:3:{s:4:"name";s:5:"photo";s:4:"slug";s:5:"photo";s:5:"count";s:3:"304";}s:6:"photos";a:3:{s:4:"name";s:6:"photos";s:4:"slug";s:6:"photos";s:5:"count";s:3:"304";}s:5:"media";a:3:{s:4:"name";s:5:"media";s:4:"slug";s:5:"media";s:5:"count";s:3:"298";}s:5:"flash";a:3:{s:4:"name";s:5:"flash";s:4:"slug";s:5:"flash";s:5:"count";s:3:"297";}s:5:"video";a:3:{s:4:"name";s:5:"video";s:4:"slug";s:5:"video";s:5:"count";s:3:"296";}s:5:"email";a:3:{s:4:"name";s:5:"email";s:4:"slug";s:5:"email";s:5:"count";s:3:"294";}s:9:"shortcode";a:3:{s:4:"name";s:9:"shortcode";s:4:"slug";s:9:"shortcode";s:5:"count";s:3:"293";}s:4:"tags";a:3:{s:4:"name";s:4:"tags";s:4:"slug";s:4:"tags";s:5:"count";s:3:"289";}s:10:"buddypress";a:3:{s:4:"name";s:10:"buddypress";s:4:"slug";s:10:"buddypress";s:5:"count";s:3:"287";}s:10:"javascript";a:3:{s:4:"name";s:10:"javascript";s:4:"slug";s:10:"javascript";s:5:"count";s:3:"286";}s:6:"jquery";a:3:{s:4:"name";s:6:"jquery";s:4:"slug";s:6:"jquery";s:5:"count";s:3:"274";}s:5:"stats";a:3:{s:4:"name";s:5:"stats";s:4:"slug";s:5:"stats";s:5:"count";s:3:"272";}s:4:"link";a:3:{s:4:"name";s:4:"link";s:4:"slug";s:4:"link";s:5:"count";s:3:"268";}s:7:"content";a:3:{s:4:"name";s:7:"content";s:4:"slug";s:7:"content";s:5:"count";s:3:"268";}s:4:"spam";a:3:{s:4:"name";s:4:"spam";s:4:"slug";s:4:"spam";s:5:"count";s:3:"266";}s:7:"comment";a:3:{s:4:"name";s:7:"comment";s:4:"slug";s:7:"comment";s:5:"count";s:3:"263";}s:8:"category";a:3:{s:4:"name";s:8:"category";s:4:"slug";s:8:"category";s:5:"count";s:3:"251";}}}', 'no'),
+(2417, 0, 'can_compress_scripts', '1', 'yes'),
+(2416, 0, '_site_transient_update_core', 'O:8:"stdClass":3:{s:7:"updates";a:1:{i:0;O:8:"stdClass":7:{s:8:"response";s:6:"latest";s:3:"url";s:30:"http://wordpress.org/download/";s:7:"package";s:40:"http://wordpress.org/wordpress-3.1.1.zip";s:7:"current";s:5:"3.1.1";s:6:"locale";s:5:"en_US";s:11:"php_version";s:3:"4.3";s:13:"mysql_version";s:5:"4.1.2";}}s:12:"last_checked";i:1302388114;s:15:"version_checked";s:5:"3.1.1";}', 'yes'),
+(2223, 0, '_transient_wpsc_path_wpsc-cart_widget.php', '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/themes/quickspikes/wpsc-cart_widget.php', 'no'),
+(2190, 0, '_transient_timeout_wpsc_theme_path', '1302424752', 'no'),
+(2191, 0, '_transient_wpsc_theme_path', '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/uploads/wpsc/themes/', 'no'),
+(1091, 0, 'wpsc_checkout_unique_names', 'a:17:{i:0;s:16:"billingfirstname";i:1;s:15:"billinglastname";i:2;s:14:"billingaddress";i:3;s:11:"billingcity";i:4;s:12:"billingstate";i:5;s:14:"billingcountry";i:6;s:12:"billingemail";i:7;s:12:"billingphone";i:8;s:15:"billingpostcode";i:9;s:16:"delivertoafriend";i:10;s:17:"shippingfirstname";i:11;s:16:"shippinglastname";i:12;s:15:"shippingaddress";i:13;s:12:"shippingcity";i:14;s:13:"shippingstate";i:15;s:15:"shippingcountry";i:16;s:16:"shippingpostcode";}', 'yes'),
+(1092, 0, 'wpsc_australiapost_settings', 'a:1:{s:8:"services";a:5:{s:8:"STANDARD";b:1;s:7:"EXPRESS";b:1;s:3:"AIR";b:1;s:3:"SEA";b:1;s:3:"EPI";b:1;}}', 'yes'),
+(1093, 0, 'widget_wpsc_product_tags', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
+(1094, 0, 'widget_wpsc_shopping_cart', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
+(1095, 0, 'widget_wpsc_donations', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
+(1096, 0, 'widget_wpsc_product_specials', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
+(1097, 0, 'widget_wpsc_latest_products', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
+(1098, 0, 'widget_wpsc_price_range', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
+(1099, 0, 'widget_wpsc_admin_menu', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
+(2392, 0, '_site_transient_update_plugins', 'O:8:"stdClass":3:{s:12:"last_checked";i:1302386138;s:7:"checked";a:5:{s:19:"akismet/akismet.php";s:5:"2.5.3";s:45:"gold_cart_files_plugin/gold_shopping_cart.php";s:3:"2.8";s:9:"hello.php";s:3:"1.6";s:34:"wp-e-commerce/wp-shopping-cart.php";s:3:"3.8";s:25:"wp-firephp/wp-firephp.php";s:3:"0.3";}s:8:"response";a:0:{}}', 'yes'),
+(1207, 0, 'wpsc_ignore_theme', '1', 'yes'),
+(1350, 0, 'term_prices', 'a:0:{}', 'yes'),
+(1106, 0, 'wpsc_hide_update', '1', 'yes'),
+(2484, 0, '_transient_timeout_wpsc_url_wpsc-quickSpikes.css', '1302434162', 'no'),
+(2485, 0, '_transient_wpsc_url_wpsc-quickSpikes.css', 'http://qs.local/php/wp-content/themes/quickspikes/wpsc-quickSpikes.css', 'no'),
+(2220, 0, '_transient_timeout_wpsc_path_wpsc-products_page.php', '1302428427', 'no'),
+(2221, 0, '_transient_wpsc_path_wpsc-products_page.php', '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/themes/quickspikes/wpsc-products_page.php', 'no'),
 (800, 0, 'activation_name', 'BrendanWalsh', 'yes'),
 (801, 0, 'activation_key', 'ddba24d175b095b81e6d4876386c092d9b0a7359', 'yes'),
 (802, 0, 'activation_state', 'true', 'yes'),
-(926, 0, '_site_transient_update_plugins', 'O:8:"stdClass":3:{s:12:"last_checked";i:1296153285;s:7:"checked";a:4:{s:19:"akismet/akismet.php";s:5:"2.5.2";s:45:"gold_cart_files_plugin/gold_shopping_cart.php";s:3:"2.8";s:9:"hello.php";s:5:"1.5.1";s:34:"wp-e-commerce/wp-shopping-cart.php";s:5:"3.7.8";}s:8:"response";a:0:{}}', 'yes'),
-(190, 0, 'wpsc_purchaselogs_fixed', '1', 'yes');
+(1018, 0, 'authorize_form_email', '8', 'yes'),
+(1019, 0, 'authorize_form_phone', '17', 'yes'),
+(1020, 0, 'authorize_form_ship_first_name', '2', 'yes'),
+(1021, 0, 'authorize_form_ship_last_name', '3', 'yes'),
+(1022, 0, 'authorize_form_ship_address', '12', 'yes'),
+(1023, 0, 'authorize_form_ship_city', '13', 'yes'),
+(1024, 0, 'authorize_form_ship_post_code', '16', 'yes'),
+(2322, 0, '_transient_timeout_feed_mod_90e981c8bf563214b04d7165f7da5b7f', '1302428668', 'no'),
+(2323, 0, '_transient_feed_mod_90e981c8bf563214b04d7165f7da5b7f', '1302385468', 'no'),
+(2320, 0, '_transient_timeout_feed_90e981c8bf563214b04d7165f7da5b7f', '1302428668', 'no'),
+(2321, 0, '_transient_feed_90e981c8bf563214b04d7165f7da5b7f', 'a:3:{s:3:"url";s:52:"http://getshopped.org/category/wp-e-commerce-plugin/";s:8:"feed_url";s:57:"http://getshopped.org/category/wp-e-commerce-plugin/feed/";s:5:"build";s:14:"20090627192103";}', 'no');
 INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`, `autoload`) VALUES
-(191, 0, 'wpsc_version', '3.7', 'yes'),
+(1069, 0, 'wpsc_unique_names', 'a:16:{i:0;s:16:"billingfirstname";i:1;s:15:"billinglastname";i:2;s:14:"billingaddress";i:3;s:11:"billingcity";i:4;s:14:"billingcountry";i:5;s:12:"billingemail";i:6;s:12:"billingphone";i:7;s:15:"billingpostcode";i:8;s:16:"delivertoafriend";i:9;s:17:"shippingfirstname";i:10;s:16:"shippinglastname";i:11;s:15:"shippingaddress";i:12;s:12:"shippingcity";i:13;s:13:"shippingstate";i:14;s:15:"shippingcountry";i:15;s:16:"shippingpostcode";}', 'yes'),
+(2414, 0, '_site_transient_wporg_theme_feature_list', 'a:5:{s:6:"Colors";a:14:{i:0;s:5:"black";i:1;s:4:"blue";i:2;s:5:"brown";i:3;s:5:"green";i:4;s:6:"orange";i:5;s:4:"pink";i:6;s:6:"purple";i:7;s:3:"red";i:8;s:6:"silver";i:9;s:3:"tan";i:10;s:5:"white";i:11;s:6:"yellow";i:12;s:4:"dark";i:13;s:5:"light";}s:7:"Columns";a:6:{i:0;s:10:"one-column";i:1;s:11:"two-columns";i:2;s:13:"three-columns";i:3;s:12:"four-columns";i:4;s:12:"left-sidebar";i:5;s:13:"right-sidebar";}s:5:"Width";a:2:{i:0;s:11:"fixed-width";i:1;s:14:"flexible-width";}s:8:"Features";a:13:{i:0;s:13:"custom-colors";i:1;s:13:"custom-header";i:2;s:17:"custom-background";i:3;s:11:"custom-menu";i:4;s:12:"editor-style";i:5;s:13:"theme-options";i:6;s:17:"threaded-comments";i:7;s:11:"sticky-post";i:8;s:12:"microformats";i:9;s:20:"rtl-language-support";i:10;s:17:"translation-ready";i:11;s:20:"front-page-post-form";i:12;s:10:"buddypress";}s:7:"Subject";a:3:{i:0;s:7:"holiday";i:1;s:13:"photoblogging";i:2;s:8:"seasonal";}}', 'yes'),
+(1282, 0, 'hide_addtocart_button', '0', 'yes'),
+(1577, 0, '_transient_timeout_wpsc_path_wpsc-user-log.php', '1301815276', 'no'),
+(1283, 0, 'wpsc_lightbox', 'thickbox', 'yes'),
+(1344, 0, 'show_search', '0', 'yes'),
+(1345, 0, 'show_live_search', '1', 'yes'),
+(1346, 0, 'show_thumbnails_thickbox', '1', 'yes'),
+(1578, 0, '_transient_wpsc_path_wpsc-user-log.php', '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/plugins/wp-e-commerce/wpsc-theme//wpsc-user-log.php', 'no'),
+(1739, 0, '_transient_timeout_wpsc_path_wpsc-shopping_cart_page.php', '1301815865', 'no'),
+(1740, 0, '_transient_wpsc_path_wpsc-shopping_cart_page.php', '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/themes/quickspikes/wpsc-shopping_cart_page.php', 'no'),
+(2351, 0, '_transient_wpsc_path_wpsc-list_view.php', '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/themes/quickspikes/wpsc-list_view.php', 'no'),
+(190, 0, 'wpsc_purchaselogs_fixed', '1', 'yes'),
+(191, 0, 'wpsc_version', '3.8', 'yes'),
 (192, 0, 'country_form_field', '', 'yes'),
 (193, 0, 'email_form_field', '', 'yes'),
 (194, 0, 'wpsc_minor_version', '59', 'yes'),
 (195, 0, 'show_thumbnails', '1', 'yes'),
-(196, 0, 'product_image_width', '96', 'yes'),
-(197, 0, 'product_image_height', '96', 'yes'),
-(198, 0, 'category_image_width', '96', 'yes'),
-(199, 0, 'category_image_height', '96', 'yes'),
+(196, 0, 'product_image_width', '256', 'yes'),
+(197, 0, 'product_image_height', '256', 'yes'),
+(198, 0, 'category_image_width', '256', 'yes'),
+(199, 0, 'category_image_height', '256', 'yes'),
 (200, 0, 'product_list_url', 'http://qs.local/products', 'yes'),
 (201, 0, 'shopping_cart_url', 'http://qs.local/products/checkout', 'yes'),
-(202, 0, 'checkout_url', '', 'yes'),
+(202, 0, 'checkout_url', 'http://qs.local/quick-spikes', 'yes'),
 (203, 0, 'transact_url', 'http://qs.local/products/transaction-results', 'yes'),
-(204, 0, 'payment_gateway', 'wpsc_merchant_paypal_standard', 'yes'),
+(204, 0, 'payment_gateway', 'wpsc_merchant_authorize', 'yes'),
 (205, 0, 'cart_location', '2', 'yes'),
 (206, 0, 'currency_type', '136', 'yes'),
 (207, 0, 'currency_sign_location', '3', 'yes'),
@@ -302,8 +341,8 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 (217, 0, 'google_key', 'none', 'yes'),
 (218, 0, 'google_id', 'none', 'yes'),
 (219, 0, 'default_brand', 'none', 'yes'),
-(220, 0, 'wpsc_default_category', '2', 'yes'),
-(221, 0, 'product_view', 'default', 'yes'),
+(220, 0, 'wpsc_default_category', 'all', 'yes'),
+(221, 0, 'product_view', 'list', 'yes'),
 (222, 0, 'add_plustax', '0', 'yes'),
 (223, 0, 'nzshpcrt_first_load', '0', 'yes'),
 (224, 0, 'show_categorybrands', '2', 'yes'),
@@ -318,9 +357,9 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 (233, 0, 'wpsc_selected_theme', 'quickSpikes', 'yes'),
 (234, 0, 'single_view_image_height', '256', 'yes'),
 (235, 0, 'single_view_image_width', '256', 'yes'),
-(236, 0, 'wpsc_gallery_image_height', '96', 'yes'),
-(237, 0, 'wpsc_gallery_image_width', '96', 'yes'),
-(238, 0, 'custom_gateway_options', 'a:1:{i:0;s:29:"wpsc_merchant_paypal_standard";}', 'yes'),
+(236, 0, 'wpsc_gallery_image_height', '256', 'yes'),
+(237, 0, 'wpsc_gallery_image_width', '256', 'yes'),
+(238, 0, 'custom_gateway_options', 'a:2:{i:0;s:23:"wpsc_merchant_authorize";i:1;s:29:"wpsc_merchant_paypal_standard";}', 'yes'),
 (466, 0, 'paypal_curcode', 'USD', 'yes'),
 (239, 0, 'wpsc_category_url_cache', 'a:1:{i:2;s:12:"quick-spikes";}', 'yes'),
 (240, 0, 'user_account_url', 'http://qs.local/products/your-account', 'yes'),
@@ -350,26 +389,32 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 (412, 0, 'page_on_front', '0', 'yes'),
 (319, 0, 'wpsc_ups_services', '', 'yes'),
 (320, 0, 'usps_test_server', '', 'yes'),
-(840, 0, '_transient_timeout_feed_90e981c8bf563214b04d7165f7da5b7f', '1294160007', 'no'),
-(841, 0, '_transient_feed_90e981c8bf563214b04d7165f7da5b7f', 'a:3:{s:3:"url";s:52:"http://getshopped.org/category/wp-e-commerce-plugin/";s:8:"feed_url";s:57:"http://getshopped.org/category/wp-e-commerce-plugin/feed/";s:5:"build";s:14:"20090627192103";}', 'no'),
-(842, 0, '_transient_timeout_feed_mod_90e981c8bf563214b04d7165f7da5b7f', '1294160007', 'no'),
-(843, 0, '_transient_feed_mod_90e981c8bf563214b04d7165f7da5b7f', '1294116807', 'no'),
-(337, 0, '_transient_timeout_feed_2ab3e749fe117f8942138a191652d94b', '1294160007', 'no'),
-(338, 0, '_transient_feed_2ab3e749fe117f8942138a191652d94b', 'a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:3:"\n\n\n";s:7:"attribs";a:1:{s:0:"";a:1:{s:7:"version";s:3:"2.0";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:1:{s:7:"channel";a:1:{i:0;a:6:{s:4:"data";s:50:"\n	\n	\n	\n	\n	\n	\n	\n	\n	\n		\n		\n		\n		\n		\n		\n		\n		\n		\n		\n	";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:3:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:38:"GetShopped.org » WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:21:"http://getshopped.org";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:0:"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:13:"lastBuildDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Tue, 28 Dec 2010 18:50:55 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"language";a:1:{i:0;a:5:{s:4:"data";s:2:"en";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:9:"generator";a:1:{i:0;a:5:{s:4:"data";s:29:"http://wordpress.org/?v=3.0.2";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"item";a:10:{i:0;a:6:{s:4:"data";s:42:"\n		\n		\n		\n		\n		\n				\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:47:"Instinct’s Newest Beta Release – GroupDeals";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:71:"http://getshopped.org/plugins/instincts-newest-beta-release-groupdeals/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:80:"http://getshopped.org/plugins/instincts-newest-beta-release-groupdeals/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sat, 18 Dec 2010 10:35:06 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:7:"Plugins";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:15:"Premium Plugins";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2198";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:334:"Ever thought about how great it would be to have a turn-key Group Deals website, like Groupon? We have great news!  GetShopped, in conjunction with Zao, is releasing the premier WordPress Group Deals plugin.  We&#8217;ve got a very beta release ready to ship. Some of the awesome features include - Tight integration to WP 3.0 [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:14:"Justin Sainton";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:76:"http://getshopped.org/plugins/instincts-newest-beta-release-groupdeals/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"48";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:1;a:6:{s:4:"data";s:39:"\n		\n		\n		\n		\n		\n				\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:17:"3.8 Public Beta 2";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:45:"http://getshopped.org/news/3-8-public-beta-2/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:54:"http://getshopped.org/news/3-8-public-beta-2/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 16 Dec 2010 00:41:36 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2178";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:342:"10 days ago we launched the WP e-Commerce  3.8 Beta. Since then we&#8217;ve had some great feedback, and the majority of bugs reported by the community have been squashed. I&#8217;d like to thank everyone involved in providing patches, bug reports, and general feedback. So far some of the major things we have fixed: Category Ordering [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:13:"Jeff Ghazally";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:50:"http://getshopped.org/news/3-8-public-beta-2/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"15";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:2;a:6:{s:4:"data";s:42:"\n		\n		\n		\n		\n		\n				\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:37:"Translating WP-e-Commerce is now easy";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:65:"http://getshopped.org/news/translating-wp-e-commerce-is-now-easy/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:74:"http://getshopped.org/news/translating-wp-e-commerce-is-now-easy/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Wed, 15 Dec 2010 22:55:59 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:9:"WordPress";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2167";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:368:"Note: This post is about WP e-Commerce 3.8 and the methods described in it will not work for 3.7 I&#8217;m happy to announce, that WP-e-Commerce translations page is now up and running. Check it out: http://languages.getshopped.org/. The page is powered by GlotPress, the same software, that WordPress uses to do their translations. This is how the front page [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:10:"valentinas";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:70:"http://getshopped.org/news/translating-wp-e-commerce-is-now-easy/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"42";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:3;a:6:{s:4:"data";s:42:"\n		\n		\n		\n		\n		\n				\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:13:"Gold Cart 2.8";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:41:"http://getshopped.org/news/gold-cart-2-8/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:50:"http://getshopped.org/news/gold-cart-2-8/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 10 Dec 2010 02:56:48 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:15:"GetShopped News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2150";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:314:"Well it&#8217;s that time again, for another great GetShopped announcement! Gold Cart 2.8 Is ready for Download! We&#8217;ve been pretty busy on the 3.8 Public Beta bug hunt, and it has been going really well. Since the release some new developers have come out of the wood works to lend us a hand, which has [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:13:"Jeff Ghazally";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:46:"http://getshopped.org/news/gold-cart-2-8/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"21";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:4;a:6:{s:4:"data";s:42:"\n		\n		\n		\n		\n		\n				\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:13:"3.7.8 Release";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:41:"http://getshopped.org/news/3-7-8-release/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:50:"http://getshopped.org/news/3-7-8-release/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Wed, 08 Dec 2010 04:24:52 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:9:"WordPress";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2127";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:310:"Soo the hype of 3.8 Public Beta hasn&#8217;t quite left the air, but we would like to announce a new stable release available for download. 3.7.8. Admittedly not much has changed, but there were a few changes in there that we wanted to make sure went live. Most importantly was the security hole found by [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:13:"Jeff Ghazally";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:46:"http://getshopped.org/news/3-7-8-release/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"10";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:5;a:6:{s:4:"data";s:39:"\n		\n		\n		\n		\n		\n				\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:29:"WP e-Commerce 3.8 Public Beta";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:57:"http://getshopped.org/news/wp-e-commerce-3-8-public-beta/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:66:"http://getshopped.org/news/wp-e-commerce-3-8-public-beta/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Mon, 06 Dec 2010 02:49:45 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2094";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:309:"A is for Announcement In 2009 Instinct and the GetShopped Team met Matt Mullenweg at the NZ WordCamp. It was then that Matt took an interest in the WP e-Commerce Plugin and suggested we move away from our current table structure in exchange for WordPress Tables. This was the start of 3.8 from there new [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:13:"Jeff Ghazally";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:62:"http://getshopped.org/news/wp-e-commerce-3-8-public-beta/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"45";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:6;a:6:{s:4:"data";s:42:"\n		\n		\n		\n		\n		\n				\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:40:"Fixed rate shipping module now available";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:68:"http://getshopped.org/news/fixed-rate-shipping-module-now-available/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:77:"http://getshopped.org/news/fixed-rate-shipping-module-now-available/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sun, 28 Nov 2010 21:53:14 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:7:"Plugins";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2059";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:362:"Local and small business usually needs special shipping options, therefore we created fixed rate shipping module, where you can create as many shipping options as you need. For example you can allow people to choose between different shipping methods. Or you can add different locations, for example if your business is located in Manhattan you may offer [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:10:"valentinas";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:73:"http://getshopped.org/news/fixed-rate-shipping-module-now-available/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"21";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:7;a:6:{s:4:"data";s:39:"\n		\n		\n		\n		\n		\n				\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:24:"hooks and filters part 2";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:52:"http://getshopped.org/news/hooks-and-filters-part-2/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:61:"http://getshopped.org/news/hooks-and-filters-part-2/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sun, 07 Nov 2010 21:36:55 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2013";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:291:"Put your hand up if you like hooks and filters? We do too! And it no doubt shows &#8211; as we still boast the most in the old hooks and filters department. But enough is never enough around here &#8211; in my recent Wish list article a small handful of people (theme developers and so [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:11:"Dan Milward";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:57:"http://getshopped.org/news/hooks-and-filters-part-2/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"23";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:8;a:6:{s:4:"data";s:39:"\n		\n		\n		\n		\n		\n				\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:25:"Its feature request time!";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:52:"http://getshopped.org/news/its-feature-request-time/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:61:"http://getshopped.org/news/its-feature-request-time/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 04 Nov 2010 09:03:41 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2001";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:324:"Hey team. Following up from my feature wishlist post a couple of weeks ago, we&#8217;re now at a point whereby we would appreciate it if you could now take the time to answer the following poll. If a feature you requested isn&#8217;t listed on the poll then don&#8217;t fret &#8211; this is going to be the first of [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:11:"Dan Milward";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:57:"http://getshopped.org/news/its-feature-request-time/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:1:"0";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:9;a:6:{s:4:"data";s:39:"\n		\n		\n		\n		\n		\n				\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:20:"Custom Meta – Tabs";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:44:"http://getshopped.org/news/custom-meta-tabs/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:53:"http://getshopped.org/news/custom-meta-tabs/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 29 Oct 2010 05:10:28 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=1998";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:301:"At the moment our Custom Meta solution allows you to add an additional title/heading, and some extra text to any given product in your shop. This is displayed in the Single Product Template. This is ok because Custom Meta is searchable and it serves a real need for our users BUT it is still not [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:11:"Dan Milward";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:49:"http://getshopped.org/news/custom-meta-tabs/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"12";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}s:27:"http://www.w3.org/2005/Atom";a:1:{s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:0:"";s:7:"attribs";a:1:{s:0:"";a:3:{s:4:"href";s:57:"http://getshopped.org/category/wp-e-commerce-plugin/feed/";s:3:"rel";s:4:"self";s:4:"type";s:19:"application/rss+xml";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:44:"http://purl.org/rss/1.0/modules/syndication/";a:2:{s:12:"updatePeriod";a:1:{i:0;a:5:{s:4:"data";s:6:"hourly";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:15:"updateFrequency";a:1:{i:0;a:5:{s:4:"data";s:1:"1";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}}}}}}s:4:"type";i:128;s:7:"headers";a:13:{s:4:"date";s:29:"Tue, 04 Jan 2011 04:53:21 GMT";s:6:"server";s:40:"Apache/2.2.3 (Debian) PHP/5.2.0-8+etch11";s:12:"x-powered-by";s:18:"PHP/5.2.0-8+etch11";s:10:"set-cookie";s:50:"PHPSESSID=14f517894c5789bb6724b06f4822f0f8; path=/";s:7:"expires";s:29:"Thu, 19 Nov 1981 08:52:00 GMT";s:13:"cache-control";s:62:"no-store, no-cache, must-revalidate, post-check=0, pre-check=0";s:6:"pragma";s:8:"no-cache";s:10:"x-pingback";s:32:"http://getshopped.org/xmlrpc.php";s:13:"last-modified";s:29:"Tue, 28 Dec 2010 18:50:55 GMT";s:4:"etag";s:34:""a9cacd5b394e7a7236d46f28f1c75718"";s:4:"vary";s:15:"Accept-Encoding";s:10:"connection";s:5:"close";s:12:"content-type";s:23:"text/xml; charset=UTF-8";}s:5:"build";s:14:"20090627192103";}', 'no'),
+(1011, 0, 'authorize_testmode', '1', 'yes'),
+(1012, 0, 'authorize_form_description', 'Authorize.net Test', 'yes'),
+(1013, 0, 'authorize_form_first_name', '2', 'yes'),
+(1014, 0, 'authorize_form_last_name', '3', 'yes'),
+(1015, 0, 'authorize_form_address', '4', 'yes'),
+(1016, 0, 'authorize_form_city', '5', 'yes'),
+(1017, 0, 'authorize_form_post_code', '7', 'yes'),
+(337, 0, '_transient_timeout_feed_2ab3e749fe117f8942138a191652d94b', '1302428668', 'no'),
+(338, 0, '_transient_feed_2ab3e749fe117f8942138a191652d94b', 'a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:3:"\n\n\n";s:7:"attribs";a:1:{s:0:"";a:1:{s:7:"version";s:3:"2.0";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:1:{s:7:"channel";a:1:{i:0;a:6:{s:4:"data";s:50:"\n	\n	\n	\n	\n	\n	\n	\n	\n	\n		\n		\n		\n		\n		\n		\n		\n		\n		\n		\n	";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:3:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:38:"GetShopped.org » WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:21:"http://getshopped.org";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:0:"";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:13:"lastBuildDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Wed, 06 Apr 2011 03:28:30 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"language";a:1:{i:0;a:5:{s:4:"data";s:2:"en";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:9:"generator";a:1:{i:0;a:5:{s:4:"data";s:29:"http://wordpress.org/?v=3.0.4";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"item";a:10:{i:0;a:6:{s:4:"data";s:39:"\n		\n		\n		\n		\n		\n				\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:89:"Hooray my products are still there and 3.8 rules! But I still have a few little errors…";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:124:"http://getshopped.org/getshopped-news/hooray-my-products-are-still-there-and-3-8-rules-but-i-still-have-a-few-little-errors/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:133:"http://getshopped.org/getshopped-news/hooray-my-products-are-still-there-and-3-8-rules-but-i-still-have-a-few-little-errors/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Tue, 05 Apr 2011 03:44:48 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:15:"GetShopped News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2663";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:318:"Hi everyone first off a big massive THANK-YOU to everybody who has reported errors &#8211; without your reports we don&#8217;t know what to look for or what to fix! Also I need to mention a big thanks to everyone who is helping to resolve these errors and supporting our GetShopped community &#8211; you guys are [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:8:"Mychelle";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:129:"http://getshopped.org/getshopped-news/hooray-my-products-are-still-there-and-3-8-rules-but-i-still-have-a-few-little-errors/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"54";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:1;a:6:{s:4:"data";s:39:"\n		\n		\n		\n		\n		\n				\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:95:"WP e-Commerce Plugin 3.8. You have not lost any products.. and other upgrade problems resolved!";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:126:"http://getshopped.org/getshopped-news/wp-e-commerce-plugin-you-have-not-lost-any-products-and-other-upgrade-problems-resolved/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:135:"http://getshopped.org/getshopped-news/wp-e-commerce-plugin-you-have-not-lost-any-products-and-other-upgrade-problems-resolved/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Mon, 04 Apr 2011 05:24:52 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:15:"GetShopped News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2629";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:305:"First of all BACK UP your site and database before upgrading anything. This is super important in case anything goes wrong. I have already seen a few support queries that start with &#8220;I have not made a backup but my site is broken&#8221;, so if this is your  case and non of the following tips [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:8:"Mychelle";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:131:"http://getshopped.org/getshopped-news/wp-e-commerce-plugin-you-have-not-lost-any-products-and-other-upgrade-problems-resolved/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"94";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:2;a:6:{s:4:"data";s:42:"\n		\n		\n		\n		\n		\n				\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:86:"WP e-Commerce Plugin 3.8 sports a new look, super speed and more awesomeness than ever";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:113:"http://getshopped.org/news/wp-e-commerce-plugin-3-8-sports-a-new-look-super-speed-and-more-awesomeness-than-ever/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:122:"http://getshopped.org/news/wp-e-commerce-plugin-3-8-sports-a-new-look-super-speed-and-more-awesomeness-than-ever/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 31 Mar 2011 22:25:10 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:15:"GetShopped News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2547";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:322:"Is it a bird is it a plane? No! It&#8217;s the new WP e-Commerce Plugin 3.8 release hurtling down towards your Plugins directory at the speed of fibre optic light! Its time for you to prepare your /wp-content folder for a super charged faster than a speeding rabbit release that will surely make your very customers [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:11:"Dan Milward";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:118:"http://getshopped.org/news/wp-e-commerce-plugin-3-8-sports-a-new-look-super-speed-and-more-awesomeness-than-ever/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"77";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:3;a:6:{s:4:"data";s:42:"\n		\n		\n		\n		\n		\n				\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:37:"Before upgrading to 3.8 please backup";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:65:"http://getshopped.org/news/before-upgrading-to-3-8-please-backup/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:74:"http://getshopped.org/news/before-upgrading-to-3-8-please-backup/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 31 Mar 2011 21:51:50 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:15:"GetShopped News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2601";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:324:"3.8 will be out soon, but before upgrading I want to let you know about possible dangers. This applies for all your live sites, especially the ones that are running 3.7.8 or earlier versions. To avoid any awkward and frustrating situations please make a full backup before doing any upgrades. That way in case anything [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:10:"valentinas";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:70:"http://getshopped.org/news/before-upgrading-to-3-8-please-backup/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:1:"0";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:4;a:6:{s:4:"data";s:42:"\n		\n		\n		\n		\n		\n				\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:39:"WP e-Commerce Plugin hits 1M+ downloads";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:66:"http://getshopped.org/news/wp-e-commerce-plugin-hits-1m-downloads/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:75:"http://getshopped.org/news/wp-e-commerce-plugin-hits-1m-downloads/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sun, 27 Mar 2011 22:45:25 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:15:"GetShopped News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2548";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:308:"The WP e-Commerce Plugin has hit another significant download milestone. We hit the 1M download mark on WordPress extend! I  want to thank all of our users and supporters from over the years. It has been a crazy journey, here are some of the little gems that  I think about when I look back; Blogging [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:11:"Dan Milward";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:71:"http://getshopped.org/news/wp-e-commerce-plugin-hits-1m-downloads/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"13";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:5;a:6:{s:4:"data";s:42:"\n		\n		\n		\n		\n		\n				\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:17:"WP e-Commerce RC4";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:45:"http://getshopped.org/news/wp-e-commerce-rc4/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:54:"http://getshopped.org/news/wp-e-commerce-rc4/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 25 Mar 2011 04:28:25 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:3:{i:0;a:5:{s:4:"data";s:15:"GetShopped News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2533";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:298:"Two weeks have passed since RC3. We are slowing down the pace and getting ready for stable. This will be the last RC and we will be pushing stable in next week or two. Changes that were made since RC3: Tax fixes for per product tax Shipping same as billing fixes Code cleanup Translations now [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:10:"valentinas";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:50:"http://getshopped.org/news/wp-e-commerce-rc4/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"70";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:6;a:6:{s:4:"data";s:39:"\n		\n		\n		\n		\n		\n				\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:17:"WP e-Commerce RC3";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:56:"http://getshopped.org/getshopped-news/wp-e-commerce-rc3/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:65:"http://getshopped.org/getshopped-news/wp-e-commerce-rc3/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 11 Mar 2011 03:48:25 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:15:"GetShopped News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2492";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:286:"One week has passed and we have had a few hiccups but nothing too big,, I hope this will be the last RC before the Final stable gets launched as we plan to roll out a few bug fixes into 3.8.1 quite quickly after the launch (say a month compared to 14months!) Required Changes Made [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:13:"Jeff Ghazally";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:61:"http://getshopped.org/getshopped-news/wp-e-commerce-rc3/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"42";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:7;a:6:{s:4:"data";s:51:"\n		\n		\n		\n		\n		\n				\n		\n		\n		\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:30:"GroupDeals Beta 3 has arrived!";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:57:"http://getshopped.org/news/groupdeals-beta-3-has-arrived/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:66:"http://getshopped.org/news/groupdeals-beta-3-has-arrived/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Thu, 10 Mar 2011 21:00:40 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:6:{i:0;a:5:{s:4:"data";s:10:"Developers";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:13:"On e-Commerce";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:7:"Plugins";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:15:"Premium Plugins";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:5;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2429";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:341:"We&#8217;re getting so close, I can feel it!  It&#8217;s hard to believe that this was announced less than three months ago, and we&#8217;re almost to our first stable release.  Again, thanks to all who have sent encouraging notes and bug reports and feature requests, and of course, thank you for your patience.  We&#8217;re on the [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:14:"Justin Sainton";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:62:"http://getshopped.org/news/groupdeals-beta-3-has-arrived/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:3:"109";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:8;a:6:{s:4:"data";s:39:"\n		\n		\n		\n		\n		\n				\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:25:"3.8 RC 2 – At long last";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:49:"http://getshopped.org/news/3-8-rc-2-at-long-last/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:58:"http://getshopped.org/news/3-8-rc-2-at-long-last/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 04 Mar 2011 03:57:35 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:2:{i:0;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2448";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:312:"Hi everyone, So it&#8217;s been a long few weeks and we&#8217;ve been busy at work, making sure things play nice with WordPress 3.1. We&#8217;ve had a few big bugs and WordCamps that stopped us releasing this sooner. All in all I think we are geting rediculously closer. From here on end, we will be taking [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:13:"Jeff Ghazally";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:54:"http://getshopped.org/news/3-8-rc-2-at-long-last/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:2:"25";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:9;a:6:{s:4:"data";s:48:"\n		\n		\n		\n		\n		\n				\n		\n		\n		\n		\n\n		\n		\n		\n		\n		";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:4:{s:0:"";a:7:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:77:"GroupDeals Beta 2 has Arrived! Bugfixes, New Features and Roadmaps – Oh my!";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:98:"http://getshopped.org/news/groupdeals-beta-2-has-arrived-bugfixes-new-features-and-roadmaps-oh-my/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:107:"http://getshopped.org/news/groupdeals-beta-2-has-arrived-bugfixes-new-features-and-roadmaps-oh-my/#comments";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Sat, 12 Feb 2011 09:16:41 +0000";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:8:"category";a:5:{i:0;a:5:{s:4:"data";s:15:"GetShopped News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:1;a:5:{s:4:"data";s:4:"News";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:2;a:5:{s:4:"data";s:7:"Plugins";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:3;a:5:{s:4:"data";s:15:"Premium Plugins";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}i:4;a:5:{s:4:"data";s:20:"WP e-Commerce Plugin";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:29:"http://getshopped.org/?p=2372";s:7:"attribs";a:1:{s:0:"";a:1:{s:11:"isPermaLink";s:5:"false";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:335:"First things first &#8211; a BIG thank you to all of the beta testers and early adopters out there.  Thanks to your diligence, we&#8217;ve squashed a ton of bugs already!  If the hundreds of comments (237 so far), emails and trackbacks from all around the world are any indication, we&#8217;ve got something pretty special here [...]";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:32:"http://purl.org/dc/elements/1.1/";a:1:{s:7:"creator";a:1:{i:0;a:5:{s:4:"data";s:14:"Justin Sainton";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:36:"http://wellformedweb.org/CommentAPI/";a:1:{s:10:"commentRss";a:1:{i:0;a:5:{s:4:"data";s:103:"http://getshopped.org/news/groupdeals-beta-2-has-arrived-bugfixes-new-features-and-roadmaps-oh-my/feed/";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:38:"http://purl.org/rss/1.0/modules/slash/";a:1:{s:8:"comments";a:1:{i:0;a:5:{s:4:"data";s:3:"100";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}s:27:"http://www.w3.org/2005/Atom";a:1:{s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:0:"";s:7:"attribs";a:1:{s:0:"";a:3:{s:4:"href";s:57:"http://getshopped.org/category/wp-e-commerce-plugin/feed/";s:3:"rel";s:4:"self";s:4:"type";s:19:"application/rss+xml";}}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}s:44:"http://purl.org/rss/1.0/modules/syndication/";a:2:{s:12:"updatePeriod";a:1:{i:0;a:5:{s:4:"data";s:6:"hourly";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:15:"updateFrequency";a:1:{i:0;a:5:{s:4:"data";s:1:"1";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}}}}}}s:4:"type";i:128;s:7:"headers";a:12:{s:6:"server";s:12:"nginx/0.8.53";s:4:"date";s:29:"Sat, 09 Apr 2011 21:46:45 GMT";s:12:"content-type";s:23:"text/xml; charset=UTF-8";s:10:"connection";s:5:"close";s:12:"x-powered-by";s:9:"PHP/5.3.5";s:10:"set-cookie";s:44:"PHPSESSID=l6nnrhqj56qoq979vsqsh5dij2; path=/";s:7:"expires";s:29:"Thu, 19 Nov 1981 08:52:00 GMT";s:13:"cache-control";s:62:"no-store, no-cache, must-revalidate, post-check=0, pre-check=0";s:6:"pragma";s:8:"no-cache";s:10:"x-pingback";s:32:"http://getshopped.org/xmlrpc.php";s:13:"last-modified";s:29:"Wed, 06 Apr 2011 03:28:30 GMT";s:4:"etag";s:34:""d62b5f9e1b67980a8de291c83d809989"";}s:5:"build";s:14:"20090627192103";}', 'no'),
 (465, 0, 'return_name', 'Quick Spikes', 'yes'),
 (467, 0, 'paypal_form_first_name', '2', 'yes'),
-(339, 0, '_transient_timeout_feed_mod_2ab3e749fe117f8942138a191652d94b', '1294160007', 'no'),
-(340, 0, '_transient_feed_mod_2ab3e749fe117f8942138a191652d94b', '1294116807', 'no'),
+(339, 0, '_transient_timeout_feed_mod_2ab3e749fe117f8942138a191652d94b', '1302428668', 'no'),
+(340, 0, '_transient_feed_mod_2ab3e749fe117f8942138a191652d94b', '1302385468', 'no'),
 (346, 0, '_transient_update_themes', 'O:8:"stdClass":2:{s:12:"last_checked";i:1280714184;s:7:"checked";a:3:{s:7:"default";s:3:"1.6";s:11:"quickspikes";s:3:"1.0";s:14:"thatgolf-theme";s:3:"1.4";}}', 'yes'),
 (360, 0, '_transient_feed_mod_a5420c83891a9c88ad2a4f04584a5efc', '1272334034', 'no'),
 (363, 0, '_transient_feed_mod_57bc725ad6568758915363af670fd8bc', '1272334034', 'no'),
 (400, 0, 'multi_add', '1', 'yes'),
-(401, 0, 'payment_gateway_names', 'a:7:{i:0;s:11:"Credit Card";i:1;s:11:"Credit Card";i:2;s:11:"Credit Card";i:3;s:11:"Credit Card";i:4;s:11:"Credit Card";s:16:"paypal_certified";s:6:"PayPal";s:29:"wpsc_merchant_paypal_standard";s:6:"PayPal";}', 'yes'),
+(401, 0, 'payment_gateway_names', 'a:8:{i:0;s:11:"Credit Card";i:1;s:11:"Credit Card";i:2;s:11:"Credit Card";i:3;s:11:"Credit Card";i:4;s:11:"Credit Card";s:16:"paypal_certified";s:6:"PayPal";s:29:"wpsc_merchant_paypal_standard";s:6:"PayPal";s:23:"wpsc_merchant_authorize";s:11:"Credit Card";}', 'yes'),
 (413, 0, 'db_upgraded', '', 'yes'),
 (414, 0, 'widget_nav_menu', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
 (408, 0, '_transient_update_plugins', 'O:8:"stdClass":3:{s:12:"last_checked";i:1280714184;s:7:"checked";a:3:{s:19:"akismet/akismet.php";s:5:"2.2.7";s:9:"hello.php";s:5:"1.5.1";s:34:"wp-e-commerce/wp-shopping-cart.php";s:7:"3.7.6.7";}s:8:"response";a:1:{s:19:"akismet/akismet.php";O:8:"stdClass":5:{s:2:"id";s:2:"15";s:4:"slug";s:7:"akismet";s:11:"new_version";s:5:"2.3.0";s:3:"url";s:44:"http://wordpress.org/extend/plugins/akismet/";s:7:"package";s:55:"http://downloads.wordpress.org/plugin/akismet.2.3.0.zip";}}}', 'yes'),
-(825, 0, '_site_transient_update_core', 'O:8:"stdClass":3:{s:7:"updates";a:2:{i:0;O:8:"stdClass":7:{s:8:"response";s:15:"﻿&lt;html&gt;";s:3:"url";s:11:"http://head";s:7:"package";s:44:"http://metahttp-equiv=pragmacontent=no-cache";s:7:"current";s:66:"&lt;meta http-equiv=&quot;expires&quot; content=&quot;-1&quot;&gt;";s:6:"locale";s:310:"&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=https://hotspot.boingo.aero/login?dst=http%3A%2F%2Fapi.wordpress.org%2Fcore%2Fversion-check%2F1.5%2F%3Fversion%3D3.0.4%26php%3D5.3.3%26locale%3Den%5FUS%26mysql%3D5.1.50%26local%5Fpackage%3D%26blogs%3D1%26users%3D3%26multisite%5Fenabled%3D0&quot;&gt;";s:11:"php_version";s:41:"&lt;title&gt;Login Redirect&lt;/title&gt;";s:13:"mysql_version";s:13:"&lt;/head&gt;";}i:1;O:8:"stdClass":3:{s:8:"response";s:12:"&lt;body&gt;";s:3:"url";s:5:"/body";s:7:"package";s:5:"/html";}}s:12:"last_checked";i:1296154700;s:15:"version_checked";s:5:"3.0.4";}', 'yes'),
-(419, 0, 'can_compress_scripts', '1', 'yes'),
+(1071, 0, 'default_post_format', '0', 'yes'),
+(1352, 0, 'wpsc-variation_children', 'a:1:{i:7;a:2:{i:0;i:8;i:1;i:9;}}', 'yes'),
+(1349, 0, 'wpsc_product_category_children', 'a:1:{i:3;a:1:{i:0;i:4;}}', 'yes'),
+(2413, 0, '_site_transient_timeout_wporg_theme_feature_list', '1302398896', 'yes'),
+(2222, 0, '_transient_timeout_wpsc_path_wpsc-cart_widget.php', '1302428427', 'no'),
 (420, 0, 'akismet_available_servers', 'a:4:{s:12:"66.135.58.61";b:1;s:12:"66.135.58.62";b:1;s:12:"72.233.69.88";b:1;s:12:"72.233.69.89";b:1;}', 'yes'),
 (421, 0, 'akismet_connectivity_time', '1295925611', 'yes'),
 (468, 0, 'paypal_form_last_name', '3', 'yes'),
@@ -382,9 +427,9 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 (477, 0, 'paypal_certified_apipass', '1286683925', 'yes'),
 (478, 0, 'paypal_certified_apisign', 'AFcWxV21C7fd0v3bYYYRCpSSRl31At43SBd9QzpCHgCMOJqYK14q56L- ', 'yes'),
 (479, 0, 'paypal_certified_server_type', 'sandbox', 'yes'),
-(967, 0, '_site_transient_timeout_theme_roots', '1296196198', 'yes'),
-(968, 0, '_site_transient_theme_roots', 'a:2:{s:11:"quickspikes";s:7:"/themes";s:9:"twentyten";s:7:"/themes";}', 'yes'),
-(689, 0, '_site_transient_update_themes', 'O:8:"stdClass":1:{s:12:"last_checked";i:1296154700;}', 'yes'),
+(2426, 0, '_site_transient_timeout_theme_roots', '1302396191', 'yes'),
+(2427, 0, '_site_transient_theme_roots', 'a:2:{s:11:"quickspikes";s:7:"/themes";s:9:"twentyten";s:7:"/themes";}', 'yes'),
+(689, 0, '_site_transient_update_themes', 'O:8:"stdClass":1:{s:12:"last_checked";i:1302388103;}', 'yes'),
 (557, 0, 'paypal_ship', '0', 'yes'),
 (537, 0, 'show_sliding_cart', '1', 'yes'),
 (556, 0, 'address_override', '1', 'yes'),
@@ -404,14 +449,21 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`, `autoload`) VALUES
 (642, 0, 'show_products_rss', '1', 'yes'),
 (643, 0, 'catsprods_display_type', '1', 'yes'),
-(644, 0, 'use_pagination', '1', 'yes'),
+(644, 0, 'use_pagination', '0', 'yes'),
 (645, 0, 'wpsc_products_per_page', '1', 'yes'),
 (646, 0, 'wpsc_page_number_position', '2', 'yes'),
 (664, 0, '_transient_feed_mod_eebbfad72cfaf76c4edc5695ad275b05', '1288017122', 'no'),
 (668, 0, '_transient_feed_mod_0ff4b43bd116a9d8720d689c80e7dfd4', '1288017124', 'no'),
-(960, 0, 'rewrite_rules', 'a:289:{s:52:"product_tag/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:50:"index.php?product_tag=$matches[1]&feed=$matches[2]";s:47:"product_tag/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:50:"index.php?product_tag=$matches[1]&feed=$matches[2]";s:40:"product_tag/([^/]+)/page/?([0-9]{1,})/?$";s:51:"index.php?product_tag=$matches[1]&paged=$matches[2]";s:22:"product_tag/([^/]+)/?$";s:33:"index.php?product_tag=$matches[1]";s:12:"robots\\.txt$";s:18:"index.php?robots=1";s:14:".*wp-atom.php$";s:19:"index.php?feed=atom";s:13:".*wp-rdf.php$";s:18:"index.php?feed=rdf";s:13:".*wp-rss.php$";s:18:"index.php?feed=rss";s:14:".*wp-rss2.php$";s:19:"index.php?feed=rss2";s:14:".*wp-feed.php$";s:19:"index.php?feed=feed";s:22:".*wp-commentsrss2.php$";s:34:"index.php?feed=rss2&withcomments=1";s:38:"products/quick-spikes/page/([0-9]+)/?$";s:63:"index.php?pagename=products&category_id=2&wpsc_page=$matches[1]";s:30:"products/quick-spikes/(.+?)/?$";s:70:"index.php?pagename=products&category_id=2&product_url_name=$matches[1]";s:24:"products/quick-spikes/?$";s:41:"index.php?pagename=products&category_id=2";s:34:"products/footwear/page/([0-9]+)/?$";s:63:"index.php?pagename=products&category_id=1&wpsc_page=$matches[1]";s:26:"products/footwear/(.+?)/?$";s:70:"index.php?pagename=products&category_id=1&product_url_name=$matches[1]";s:20:"products/footwear/?$";s:41:"index.php?pagename=products&category_id=1";s:25:"products/page/([0-9]+)/?$";s:49:"index.php?pagename=products&wpsc_page=$matches[1]";s:31:"products/tag/([A-Za-z0-9\\-]+)?$";s:44:"index.php?pagename=products&ptag=$matches[1]";s:40:"partners/handshake/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:50:"partners/handshake/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:70:"partners/handshake/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:65:"partners/handshake/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:65:"partners/handshake/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:33:"(partners/handshake)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:53:"(partners/handshake)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:48:"(partners/handshake)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:41:"(partners/handshake)/page/?([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&paged=$matches[2]";s:48:"(partners/handshake)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:33:"(partners/handshake)(/[0-9]+)?/?$";s:49:"index.php?attachment=$matches[1]&page=$matches[2]";s:31:"thank-you/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:41:"thank-you/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:61:"thank-you/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:56:"thank-you/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:56:"thank-you/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:24:"(thank-you)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:44:"(thank-you)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:39:"(thank-you)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:32:"(thank-you)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:39:"(thank-you)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:24:"(thank-you)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:36:"privacy_policy/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:46:"privacy_policy/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:66:"privacy_policy/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:61:"privacy_policy/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:61:"privacy_policy/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:29:"(privacy_policy)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:49:"(privacy_policy)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:44:"(privacy_policy)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(privacy_policy)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:44:"(privacy_policy)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:29:"(privacy_policy)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:29:"contact/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:39:"contact/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:59:"contact/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"contact/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"contact/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:22:"(contact)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:42:"(contact)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(contact)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:30:"(contact)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:37:"(contact)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:22:"(contact)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:29:"sitemap/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:39:"sitemap/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:59:"sitemap/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"sitemap/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"sitemap/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:22:"(sitemap)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:42:"(sitemap)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(sitemap)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:30:"(sitemap)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:37:"(sitemap)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:22:"(sitemap)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:45:"partners/submit-inquiry/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:55:"partners/submit-inquiry/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:75:"partners/submit-inquiry/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:70:"partners/submit-inquiry/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:70:"partners/submit-inquiry/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:38:"(partners/submit-inquiry)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:58:"(partners/submit-inquiry)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:53:"(partners/submit-inquiry)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:46:"(partners/submit-inquiry)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:53:"(partners/submit-inquiry)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:38:"(partners/submit-inquiry)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:46:"partners/mutual-benefits/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:56:"partners/mutual-benefits/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:76:"partners/mutual-benefits/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:71:"partners/mutual-benefits/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:71:"partners/mutual-benefits/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:39:"(partners/mutual-benefits)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:59:"(partners/mutual-benefits)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:54:"(partners/mutual-benefits)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:47:"(partners/mutual-benefits)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:54:"(partners/mutual-benefits)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:39:"(partners/mutual-benefits)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:46:"partners/partner-program/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:56:"partners/partner-program/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:76:"partners/partner-program/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:71:"partners/partner-program/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:71:"partners/partner-program/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:39:"(partners/partner-program)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:59:"(partners/partner-program)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:54:"(partners/partner-program)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:47:"(partners/partner-program)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:54:"(partners/partner-program)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:39:"(partners/partner-program)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:30:"partners/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:40:"partners/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:60:"partners/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:55:"partners/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:55:"partners/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:23:"(partners)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:43:"(partners)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:38:"(partners)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:31:"(partners)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:38:"(partners)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:23:"(partners)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:36:"faq/submit-new/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:46:"faq/submit-new/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:66:"faq/submit-new/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:61:"faq/submit-new/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:61:"faq/submit-new/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:29:"(faq/submit-new)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:49:"(faq/submit-new)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:44:"(faq/submit-new)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(faq/submit-new)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:44:"(faq/submit-new)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:29:"(faq/submit-new)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:25:"faq/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:35:"faq/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:55:"faq/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:50:"faq/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:50:"faq/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:18:"(faq)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:38:"(faq)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:33:"(faq)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:26:"(faq)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:33:"(faq)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:18:"(faq)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:29:"gallery/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:39:"gallery/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:59:"gallery/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"gallery/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"gallery/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:22:"(gallery)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:42:"(gallery)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(gallery)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:30:"(gallery)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:37:"(gallery)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:22:"(gallery)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:43:"products/your-account/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:53:"products/your-account/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:73:"products/your-account/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:68:"products/your-account/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:68:"products/your-account/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:36:"(products/your-account)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:56:"(products/your-account)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:51:"(products/your-account)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:44:"(products/your-account)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:51:"(products/your-account)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:36:"(products/your-account)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:50:"products/transaction-results/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:60:"products/transaction-results/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:80:"products/transaction-results/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:75:"products/transaction-results/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:75:"products/transaction-results/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:43:"(products/transaction-results)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:63:"(products/transaction-results)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:58:"(products/transaction-results)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:51:"(products/transaction-results)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:58:"(products/transaction-results)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:43:"(products/transaction-results)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:39:"products/checkout/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:49:"products/checkout/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:69:"products/checkout/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:64:"products/checkout/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:64:"products/checkout/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:32:"(products/checkout)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:52:"(products/checkout)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:47:"(products/checkout)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:40:"(products/checkout)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:47:"(products/checkout)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:32:"(products/checkout)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:30:"products/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:40:"products/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:60:"products/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:55:"products/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:55:"products/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:23:"(products)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:43:"(products)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:38:"(products)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:31:"(products)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:38:"(products)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:23:"(products)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:41:"about/where-to-find/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:51:"about/where-to-find/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:71:"about/where-to-find/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:66:"about/where-to-find/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:66:"about/where-to-find/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:34:"(about/where-to-find)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:54:"(about/where-to-find)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:49:"(about/where-to-find)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:42:"(about/where-to-find)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:49:"(about/where-to-find)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:34:"(about/where-to-find)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:38:"about/why-to-use/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:48:"about/why-to-use/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:68:"about/why-to-use/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:63:"about/why-to-use/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:63:"about/why-to-use/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:31:"(about/why-to-use)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:51:"(about/why-to-use)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:46:"(about/why-to-use)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:39:"(about/why-to-use)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:46:"(about/why-to-use)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:31:"(about/why-to-use)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:33:"about/story/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:43:"about/story/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:63:"about/story/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:58:"about/story/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:58:"about/story/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:26:"(about/story)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:46:"(about/story)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:41:"(about/story)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:34:"(about/story)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:41:"(about/story)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:26:"(about/story)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:27:"about/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:37:"about/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:57:"about/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:52:"about/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:52:"about/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:20:"(about)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:40:"(about)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:35:"(about)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:28:"(about)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:35:"(about)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:20:"(about)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:32:"feed/(feed|rdf|rss|rss2|atom)/?$";s:27:"index.php?&feed=$matches[1]";s:27:"(feed|rdf|rss|rss2|atom)/?$";s:27:"index.php?&feed=$matches[1]";s:20:"page/?([0-9]{1,})/?$";s:28:"index.php?&paged=$matches[1]";s:41:"comments/feed/(feed|rdf|rss|rss2|atom)/?$";s:42:"index.php?&feed=$matches[1]&withcomments=1";s:36:"comments/(feed|rdf|rss|rss2|atom)/?$";s:42:"index.php?&feed=$matches[1]&withcomments=1";s:29:"comments/page/?([0-9]{1,})/?$";s:28:"index.php?&paged=$matches[1]";s:44:"search/(.+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:40:"index.php?s=$matches[1]&feed=$matches[2]";s:39:"search/(.+)/(feed|rdf|rss|rss2|atom)/?$";s:40:"index.php?s=$matches[1]&feed=$matches[2]";s:32:"search/(.+)/page/?([0-9]{1,})/?$";s:41:"index.php?s=$matches[1]&paged=$matches[2]";s:14:"search/(.+)/?$";s:23:"index.php?s=$matches[1]";s:47:"category/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$";s:52:"index.php?category_name=$matches[1]&feed=$matches[2]";s:42:"category/(.+?)/(feed|rdf|rss|rss2|atom)/?$";s:52:"index.php?category_name=$matches[1]&feed=$matches[2]";s:35:"category/(.+?)/page/?([0-9]{1,})/?$";s:53:"index.php?category_name=$matches[1]&paged=$matches[2]";s:17:"category/(.+?)/?$";s:35:"index.php?category_name=$matches[1]";s:42:"tag/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$";s:42:"index.php?tag=$matches[1]&feed=$matches[2]";s:37:"tag/(.+?)/(feed|rdf|rss|rss2|atom)/?$";s:42:"index.php?tag=$matches[1]&feed=$matches[2]";s:30:"tag/(.+?)/page/?([0-9]{1,})/?$";s:43:"index.php?tag=$matches[1]&paged=$matches[2]";s:12:"tag/(.+?)/?$";s:25:"index.php?tag=$matches[1]";s:47:"author/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:50:"index.php?author_name=$matches[1]&feed=$matches[2]";s:42:"author/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:50:"index.php?author_name=$matches[1]&feed=$matches[2]";s:35:"author/([^/]+)/page/?([0-9]{1,})/?$";s:51:"index.php?author_name=$matches[1]&paged=$matches[2]";s:17:"author/([^/]+)/?$";s:33:"index.php?author_name=$matches[1]";s:69:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/feed/(feed|rdf|rss|rss2|atom)/?$";s:80:"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&feed=$matches[4]";s:64:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$";s:80:"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&feed=$matches[4]";s:57:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/page/?([0-9]{1,})/?$";s:81:"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&paged=$matches[4]";s:39:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/?$";s:63:"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]";s:56:"([0-9]{4})/([0-9]{1,2})/feed/(feed|rdf|rss|rss2|atom)/?$";s:64:"index.php?year=$matches[1]&monthnum=$matches[2]&feed=$matches[3]";s:51:"([0-9]{4})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$";s:64:"index.php?year=$matches[1]&monthnum=$matches[2]&feed=$matches[3]";s:44:"([0-9]{4})/([0-9]{1,2})/page/?([0-9]{1,})/?$";s:65:"index.php?year=$matches[1]&monthnum=$matches[2]&paged=$matches[3]";s:26:"([0-9]{4})/([0-9]{1,2})/?$";s:47:"index.php?year=$matches[1]&monthnum=$matches[2]";s:43:"([0-9]{4})/feed/(feed|rdf|rss|rss2|atom)/?$";s:43:"index.php?year=$matches[1]&feed=$matches[2]";s:38:"([0-9]{4})/(feed|rdf|rss|rss2|atom)/?$";s:43:"index.php?year=$matches[1]&feed=$matches[2]";s:31:"([0-9]{4})/page/?([0-9]{1,})/?$";s:44:"index.php?year=$matches[1]&paged=$matches[2]";s:13:"([0-9]{4})/?$";s:26:"index.php?year=$matches[1]";s:27:"[^/]+/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:37:"[^/]+/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:57:"[^/]+/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:52:"[^/]+/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:52:"[^/]+/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:20:"([^/]+)/trackback/?$";s:31:"index.php?name=$matches[1]&tb=1";s:40:"([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:43:"index.php?name=$matches[1]&feed=$matches[2]";s:35:"([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:43:"index.php?name=$matches[1]&feed=$matches[2]";s:28:"([^/]+)/page/?([0-9]{1,})/?$";s:44:"index.php?name=$matches[1]&paged=$matches[2]";s:35:"([^/]+)/comment-page-([0-9]{1,})/?$";s:44:"index.php?name=$matches[1]&cpage=$matches[2]";s:20:"([^/]+)(/[0-9]+)?/?$";s:43:"index.php?name=$matches[1]&page=$matches[2]";s:16:"[^/]+/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:26:"[^/]+/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:46:"[^/]+/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:41:"[^/]+/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:41:"[^/]+/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";}', 'yes'),
 (826, 0, 'wpsc_ignore_38_message', '1', 'yes'),
-(799, 0, 'widget_wpsc_live_search', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes');
+(799, 0, 'widget_wpsc_live_search', 'a:2:{i:2;a:0:{}s:12:"_multiwidget";i:1;}', 'yes'),
+(1009, 0, 'authorize_login', '26sY3Sdx7cBP', 'yes'),
+(1010, 0, 'authorize_password', '69D38V6Jfxz8z3KU', 'yes'),
+(2415, 0, 'rewrite_rules', 'a:301:{s:47:"category/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$";s:52:"index.php?category_name=$matches[1]&feed=$matches[2]";s:42:"category/(.+?)/(feed|rdf|rss|rss2|atom)/?$";s:52:"index.php?category_name=$matches[1]&feed=$matches[2]";s:35:"category/(.+?)/page/?([0-9]{1,})/?$";s:53:"index.php?category_name=$matches[1]&paged=$matches[2]";s:17:"category/(.+?)/?$";s:35:"index.php?category_name=$matches[1]";s:44:"tag/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:42:"index.php?tag=$matches[1]&feed=$matches[2]";s:39:"tag/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:42:"index.php?tag=$matches[1]&feed=$matches[2]";s:32:"tag/([^/]+)/page/?([0-9]{1,})/?$";s:43:"index.php?tag=$matches[1]&paged=$matches[2]";s:14:"tag/([^/]+)/?$";s:25:"index.php?tag=$matches[1]";s:45:"type/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:50:"index.php?post_format=$matches[1]&feed=$matches[2]";s:40:"type/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:50:"index.php?post_format=$matches[1]&feed=$matches[2]";s:33:"type/([^/]+)/page/?([0-9]{1,})/?$";s:51:"index.php?post_format=$matches[1]&paged=$matches[2]";s:15:"type/([^/]+)/?$";s:33:"index.php?post_format=$matches[1]";s:40:"products/[^/]+/.+?/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:50:"products/[^/]+/.+?/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:70:"products/[^/]+/.+?/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:65:"products/[^/]+/.+?/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:65:"products/[^/]+/.+?/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:35:"products/([^/]+)/(.+?)/trackback/?$";s:73:"index.php?wpsc_product_category=$matches[1]&wpsc-product=$matches[2]&tb=1";s:55:"products/([^/]+)/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$";s:85:"index.php?wpsc_product_category=$matches[1]&wpsc-product=$matches[2]&feed=$matches[3]";s:50:"products/([^/]+)/(.+?)/(feed|rdf|rss|rss2|atom)/?$";s:85:"index.php?wpsc_product_category=$matches[1]&wpsc-product=$matches[2]&feed=$matches[3]";s:43:"products/([^/]+)/(.+?)/page/?([0-9]{1,})/?$";s:86:"index.php?wpsc_product_category=$matches[1]&wpsc-product=$matches[2]&paged=$matches[3]";s:50:"products/([^/]+)/(.+?)/comment-page-([0-9]{1,})/?$";s:86:"index.php?wpsc_product_category=$matches[1]&wpsc-product=$matches[2]&cpage=$matches[3]";s:35:"products/([^/]+)/(.+?)(/[0-9]+)?/?$";s:85:"index.php?wpsc_product_category=$matches[1]&wpsc-product=$matches[2]&page=$matches[3]";s:49:"products/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:60:"index.php?wpsc_product_category=$matches[1]&feed=$matches[2]";s:44:"products/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:60:"index.php?wpsc_product_category=$matches[1]&feed=$matches[2]";s:37:"products/([^/]+)/page/?([0-9]{1,})/?$";s:61:"index.php?wpsc_product_category=$matches[1]&paged=$matches[2]";s:44:"products/([^/]+)/comment-page-([0-9]{1,})/?$";s:61:"index.php?wpsc_product_category=$matches[1]&cpage=$matches[2]";s:19:"products/([^/]+)/?$";s:43:"index.php?wpsc_product_category=$matches[1]";s:47:"tagged/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:73:"index.php?post_type=wpsc-product&product_tag=$matches[1]&feed=$matches[2]";s:42:"tagged/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:73:"index.php?post_type=wpsc-product&product_tag=$matches[1]&feed=$matches[2]";s:35:"tagged/([^/]+)/page/?([0-9]{1,})/?$";s:74:"index.php?post_type=wpsc-product&product_tag=$matches[1]&paged=$matches[2]";s:17:"tagged/([^/]+)/?$";s:56:"index.php?post_type=wpsc-product&product_tag=$matches[1]";s:12:"robots\\.txt$";s:18:"index.php?robots=1";s:14:".*wp-atom.php$";s:19:"index.php?feed=atom";s:13:".*wp-rdf.php$";s:18:"index.php?feed=rdf";s:13:".*wp-rss.php$";s:18:"index.php?feed=rss";s:14:".*wp-rss2.php$";s:19:"index.php?feed=rss2";s:14:".*wp-feed.php$";s:19:"index.php?feed=feed";s:22:".*wp-commentsrss2.php$";s:34:"index.php?feed=rss2&withcomments=1";s:40:"partners/handshake/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:50:"partners/handshake/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:70:"partners/handshake/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:65:"partners/handshake/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:65:"partners/handshake/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:33:"(partners/handshake)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:53:"(partners/handshake)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:48:"(partners/handshake)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:41:"(partners/handshake)/page/?([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&paged=$matches[2]";s:48:"(partners/handshake)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:33:"(partners/handshake)(/[0-9]+)?/?$";s:49:"index.php?attachment=$matches[1]&page=$matches[2]";s:31:"thank-you/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:41:"thank-you/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:61:"thank-you/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:56:"thank-you/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:56:"thank-you/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:24:"(thank-you)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:44:"(thank-you)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:39:"(thank-you)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:32:"(thank-you)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:39:"(thank-you)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:24:"(thank-you)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:36:"privacy_policy/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:46:"privacy_policy/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:66:"privacy_policy/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:61:"privacy_policy/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:61:"privacy_policy/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:29:"(privacy_policy)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:49:"(privacy_policy)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:44:"(privacy_policy)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(privacy_policy)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:44:"(privacy_policy)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:29:"(privacy_policy)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:29:"contact/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:39:"contact/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:59:"contact/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"contact/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"contact/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:22:"(contact)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:42:"(contact)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(contact)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:30:"(contact)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:37:"(contact)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:22:"(contact)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:29:"sitemap/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:39:"sitemap/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:59:"sitemap/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"sitemap/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"sitemap/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:22:"(sitemap)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:42:"(sitemap)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(sitemap)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:30:"(sitemap)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:37:"(sitemap)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:22:"(sitemap)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:45:"partners/submit-inquiry/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:55:"partners/submit-inquiry/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:75:"partners/submit-inquiry/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:70:"partners/submit-inquiry/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:70:"partners/submit-inquiry/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:38:"(partners/submit-inquiry)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:58:"(partners/submit-inquiry)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:53:"(partners/submit-inquiry)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:46:"(partners/submit-inquiry)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:53:"(partners/submit-inquiry)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:38:"(partners/submit-inquiry)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:46:"partners/mutual-benefits/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:56:"partners/mutual-benefits/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:76:"partners/mutual-benefits/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:71:"partners/mutual-benefits/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:71:"partners/mutual-benefits/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:39:"(partners/mutual-benefits)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:59:"(partners/mutual-benefits)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:54:"(partners/mutual-benefits)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:47:"(partners/mutual-benefits)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:54:"(partners/mutual-benefits)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:39:"(partners/mutual-benefits)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:46:"partners/partner-program/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:56:"partners/partner-program/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:76:"partners/partner-program/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:71:"partners/partner-program/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:71:"partners/partner-program/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:39:"(partners/partner-program)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:59:"(partners/partner-program)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:54:"(partners/partner-program)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:47:"(partners/partner-program)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:54:"(partners/partner-program)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:39:"(partners/partner-program)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:30:"partners/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:40:"partners/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:60:"partners/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:55:"partners/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:55:"partners/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:23:"(partners)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:43:"(partners)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:38:"(partners)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:31:"(partners)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:38:"(partners)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:23:"(partners)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:36:"faq/submit-new/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:46:"faq/submit-new/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:66:"faq/submit-new/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:61:"faq/submit-new/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:61:"faq/submit-new/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:29:"(faq/submit-new)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:49:"(faq/submit-new)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:44:"(faq/submit-new)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(faq/submit-new)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:44:"(faq/submit-new)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:29:"(faq/submit-new)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:25:"faq/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:35:"faq/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:55:"faq/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:50:"faq/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:50:"faq/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:18:"(faq)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:38:"(faq)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:33:"(faq)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:26:"(faq)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:33:"(faq)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:18:"(faq)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:29:"gallery/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:39:"gallery/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:59:"gallery/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"gallery/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:54:"gallery/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:22:"(gallery)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:42:"(gallery)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:37:"(gallery)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:30:"(gallery)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:37:"(gallery)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:22:"(gallery)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:43:"products/your-account/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:53:"products/your-account/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:73:"products/your-account/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:68:"products/your-account/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:68:"products/your-account/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:36:"(products/your-account)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:56:"(products/your-account)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:51:"(products/your-account)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:44:"(products/your-account)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:51:"(products/your-account)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:36:"(products/your-account)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:50:"products/transaction-results/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:60:"products/transaction-results/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:80:"products/transaction-results/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:75:"products/transaction-results/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:75:"products/transaction-results/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:43:"(products/transaction-results)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:63:"(products/transaction-results)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:58:"(products/transaction-results)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:51:"(products/transaction-results)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:58:"(products/transaction-results)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:43:"(products/transaction-results)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:39:"products/checkout/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:49:"products/checkout/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:69:"products/checkout/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:64:"products/checkout/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:64:"products/checkout/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:32:"(products/checkout)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:52:"(products/checkout)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:47:"(products/checkout)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:40:"(products/checkout)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:47:"(products/checkout)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:32:"(products/checkout)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:30:"products/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:40:"products/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:60:"products/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:55:"products/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:55:"products/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:23:"(products)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:43:"(products)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:38:"(products)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:31:"(products)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:38:"(products)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:23:"(products)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:41:"about/where-to-find/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:51:"about/where-to-find/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:71:"about/where-to-find/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:66:"about/where-to-find/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:66:"about/where-to-find/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:34:"(about/where-to-find)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:54:"(about/where-to-find)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:49:"(about/where-to-find)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:42:"(about/where-to-find)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:49:"(about/where-to-find)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:34:"(about/where-to-find)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:38:"about/why-to-use/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:48:"about/why-to-use/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:68:"about/why-to-use/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:63:"about/why-to-use/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:63:"about/why-to-use/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:31:"(about/why-to-use)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:51:"(about/why-to-use)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:46:"(about/why-to-use)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:39:"(about/why-to-use)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:46:"(about/why-to-use)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:31:"(about/why-to-use)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:33:"about/story/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:43:"about/story/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:63:"about/story/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:58:"about/story/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:58:"about/story/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:26:"(about/story)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:46:"(about/story)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:41:"(about/story)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:34:"(about/story)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:41:"(about/story)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:26:"(about/story)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:27:"about/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:37:"about/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:57:"about/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:52:"about/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:52:"about/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:20:"(about)/trackback/?$";s:35:"index.php?pagename=$matches[1]&tb=1";s:40:"(about)/feed/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:35:"(about)/(feed|rdf|rss|rss2|atom)/?$";s:47:"index.php?pagename=$matches[1]&feed=$matches[2]";s:28:"(about)/page/?([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&paged=$matches[2]";s:35:"(about)/comment-page-([0-9]{1,})/?$";s:48:"index.php?pagename=$matches[1]&cpage=$matches[2]";s:20:"(about)(/[0-9]+)?/?$";s:47:"index.php?pagename=$matches[1]&page=$matches[2]";s:32:"feed/(feed|rdf|rss|rss2|atom)/?$";s:27:"index.php?&feed=$matches[1]";s:27:"(feed|rdf|rss|rss2|atom)/?$";s:27:"index.php?&feed=$matches[1]";s:20:"page/?([0-9]{1,})/?$";s:28:"index.php?&paged=$matches[1]";s:41:"comments/feed/(feed|rdf|rss|rss2|atom)/?$";s:42:"index.php?&feed=$matches[1]&withcomments=1";s:36:"comments/(feed|rdf|rss|rss2|atom)/?$";s:42:"index.php?&feed=$matches[1]&withcomments=1";s:29:"comments/page/?([0-9]{1,})/?$";s:28:"index.php?&paged=$matches[1]";s:44:"search/(.+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:40:"index.php?s=$matches[1]&feed=$matches[2]";s:39:"search/(.+)/(feed|rdf|rss|rss2|atom)/?$";s:40:"index.php?s=$matches[1]&feed=$matches[2]";s:32:"search/(.+)/page/?([0-9]{1,})/?$";s:41:"index.php?s=$matches[1]&paged=$matches[2]";s:14:"search/(.+)/?$";s:23:"index.php?s=$matches[1]";s:47:"author/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:50:"index.php?author_name=$matches[1]&feed=$matches[2]";s:42:"author/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:50:"index.php?author_name=$matches[1]&feed=$matches[2]";s:35:"author/([^/]+)/page/?([0-9]{1,})/?$";s:51:"index.php?author_name=$matches[1]&paged=$matches[2]";s:17:"author/([^/]+)/?$";s:33:"index.php?author_name=$matches[1]";s:69:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/feed/(feed|rdf|rss|rss2|atom)/?$";s:80:"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&feed=$matches[4]";s:64:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$";s:80:"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&feed=$matches[4]";s:57:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/page/?([0-9]{1,})/?$";s:81:"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&paged=$matches[4]";s:39:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/?$";s:63:"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]";s:56:"([0-9]{4})/([0-9]{1,2})/feed/(feed|rdf|rss|rss2|atom)/?$";s:64:"index.php?year=$matches[1]&monthnum=$matches[2]&feed=$matches[3]";s:51:"([0-9]{4})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$";s:64:"index.php?year=$matches[1]&monthnum=$matches[2]&feed=$matches[3]";s:44:"([0-9]{4})/([0-9]{1,2})/page/?([0-9]{1,})/?$";s:65:"index.php?year=$matches[1]&monthnum=$matches[2]&paged=$matches[3]";s:26:"([0-9]{4})/([0-9]{1,2})/?$";s:47:"index.php?year=$matches[1]&monthnum=$matches[2]";s:43:"([0-9]{4})/feed/(feed|rdf|rss|rss2|atom)/?$";s:43:"index.php?year=$matches[1]&feed=$matches[2]";s:38:"([0-9]{4})/(feed|rdf|rss|rss2|atom)/?$";s:43:"index.php?year=$matches[1]&feed=$matches[2]";s:31:"([0-9]{4})/page/?([0-9]{1,})/?$";s:44:"index.php?year=$matches[1]&paged=$matches[2]";s:13:"([0-9]{4})/?$";s:26:"index.php?year=$matches[1]";s:27:"[^/]+/attachment/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:37:"[^/]+/attachment/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:57:"[^/]+/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:52:"[^/]+/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:52:"[^/]+/attachment/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";s:20:"([^/]+)/trackback/?$";s:31:"index.php?name=$matches[1]&tb=1";s:40:"([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:43:"index.php?name=$matches[1]&feed=$matches[2]";s:35:"([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:43:"index.php?name=$matches[1]&feed=$matches[2]";s:28:"([^/]+)/page/?([0-9]{1,})/?$";s:44:"index.php?name=$matches[1]&paged=$matches[2]";s:35:"([^/]+)/comment-page-([0-9]{1,})/?$";s:44:"index.php?name=$matches[1]&cpage=$matches[2]";s:20:"([^/]+)(/[0-9]+)?/?$";s:43:"index.php?name=$matches[1]&page=$matches[2]";s:16:"[^/]+/([^/]+)/?$";s:32:"index.php?attachment=$matches[1]";s:26:"[^/]+/([^/]+)/trackback/?$";s:37:"index.php?attachment=$matches[1]&tb=1";s:46:"[^/]+/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:41:"[^/]+/([^/]+)/(feed|rdf|rss|rss2|atom)/?$";s:49:"index.php?attachment=$matches[1]&feed=$matches[2]";s:41:"[^/]+/([^/]+)/comment-page-([0-9]{1,})/?$";s:50:"index.php?attachment=$matches[1]&cpage=$matches[2]";}', 'yes'),
+(2350, 0, '_transient_timeout_wpsc_path_wpsc-list_view.php', '1302428775', 'no'),
+(2370, 0, '_transient_timeout_wpsc_path_wpsc-single_product.php', '1302428792', 'no'),
+(2371, 0, '_transient_wpsc_path_wpsc-single_product.php', '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/themes/quickspikes/wpsc-single_product.php', 'no'),
+(2390, 0, '_site_transient_timeout_poptags_40cd750bba9870f18aada2478b24840a', '1302396902', 'yes'),
+(2391, 0, '_site_transient_poptags_40cd750bba9870f18aada2478b24840a', 'a:40:{s:6:"widget";a:3:{s:4:"name";s:6:"widget";s:4:"slug";s:6:"widget";s:5:"count";s:4:"2071";}s:4:"post";a:3:{s:4:"name";s:4:"Post";s:4:"slug";s:4:"post";s:5:"count";s:4:"1465";}s:6:"plugin";a:3:{s:4:"name";s:6:"plugin";s:4:"slug";s:6:"plugin";s:5:"count";s:4:"1281";}s:5:"posts";a:3:{s:4:"name";s:5:"posts";s:4:"slug";s:5:"posts";s:5:"count";s:4:"1111";}s:5:"admin";a:3:{s:4:"name";s:5:"admin";s:4:"slug";s:5:"admin";s:5:"count";s:4:"1081";}s:7:"sidebar";a:3:{s:4:"name";s:7:"sidebar";s:4:"slug";s:7:"sidebar";s:5:"count";s:4:"1054";}s:8:"comments";a:3:{s:4:"name";s:8:"comments";s:4:"slug";s:8:"comments";s:5:"count";s:3:"797";}s:6:"images";a:3:{s:4:"name";s:6:"images";s:4:"slug";s:6:"images";s:5:"count";s:3:"719";}s:7:"twitter";a:3:{s:4:"name";s:7:"twitter";s:4:"slug";s:7:"twitter";s:5:"count";s:3:"653";}s:4:"page";a:3:{s:4:"name";s:4:"page";s:4:"slug";s:4:"page";s:5:"count";s:3:"642";}s:6:"google";a:3:{s:4:"name";s:6:"google";s:4:"slug";s:6:"google";s:5:"count";s:3:"629";}s:5:"links";a:3:{s:4:"name";s:5:"links";s:4:"slug";s:5:"links";s:5:"count";s:3:"615";}s:5:"image";a:3:{s:4:"name";s:5:"image";s:4:"slug";s:5:"image";s:5:"count";s:3:"564";}s:3:"seo";a:3:{s:4:"name";s:3:"seo";s:4:"slug";s:3:"seo";s:5:"count";s:3:"509";}s:3:"rss";a:3:{s:4:"name";s:3:"rss";s:4:"slug";s:3:"rss";s:5:"count";s:3:"483";}s:7:"gallery";a:3:{s:4:"name";s:7:"gallery";s:4:"slug";s:7:"gallery";s:5:"count";s:3:"439";}s:5:"pages";a:3:{s:4:"name";s:5:"pages";s:4:"slug";s:5:"pages";s:5:"count";s:3:"391";}s:4:"ajax";a:3:{s:4:"name";s:4:"AJAX";s:4:"slug";s:4:"ajax";s:5:"count";s:3:"388";}s:7:"widgets";a:3:{s:4:"name";s:7:"widgets";s:4:"slug";s:7:"widgets";s:5:"count";s:3:"353";}s:9:"wordpress";a:3:{s:4:"name";s:9:"wordpress";s:4:"slug";s:9:"wordpress";s:5:"count";s:3:"332";}s:6:"social";a:3:{s:4:"name";s:6:"social";s:4:"slug";s:6:"social";s:5:"count";s:3:"327";}s:4:"feed";a:3:{s:4:"name";s:4:"feed";s:4:"slug";s:4:"feed";s:5:"count";s:3:"325";}s:8:"facebook";a:3:{s:4:"name";s:8:"Facebook";s:4:"slug";s:8:"facebook";s:5:"count";s:3:"307";}s:5:"photo";a:3:{s:4:"name";s:5:"photo";s:4:"slug";s:5:"photo";s:5:"count";s:3:"304";}s:6:"photos";a:3:{s:4:"name";s:6:"photos";s:4:"slug";s:6:"photos";s:5:"count";s:3:"304";}s:5:"media";a:3:{s:4:"name";s:5:"media";s:4:"slug";s:5:"media";s:5:"count";s:3:"298";}s:5:"flash";a:3:{s:4:"name";s:5:"flash";s:4:"slug";s:5:"flash";s:5:"count";s:3:"297";}s:5:"video";a:3:{s:4:"name";s:5:"video";s:4:"slug";s:5:"video";s:5:"count";s:3:"296";}s:5:"email";a:3:{s:4:"name";s:5:"email";s:4:"slug";s:5:"email";s:5:"count";s:3:"294";}s:9:"shortcode";a:3:{s:4:"name";s:9:"shortcode";s:4:"slug";s:9:"shortcode";s:5:"count";s:3:"293";}s:4:"tags";a:3:{s:4:"name";s:4:"tags";s:4:"slug";s:4:"tags";s:5:"count";s:3:"289";}s:10:"buddypress";a:3:{s:4:"name";s:10:"buddypress";s:4:"slug";s:10:"buddypress";s:5:"count";s:3:"287";}s:10:"javascript";a:3:{s:4:"name";s:10:"javascript";s:4:"slug";s:10:"javascript";s:5:"count";s:3:"286";}s:6:"jquery";a:3:{s:4:"name";s:6:"jquery";s:4:"slug";s:6:"jquery";s:5:"count";s:3:"274";}s:5:"stats";a:3:{s:4:"name";s:5:"stats";s:4:"slug";s:5:"stats";s:5:"count";s:3:"272";}s:4:"link";a:3:{s:4:"name";s:4:"link";s:4:"slug";s:4:"link";s:5:"count";s:3:"268";}s:7:"content";a:3:{s:4:"name";s:7:"content";s:4:"slug";s:7:"content";s:5:"count";s:3:"268";}s:4:"spam";a:3:{s:4:"name";s:4:"spam";s:4:"slug";s:4:"spam";s:5:"count";s:3:"266";}s:7:"comment";a:3:{s:4:"name";s:7:"comment";s:4:"slug";s:7:"comment";s:5:"count";s:3:"263";}s:8:"category";a:3:{s:4:"name";s:8:"category";s:4:"slug";s:8:"category";s:5:"count";s:3:"251";}}', 'yes');
 
 -- --------------------------------------------------------
 
@@ -419,7 +471,6 @@ INSERT INTO `wp_options` (`option_id`, `blog_id`, `option_name`, `option_value`,
 -- Table structure for table `wp_postmeta`
 --
 
-DROP TABLE IF EXISTS `wp_postmeta`;
 CREATE TABLE IF NOT EXISTS `wp_postmeta` (
   `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -428,7 +479,7 @@ CREATE TABLE IF NOT EXISTS `wp_postmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `post_id` (`post_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=125 ;
 
 --
 -- Dumping data for table `wp_postmeta`
@@ -447,7 +498,7 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (15, 2, '_wp_page_template', 'default'),
 (19, 3, 'pg_name', 'products'),
 (17, 2, 'side_nav_title', 'Why To Use'),
-(10, 16, '_edit_lock', '1296092642'),
+(10, 16, '_edit_lock', '1301970021:1'),
 (11, 16, '_edit_last', '1'),
 (12, 18, '_edit_lock', '1290813767'),
 (13, 18, '_edit_last', '1'),
@@ -491,10 +542,65 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (63, 99, '_wp_attachment_image_alt', 'Handshake Image'),
 (64, 56, '_wp_page_template', 'default'),
 (65, 33, '_wp_page_template', 'default'),
-(66, 16, '_wp_page_template', 'default'),
+(66, 16, '_wp_page_template', 'page-gallery.php'),
 (67, 35, '_wp_page_template', 'default'),
 (68, 38, '_wp_page_template', 'default'),
-(69, 43, '_wp_page_template', 'default');
+(69, 43, '_wp_page_template', 'default'),
+(70, 122, '_wpsc_product_metadata', 'a:19:{s:25:"wpec_taxes_taxable_amount";s:0:"";s:13:"external_link";s:0:"";s:18:"external_link_text";s:0:"";s:20:"external_link_target";s:0:"";s:6:"weight";s:1:"3";s:11:"weight_unit";s:5:"pound";s:10:"dimensions";a:6:{s:6:"height";s:1:"0";s:11:"height_unit";s:2:"in";s:5:"width";s:2:"0 ";s:10:"width_unit";s:2:"in";s:6:"length";s:1:"0";s:11:"length_unit";s:2:"in";}s:8:"shipping";a:2:{s:5:"local";s:1:"0";s:13:"international";s:1:"0";}s:11:"no_shipping";s:1:"1";s:14:"merchant_notes";s:0:"";s:8:"engraved";s:1:"0";s:23:"can_have_uploaded_image";s:1:"0";s:15:"enable_comments";s:0:"";s:24:"unpublish_when_none_left";s:1:"0";s:16:"quantity_limited";s:1:"0";s:7:"special";s:1:"0";s:17:"display_weight_as";s:5:"pound";s:16:"table_rate_price";a:2:{s:8:"quantity";s:0:"";s:11:"table_price";s:0:"";}s:17:"google_prohibited";s:1:"0";}'),
+(71, 122, '_wpsc_original_id', '1'),
+(72, 122, '_wpsc_price', '29.99'),
+(73, 122, '_wpsc_special_price', '0'),
+(74, 122, '_wpsc_stock', '0'),
+(75, 122, '_wpsc_is_donation', '0'),
+(76, 122, '_wpsc_sku', ''),
+(77, 123, '_wp_attached_file', '2011/04/golf-shirt.jpg'),
+(78, 123, '_wp_attachment_metadata', 'a:4:{s:5:"width";s:3:"240";s:6:"height";s:3:"240";s:4:"file";s:22:"2011/04/golf-shirt.jpg";s:5:"sizes";a:1:{s:12:"wpsc-256x256";s:0:"";}}'),
+(79, 124, '_wpsc_product_metadata', 'a:19:{s:24:"unpublish_when_none_left";s:1:"1";s:25:"wpec_taxes_taxable_amount";s:0:"";s:13:"external_link";s:0:"";s:18:"external_link_text";s:0:"";s:20:"external_link_target";s:0:"";s:6:"weight";s:1:"0";s:11:"weight_unit";s:5:"pound";s:10:"dimensions";a:6:{s:6:"height";s:1:"0";s:11:"height_unit";s:2:"in";s:5:"width";s:3:"0  ";s:10:"width_unit";s:2:"in";s:6:"length";s:1:"0";s:11:"length_unit";s:2:"in";}s:8:"shipping";a:2:{s:5:"local";s:1:"0";s:13:"international";s:1:"0";}s:11:"no_shipping";s:1:"1";s:14:"merchant_notes";s:0:"";s:8:"engraved";s:1:"0";s:23:"can_have_uploaded_image";s:1:"0";s:15:"enable_comments";s:0:"";s:16:"quantity_limited";s:1:"0";s:7:"special";s:1:"0";s:17:"display_weight_as";s:5:"pound";s:16:"table_rate_price";a:2:{s:8:"quantity";s:0:"";s:11:"table_price";s:0:"";}s:17:"google_prohibited";s:1:"0";}'),
+(80, 124, '_wpsc_original_id', '2'),
+(81, 124, '_wpsc_price', '0'),
+(82, 124, '_wpsc_special_price', '0'),
+(83, 124, '_wpsc_stock', '0'),
+(84, 124, '_wpsc_is_donation', '0'),
+(85, 124, '_wpsc_sku', ''),
+(86, 125, '_wp_attached_file', '2011/04/qs-product-shot-1.1.jpg'),
+(87, 125, '_wp_attachment_metadata', 'a:4:{s:5:"width";s:4:"1514";s:6:"height";s:4:"1582";s:4:"file";s:31:"2011/04/qs-product-shot-1.1.jpg";s:5:"sizes";a:2:{s:12:"wpsc-256x256";a:3:{s:4:"file";s:31:"qs-product-shot-1.1-256x256.jpg";s:5:"width";s:3:"256";s:6:"height";s:3:"256";}s:10:"wpsc-48x48";a:3:{s:4:"file";s:29:"qs-product-shot-1.1-48x48.jpg";s:5:"width";s:2:"48";s:6:"height";s:2:"48";}}}'),
+(88, 126, '_wpsc_product_metadata', 'a:19:{s:25:"wpec_taxes_taxable_amount";s:0:"";s:13:"external_link";s:0:"";s:18:"external_link_text";s:0:"";s:20:"external_link_target";s:0:"";s:6:"weight";s:1:"0";s:11:"weight_unit";s:5:"pound";s:10:"dimensions";a:6:{s:6:"height";s:1:"0";s:11:"height_unit";s:2:"in";s:5:"width";s:2:"0 ";s:10:"width_unit";s:2:"in";s:6:"length";s:1:"0";s:11:"length_unit";s:2:"in";}s:8:"shipping";a:2:{s:5:"local";s:1:"0";s:13:"international";s:1:"0";}s:11:"no_shipping";s:1:"1";s:14:"merchant_notes";s:0:"";s:8:"engraved";s:1:"0";s:23:"can_have_uploaded_image";s:1:"0";s:15:"enable_comments";s:0:"";s:24:"unpublish_when_none_left";s:1:"0";s:16:"quantity_limited";s:1:"0";s:7:"special";s:1:"0";s:17:"display_weight_as";s:5:"pound";s:16:"table_rate_price";a:2:{s:8:"quantity";s:0:"";s:11:"table_price";s:0:"";}s:17:"google_prohibited";s:1:"0";}'),
+(89, 126, '_wpsc_original_id', '3'),
+(90, 126, '_wpsc_price', '3'),
+(91, 126, '_wpsc_special_price', '0'),
+(92, 126, '_wpsc_stock', '0'),
+(93, 126, '_wpsc_is_donation', '0'),
+(94, 126, '_wpsc_sku', ''),
+(95, 127, '_wp_attached_file', '2011/04/golf-ball.jpg'),
+(96, 127, '_wp_attachment_metadata', 'a:4:{s:5:"width";s:3:"300";s:6:"height";s:3:"300";s:4:"file";s:21:"2011/04/golf-ball.jpg";s:5:"sizes";a:1:{s:12:"wpsc-256x256";a:3:{s:4:"file";s:21:"golf-ball-256x256.jpg";s:5:"width";s:3:"256";s:6:"height";s:3:"256";}}}'),
+(97, 128, '_wpsc_price', '24.95'),
+(98, 128, '_wpsc_stock', '10000'),
+(99, 128, '_wpsc_original_variation_id', '3'),
+(100, 128, '_wpsc_product_metadata', 'a:19:{s:25:"wpec_taxes_taxable_amount";s:0:"";s:6:"weight";s:1:"0";s:11:"weight_unit";s:5:"pound";s:10:"dimensions";a:6:{s:6:"height";s:1:"0";s:11:"height_unit";s:2:"in";s:5:"width";s:2:"0 ";s:10:"width_unit";s:2:"in";s:6:"length";s:1:"0";s:11:"length_unit";s:2:"in";}s:8:"shipping";a:2:{s:5:"local";s:1:"0";s:13:"international";s:1:"0";}s:14:"merchant_notes";s:0:"";s:8:"engraved";s:1:"0";s:23:"can_have_uploaded_image";s:1:"0";s:15:"enable_comments";s:0:"";s:24:"unpublish_when_none_left";s:1:"0";s:11:"no_shipping";s:1:"0";s:16:"quantity_limited";s:1:"0";s:7:"special";s:1:"0";s:17:"display_weight_as";s:5:"pound";s:16:"table_rate_price";a:2:{s:8:"quantity";s:0:"";s:11:"table_price";s:0:"";}s:17:"google_prohibited";s:1:"0";s:13:"external_link";s:0:"";s:18:"external_link_text";s:0:"";s:20:"external_link_target";s:0:"";}'),
+(101, 129, '_wpsc_price', '24.95'),
+(102, 129, '_wpsc_stock', '10000'),
+(103, 129, '_wpsc_original_variation_id', '4'),
+(104, 129, '_wpsc_product_metadata', 'a:19:{s:25:"wpec_taxes_taxable_amount";s:0:"";s:6:"weight";s:1:"0";s:11:"weight_unit";s:5:"pound";s:10:"dimensions";a:6:{s:6:"height";s:1:"0";s:11:"height_unit";s:2:"in";s:5:"width";s:3:"0  ";s:10:"width_unit";s:2:"in";s:6:"length";s:1:"0";s:11:"length_unit";s:2:"in";}s:8:"shipping";a:2:{s:5:"local";s:1:"0";s:13:"international";s:1:"0";}s:14:"merchant_notes";s:0:"";s:8:"engraved";s:1:"0";s:23:"can_have_uploaded_image";s:1:"0";s:15:"enable_comments";s:0:"";s:24:"unpublish_when_none_left";s:1:"0";s:11:"no_shipping";s:1:"0";s:16:"quantity_limited";s:1:"0";s:7:"special";s:1:"0";s:17:"display_weight_as";s:5:"pound";s:16:"table_rate_price";a:2:{s:8:"quantity";s:0:"";s:11:"table_price";s:0:"";}s:17:"google_prohibited";s:1:"0";s:13:"external_link";s:0:"";s:18:"external_link_text";s:0:"";s:20:"external_link_target";s:0:"";}'),
+(105, 126, '_edit_lock', '1301978978:1'),
+(106, 126, '_edit_last', '1'),
+(107, 126, '_wpsc_currency', 'a:0:{}'),
+(108, 122, '_edit_lock', '1301770184:1'),
+(109, 122, '_edit_last', '1'),
+(110, 122, '_wpsc_currency', 'a:0:{}'),
+(111, 124, '_edit_lock', '1302315317:1'),
+(112, 128, '_edit_lock', '1301770634:1'),
+(113, 124, '_edit_last', '1'),
+(114, 129, '_edit_lock', '1301770674:1'),
+(115, 129, '_edit_last', '1'),
+(116, 129, '_wpsc_special_price', '0'),
+(117, 129, '_wpsc_sku', '246749'),
+(118, 129, '_wpsc_is_donation', '0'),
+(119, 129, '_wpsc_currency', 'a:0:{}'),
+(120, 128, '_edit_last', '1'),
+(121, 128, '_wpsc_special_price', '0'),
+(122, 128, '_wpsc_sku', '246732'),
+(123, 128, '_wpsc_is_donation', '0'),
+(124, 128, '_wpsc_currency', 'a:0:{}');
 
 -- --------------------------------------------------------
 
@@ -502,7 +608,6 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 -- Table structure for table `wp_posts`
 --
 
-DROP TABLE IF EXISTS `wp_posts`;
 CREATE TABLE IF NOT EXISTS `wp_posts` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_author` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -532,7 +637,7 @@ CREATE TABLE IF NOT EXISTS `wp_posts` (
   KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
   KEY `post_parent` (`post_parent`),
   KEY `post_author` (`post_author`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=137 ;
 
 --
 -- Dumping data for table `wp_posts`
@@ -553,7 +658,7 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (10, 1, '2010-04-27 03:47:58', '2010-04-27 03:47:58', '<h2 id="story_heading" class=">The Story Is Simple.</h2>\n<h5 id="story_1">Quick Spikes was thought up when founder Brendan Walsh inadvertently left his golf spikes at home.  When the choice between purchasing another pair of costly golf shoes at the course or wearing his sneakers presented itself - he opted to stick to his sneakers.</h5>\n<h5 id="story_2">Unfortunately , it had rained earlier that day which caused his feet to slip during a majority of the shots, a frustrating occurrence for any golfer (although it served as an excellent excuse for his poor score).  This provided the motivation to develop a product that could help golfers in the event they find themselves in a similar situation.  Quick Spikes was born!</h5>\n<h2 id="why_to_use_heading" class="why-to-use">Form Meets Function.</h2>\n<h5 id="why_to_use_1" class="why-to-use">Quick Spikes have two sizes which are engineered to fit any size shoe.  They are ideal for a number of reasons:</h5>\n<ul id="why_to_use_2" class="why-to-use">\n	<li>Executive Golfers who travel and play.</li>\n	<li>Standard travel restrictions have American travelers packing less - thus leaving those golf shoes at home for all those vacations.  Quick Spikes take up a lot less room and will turn your sneakers into golf shoes for the round.</li>\n	<li>Buying another pair of costly golf shoes is not a real alternative if you''ve forgotten your shoes.  Hey, it happens!</li>\n	<li>Kids feet grow every year. Give them the same spikes as Mom and Dad but without the cost of buying new golf shoes every year.</li>\n	<li>New to golf?  Why invest in shoes right off the bat.  Try Quick Spikes and if you stick with the sport, get some shoes.</li>\n	<li>Great for the driving range - no need to change in and out of your golf shoes to get the traction and real life feel.</li>\n	<li>Some people are just more comfortable in their day to day shoes.</li>\n	<li>Let''s face it, nobody wants to rent golf shoes...</li>\n</ul>', 'About', '', 'inherit', 'open', 'open', '', '2-autosave', '', '', '2010-04-27 03:47:58', '2010-04-27 03:47:58', '', 2, 'http://localhost/2-autosave', 0, 'revision', '', 0),
 (11, 1, '2010-03-27 18:26:29', '2010-03-27 18:26:29', 'This is an example of a WordPress page, you could edit this to put information about yourself or your site so readers know where you are coming from. You can create as many pages like this one or sub-pages as you like and manage all of your content inside of WordPress.', 'About', '', 'inherit', 'open', 'open', '', '2-revision', '', '', '2010-03-27 18:26:29', '2010-03-27 18:26:29', '', 2, 'http://localhost/2-revision', 0, 'revision', '', 0),
 (12, 1, '2010-04-24 23:44:09', '2010-04-24 23:44:09', '<p>THE STORY IS SIMPLE.<br /><br /><br />Quick Spikes was thought up when founder Brendan Walsh inadvertently left his golf spikes at home.  When the choice between purchasing another pair of costly golf shoes at the course or wearing his sneakers presented itself - he opted to stick to his sneakers.  <br /><br />Unfortunately , it had rained earlier that day which caused his feet to slip during a majority of the shots, a frustrating occurrence for any golfer (although it served as an excellent excuse for his poor score).  This provided the motivation to develop a product that could help golfers in the event they find themselves in a similar situation.  Quick Spikes was born!  <br /><br /></p>', 'About', '', 'inherit', 'open', 'open', '', '2-revision-2', '', '', '2010-04-24 23:44:09', '2010-04-24 23:44:09', '', 2, 'http://localhost/2-revision-2', 0, 'revision', '', 0),
-(16, 1, '2010-04-25 01:49:31', '2010-04-25 01:49:31', '<h2>Images coming soon.</h2>', 'Gallery', '', 'publish', 'open', 'open', '', 'gallery', '', '', '2011-01-26 20:44:02', '2011-01-27 01:44:02', '', 0, 'http://localhost/?page_id=16', 0, 'page', '', 0),
+(16, 1, '2010-04-25 01:49:31', '2010-04-25 01:49:31', '<h2>Images coming soon.</h2>\r\n<div id=''flash_container''></div>\r\n[flash]', 'Gallery', '', 'publish', 'open', 'open', '', 'gallery', '', '', '2011-04-03 18:00:13', '2011-04-03 22:00:13', '', 0, 'http://localhost/?page_id=16', 0, 'page', '', 0),
 (111, 1, '2011-01-26 20:51:25', '2011-01-27 01:51:25', '<h2>FORM MEETS FUNCTION.</h2>\nQuick Spikes have two sizes which are engineered to fit any size shoe.  They are ideal for a number of reasons:\n<ul>\n<li>Executive Golfers who travel and play.</li>\n<li>Standard travel restrictions have American travelers packing less - thus leaving those golf shoes at home for all those vacations.  Quick Spikes take up a lot less room and will turn your sneakers into golf shoes for the round.</li>\n-Buying another pair of costly golf shoes is not a real alternative if you''ve forgotten your shoes.  Hey, it happens!  \n-Kids feet grow every year. Give them the same spikes as Mom and Dad but without the cost of buying new golf shoes every year.\n-New to golf?  Why invest in shoes right off the bat.  Try Quick Spikes and if you stick with the sport, get some shoes.\n-Great for the driving range - no need to change in and out of your golf shoes to get the traction and real life feel.\n-Some people are just more comfortable in their day to day shoes. \n-Let''s face it, nobody wants to rent golf shoes.... ', 'Why To Use', '', 'inherit', 'open', 'open', '', '35-autosave', '', '', '2011-01-26 20:51:25', '2011-01-27 01:51:25', '', 35, 'http://qs.local/35-autosave', 0, 'revision', '', 0),
 (17, 1, '2010-04-25 01:49:00', '2010-04-25 01:49:00', '', 'Gallery', '', 'inherit', 'open', 'open', '', '16-revision', '', '', '2010-04-25 01:49:00', '2010-04-25 01:49:00', '', 16, 'http://localhost/16-revision', 0, 'revision', '', 0),
 (18, 1, '2010-04-25 01:50:01', '2010-04-25 05:50:01', '<h2>Find answers here.</h2>\r\n<h4>~ Will they fit my on my sneakers?</h4> \r\n<p>YES.  Quick Spikes come in two different sizes to ensure a good fit on any shoe or sneaker.\r\n(submit size chart here)</p>\r\n<h4>~ How do I put them on?</h4>  \r\n<p>Quick Spikes are easiest to put on when your sneakers/shoes are already on your feet.  Simply slide the front portion over the front toe area of your shoe and the stretch the Quick Spikes over the base of the shoe (spikes down).  Then affix the back portion and stretch out the side areas so the Quick Spikes fit snug all around.</p>  \r\n<br /><br />\r\n<h4>~ Can I use them more than once? </h4> \r\n<p>ABSOLUTELY YES.  Quick Spikes are engineered for a long lifetime.  You can also purchase extra spikes on our website.</p>\r\n<br /><br />\r\n<h4>~ How many colors can I get them in? </h4> \r\n<p>Currently we only have our original design available but look for a wide array of Quick Spikes colors in the coming year!</p>\r\n<br /><br />\r\n<h4>~ How do I clean my Quick Spikes?</h4>  \r\n<p>Simply running them through a faucet after play should do the trick.  Then they''ll be cleaned and ready for their next use.</p>\r\n<br /><br />\r\n<h4>~ Where do I find Quick Spikes? </h4> \r\n<p>You can use the Retail Locater on our website or purchase a pair online from our site.  If you''re pro shop isn''t carrying Quick Spikes yet, tell them to give us a call.</p>', 'Faq', '', 'publish', 'open', 'closed', '', 'faq', '', '', '2010-11-26 18:22:47', '2010-11-26 23:22:47', '', 0, 'http://localhost/?page_id=18', 0, 'page', '', 0),
@@ -656,7 +761,22 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (118, 1, '2011-01-26 21:19:39', '2011-01-27 02:19:39', '<h2>Where to find</h2>\r\n<p>Quick Spikes will be available on our website, ebay and other online avenues in early 2011.  If you''d like your pro-shop to carry Quick Spikes, please have them <a href="mailto:proshop@quickspikesgolf.com" title="Email Us">email us</a></p>\r\n<p>For Retail/Wholesale purhchasers, please email us at wholesale@quickspikesgolf.com or fill out the application form <a href="/partners/submit-inquiry" title="Inquire Today">here</a>.</p>', 'Where To Find', '', 'inherit', 'open', 'open', '', '38-revision-5', '', '', '2011-01-26 21:19:39', '2011-01-27 02:19:39', '', 38, 'http://qs.local/38-revision-5', 0, 'revision', '', 0),
 (119, 1, '2010-11-30 00:19:06', '2010-11-30 05:19:06', '<h2>Everything good begins somewhere.</h2><p>Quick Spikes LLC was founded in 2008.  The company was founded with the mission of providing golfers with great products for travel.  With all of the great golf courses all over the world, why not make it easier to play them with equipment that you can trust.\r\nQuick Spikes is always on the lookout for fresh new inventors and inventions for the golf market that they can sell under their brand.  </p>', 'About', '', 'inherit', 'open', 'open', '', '2-revision-17', '', '', '2010-11-30 00:19:06', '2010-11-30 05:19:06', '', 2, 'http://qs.local/2-revision-17', 0, 'revision', '', 0),
 (120, 1, '2011-01-24 22:26:52', '2011-01-25 03:26:52', '<h2>OUR PARTNER PROGRAM FOR RETAILERS.</h2>\r\n<p>To become a Quick Spikes retailer, please contact our Sales Office via phone or email.  A Quick Spikes representative will get back to you within 24 hours and excellent discounts are available.  \r\nWe''re looking for exposure and you''re looking for the best products for your clientele.  Let''s work together!  We desire to cultivate professional relationships that are mutually beneficial.  <p>\r\n<php echo "hi"; ?>', 'Partners', '', 'inherit', 'open', 'open', '', '41-revision-5', '', '', '2011-01-24 22:26:52', '2011-01-25 03:26:52', '', 41, 'http://qs.local/41-revision-5', 0, 'revision', '', 0),
-(121, 1, '2010-11-30 02:17:04', '2010-11-30 07:17:04', '<h2>Affililiate Program</h2>\r\nQuick Spikes is a new and innovative product with limitless growth potential.\r\nWe can provide you with some creative material for your website and we offer very competitive commissions!\r\nYou provide your customer with links and the creative on your website.\r\nQuick Spikes Corporate will fulfill the order and you collect your check!\r\n<h4>Why become a Quick Spikes Affiliate?</h4>\r\nIt''s free and easy to join.\r\nIt''s an innovative and easy to sell product.\r\nGreat commission opportunities and bonuses.\r\nAffiliate promotions and discounts\r\n50 day cookie duration = more time to refer and more time to collect commissions!\r\nLINK TO www.shareasale.com', 'Affiliates', '', 'inherit', 'open', 'open', '', '43-revision-3', '', '', '2010-11-30 02:17:04', '2010-11-30 07:17:04', '', 43, 'http://qs.local/43-revision-3', 0, 'revision', '', 0);
+(121, 1, '2010-11-30 02:17:04', '2010-11-30 07:17:04', '<h2>Affililiate Program</h2>\r\nQuick Spikes is a new and innovative product with limitless growth potential.\r\nWe can provide you with some creative material for your website and we offer very competitive commissions!\r\nYou provide your customer with links and the creative on your website.\r\nQuick Spikes Corporate will fulfill the order and you collect your check!\r\n<h4>Why become a Quick Spikes Affiliate?</h4>\r\nIt''s free and easy to join.\r\nIt''s an innovative and easy to sell product.\r\nGreat commission opportunities and bonuses.\r\nAffiliate promotions and discounts\r\n50 day cookie duration = more time to refer and more time to collect commissions!\r\nLINK TO www.shareasale.com', 'Affiliates', '', 'inherit', 'open', 'open', '', '43-revision-3', '', '', '2010-11-30 02:17:04', '2010-11-30 07:17:04', '', 43, 'http://qs.local/43-revision-3', 0, 'revision', '', 0),
+(122, 1, '2010-04-27 00:39:13', '2010-04-27 04:39:13', 'Comfortable, stylish Quick Spikes Polo Golf Shirt', 'Quick Spikes Polo Shirt', '', 'publish', 'closed', 'closed', '', 'quick-spikes-polo-shirt', '', '', '2011-04-02 14:49:43', '2011-04-02 18:49:43', '', 0, 'http://qs.local/products/uncategorized/quick-spikes-polo-shirt', 0, 'wpsc-product', '', 0),
+(123, 1, '2010-04-27 00:39:13', '2010-04-27 04:39:13', 'golf-shirt', 'golf-shirt', '', 'inherit', 'open', 'open', '', 'golf-shirt', '', '', '2010-04-27 00:39:13', '2010-04-27 04:39:13', '', 122, '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/uploads/2011/04/golf-shirt.jpg', 0, 'attachment', 'image/jpeg', 0),
+(124, 1, '2010-04-27 00:51:00', '2010-04-27 04:51:00', 'The temporary golf spike solution.', 'Quick Spikes', '', 'publish', 'closed', 'closed', '', 'quick-spikes', '', '', '2011-04-02 14:57:37', '2011-04-02 18:57:37', '', 0, 'http://qs.local/products/uncategorized/quick-spikes', 0, 'wpsc-product', '', 0),
+(125, 1, '2010-04-27 00:51:00', '2010-04-27 04:51:00', 'qs-product-shot-1.1', 'qs-product-shot-1.1', '', 'inherit', 'open', 'open', '', 'qs-product-shot-1-1', '', '', '2010-04-27 00:51:00', '2010-04-27 04:51:00', '', 124, '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/uploads/2011/04/qs-product-shot-1.1.jpg', 0, 'attachment', 'image/jpeg', 0),
+(126, 1, '2010-04-27 00:53:58', '2010-04-27 04:53:58', 'Sleek, Unique, Golf Balls to add to your collection.', 'Quick Spikes Golf Balls', '', 'publish', 'closed', 'closed', '', 'quick-spikes-golf-balls', '', '', '2011-04-02 14:49:24', '2011-04-02 18:49:24', '', 0, 'http://qs.local/products/uncategorized/quick-spikes-golf-balls', 0, 'wpsc-product', '', 0),
+(127, 1, '2010-04-27 00:53:58', '2010-04-27 04:53:58', 'golf-ball', 'golf-ball', '', 'inherit', 'open', 'open', '', 'golf-ball', '', '', '2010-04-27 00:53:58', '2010-04-27 04:53:58', '', 126, '/Users/ocorso/Desktop/O-Red/Clients/QuickSpikes/site/dev/bin/php/wp-content/uploads/2011/04/golf-ball.jpg', 0, 'attachment', 'image/jpeg', 0),
+(128, 1, '2011-04-02 14:47:12', '2011-04-02 18:47:12', 'The temporary golf spike solution.', 'Quick Spikes (SML-MED)', '', 'inherit', 'closed', 'closed', '', 'quick-spikes-sml-med', '', '', '2011-04-02 14:57:14', '2011-04-02 18:57:14', '', 124, 'http://qs.local/products/uncategorized/quick-spikes-sml-med', 0, 'wpsc-product', '', 0),
+(129, 1, '2011-04-02 14:47:12', '2011-04-02 18:47:12', 'The temporary golf spike solution.', 'Quick Spikes (LRG-XLG)', '', 'inherit', 'closed', 'closed', '', 'quick-spikes-lrg-xlg', '', '', '2011-04-02 14:57:53', '2011-04-02 18:57:53', '', 124, 'http://qs.local/products/uncategorized/quick-spikes-lrg-xlg', 0, 'wpsc-product', '', 0),
+(130, 1, '2011-04-02 14:47:12', '2011-04-02 18:47:12', '', 'quickspike_product_shot.jpg', '', 'inherit', 'open', 'open', '', 'da4b9237bacccdf19c0760cab7aec4a8359010b0', '', '', '2011-04-02 14:47:12', '2011-04-02 18:47:12', '', 122, 'http://qs.local/?wpsc-product-file=da4b9237bacccdf19c0760cab7aec4a8359010b0', 0, 'wpsc-product-file', 'application/octet-stream', 0),
+(131, 1, '2011-04-02 14:47:12', '2011-04-02 18:47:12', '', 'golf-shirt.jpg', '', 'inherit', 'open', 'open', '', '1b6453892473a467d07372d45eb05abc2031647a', '', '', '2011-04-02 14:47:12', '2011-04-02 18:47:12', '', 122, 'http://qs.local/?wpsc-product-file=1b6453892473a467d07372d45eb05abc2031647a', 0, 'wpsc-product-file', 'application/octet-stream', 0),
+(132, 1, '2011-04-02 14:47:12', '2011-04-02 18:47:12', '', 'golf-ball.jpg', '', 'inherit', 'open', 'open', '', 'ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4', '', '', '2011-04-02 14:47:12', '2011-04-02 18:47:12', '', 126, 'http://qs.local/?wpsc-product-file=ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4', 0, 'wpsc-product-file', 'application/octet-stream', 0),
+(133, 1, '2011-01-26 20:44:02', '2011-01-27 01:44:02', '<h2>Images coming soon.</h2>', 'Gallery', '', 'inherit', 'open', 'open', '', '16-revision-3', '', '', '2011-01-26 20:44:02', '2011-01-27 01:44:02', '', 16, 'http://qs.local/16-revision-3', 0, 'revision', '', 0),
+(134, 1, '2011-04-03 17:48:31', '2011-04-03 21:48:31', '<h2>Images coming soon.</h2>\r\n[flash]', 'Gallery', '', 'inherit', 'open', 'open', '', '16-revision-4', '', '', '2011-04-03 17:48:31', '2011-04-03 21:48:31', '', 16, 'http://qs.local/16-revision-4', 0, 'revision', '', 0),
+(135, 1, '2011-04-03 17:59:54', '2011-04-03 21:59:54', '<h2>Images coming soon.</h2>\n<div id=''f\n[flash]', 'Gallery', '', 'inherit', 'open', 'open', '', '16-autosave', '', '', '2011-04-03 17:59:54', '2011-04-03 21:59:54', '', 16, 'http://qs.local/16-autosave', 0, 'revision', '', 0),
+(136, 1, '2011-04-03 17:58:51', '2011-04-03 21:58:51', '<h2>Images coming soon.</h2>\r\n[flash]', 'Gallery', '', 'inherit', 'open', 'open', '', '16-revision-5', '', '', '2011-04-03 17:58:51', '2011-04-03 21:58:51', '', 16, 'http://qs.local/16-revision-5', 0, 'revision', '', 0);
 
 -- --------------------------------------------------------
 
@@ -664,7 +784,6 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 -- Table structure for table `wp_terms`
 --
 
-DROP TABLE IF EXISTS `wp_terms`;
 CREATE TABLE IF NOT EXISTS `wp_terms` (
   `term_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL DEFAULT '',
@@ -673,7 +792,7 @@ CREATE TABLE IF NOT EXISTS `wp_terms` (
   PRIMARY KEY (`term_id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `wp_terms`
@@ -681,7 +800,13 @@ CREATE TABLE IF NOT EXISTS `wp_terms` (
 
 INSERT INTO `wp_terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
 (1, 'Uncategorized', 'uncategorized', 0),
-(2, 'Blogroll', 'blogroll', 0);
+(2, 'Blogroll', 'blogroll', 0),
+(3, 'Categories', 'categories', 0),
+(4, 'Footwear', 'footwear', 0),
+(6, 'Quick Spikes', 'quick-spikes', 0),
+(7, 'Size', 'size', 0),
+(8, 'SML-MED', 'sml-med', 0),
+(9, 'LRG-XLG', 'lrg-xlg', 0);
 
 -- --------------------------------------------------------
 
@@ -689,7 +814,6 @@ INSERT INTO `wp_terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
 -- Table structure for table `wp_term_relationships`
 --
 
-DROP TABLE IF EXISTS `wp_term_relationships`;
 CREATE TABLE IF NOT EXISTS `wp_term_relationships` (
   `object_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `term_taxonomy_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -736,7 +860,17 @@ INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_orde
 (28, 1, 0),
 (29, 1, 0),
 (30, 1, 0),
-(31, 1, 0);
+(31, 1, 0),
+(122, 6, 0),
+(124, 6, 0),
+(126, 6, 0),
+(124, 7, 0),
+(124, 8, 0),
+(124, 9, 0),
+(128, 8, 0),
+(129, 9, 0),
+(129, 3, 0),
+(128, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -744,7 +878,6 @@ INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_orde
 -- Table structure for table `wp_term_taxonomy`
 --
 
-DROP TABLE IF EXISTS `wp_term_taxonomy`;
 CREATE TABLE IF NOT EXISTS `wp_term_taxonomy` (
   `term_taxonomy_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `term_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -755,7 +888,7 @@ CREATE TABLE IF NOT EXISTS `wp_term_taxonomy` (
   PRIMARY KEY (`term_taxonomy_id`),
   UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
   KEY `taxonomy` (`taxonomy`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `wp_term_taxonomy`
@@ -763,7 +896,13 @@ CREATE TABLE IF NOT EXISTS `wp_term_taxonomy` (
 
 INSERT INTO `wp_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `description`, `parent`, `count`) VALUES
 (1, 1, 'category', '', 0, 0),
-(2, 2, 'link_category', '', 0, 7);
+(2, 2, 'link_category', '', 0, 7),
+(3, 3, 'wpsc_product_category', 'Product Categories', 0, 2),
+(4, 4, 'wpsc_product_category', 'A temporary  golf spike solution', 3, 0),
+(6, 6, 'wpsc_product_category', 'Love the Game, Love the Gear', 0, 3),
+(7, 7, 'wpsc-variation', '', 0, 1),
+(8, 8, 'wpsc-variation', '', 7, 2),
+(9, 9, 'wpsc-variation', '', 7, 2);
 
 -- --------------------------------------------------------
 
@@ -771,7 +910,6 @@ INSERT INTO `wp_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `desc
 -- Table structure for table `wp_usermeta`
 --
 
-DROP TABLE IF EXISTS `wp_usermeta`;
 CREATE TABLE IF NOT EXISTS `wp_usermeta` (
   `umeta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -780,7 +918,7 @@ CREATE TABLE IF NOT EXISTS `wp_usermeta` (
   PRIMARY KEY (`umeta_id`),
   KEY `user_id` (`user_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
 
 --
 -- Dumping data for table `wp_usermeta`
@@ -809,7 +947,7 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (21, 1, 'closedpostboxes_dashboard', 'a:1:{i:0;s:0:"";}'),
 (22, 1, 'metaboxhidden_dashboard', 'a:7:{i:0;s:25:"dashboard_recent_comments";i:1;s:24:"dashboard_incoming_links";i:2;s:17:"dashboard_plugins";i:3;s:21:"dashboard_quick_press";i:4;s:23:"dashboard_recent_drafts";i:5;s:17:"dashboard_primary";i:6;s:19:"dashboard_secondary";}'),
 (24, 1, 'screen_layout_dashboard', '2'),
-(25, 1, 'wpshpcrt_usr_profile', 'a:13:{i:2;s:9:"elizabeth";i:3;s:5:"blind";i:4;s:16:"666 nightmare rd";i:5;s:8:"new york";i:6;a:2:{i:0;s:2:"US";i:1;s:2:"43";}i:7;s:5:"10017";i:17;s:11:"19006666666";i:8;s:24:"owen@strattonimaging.com";i:12;s:16:"666 nightmare rd";i:13;s:8:"new york";i:15;a:1:{i:0;s:2:"US";}i:14;s:2:"43";i:16;s:5:"10017";}'),
+(25, 1, 'wpshpcrt_usr_profile', 'a:13:{i:2;s:3:"Joe";i:3;s:5:"Shmoe";i:4;s:11:"69 69th St.";i:5;s:8:"New York";i:6;a:2:{i:0;s:2:"US";i:1;s:2:"45";}i:7;s:5:"10075";i:17;s:10:"2016966969";i:8;s:31:"owen.c_1286683102_per@gmail.com";i:12;s:11:"69 69th St.";i:13;s:8:"New York";i:14;s:2:"45";i:15;s:2:"US";i:16;s:5:"10075";}'),
 (26, 1, 'closedpostboxes_store_page_wpsc-sale-logs', 'a:1:{i:0;s:20:"wpsc_getshopped_news";}'),
 (27, 1, 'metaboxhidden_store_page_wpsc-sale-logs', 'a:0:{}'),
 (28, 3, 'first_name', 'Testes'),
@@ -824,7 +962,9 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (37, 3, 'yim', ''),
 (38, 3, 'jabber', ''),
 (39, 3, 'wp_capabilities', 'a:1:{s:10:"subscriber";s:1:"1";}'),
-(40, 3, 'wp_user_level', '0');
+(40, 3, 'wp_user_level', '0'),
+(42, 1, 'wp_user-settings', 'm0=o&m1=c&m2=c&m3=c&m4=o&m5=c&m6=o&m7=c&m8=o&imgsize=full&hidetb=1&editor=html&m10=o'),
+(43, 1, 'wp_user-settings-time', '1301771308');
 
 -- --------------------------------------------------------
 
@@ -832,7 +972,6 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 -- Table structure for table `wp_users`
 --
 
-DROP TABLE IF EXISTS `wp_users`;
 CREATE TABLE IF NOT EXISTS `wp_users` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_login` varchar(60) NOT NULL DEFAULT '',
@@ -847,7 +986,7 @@ CREATE TABLE IF NOT EXISTS `wp_users` (
   PRIMARY KEY (`ID`),
   KEY `user_login_key` (`user_login`),
   KEY `user_nicename` (`user_nicename`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `wp_users`
@@ -864,14 +1003,13 @@ INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_
 -- Table structure for table `wp_wpsc_also_bought`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_also_bought`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_also_bought` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `selected_product` bigint(20) unsigned NOT NULL DEFAULT '0',
   `associated_product` bigint(20) unsigned NOT NULL DEFAULT '0',
   `quantity` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `wp_wpsc_also_bought`
@@ -884,7 +1022,6 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_also_bought` (
 -- Table structure for table `wp_wpsc_cart_contents`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_cart_contents`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_cart_contents` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `prodid` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -902,7 +1039,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_cart_contents` (
   `meta` longtext,
   PRIMARY KEY (`id`),
   KEY `purchaseid` (`purchaseid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `wp_wpsc_cart_contents`
@@ -910,22 +1047,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_cart_contents` (
 
 INSERT INTO `wp_wpsc_cart_contents` (`id`, `prodid`, `name`, `purchaseid`, `price`, `pnp`, `tax_charged`, `gst`, `quantity`, `donation`, `no_shipping`, `custom_message`, `files`, `meta`) VALUES
 (1, 3, 'Golf Balls', 0, 3.00, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(4, 3, 'Golf Balls', 1, 3.00, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(5, 2, 'Quick Spikes (SML-MED)', 0, 19.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(7, 2, 'Quick Spikes (SML-MED)', 2, 19.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(8, 2, 'Quick Spikes (SML-MED)', 3, 19.99, 0.00, 0.00, 0.00, 2, '0', '0', '', 'N;', NULL),
-(9, 3, 'Golf Balls', 4, 3.00, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(10, 3, 'Golf Balls', 5, 3.00, 0.00, 0.00, 0.00, 2, '0', '0', '', 'N;', NULL),
-(11, 2, 'Quick Spikes (SML-MED)', 5, 19.99, 0.00, 0.00, 0.00, 3, '0', '0', '', 'N;', NULL),
-(12, 1, 'Quick Spikes Polo Shirt', 5, 29.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(13, 3, 'Golf Balls', 6, 3.00, 0.00, 0.00, 0.00, 2, '0', '0', '', 'N;', NULL),
-(14, 2, 'Quick Spikes (SML-MED)', 6, 19.99, 0.00, 0.00, 0.00, 3, '0', '0', '', 'N;', NULL),
-(15, 1, 'Quick Spikes Polo Shirt', 6, 29.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(16, 2, 'Quick Spikes (SML-MED)', 7, 19.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(17, 2, 'Quick Spikes (SML-MED)', 8, 19.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(18, 2, 'Quick Spikes (SML-MED)', 9, 19.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(19, 2, 'Quick Spikes (SML-MED)', 10, 19.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL),
-(20, 2, 'Quick Spikes (SML-MED)', 11, 19.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL);
+(5, 2, 'Quick Spikes (SML-MED)', 0, 19.99, 0.00, 0.00, 0.00, 1, '0', '0', '', 'N;', NULL);
 
 -- --------------------------------------------------------
 
@@ -933,14 +1055,13 @@ INSERT INTO `wp_wpsc_cart_contents` (`id`, `prodid`, `name`, `purchaseid`, `pric
 -- Table structure for table `wp_wpsc_cart_item_variations`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_cart_item_variations`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_cart_item_variations` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `cart_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `variation_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `value_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `wp_wpsc_cart_item_variations`
@@ -957,7 +1078,10 @@ INSERT INTO `wp_wpsc_cart_item_variations` (`id`, `cart_id`, `variation_id`, `va
 (8, 17, 1, 1),
 (9, 18, 1, 1),
 (10, 19, 1, 1),
-(11, 20, 1, 1);
+(11, 20, 1, 1),
+(12, 21, 1, 1),
+(13, 22, 1, 1),
+(14, 23, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -965,7 +1089,6 @@ INSERT INTO `wp_wpsc_cart_item_variations` (`id`, `cart_id`, `variation_id`, `va
 -- Table structure for table `wp_wpsc_categorisation_groups`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_categorisation_groups`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_categorisation_groups` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
@@ -974,7 +1097,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_categorisation_groups` (
   `default` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `group_name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `wp_wpsc_categorisation_groups`
@@ -990,7 +1113,6 @@ INSERT INTO `wp_wpsc_categorisation_groups` (`id`, `name`, `description`, `activ
 -- Table structure for table `wp_wpsc_category_tm`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_category_tm`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_category_tm` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `visible` int(2) unsigned NOT NULL DEFAULT '0',
@@ -998,7 +1120,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_category_tm` (
   `categoryid` int(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `countryid_and_categoryid` (`countryid`,`categoryid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=969 ;
 
 --
 -- Dumping data for table `wp_wpsc_category_tm`
@@ -1496,7 +1618,6 @@ INSERT INTO `wp_wpsc_category_tm` (`id`, `visible`, `countryid`, `categoryid`) V
 -- Table structure for table `wp_wpsc_checkout_forms`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_checkout_forms`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_checkout_forms` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
@@ -1505,19 +1626,20 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_checkout_forms` (
   `display_log` char(1) NOT NULL DEFAULT '0',
   `default` varchar(128) NOT NULL DEFAULT '0',
   `active` varchar(1) NOT NULL DEFAULT '1',
-  `order` int(10) unsigned NOT NULL DEFAULT '0',
+  `checkout_order` int(10) unsigned NOT NULL DEFAULT '0',
   `unique_name` varchar(255) NOT NULL DEFAULT '',
-  `options` longtext NOT NULL,
+  `options` varchar(255) NOT NULL DEFAULT '',
   `checkout_set` varchar(64) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `order` (`order`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+  KEY `order` (`checkout_order`),
+  KEY `checkout_order` (`checkout_order`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `wp_wpsc_checkout_forms`
 --
 
-INSERT INTO `wp_wpsc_checkout_forms` (`id`, `name`, `type`, `mandatory`, `display_log`, `default`, `active`, `order`, `unique_name`, `options`, `checkout_set`) VALUES
+INSERT INTO `wp_wpsc_checkout_forms` (`id`, `name`, `type`, `mandatory`, `display_log`, `default`, `active`, `checkout_order`, `unique_name`, `options`, `checkout_set`) VALUES
 (1, '1. Your billing/contact details', 'heading', '0', '0', '', '1', 1, '', '', '0'),
 (2, 'First Name', 'text', '1', '1', '', '1', 2, 'billingfirstname', '', '0'),
 (3, 'Last Name', 'text', '1', '1', '', '1', 3, 'billinglastname', '', '0'),
@@ -1542,7 +1664,6 @@ INSERT INTO `wp_wpsc_checkout_forms` (`id`, `name`, `type`, `mandatory`, `displa
 -- Table structure for table `wp_wpsc_claimed_stock`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_claimed_stock`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_claimed_stock` (
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `variation_stock_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -1559,10 +1680,6 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_claimed_stock` (
 -- Dumping data for table `wp_wpsc_claimed_stock`
 --
 
-INSERT INTO `wp_wpsc_claimed_stock` (`product_id`, `variation_stock_id`, `stock_claimed`, `last_activity`, `cart_id`, `cart_submitted`) VALUES
-(1, 0, 1, '2010-10-18 17:29:49', '5', '1'),
-(1, 0, 1, '2010-10-18 17:30:58', '6', '1'),
-(1, 0, 0, '2010-10-18 17:35:10', '7', '1');
 
 -- --------------------------------------------------------
 
@@ -1570,7 +1687,6 @@ INSERT INTO `wp_wpsc_claimed_stock` (`product_id`, `variation_stock_id`, `stock_
 -- Table structure for table `wp_wpsc_coupon_codes`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_coupon_codes`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_coupon_codes` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `coupon_code` varchar(255) DEFAULT '',
@@ -1588,7 +1704,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_coupon_codes` (
   KEY `active` (`active`),
   KEY `start` (`start`),
   KEY `expiry` (`expiry`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `wp_wpsc_coupon_codes`
@@ -1601,7 +1717,6 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_coupon_codes` (
 -- Table structure for table `wp_wpsc_currency_list`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_currency_list`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_currency_list` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `country` varchar(255) NOT NULL DEFAULT '',
@@ -1615,7 +1730,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_currency_list` (
   `continent` varchar(20) NOT NULL DEFAULT '',
   `visible` varchar(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=243 ;
 
 --
 -- Dumping data for table `wp_wpsc_currency_list`
@@ -1871,7 +1986,6 @@ INSERT INTO `wp_wpsc_currency_list` (`id`, `country`, `isocode`, `currency`, `sy
 -- Table structure for table `wp_wpsc_download_status`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_download_status`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_download_status` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned DEFAULT NULL,
@@ -1886,7 +2000,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_download_status` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniqueid` (`uniqueid`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `wp_wpsc_download_status`
@@ -1912,7 +2026,10 @@ INSERT INTO `wp_wpsc_download_status` (`id`, `product_id`, `fileid`, `purchid`, 
 (17, 2, 3, 8, 17, '3dcd0b251fe6d6969221e199235a74fcf0ae5f55', 1, '', '0', '2010-10-18 13:47:16'),
 (18, 2, 3, 9, 18, '165d28edd8343a13bc89aba7f16d6badcbc39242', 1, '', '0', '2010-10-18 13:49:26'),
 (19, 2, 3, 10, 19, 'c5d194ef66f812f07457617f0c0cac45301942cd', 1, '', '1', '2010-10-18 13:54:24'),
-(20, 2, 3, 11, 20, '4b673b75c25d938683506020f37f55427d780de7', 1, '', '0', '2010-10-18 21:33:06');
+(20, 2, 3, 11, 20, '4b673b75c25d938683506020f37f55427d780de7', 1, '', '0', '2010-10-18 21:33:06'),
+(21, 2, 6, 12, 21, 'e5793c51b2364eddbe1c760881eca9b98ed0e4b0', 1, '', '0', '2011-02-07 22:35:27'),
+(22, 2, 6, 13, 22, '3c8406c4af48ba18322aa74f37bedfa09a4aea87', 1, '', '0', '2011-02-07 22:37:08'),
+(23, 2, 6, 14, 23, '8315736fa3a6ccebc0f42aea06c17a5bb100923a', 1, '', '0', '2011-02-07 22:37:37');
 
 -- --------------------------------------------------------
 
@@ -1920,14 +2037,13 @@ INSERT INTO `wp_wpsc_download_status` (`id`, `product_id`, `fileid`, `purchid`, 
 -- Table structure for table `wp_wpsc_item_category_assoc`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_item_category_assoc`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_item_category_assoc` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `category_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `product_id` (`product_id`,`category_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `wp_wpsc_item_category_assoc`
@@ -1944,7 +2060,6 @@ INSERT INTO `wp_wpsc_item_category_assoc` (`id`, `product_id`, `category_id`) VA
 -- Table structure for table `wp_wpsc_logged_subscriptions`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_logged_subscriptions`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_logged_subscriptions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `cart_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -1956,7 +2071,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_logged_subscriptions` (
   KEY `cart_id` (`cart_id`),
   KEY `user_id` (`user_id`),
   KEY `start_time` (`start_time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `wp_wpsc_logged_subscriptions`
@@ -1969,7 +2084,6 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_logged_subscriptions` (
 -- Table structure for table `wp_wpsc_meta`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_meta`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_meta` (
   `meta_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `object_type` varchar(24) NOT NULL DEFAULT 'cart_Item',
@@ -1979,7 +2093,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_meta` (
   PRIMARY KEY (`meta_id`),
   KEY `object_type__meta_key` (`object_type`,`meta_key`),
   KEY `object_type__object_id__meta_key` (`object_type`,`object_id`,`meta_key`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=78 ;
 
 --
 -- Dumping data for table `wp_wpsc_meta`
@@ -1987,7 +2101,82 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_meta` (
 
 INSERT INTO `wp_wpsc_meta` (`meta_id`, `object_type`, `object_id`, `meta_key`, `meta_value`) VALUES
 (1, 'wpsc_category', 1, 'uses_billing_address', '0'),
-(2, 'wpsc_category', 2, 'uses_billing_address', '0');
+(2, 'wpsc_category', 2, 'uses_billing_address', '0'),
+(3, 'wpsc_category', 3, 'fee', '0'),
+(4, 'wpsc_category', 3, 'active', '1'),
+(5, 'wpsc_category', 3, 'order', '0'),
+(6, 'wpsc_category', 3, 'display_type', ''),
+(7, 'wpsc_category', 3, 'image_height', ''),
+(8, 'wpsc_category', 3, 'image_width', ''),
+(9, 'wpsc_category', 3, 'uses_billing_address', '0'),
+(10, 'wpsc_category', 3, 'target_market', ''),
+(11, 'wpsc_category_group', 1, 'category_group_id', '3'),
+(12, 'wpsc_category', 3, 'category_group_id', '1'),
+(13, 'wpsc_category', 3, 'image', ''),
+(14, 'wpsc_category', 4, 'fee', '0'),
+(15, 'wpsc_category', 4, 'active', '1'),
+(16, 'wpsc_category', 4, 'order', '0'),
+(17, 'wpsc_category', 4, 'display_type', ''),
+(18, 'wpsc_category', 4, 'image_height', ''),
+(19, 'wpsc_category', 4, 'image_width', ''),
+(20, 'wpsc_category', 4, 'uses_billing_address', '0'),
+(21, 'wpsc_category', 4, 'target_market', ''),
+(22, 'wpsc_old_category', 1, 'category_id', '4'),
+(23, 'wpsc_category', 4, 'category_id', '1'),
+(24, 'wpsc_category', 4, 'image', ''),
+(25, 'wpsc_category', 5, 'fee', '0'),
+(26, 'wpsc_category', 5, 'active', '1'),
+(27, 'wpsc_category', 5, 'order', '0'),
+(28, 'wpsc_category', 5, 'display_type', ''),
+(29, 'wpsc_category', 5, 'image_height', ''),
+(30, 'wpsc_category', 5, 'image_width', ''),
+(31, 'wpsc_category', 5, 'uses_billing_address', '0'),
+(32, 'wpsc_category', 5, 'target_market', ''),
+(33, 'wpsc_category_group', 2, 'category_group_id', '5'),
+(34, 'wpsc_category', 5, 'category_group_id', '2'),
+(35, 'wpsc_category', 5, 'image', ''),
+(36, 'wpsc_category', 6, 'fee', '0'),
+(37, 'wpsc_category', 6, 'active', '1'),
+(38, 'wpsc_category', 6, 'order', '0'),
+(39, 'wpsc_category', 6, 'display_type', ''),
+(40, 'wpsc_category', 6, 'image_height', ''),
+(41, 'wpsc_category', 6, 'image_width', ''),
+(42, 'wpsc_category', 6, 'uses_billing_address', '0'),
+(43, 'wpsc_category', 6, 'target_market', ''),
+(44, 'wpsc_old_category', 2, 'category_id', '6'),
+(45, 'wpsc_category', 6, 'category_id', '2'),
+(46, 'wpsc_category', 6, 'image', 'Logo-rework_v3.jpg'),
+(47, 'wpsc_variation_set', 1, 'variation_set_id', '7'),
+(48, 'wpsc_variation', 1, 'variation_id', '8'),
+(49, 'wpsc_variation', 2, 'variation_id', '9'),
+(50, 'wpsc_variation_set', 2, 'variation_set_id', '10'),
+(51, 'wpsc_variation', 4, 'variation_id', '11'),
+(52, 'wpsc_files', 2, '_new_file_id', '130'),
+(53, 'wpsc_files', 4, '_new_file_id', '131'),
+(54, 'wpsc_files', 5, '_new_file_id', '132'),
+(55, 'wpsc_downloads', 1, '_is_legacy', 'true'),
+(56, 'wpsc_downloads', 2, '_is_legacy', 'true'),
+(57, 'wpsc_downloads', 3, '_is_legacy', 'true'),
+(58, 'wpsc_downloads', 4, '_is_legacy', 'true'),
+(59, 'wpsc_downloads', 5, '_is_legacy', 'true'),
+(60, 'wpsc_downloads', 6, '_is_legacy', 'true'),
+(61, 'wpsc_downloads', 7, '_is_legacy', 'true'),
+(62, 'wpsc_downloads', 8, '_is_legacy', 'true'),
+(63, 'wpsc_downloads', 9, '_is_legacy', 'true'),
+(64, 'wpsc_downloads', 10, '_is_legacy', 'true'),
+(65, 'wpsc_downloads', 11, '_is_legacy', 'true'),
+(66, 'wpsc_downloads', 12, '_is_legacy', 'true'),
+(67, 'wpsc_downloads', 13, '_is_legacy', 'true'),
+(68, 'wpsc_downloads', 14, '_is_legacy', 'true'),
+(69, 'wpsc_downloads', 15, '_is_legacy', 'true'),
+(70, 'wpsc_downloads', 16, '_is_legacy', 'true'),
+(71, 'wpsc_downloads', 17, '_is_legacy', 'true'),
+(72, 'wpsc_downloads', 18, '_is_legacy', 'true'),
+(73, 'wpsc_downloads', 19, '_is_legacy', 'true'),
+(74, 'wpsc_downloads', 20, '_is_legacy', 'true'),
+(75, 'wpsc_downloads', 21, '_is_legacy', 'true'),
+(76, 'wpsc_downloads', 22, '_is_legacy', 'true'),
+(77, 'wpsc_downloads', 23, '_is_legacy', 'true');
 
 -- --------------------------------------------------------
 
@@ -1995,7 +2184,6 @@ INSERT INTO `wp_wpsc_meta` (`meta_id`, `object_type`, `object_id`, `meta_key`, `
 -- Table structure for table `wp_wpsc_productmeta`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_productmeta`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_productmeta` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2006,7 +2194,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_productmeta` (
   KEY `product_id` (`product_id`),
   KEY `meta_key` (`meta_key`),
   KEY `custom` (`custom`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `wp_wpsc_productmeta`
@@ -2059,7 +2247,6 @@ INSERT INTO `wp_wpsc_productmeta` (`id`, `product_id`, `meta_key`, `meta_value`,
 -- Table structure for table `wp_wpsc_product_categories`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_product_categories`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_categories` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `group_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2077,7 +2264,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_categories` (
   PRIMARY KEY (`id`),
   KEY `group_id` (`group_id`),
   KEY `nice-name` (`nice-name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `wp_wpsc_product_categories`
@@ -2093,7 +2280,6 @@ INSERT INTO `wp_wpsc_product_categories` (`id`, `group_id`, `name`, `nice-name`,
 -- Table structure for table `wp_wpsc_product_files`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_product_files`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_files` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned DEFAULT NULL,
@@ -2104,7 +2290,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_files` (
   `preview_mimetype` varchar(128) NOT NULL DEFAULT '',
   `date` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `wp_wpsc_product_files`
@@ -2113,8 +2299,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_files` (
 INSERT INTO `wp_wpsc_product_files` (`id`, `product_id`, `filename`, `mimetype`, `idhash`, `preview`, `preview_mimetype`, `date`) VALUES
 (2, 1, 'quickspike_product_shot.jpg', 'application/octet-stream', 'da4b9237bacccdf19c0760cab7aec4a8359010b0', '', '', '1272343490'),
 (4, 1, 'golf-shirt.jpg', 'application/octet-stream', '1b6453892473a467d07372d45eb05abc2031647a', '', '', '1272343779'),
-(5, 3, 'golf-ball.jpg', 'application/octet-stream', 'ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4', '', '', '1272344038'),
-(6, 2, 'qs-product-shot-1.1.jpg', 'image/jpeg; charset=binary', 'c1dfd96eea8cc2b62785275bca38ac261256e278', '', '', '1293576103');
+(5, 3, 'golf-ball.jpg', 'application/octet-stream', 'ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4', '', '', '1272344038');
 
 -- --------------------------------------------------------
 
@@ -2122,7 +2307,6 @@ INSERT INTO `wp_wpsc_product_files` (`id`, `product_id`, `filename`, `mimetype`,
 -- Table structure for table `wp_wpsc_product_images`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_product_images`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_images` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2133,7 +2317,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_images` (
   `meta` longtext,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `wp_wpsc_product_images`
@@ -2151,7 +2335,6 @@ INSERT INTO `wp_wpsc_product_images` (`id`, `product_id`, `image`, `width`, `hei
 -- Table structure for table `wp_wpsc_product_list`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_product_list`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_list` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
@@ -2178,7 +2361,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_list` (
   `thumbnail_state` int(11) NOT NULL DEFAULT '0',
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `wp_wpsc_product_list`
@@ -2186,7 +2369,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_list` (
 
 INSERT INTO `wp_wpsc_product_list` (`id`, `name`, `description`, `additional_description`, `price`, `weight`, `weight_unit`, `pnp`, `international_pnp`, `file`, `image`, `quantity_limited`, `quantity`, `special`, `special_price`, `display_frontpage`, `notax`, `publish`, `active`, `donation`, `no_shipping`, `thumbnail_image`, `thumbnail_state`, `date_added`) VALUES
 (1, 'Quick Spikes Polo Shirt', 'Comfortable, stylish Quick Spikes Polo Golf Shirt', '', 29.99, 3, 'pound', 0.00, 0.00, 4, 3, '1', 100, '0', 0.00, '0', '1', '1', '1', '0', '1', '', 1, '2010-04-27 00:39:13'),
-(2, 'Quick Spikes', 'The temporary golf spike solution.', '', 24.95, 0, 'pound', 0.00, 0.00, 6, 4, '0', 0, '0', 0.00, '0', '1', '1', '1', '0', '1', '', 1, '2010-04-27 00:51:00'),
+(2, 'Quick Spikes', 'The temporary golf spike solution.', '', 24.95, 0, 'pound', 0.00, 0.00, 0, 4, '0', 0, '0', 0.00, '0', '1', '1', '1', '0', '1', '', 0, '2010-04-27 00:51:00'),
 (3, 'Quick Spikes Golf Balls', 'Sleek, Unique, Golf Balls to add to your collection.', '', 3.00, 0, 'pound', 0.00, 0.00, 5, 1, '0', 0, '0', 0.00, '0', '0', '1', '1', '0', '1', '', 0, '2010-04-27 00:53:58');
 
 -- --------------------------------------------------------
@@ -2195,7 +2378,6 @@ INSERT INTO `wp_wpsc_product_list` (`id`, `name`, `description`, `additional_des
 -- Table structure for table `wp_wpsc_product_order`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_product_order`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_order` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2204,7 +2386,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_order` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `category_id` (`category_id`,`product_id`),
   KEY `order` (`order`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `wp_wpsc_product_order`
@@ -2223,7 +2405,6 @@ INSERT INTO `wp_wpsc_product_order` (`id`, `category_id`, `product_id`, `order`)
 -- Table structure for table `wp_wpsc_product_rating`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_product_rating`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_rating` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ipnum` varchar(30) NOT NULL DEFAULT '',
@@ -2232,7 +2413,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_rating` (
   `time` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `rating_time` (`time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `wp_wpsc_product_rating`
@@ -2245,14 +2426,13 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_product_rating` (
 -- Table structure for table `wp_wpsc_product_variations`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_product_variations`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_product_variations` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL DEFAULT '',
   `variation_association` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `variation_association` (`variation_association`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `wp_wpsc_product_variations`
@@ -2268,7 +2448,6 @@ INSERT INTO `wp_wpsc_product_variations` (`id`, `name`, `variation_association`)
 -- Table structure for table `wp_wpsc_purchase_logs`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_purchase_logs`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_purchase_logs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `totalprice` decimal(11,2) NOT NULL DEFAULT '0.00',
@@ -2297,29 +2476,19 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_purchase_logs` (
   `affiliate_id` varchar(32) DEFAULT NULL,
   `plugin_version` varchar(32) DEFAULT NULL,
   `notes` text,
+  `wpec_taxes_total` decimal(11,2) DEFAULT NULL,
+  `wpec_taxes_rate` decimal(11,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `sessionid` (`sessionid`),
   KEY `gateway` (`gateway`),
   KEY `date` (`date`),
   KEY `processed_and_date` (`processed`,`date`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `wp_wpsc_purchase_logs`
 --
 
-INSERT INTO `wp_wpsc_purchase_logs` (`id`, `totalprice`, `statusno`, `sessionid`, `transactid`, `authcode`, `processed`, `user_ID`, `date`, `gateway`, `billing_country`, `shipping_country`, `base_shipping`, `email_sent`, `stock_adjusted`, `discount_value`, `discount_data`, `track_id`, `billing_region`, `shipping_region`, `find_us`, `engravetext`, `shipping_method`, `shipping_option`, `affiliate_id`, `plugin_version`, `notes`) VALUES
-(1, 3.00, 0, '6341272349255', '', '', 1, 0, '1272349307', 'google', 'US', 'US', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(2, 19.99, 0, '9691280714247', '', '', 1, 0, '1280714312', 'google', 'US', 'US', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(3, 39.98, 0, '3971286671042', '', '', 2, 1, '1286671042', 'testmode', 'undefi', 'undefi', 0.00, '1', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(4, 3.00, 0, '2051286684887', '', '', 1, 1, '1286684887', 'paypal_certified', 'undefi', 'undefi', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(5, 95.96, 0, '4401287422991', '', '', 1, 1, '1287422991', 'paypal_multiple', 'undefi', 'undefi', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(6, 95.96, 0, '2371287423079', '', '', 1, 1, '1287423079', 'wpsc_merchant_paypal_standard', 'undefi', 'undefi', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(7, 19.99, 0, '1811287423325', '', '', 1, 1, '1287423325', 'wpsc_merchant_paypal_standard', 'undefi', 'undefi', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(8, 19.99, 0, '2911287424036', '', '', 1, 1, '1287424036', 'wpsc_merchant_paypal_standard', 'undefi', 'undefi', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(9, 19.99, 0, '4881287424166', '', '', 1, 1, '1287424166', 'wpsc_merchant_paypal_standard', 'undefi', 'undefi', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(10, 19.99, 0, '1581287424464', '', '', 1, 1, '1287424464', 'wpsc_merchant_paypal_standard', 'undefi', 'undefi', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL),
-(11, 19.99, 0, '5551287451986', '', '', 1, 1, '1287451986', 'wpsc_merchant_paypal_standard', 'undefi', 'undefi', 0.00, '0', '0', 0.00, '', '', '', '', '', '', 'usps', '', NULL, '3.7', NULL);
 
 -- --------------------------------------------------------
 
@@ -2327,14 +2496,13 @@ INSERT INTO `wp_wpsc_purchase_logs` (`id`, `totalprice`, `statusno`, `sessionid`
 -- Table structure for table `wp_wpsc_purchase_statuses`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_purchase_statuses`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_purchase_statuses` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL DEFAULT '',
   `active` varchar(1) NOT NULL DEFAULT '0',
   `colour` varchar(6) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `wp_wpsc_purchase_statuses`
@@ -2352,7 +2520,6 @@ INSERT INTO `wp_wpsc_purchase_statuses` (`id`, `name`, `active`, `colour`) VALUE
 -- Table structure for table `wp_wpsc_region_tax`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_region_tax`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_region_tax` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `country_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2361,7 +2528,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_region_tax` (
   `tax` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `country_id` (`country_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=65 ;
 
 --
 -- Dumping data for table `wp_wpsc_region_tax`
@@ -2439,7 +2606,6 @@ INSERT INTO `wp_wpsc_region_tax` (`id`, `country_id`, `name`, `code`, `tax`) VAL
 -- Table structure for table `wp_wpsc_submited_form_data`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_submited_form_data`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_submited_form_data` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `log_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2447,138 +2613,12 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_submited_form_data` (
   `value` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `log_id` (`log_id`,`form_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=165 ;
 
 --
 -- Dumping data for table `wp_wpsc_submited_form_data`
 --
 
-INSERT INTO `wp_wpsc_submited_form_data` (`id`, `log_id`, `form_id`, `value`) VALUES
-(1, 3, 2, 'O'),
-(2, 3, 3, 'C'),
-(3, 3, 4, '4 main st'),
-(4, 3, 5, 'ne'),
-(5, 3, 6, 'a:2:{i:0;s:2:"US";i:1;s:2:"43";}'),
-(6, 3, 7, '10003'),
-(7, 3, 17, '2016020069'),
-(8, 3, 8, 'owen@ored.net'),
-(9, 3, 10, 'O'),
-(10, 3, 11, 'C'),
-(11, 3, 12, '4 main st'),
-(12, 3, 13, 'ne'),
-(13, 3, 14, '43'),
-(14, 3, 15, 'a:1:{i:0;s:2:"US";}'),
-(15, 3, 16, '10003'),
-(16, 4, 2, 'O'),
-(17, 4, 3, 'C'),
-(18, 4, 4, '4 main st'),
-(19, 4, 5, 'ne'),
-(20, 4, 6, 'a:1:{i:0;s:2:"US";}'),
-(21, 4, 7, '10003'),
-(22, 4, 17, '2016020069'),
-(23, 4, 8, 'owen@ored.net'),
-(24, 4, 10, 'O'),
-(25, 4, 11, 'C'),
-(26, 4, 12, '4 main st'),
-(27, 4, 13, 'ne'),
-(28, 4, 14, ''),
-(29, 4, 15, 'a:1:{i:0;s:2:"US";}'),
-(30, 4, 16, '10003'),
-(31, 5, 2, 'Owen'),
-(32, 5, 3, 'Corso'),
-(33, 5, 4, '281 Stewart Lane'),
-(34, 5, 5, 'Franklin Lakes'),
-(35, 5, 6, 'a:2:{i:0;s:2:"US";i:1;s:2:"43";}'),
-(36, 5, 7, '07417'),
-(37, 5, 17, '2016020069'),
-(38, 5, 8, 'owen@strattonimaging.com'),
-(39, 5, 10, 'Owen'),
-(40, 5, 11, 'Corso'),
-(41, 5, 12, '281 Stewart Lane'),
-(42, 5, 13, 'Franklin Lakes'),
-(43, 5, 14, '43'),
-(44, 5, 15, 'a:1:{i:0;s:2:"US";}'),
-(45, 5, 16, '07417'),
-(46, 6, 2, 'Owen'),
-(47, 6, 3, 'Corso'),
-(48, 6, 4, '281 Stewart Lane'),
-(49, 6, 5, 'Franklin Lakes'),
-(50, 6, 6, 'a:1:{i:0;s:2:"US";}'),
-(51, 6, 7, '07417'),
-(52, 6, 17, '2016020069'),
-(53, 6, 8, 'owen@strattonimaging.com'),
-(54, 6, 10, 'Owen'),
-(55, 6, 11, 'Corso'),
-(56, 6, 12, '281 Stewart Lane'),
-(57, 6, 13, 'Franklin Lakes'),
-(58, 6, 14, ''),
-(59, 6, 15, 'a:1:{i:0;s:2:"US";}'),
-(60, 6, 16, '07417'),
-(61, 7, 2, 'Owen'),
-(62, 7, 3, 'Corso'),
-(63, 7, 4, '281 Stewart Lane'),
-(64, 7, 5, 'Franklin Lakes'),
-(65, 7, 6, 'a:1:{i:0;s:2:"US";}'),
-(66, 7, 7, '07417'),
-(67, 7, 17, '2016020069'),
-(68, 7, 8, 'owen@strattonimaging.com'),
-(69, 7, 12, '281 Stewart Lane'),
-(70, 7, 13, 'Franklin Lakes'),
-(71, 7, 14, ''),
-(72, 7, 15, 'a:1:{i:0;s:2:"US";}'),
-(73, 7, 16, '07417'),
-(74, 8, 2, 'Owen'),
-(75, 8, 3, 'Corso'),
-(76, 8, 4, '281 Stewart Lane'),
-(77, 8, 5, 'Franklin Lakes'),
-(78, 8, 6, 'a:1:{i:0;s:2:"US";}'),
-(79, 8, 7, '07417'),
-(80, 8, 17, '2016020069'),
-(81, 8, 8, 'owen@strattonimaging.com'),
-(82, 8, 12, '281 Stewart Lane'),
-(83, 8, 13, 'Franklin Lakes'),
-(84, 8, 14, ''),
-(85, 8, 15, 'a:1:{i:0;s:2:"US";}'),
-(86, 8, 16, '07417'),
-(87, 9, 2, 'Owen'),
-(88, 9, 3, 'Corso'),
-(89, 9, 4, '281 Stewart Lane'),
-(90, 9, 5, 'Franklin Lakes'),
-(91, 9, 6, 'a:1:{i:0;s:2:"US";}'),
-(92, 9, 7, '07417'),
-(93, 9, 17, '2016020069'),
-(94, 9, 8, 'owen@strattonimaging.com'),
-(95, 9, 12, '281 Stewart Lane'),
-(96, 9, 13, 'Franklin Lakes'),
-(97, 9, 14, ''),
-(98, 9, 15, 'a:1:{i:0;s:2:"US";}'),
-(99, 9, 16, '07417'),
-(100, 10, 2, 'Owen'),
-(101, 10, 3, 'Corso'),
-(102, 10, 4, '281 Stewart Lane'),
-(103, 10, 5, 'Franklin Lakes'),
-(104, 10, 6, 'a:1:{i:0;s:2:"US";}'),
-(105, 10, 7, '07417'),
-(106, 10, 17, '2016020069'),
-(107, 10, 8, 'owen@strattonimaging.com'),
-(108, 10, 12, '281 Stewart Lane'),
-(109, 10, 13, 'Franklin Lakes'),
-(110, 10, 14, ''),
-(111, 10, 15, 'a:1:{i:0;s:2:"US";}'),
-(112, 10, 16, '07417'),
-(113, 11, 2, 'elizabeth'),
-(114, 11, 3, 'blind'),
-(115, 11, 4, '666 nightmare rd'),
-(116, 11, 5, 'new york'),
-(117, 11, 6, 'a:2:{i:0;s:2:"US";i:1;s:2:"43";}'),
-(118, 11, 7, '10017'),
-(119, 11, 17, '19006666666'),
-(120, 11, 8, 'owen@strattonimaging.com'),
-(121, 11, 12, '666 nightmare rd'),
-(122, 11, 13, 'new york'),
-(123, 11, 14, '43'),
-(124, 11, 15, 'a:1:{i:0;s:2:"US";}'),
-(125, 11, 16, '10017');
 
 -- --------------------------------------------------------
 
@@ -2586,7 +2626,6 @@ INSERT INTO `wp_wpsc_submited_form_data` (`id`, `log_id`, `form_id`, `value`) VA
 -- Table structure for table `wp_wpsc_variation_assoc`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_variation_assoc`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_assoc` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(64) NOT NULL DEFAULT '',
@@ -2596,7 +2635,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_assoc` (
   PRIMARY KEY (`id`),
   KEY `associated_id` (`associated_id`),
   KEY `variation_id` (`variation_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `wp_wpsc_variation_assoc`
@@ -2611,7 +2650,6 @@ INSERT INTO `wp_wpsc_variation_assoc` (`id`, `type`, `name`, `associated_id`, `v
 -- Table structure for table `wp_wpsc_variation_combinations`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_variation_combinations`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_combinations` (
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `priceandstock_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2643,7 +2681,6 @@ INSERT INTO `wp_wpsc_variation_combinations` (`product_id`, `priceandstock_id`, 
 -- Table structure for table `wp_wpsc_variation_properties`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_variation_properties`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_properties` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2655,7 +2692,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_properties` (
   `file` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `wp_wpsc_variation_properties`
@@ -2664,8 +2701,8 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_properties` (
 INSERT INTO `wp_wpsc_variation_properties` (`id`, `product_id`, `stock`, `price`, `weight`, `weight_unit`, `visibility`, `file`) VALUES
 (1, 2, 0, 19.99, '0', 'pound', '1', 0),
 (2, 2, 0, 19.99, '0', 'pound', '1', 0),
-(3, 2, 0, 19.99, '0', 'pound', '1', 0),
-(4, 2, 0, 19.99, '0', 'pound', '1', 0);
+(3, 2, 0, 24.95, '0', 'pound', '1', 0),
+(4, 2, 0, 24.95, '0', 'pound', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -2673,14 +2710,13 @@ INSERT INTO `wp_wpsc_variation_properties` (`id`, `product_id`, `stock`, `price`
 -- Table structure for table `wp_wpsc_variation_values`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_variation_values`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_values` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL DEFAULT '',
   `variation_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `variation_id` (`variation_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `wp_wpsc_variation_values`
@@ -2700,7 +2736,6 @@ INSERT INTO `wp_wpsc_variation_values` (`id`, `name`, `variation_id`) VALUES
 -- Table structure for table `wp_wpsc_variation_values_assoc`
 --
 
-DROP TABLE IF EXISTS `wp_wpsc_variation_values_assoc`;
 CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_values_assoc` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -2709,7 +2744,7 @@ CREATE TABLE IF NOT EXISTS `wp_wpsc_variation_values_assoc` (
   `variation_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`,`value_id`,`variation_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `wp_wpsc_variation_values_assoc`
