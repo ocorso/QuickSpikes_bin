@@ -540,7 +540,9 @@ nav ul{
 	height: 52px;
 	
 }
-
+#nav_home, #nav_contact{
+	width:113px;
+}
 nav ul li{
     /* Fallback for web browsers that doesn't support RGBa */
   	/* background: rgb(0, 0, 0); */
@@ -553,14 +555,15 @@ nav ul li{
 	border-right-style: solid;
 	border-right-width: 1px;
 	height: 52px;
-	width: 115px;
+	width: 112px;
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	display:table-cell;
 	vertical-align: middle;
 	text-align: center;
 	cursor: pointer;
+	float: left;
+	display:block;
 }
 .nav-hover{
 	background: rgba(0, 0, 0, .8);
@@ -569,7 +572,8 @@ nav ul li{
 	background: rgba(0, 0, 0, 0.7);
 }
 nav a:link, nav a:hover, nav a:visited{
-	height:52px;
+	margin-top:20px;
+	display:block;
 	outline:none;
 	font-size: 85%;
 	text-decoration: none;
