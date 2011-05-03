@@ -26,9 +26,9 @@ function wpsc_core_constants() {
 	if(!defined('WPSC_URL'))
 		define( 'WPSC_URL',       plugins_url( '', __FILE__ ) );
 	// Define Plugin version
-	define( 'WPSC_VERSION', '3.8' );
-	define( 'WPSC_MINOR_VERSION', '367709' );
-	define( 'WPSC_PRESENTABLE_VERSION', '3.8' );
+	define( 'WPSC_VERSION', '3.8.2' );
+	define( 'WPSC_MINOR_VERSION', '377719' );
+	define( 'WPSC_PRESENTABLE_VERSION', '3.8.2' );
 
 	// Define Debug Variables for developers
 	define( 'WPSC_DEBUG', false );
@@ -270,11 +270,7 @@ function wpsc_core_setup_cart() {
 
 	// Cart exists in Session, so attempt to unserialize it
 	if ( isset( $_SESSION['wpsc_cart'] ) ) {
-		if ( is_object( $_SESSION['wpsc_cart'] ) )
-			$wpsc_cart = $_SESSION['wpsc_cart'];
-		else
-			$wpsc_cart = unserialize( $_SESSION['wpsc_cart'] );
-
+		$wpsc_cart = maybe_unserialize( $_SESSION['wpsc_cart'] );
 		if ( !is_object( $wpsc_cart ) || ( 'wpsc_cart' != get_class( $wpsc_cart ) ) )
 			$wpsc_cart = new wpsc_cart;
 
@@ -293,7 +289,7 @@ function wpsc_core_setup_cart() {
  * Starting it in wp_query results in intractable infinite loops in 3.0
  */
 function wpsc_core_setup_globals() {
-	global $wpsc_query_vars, $wpsc_cart;
+	global $wpsc_query_vars, $wpsc_cart, $wpec_ash;
 
 	// Setup some globals
 	$wpsc_query_vars = array();
@@ -307,6 +303,7 @@ function wpsc_core_setup_globals() {
 
 	// Include a file named after the current theme, if one exists
 	if ( !empty( $selected_theme ) && file_exists( WPSC_THEMES_PATH . $selected_theme . '/' . $selected_theme . '.php' ) )
-		include_once( WPSC_THEMES_PATH . $selected_theme . '/' . $selected_theme . '.php' );
-
+		include_once( WPSC_THEMES_PATH . $selected_theme . '/' . $selected_theme . '.php' );    
+    require_once( WPSC_FILE_PATH . '/wpsc-includes/shipping.helper.php');
+    $wpec_ash = new ASH();
 }

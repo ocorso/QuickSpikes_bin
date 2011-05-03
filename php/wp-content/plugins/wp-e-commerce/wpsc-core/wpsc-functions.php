@@ -405,7 +405,9 @@ function wpsc_start_the_query() {
 	$is_404 = false;
 	if(isset($wp_query->query_vars['term']) && in_array($wp_query->query_vars['term'], $wpsc_page_titles)){
 		$wp_query = new WP_Query( 'pagename='.$wpsc_page_titles['products'].'/'.$wp_query->query_vars['term'] );
-
+		global $post;
+		$post = $wp_query->post;
+		setup_postdata( $post );
 	}elseif ( null == $wpsc_query ) {
 		if( ( $wp_query->is_404 && !empty($wp_query->query_vars['paged']) ) || (isset( $wp_query->query['pagename']) && strpos( $wp_query->query['pagename'] , $wpsc_page_titles['products'] ) !== false ) && !isset($wp_query->post)){
 			//what was this for?
@@ -542,7 +544,11 @@ function wpsc_add_meta_table_where($where){
 function wpsc_add_meta_table($join){
 	global $wpdb;
 	remove_filter( 'posts_join', 'wpsc_add_meta_table' );
-	return $join . ' JOIN ' . $wpdb->postmeta . ' ON ' . $wpdb->posts. '.ID = ' . $wpdb->postmeta . '.post_id';
+	if(strpos($join, "INNER JOIN ON (".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id)") !== false){
+		return  ' JOIN ' . $wpdb->postmeta . ' ON ' . $wpdb->posts. '.ID = ' . $wpdb->postmeta . '.post_id';
+	}else{
+		return $join;
+	}
 }
 
 /**
@@ -761,8 +767,12 @@ function wpsc_generate_product_query( $query ) {
 	}
 	if(1 == get_option('use_pagination')){
 		$query->query_vars['posts_per_page'] = get_option('wpsc_products_per_page');
-		if( isset( $_GET['items_per_page'] ) )
-			$query->query_vars['posts_per_page'] = (int)$_GET['items_per_page'];
+		if( isset( $_GET['items_per_page'] ) ) {
+			if ( is_numeric( $_GET['items_per_page'] ) )
+				$query->query_vars['posts_per_page'] = (int) $_GET['items_per_page'];
+			elseif ( $_GET['items_per_page'] == 'all' )
+				$query->query_vars['posts_per_page'] = -1;
+		}
 	} else {
 		$query->query_vars['posts_per_page'] = '-1';
 	}
@@ -967,7 +977,7 @@ function wpsc_product_link( $permalink, $post, $leavename ) {
 	$term_url = '';
 	$rewritecode = array(
 		'%wpsc_product_category%',
-		'%postname%'
+		$leavename ? '' : '%postname%',
 	);
 	if ( is_object( $post ) ) {
 		// In wordpress 2.9 we got a post object

@@ -23,16 +23,15 @@ if ( 0 == count( get_option( 'wpsc_product_category_children' ) ) ) {
 	_get_term_hierarchy( 'wpsc_product_category_children' );
 }
 
+$wpsc_version = get_option( 'wpsc_version', '0' );
+
 // If database is already updated, then no need to update
-if ( get_option( 'wpsc_version' ) >= 3.8 ) {
+if ( ! get_option( 'wpsc_needs_update', false ) ) {
 	$show_update_page = 0;
-}
-
-// Check to see if there are any products.
-// if they don't have any, they don't need to update
-if ( get_option( 'wpsc_version' ) < 3.8 || !get_option( 'wpsc_version' ) ) {
-
-	$product_count = $wpdb->get_var( "SELECT COUNT(*) FROM " . WPSC_TABLE_PRODUCT_LIST );
+} else {
+	
+	$table_exists = $wpdb->get_var( "SHOW TABLES LIKE '" . WPSC_TABLE_PRODUCT_LIST . "'" );
+	$product_count = empty( $table_exists ) ? 0 : $wpdb->get_var( "SELECT COUNT(*) FROM " . WPSC_TABLE_PRODUCT_LIST );
 
 	if ( $product_count > 0 ) {
 
@@ -40,13 +39,23 @@ if ( get_option( 'wpsc_version' ) < 3.8 || !get_option( 'wpsc_version' ) ) {
 			echo "<div id='wpsc-warning' class='error fade'><p><strong>" . __( 'WP e-Commerce is almost ready.', 'wpsc' ) . "</strong> " . sprintf( __( 'You must <a href="%1$s">update your database</a> to import all of your products.', 'wpsc' ), "admin.php?page=wpsc-update") . "</p></div>";
 		}
 
-		if ( isset( $_GET['page'] ) && $_GET['page'] != 'wpsc-update' )
+		if ( ! isset( $_GET['page'] ) || $_GET['page'] != 'wpsc-update' )
 			add_action( 'admin_notices', 'wpsc_display_update_notice' );
 
 	// There weren't any products, so mark the update as complete
 	} else {	
 		update_option( 'wpsc_version', '3.8' );
 	}
+}
+
+if ( version_compare( PHP_VERSION, '5.0.0', '<' ) ) {
+	add_action( 'admin_notices', 'wpsc_display_php_version_notice' );
+}
+
+function wpsc_display_php_version_notice() {
+?>
+	<div id='wpsc-warning' class='error fade'><p><?php printf( __( "You are using PHP %s. WP e-Commerce %s requires PHP 5.0 or above. Please contact your hosting provider for further assistance." ), PHP_VERSION, WPSC_VERSION ); ?></p></div>
+<?php
 }
 
 function wpsc_display_update_page() { ?>
@@ -77,6 +86,7 @@ function wpsc_display_update_page() { ?>
 			}
 			update_option('wpsc_version', 3.8);
 			update_option('wpsc_hide_update', true);
+			update_option( 'wpsc_needs_update', false );
 		else:
 
 

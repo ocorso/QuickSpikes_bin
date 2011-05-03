@@ -364,7 +364,7 @@ function wpsc_get_the_category_id($slug, $type = 'name'){
 		$taxonomy = 'wpsc_product_category';
 
 	$category = get_term_by($type,$slug,$taxonomy);
-	return $category->term_id;
+	return empty( $category ) ? false : $category->term_id;
 }
 
 /**
@@ -897,11 +897,7 @@ function wpsc_get_the_new_id($prod_id){
  */
 function wpsc_display_products_page( $query ) {
 	global $wpdb, $wpsc_query,$wp_query;
-	static $count = 0;
-	$count++;
 	remove_filter('the_title','wpsc_the_category_title');
-	if ( $count > 10 )
-		exit( 'fail' );
 
 	// If the data is coming from a shortcode parse the values into the args variable, 
 	// I did it this was to preserve backwards compatibility
@@ -1058,10 +1054,8 @@ function wpsc_products_page( $content = '' ) {
 
 		// get the display type for the productspage		
 		$display_type = get_option('product_view');
-		if ( isset( $_SESSION['wpsc_display_type'] ) ) {
+		if ( isset( $_SESSION['wpsc_display_type'] ) )
 			$display_type = $_SESSION['wpsc_display_type'];
-			unset($_SESSION['wpsc_display_type']);
-		}
 		
 		ob_start();
 		wpsc_include_products_page_template($display_type);

@@ -1,36 +1,42 @@
 /* Author: Owen Corso
 
 */
-
+	var FlashManager = {};
+		FlashManager.swfEmbed = {};
+	var jsReady = false;
+  	
+  	function isReady() { return jsReady; }
+ 	
+	function thisMovie($movieName) {
+	
+         if (navigator.appName.indexOf("Microsoft") != -1) {
+             return window[$movieName];
+         } else {
+             return document[$movieName];
+         }
+    
+     }
+	
 	//**********************************************************
 	//						Doc Ready 
 	//**********************************************************
 	
  jQuery(document).ready(function($){
  	log("dom is ready");
+ 	jsReady = true;
  	
  	$("nav ul li").addClass("nav-link");
  	
  	
  	addHandlers();
  	setupHomepageCarousel();
+ 	embedFlash();
 	cookieMonster();
-	
-	var swfEmbed = {};
-		swfEmbed.flashvars = { baseUrl: "baseURL"};
-		swfEmbed.parameters= { salign:"tl", allowfullscreen:true, allowscriptaccess:"always", bgcolor:"#000", wmode:"transparent" };
-		swfEmbed.attributes = { name: "site" };
-		swfEmbed.minimumVersion = '10.0.0';
-
-	if(swfobject.hasFlashPlayerVersion("6.0.65"))
-	{
-		if(!swfobject.hasFlashPlayerVersion(swfEmbed.minimumVersion)) swfEmbed.parameters = {};
-		swfobject.embedSWF("php/wp-content/themes/quickspikes/swf/logo/logo.swf","logo", "425", "98",swfEmbed.minimumVersion,"../../swf/expressInstall.swf",swfEmbed.flashvars,swfEmbed.parameters,swfEmbed.attributes);
-	}
 	
 	//**********************************************************
 	//						Workers
 	//**********************************************************
+
 	function setupHomepageCarousel(){
 
 	 	$('#slider').nivoSlider({
@@ -80,18 +86,52 @@
 							collapseLogo);
 	}//end function
 
+	function embedFlash(){
+
+		FlashManager.swfEmbed.flashvars = { baseUrl: "baseURL"};
+		FlashManager.swfEmbed.parameters= { salign:"tl", allowfullscreen:true, allowscriptaccess:"always", bgcolor:"#000", wmode:"transparent" };
+		FlashManager.swfEmbed.attributes = { name: "logo" };
+		FlashManager.swfEmbed.minimumVersion = '10.0.0';
+
+		if(swfobject.hasFlashPlayerVersion("6.0.65"))
+		{
+			if(!swfobject.hasFlashPlayerVersion(FlashManager.swfEmbed.minimumVersion)) FlashManager.swfEmbed.parameters = {};
+			if (pageManager.isHome) swfobject.embedSWF("php/wp-content/themes/quickspikes/swf/logo/logo.swf","logo", "425", "98",FlashManager.swfEmbed.minimumVersion,"../../swf/expressInstall.swf",FlashManager.swfEmbed.flashvars,FlashManager.swfEmbed.parameters,FlashManager.swfEmbed.attributes);
+		}
+	}//end function 
+
 	//**********************************************************
 	//						Handlers
 	//**********************************************************
 	
 	function expandLogo($e){
-		$("#logo_reveal").animate({width:"318px"},400);
+		log("expand");
+		
+		if(swfobject.hasFlashPlayerVersion("6.0.65") && pageManager.isHome){
+			if(thisMovie("logo")){
+				var m = thisMovie("logo");
+				log(m);
+				//m.jsSaysAnimateIn();
+			} else { 
+				log ("flash not ready yet");
+				setTimeout(expandLogo, 500);
+			}
+		}
+		else{
+			log("not flash");
+			$("#logo_reveal").animate({width:"318px"},400);
+	
+		} 
 	}
 	function collapseLogo($e){//out
+		log("js says collapse");
 		$("#logo_reveal").animate({width:"0px"},400);
 	}
 	
-		
+	function goIdle($e){
+		log("go idle");
+		thisMovie("logo").jsSaysAnimateIn();
+	}
 	//**********************************************************
 	//						Cookie
 	//**********************************************************
@@ -109,7 +149,9 @@
 			setTimeout(collapseLogo, 3000);
 
 		}//end if we don't have a quickspikes cookie
+		//oc: forget the cookie after all that.
 	
+		
 	}//end function cookieMonster
 	
 	

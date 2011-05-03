@@ -347,7 +347,8 @@ function wpsc_cart_item_image( $width = 31, $height = 31 ) {
 
    $cart_image = wpsc_the_product_thumbnail( $width, $height, $wpsc_cart->cart_item->product_id, "shopping_cart");
     
-    if( is_ssl() && !strstr( $cart_image, 'https' ) ) str_replace( 'http', 'https', $cart_image );
+    if( is_ssl() )
+		$cart_image = str_replace( 'http://', 'https://', $cart_image );
 
    return $cart_image;
 }
@@ -1385,17 +1386,20 @@ class wpsc_cart {
    if($this->shipping_method == null){
       $this->get_shipping_method();
    }
-      if(is_callable(array($wpsc_shipping_modules[$this->shipping_method], "getQuote"  ))) {
+      if( isset( $wpsc_shipping_modules[$this->shipping_method] ) && is_callable( array( $wpsc_shipping_modules[$this->shipping_method], "getQuote" ) ) ) {
          $unprocessed_shipping_quotes = $wpsc_shipping_modules[$this->shipping_method]->getQuote();
 
     }
     $num = 0;
-    foreach((array)$unprocessed_shipping_quotes as $shipping_key => $shipping_value) {
-      $per_item_shipping = $this->calculate_per_item_shipping($this->shipping_method);
-      $this->shipping_quotes[$num]['name'] = $shipping_key;
-      $this->shipping_quotes[$num]['value'] = (float)$shipping_value+(float)$per_item_shipping;
-      $num++;
-    }
+	if ( ! empty( $unprocessed_shipping_quotes ) ) {
+		foreach((array)$unprocessed_shipping_quotes as $shipping_key => $shipping_value) {
+	      $per_item_shipping = $this->calculate_per_item_shipping($this->shipping_method);
+	      $this->shipping_quotes[$num]['name'] = $shipping_key;
+	      $this->shipping_quotes[$num]['value'] = (float)$shipping_value+(float)$per_item_shipping;
+	      $num++;
+	    }
+	}
+    
     $this->shipping_quote_count = count($this->shipping_quotes);
   }
 
@@ -1600,17 +1604,20 @@ class wpsc_cart_item {
 
       $this->weight = $product_meta[0]["weight"];
       // if we are using table rate price
-      $levels = $product_meta[0]['table_rate_price'];
-      if (isset($levels["quantity"]) && $levels["quantity"] != '') {
-         foreach((array)$levels['quantity'] as $key => $qty) {
-            if ($this->quantity >= $qty) {
-               $unit_price = $levels['table_price'][$key];
-               if ($unit_price != '')
-                  $price = $unit_price;
+	if ( isset( $product_meta[0]['table_rate_price'] ) ) {
+		$levels = $product_meta[0]['table_rate_price'];
+	      if ( ! empty( $levels['quantity'] ) ) {
+	         foreach((array)$levels['quantity'] as $key => $qty) {
+	            if ($this->quantity >= $qty) {
+	               $unit_price = $levels['table_price'][$key];
+	               if ($unit_price != '')
+	                  $price = $unit_price;
 
-            }
-         }
-      }
+	            }
+	         }
+	      }
+	}
+      
    	  $price = apply_filters('wpsc_price', $price, $product_id);
       // create the string containing the product name.
       $product_name = $product->post_title;

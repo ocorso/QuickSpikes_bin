@@ -468,7 +468,7 @@ function wpsc_options_presentation() {
 							$display_moredetails = '';
 						}
 					?>
-					<select name='wpsc_options[product_view]' onchange="toggle_display_options(this.options[this.selectedIndex].value)">
+					<select name='wpsc_options[product_view]'>
 						<option value='default' <?php echo $product_view1; ?>><?php _e( 'Default View', 'wpsc' ); ?></option>
 <?php
 						if ( function_exists( 'product_display_list' ) ) {
@@ -497,37 +497,39 @@ function wpsc_options_presentation() {
 					?><a href='http://getshopped.org/extend/premium-upgrades'><?php _e( 'Purchase unavailable options', 'wpsc' ); ?></a> <?php
 						}
 					?>
-					
-						<div id='grid_view_options' <?php if ( isset( $list_view_quantity_style ) )
-							echo $list_view_quantity_style; ?> <?php if ( is_null( $product_view3 ) ) {
-							echo "style='display:none;'";
-						} ?>>
+					</td>
+				</tr>
+						
+						
+				<tr id="wpsc-grid-settings">
+					<th scope="row"><?php _e( 'Grid view settings:', 'wpsc' ) ?></th>
+					<td>
+						<input type='text'  name='wpsc_options[grid_number_per_row]' id='grid_number_per_row' size='1' value='<?php esc_attr_e( get_option( 'grid_number_per_row' ) ); ?>' />
+						<label for='grid_number_per_row'><?php _e( 'Products Per Row', 'wpsc' ); ?></label><br />
 
-									<input type='text'  name='wpsc_options[grid_number_per_row]' id='grid_number_per_row' size='1' value='<?php esc_attr_e( get_option( 'grid_number_per_row' ) ); ?>' />
-									<label for='grid_number_per_row'><?php _e( 'Products Per Row', 'wpsc' ); ?></label><br />
+						<input type='hidden' value='0' name='wpsc_options[show_images_only]' />
+						<input type='checkbox' value='1' name='wpsc_options[show_images_only]' id='show_images_only' <?php echo $show_images_only_value; ?> />
+						<label for='show_images_only'><?php _e( 'Show images only', 'wpsc' ); ?></label><br />
 
-									<input type='hidden' value='0' name='wpsc_options[show_images_only]' />
-									<input type='checkbox' value='1' name='wpsc_options[show_images_only]' id='show_images_only' <?php echo $show_images_only_value; ?> />
-									<label for='show_images_only'><?php _e( 'Show images only', 'wpsc' ); ?></label><br />
+						<input type='hidden' value='0' name='wpsc_options[display_variations]' />
+						<input type='checkbox' value='1' name='wpsc_options[display_variations]' id='display_variations' <?php echo $display_variations; ?> />
+						<label for='display_variations'><?php _e( 'Display Variations', 'wpsc' ); ?></label><br />
 
-									<input type='hidden' value='0' name='wpsc_options[display_variations]' />
-									<input type='checkbox' value='1' name='wpsc_options[display_variations]' id='display_variations' <?php echo $display_variations; ?> />
-									<label for='display_variations'><?php _e( 'Display Variations', 'wpsc' ); ?></label><br />
+						<input type='hidden' value='0' name='wpsc_options[display_description]' />
+						<input type='checkbox' value='1' name='wpsc_options[display_description]' id='display_description' <?php echo $display_description; ?> />
+						<label for='display_description'><?php _e( 'Display Description', 'wpsc' ); ?></label><br />
 
-									<input type='hidden' value='0' name='wpsc_options[display_description]' />
-									<input type='checkbox' value='1' name='wpsc_options[display_description]' id='display_description' <?php echo $display_description; ?> />
-									<label for='display_description'><?php _e( 'Display Description', 'wpsc' ); ?></label><br />
+						<input type='hidden' value='0' name='wpsc_options[display_addtocart]' />
+						<input type='checkbox' value='1' name='wpsc_options[display_addtocart]' id='display_addtocart' <?php echo $display_addtocart; ?> />
+						<label for='display_addtocart'><?php _e( 'Display "Add To Cart" Button', 'wpsc' ); ?></label><br />
 
-									<input type='hidden' value='0' name='wpsc_options[display_addtocart]' />
-									<input type='checkbox' value='1' name='wpsc_options[display_addtocart]' id='display_addtocart' <?php echo $display_addtocart; ?> />
-									<label for='display_addtocart'><?php _e( 'Display "Add To Cart" Button', 'wpsc' ); ?></label><br />
-
-									<input type='hidden' value='0' name='wpsc_options[display_moredetails]' />
-									<input type='checkbox' value='1' name='wpsc_options[display_moredetails]' id='display_moredetails' <?php echo $display_moredetails; ?> />
-									<label for='display_moredetails'><?php _e( 'Display "More Details" Button', 'wpsc' ); ?></label>
-								</div>
-							</td>
-						</tr>
+						<input type='hidden' value='0' name='wpsc_options[display_moredetails]' />
+						<input type='checkbox' value='1' name='wpsc_options[display_moredetails]' id='display_moredetails' <?php echo $display_moredetails; ?> />
+						<label for='display_moredetails'><?php _e( 'Display "More Details" Button', 'wpsc' ); ?></label>
+					</td>
+				</tr>
+				
+				
 					<?php
 						$selected1 = $selected2 = '';
 						if(get_option('wpsc_display_categories'))
@@ -535,6 +537,7 @@ function wpsc_options_presentation() {
 						else
 							$selected2 = 'checked="checked"';						
 					?>
+		
 				<tr>
 					<th scope="row"><?php _e('Show list of categories','wpsc'); ?></th>
 					<td>
@@ -698,6 +701,8 @@ function wpsc_options_presentation() {
 							} else {
 								$dis = "";
 							}
+							
+							$embed_live_search_results = get_option( 'embed_live_search_results', '0' ) == '1' ? ' checked="checked"' : '';
 					?>
 						<input type='radio' onclick='jQuery("#wpsc_advanced_search").show()' value='1' name='wpsc_options[show_search]' id='show_search1' <?php echo $show_search1; ?> /> <label for='show_search1'><?php _e( 'Yes', 'wpsc' ); ?></label> &nbsp;
 						<input type='radio' onclick='jQuery("#wpsc_advanced_search").hide()' value='0' name='wpsc_options[show_search]' id='show_search2' <?php echo $show_search2; ?> /> <label for='show_search2'><?php _e( 'No', 'wpsc' ); ?></label>
@@ -708,7 +713,10 @@ function wpsc_options_presentation() {
 							<?php _e( 'Show Advanced Search', 'wpsc' ); ?><br />
 							<input type='hidden' name='wpsc_options[show_live_search]' value='0' />
 							<input type='checkbox' name='wpsc_options[show_live_search]' id='show_live_search' <?php echo $show_live_search; ?> value='1' />
-							<?php _e( 'Use Live Search', 'wpsc' ); ?>
+							<?php _e( 'Use Live Search', 'wpsc' ); ?><br />
+							<input type='hidden' name='wpsc_options[embed_live_search_results]' value='0' />
+							<input type='checkbox' name='wpsc_options[embed_live_search_results]' id='embed_live_search_results'<?php echo $embed_live_search_results; ?> value='1' />
+							<?php _e( 'Dynamically replace search results into product list' ); ?>
 						</div>
 					</td>
 				</tr>

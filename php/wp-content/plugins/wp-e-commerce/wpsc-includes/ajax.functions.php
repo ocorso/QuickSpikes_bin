@@ -35,8 +35,15 @@ function wpsc_add_to_cart() {
 	$default_parameters['meta'] = null;
 
 	$provided_parameters = array();
+	
 	/// sanitise submitted values
 	$product_id = (int)$_POST['product_id'];
+	
+	// compatibility with older themes
+	if ( isset( $_POST['wpsc_quantity_update'] ) && is_array( $_POST['wpsc_quantity_update'] ) ) {
+		$_POST['wpsc_quantity_update'] = $_POST['wpsc_quantity_update'][$product_id];
+	}
+	
 	if(isset($_POST['variation'])){
 		foreach ( (array)$_POST['variation'] as $key => $variation )
 			$provided_parameters['variation_values'][(int)$key] = (int)$variation;
@@ -406,7 +413,6 @@ function wpsc_update_product_price() {
 	}
 
 	do_action( 'wpsc_update_variation_product', (int)$_POST['product_id'], $variations );
-	$pm = $_POST['pm'];
 
 	$stock = wpsc_check_variation_stock_availability( (int)$_POST['product_id'], $variations );
 	if ( is_numeric( $stock ) && $stock == 0 ) {
@@ -445,7 +451,7 @@ function wpsc_update_location() {
 		if ( $_SESSION['wpsc_selected_country'] == null ) {
 			$_SESSION['wpsc_selected_country'] = $_POST['country'];
 		}
-		if ( $_POST['region'] != null ) {
+		if ( ! empty( $_POST['region'] ) ) {
 			$_SESSION['wpsc_delivery_region'] = $_POST['region'];
 			if ( $_SESSION['wpsc_selected_region'] == null ) {
 				$_SESSION['wpsc_selected_region'] = $_POST['region'];
@@ -460,7 +466,7 @@ function wpsc_update_location() {
 		}
 	}
 
-	if ( $_POST['zipcode'] != '' ) {
+	if ( ! empty( $_POST['zipcode'] ) ) {
 		$_SESSION['wpsc_zipcode'] = $_POST['zipcode'];
 	}
 

@@ -24,6 +24,10 @@ class ash_ups {
         return true;
     }
 
+    function __autoload($name){
+        include("../wpsc-includes/shipping.helper.php");
+    }
+
     function getId() {
 //         return $this->usps_id;
     }
@@ -746,13 +750,16 @@ class ash_ups {
 
     function getQuote(){
         global $wpdb, $wpec_ash;
+        if (!is_object($wpec_ash)){
+            $wpec_ash = new ASH();        
+        }
 
         // Arguments array for various functions to use
         $args = array();
         // Final rate table
         $rate_table = array();
         // Get the ups settings from the ups account info page (Shipping tab)
-        $wpsc_ups_settings = get_option("wpsc_ups_settings");
+        $wpsc_ups_settings = get_option("wpsc_ups_settings", array());
         // Get the wordpress shopping cart options
         $wpsc_options = get_option("wpsc_options");
         

@@ -202,6 +202,8 @@ jQuery(document).ready(function () {
 		jQuery('#wpsc_checkout_gravatar').attr('src', 'https://secure.gravatar.com/avatar/'+MD5(jQuery(this).val().split(' ').join(''))+'?s=60&d=mm');
 	});
 	
+	jQuery('#fancy_notification').appendTo('body');
+	
 	//this bit of code runs on the checkout page. If the checkbox is selected it copies the valus in the billing country and puts it in the shipping country form fields. 23.07.09
 	if(jQuery("#shippingSameBilling").is(":checked"))
 		wpsc_shipping_same_as_billing();
@@ -232,7 +234,7 @@ jQuery(document).ready(function () {
 	});
 
 	// Submit the product form using AJAX
-	jQuery("form.product_form").submit(function() {
+	jQuery("form.product_form").live('submit', function() {
 		// we cannot submit a file through AJAX, so this needs to return true to submit the form normally if a file formfield is present
 		file_upload_elements = jQuery.makeArray(jQuery('input[type=file]', jQuery(this)));
 		if(file_upload_elements.length > 0) {
@@ -285,7 +287,7 @@ jQuery(document).ready(function () {
 	});
 
 	// update the price when the variations are altered.
-	jQuery(".wpsc_select_variation").change(function() {
+	jQuery(".wpsc_select_variation").live('change', function() {
 		jQuery('option[value="0"]', this).attr('disabled', 'disabled');
 		parent_form = jQuery(this).parents("form.product_form");
 		form_values =jQuery("input[name=product_id], .wpsc_select_variation",parent_form).serialize( );
@@ -308,6 +310,7 @@ jQuery(document).ready(function () {
 				}
 				if( typeof(price) !== 'undefined' && typeof(old_price) !== 'undefined' && typeof(you_save) !== 'undefined' && typeof(numeric_price) !== 'undefined' ) {
 					target_id = "product_price_"+product_id;
+					price_target_selector = "#" + target_id + ".pricedisplay, ." + product_id + " .currentprice";
 					second_target_id = "donation_price_"+product_id;
 					third_target_id = "old_product_price_"+product_id;
 					yousave_target_id = "yousave_"+product_id;
@@ -315,7 +318,7 @@ jQuery(document).ready(function () {
 					if(jQuery("input#"+target_id).attr('type') == 'text') {
 						jQuery("input#"+target_id).val(numeric_price);
 					} else {
-						jQuery("#"+target_id+".pricedisplay").html(price);
+						jQuery(price_target_selector).html(price);
 						jQuery("#"+third_target_id).html(old_price);
 						jQuery("#"+yousave_target_id).html(you_save);
 					}
@@ -409,22 +412,11 @@ function wpsc_fancy_notification(parent_form){
 		};
 
 		form_button_id = jQuery(parent_form).attr('id') + "_submit_button";
-		var container_offset = {};
-		new_container_offset = jQuery('#default_products_page_container, #products_page_container, #list_view_products_page_container, #grid_view_products_page_container, #single_product_page_container').offset();
 
-		if(container_offset['left'] == null) {
-			container_offset['left'] = new_container_offset.left;
-			container_offset['top'] = new_container_offset.top;
-		}
+		var button_offset = jQuery('#'+form_button_id).offset()
 
-		var button_offset = {};
-		new_button_offset = jQuery('#'+form_button_id).offset()
-
-		button_offset['left'] = new_button_offset.left;
-		button_offset['top'] = new_button_offset.top;
-
-		jQuery('#fancy_notification').css("left", (button_offset['left'] - container_offset['left'] - 140) + 'px');
-		jQuery('#fancy_notification').css("top", ((button_offset['top']  - container_offset['top']) + 40) + 'px');
+		jQuery('#fancy_notification').css("left", (button_offset.left - 130) + 'px');
+		jQuery('#fancy_notification').css("top", (button_offset.top + 40) + 'px');
 
 
 		jQuery('#fancy_notification').css("display", 'block');

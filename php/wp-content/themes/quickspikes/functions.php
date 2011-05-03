@@ -188,10 +188,10 @@ function image_shortcode($atts, $content = null) {
 function flash_shortcode_handler($atts, $content=null, $code=""){
 		return '<script type="text/javascript">
 
-		  	var flashvars = {baseUrl: "/swf/site/", themeUrl: "/"};
+		  	var flashvars = {baseUrl: "/swf/site/", themeUrl: "/", configPath: "php/wp-content/themes/quickspikes/"};
 			var params = {};
 			params.wmode = "transparent";
-		  	swfobject.embedSWF("php/wp-content/themes/quickspikes/swf/gallery/gallery.swf", "flash_container", "713", "370", "9.0.0", null, flashvars, params);
+		  	swfobject.embedSWF("php/wp-content/themes/quickspikes/swf/gallery/gallery.swf", "flash_container", "713", "410", "9.0.0", null, flashvars, params);
 		</script>';
 }//end function 
 

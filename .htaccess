@@ -82,10 +82,6 @@ AddType text/x-component              htc
 #         SetOutputFilter INCLUDES
 # </FilesMatch>
 
-
-
-
-
 # gzip compression.
 <IfModule mod_deflate.c>
 

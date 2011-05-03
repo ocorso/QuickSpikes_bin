@@ -306,10 +306,11 @@ function wpsc_product_image( $attachment_id = 0, $width = null, $height = null )
 	}
 	if(empty($image_url) && !empty($file_path)){
 		$image_meta = get_post_meta( $attachment_id, '_wp_attached_file' );
-		$image_url = $uploads['baseurl'].'/'.$image_meta[0];
+		if ( ! empty( $image_meta ) )
+			$image_url = $uploads['baseurl'].'/'.$image_meta[0];
 	}
-        if( is_ssl() && !strstr(  $image_url, 'https' ) ) str_replace('http', 'https', $image_url);
-	// @todo - put fallback 'No image' catcher here
+        if( is_ssl() ) str_replace('http://', 'https://', $image_url);
+
 	return apply_filters( 'wpsc_product_image', $image_url );
 }
 
@@ -340,30 +341,41 @@ function wpsc_show_pnp(){
 */
 function wpsc_product_variation_price_available($product_id){
 	global $wpdb;
-	$price = $wpdb->get_var('
-		SELECT 
-			`pm`.`meta_value`
-		FROM 
-			`' . $wpdb->postmeta . '` `pm` 
-		JOIN 
-			`' . $wpdb->posts . '` `p` 
-			ON 
-			`pm`.`post_id` = `p`.`id` 
-		WHERE 
-			`p`.`post_type`= "wpsc-product"
+	
+	$sql = $wpdb->prepare( "
+		SELECT pm.meta_value
+		FROM {$wpdb->posts} AS p
+		INNER JOIN {$wpdb->postmeta} AS pm ON pm.post_id = p.id AND pm.meta_key = '_wpsc_price'
+		INNER JOIN {$wpdb->postmeta} AS pm2 ON pm2.post_id = p.id AND pm2.meta_key = '_wpsc_stock' AND pm2.meta_value != '0'
+		WHERE
+			p.post_type = 'wpsc-product'
 			AND
-			`p`.`post_parent` = ' . $product_id . '
-			AND 
-			`pm`.`meta_key` = "_wpsc_price"
-			AND 
-			`p`.`ID` IN (
-				SELECT `' . $wpdb->postmeta . '`.`post_id` FROM `' . $wpdb->postmeta . '` WHERE `meta_key` = "_wpsc_stock" AND `meta_value` != "0"
-			)
-		ORDER BY 
-			`meta_value` ASC 
-		LIMIT 1'
-	);
+			p.post_parent = %d
+		ORDER BY CAST(pm.meta_value AS DECIMAL(10, 2)) ASC
+		LIMIT 1
+	", $product_id );
 
+	$price = (float) $wpdb->get_var( $sql );
+	
+	$sql = $wpdb->prepare("
+		SELECT pm.meta_value
+		FROM {$wpdb->posts} AS p
+		INNER JOIN {$wpdb->postmeta} AS pm ON pm.post_id = p.id AND pm.meta_key = '_wpsc_special_price' AND pm.meta_value != '0' AND pm.meta_value != ''
+		INNER JOIN {$wpdb->postmeta} AS pm2 ON pm2.post_id = p.id AND pm2.meta_key = '_wpsc_stock' AND pm2.meta_value != '0'
+		WHERE
+			p.post_type = 'wpsc-product'
+			AND
+			p.post_parent = %d
+		ORDER BY CAST(pm.meta_value AS DECIMAL(10, 2)) ASC
+		LIMIT 1
+	", $product_id);
+	
+	$special_price = (float) $wpdb->get_var( $sql );
+	
+	if ( ! empty( $special_price ) && $special_price < $price ) {
+		$price = $special_price;
+	}
+	
 	$price = wpsc_currency_display($price, array('display_as_html' => false));
 	return $price;
 }
@@ -447,7 +459,7 @@ function wpsc_calculate_price( $product_id, $variations = null, $special = true 
 function wpsc_display_categories() {
 	global $wp_query;
 	$output = false;
-	if ( !is_numeric( get_option( 'wpsc_default_category' ) ) ) {
+	if ( !is_numeric( get_option( 'wpsc_default_category' ) ) && ! get_query_var( 'product_tag' ) ) {
 
 		if ( isset( $wp_query->query_vars['products'] ) )
 			$category_id = $wp_query->query_vars['products'];
@@ -455,7 +467,7 @@ function wpsc_display_categories() {
 			$category_id = $_GET['products'];
 
 		// if we have no categories, and no search, show the group list
-		if ( is_numeric( get_option( 'wpsc_default_category' ) ) || (isset( $product_id ) && is_numeric( $product_id )) || (isset( $_GET['product_search'] ) && $_GET['product_search'] != '') )
+		if ( is_numeric( get_option( 'wpsc_default_category' ) ) || (isset( $product_id ) && is_numeric( $product_id )) )
 			$output = true;
 		if ( (get_option( 'wpsc_default_category' ) == 'all+list'))
 			$output = true;
@@ -678,7 +690,7 @@ function wpsc_the_product_title() {
  */
 function wpsc_the_product_description() {
 	$content = get_the_content( __( 'Read the rest of this entry &raquo;', 'wpsc' ) );
-	return wpautop($content,1);
+	return do_shortcode( wpautop( $content,1 ) );
 }
 
 /**
@@ -815,13 +827,13 @@ global $wpdb;
 
 	if ( wpsc_product_has_stock( $the_selected_product ) ) {
 		$stock = get_product_meta( $the_selected_product, "stock", true );
-		$stock = apply_filters( 'wpsc_product_variation_stock', $stock, $id );
+		$stock = apply_filters( 'wpsc_product_variation_stock', $stock, $product_id );
 		if ( 0 < $stock )
 			return $stock;
 	}else{				  
 
 		$stock = get_product_meta( $the_selected_product, "stock", true );
-		$stock = apply_filters( 'wpsc_product_variation_stock', $stock, $id );
+		$stock = apply_filters( 'wpsc_product_variation_stock', $stock, $product_id );
 				
 		if (  is_numeric($stock) ){
 			$claimed_stock = $wpdb->get_var("SELECT SUM(`stock_claimed`) FROM `".WPSC_TABLE_CLAIMED_STOCK."` WHERE `product_id` IN('$the_selected_product')");
@@ -940,10 +952,29 @@ function wpsc_product_is_donation( $id = null ) {
  * @return boolean - true if the product is on special, otherwise false
  */
 function wpsc_product_on_special() {
-	global $wpsc_query;
-
+	global $wpsc_query, $wpdb;
+	
 	$price =  get_product_meta( get_the_ID(), 'price', true );
-	$special_price = get_product_meta( get_the_ID(), 'special_price', true );
+	
+	// don't rely on product sales price if it has variations
+	if ( wpsc_have_variations() ) {
+		$sql = $wpdb->prepare("
+			SELECT MIN(pm.meta_value)
+			FROM {$wpdb->posts} AS p
+			INNER JOIN {$wpdb->postmeta} AS pm ON pm.post_id = p.id AND pm.meta_key = '_wpsc_special_price' AND pm.meta_value != '0' AND pm.meta_value != ''
+			INNER JOIN {$wpdb->postmeta} AS pm2 ON pm2.post_id = p.id AND pm2.meta_key = '_wpsc_stock' AND pm2.meta_value != '0'
+			WHERE
+				p.post_type = 'wpsc-product'
+				AND
+				p.post_parent = %d
+			ORDER BY CAST(pm.meta_value AS DECIMAL(10, 2)) ASC
+			LIMIT 1
+		", get_the_id() );
+		$special_price = (int) $wpdb->get_var( $sql );
+	} else {
+		$special_price = get_product_meta( get_the_ID(), 'special_price', true );
+	}
+
 	if ( ($special_price > 0) && (($price - $special_price) > 0) )
 		return true;
 	else
@@ -1075,14 +1106,21 @@ function wpsc_the_product_image( $width='', $height='', $product_id='' ) {
 	$post_thumbnail_id = get_post_thumbnail_id( $product_id );
 
 	$src = wp_get_attachment_image_src( $post_thumbnail_id, 'large' );
-	if ( !empty( $src ) && is_string( $src[0] ) ) {
-		return $src[0];
-	} elseif ( !empty( $attached_images ) ) {
+
+	if ( ! empty( $src ) && is_string( $src[0] ) ) {
+		$src = $src[0];
+	} elseif ( ! empty( $attached_images ) ) {
 		$attached_image = wp_get_attachment_image_src( $attached_images[0]->ID, 'large' );
-		return $attached_image[0];
+		$src = $attached_image[0];
 	} else {
-		return apply_filters( 'wpsc_product_image', false);
+		$src = false;
 	}
+	
+	if ( is_ssl() && ! empty( $src ) )
+		$src = str_replace( 'http://', 'https://', $src );
+	$src = apply_filters( 'wpsc_product_image', $src );
+	
+	return $src;
 }
 
 /**
@@ -1108,11 +1146,13 @@ function wpsc_check_display_type(){
  * @return string - the URL to the thumbnail image
  */
 function wpsc_the_product_thumbnail( $width = null, $height = null, $product_id = 0, $page = 'products-page' ) {
+	$thumbnail = false;
+
 	$display = wpsc_check_display_type();
 	// Get the product ID if none was passed
 	if ( empty( $product_id ) )
 		$product_id = get_the_ID();
-
+	
 	// Load the product
 	$product = get_post( $product_id );
 
@@ -1127,7 +1167,7 @@ function wpsc_the_product_thumbnail( $width = null, $height = null, $product_id 
 	}
 
 	// Use product thumbnail
-	if ( has_post_thumbnail( $product_id ) && 'single' != $page) {
+	if ( has_post_thumbnail( $product_id ) ) {
 		$thumbnail_id = get_post_thumbnail_id( $product_id  );
 	// Use first product image
 	} else {
@@ -1145,7 +1185,7 @@ function wpsc_the_product_thumbnail( $width = null, $height = null, $product_id 
 		if ( !empty( $attached_images ) )
 			$thumbnail_id = $attached_images[0]->ID;
 	}
-	
+
 	//Overwrite height & width if custom dimensions exist for thumbnail_id
 	if ( 'grid' != $display && 'products-page' == $page && isset($thumbnail_id)) {
 		$custom_width = get_post_meta( $thumbnail_id, '_wpsc_custom_thumb_w', true );
@@ -1159,23 +1199,33 @@ function wpsc_the_product_thumbnail( $width = null, $height = null, $product_id 
 		}
 	} elseif( $page == 'single' && isset($thumbnail_id)) {
 		$custom_thumbnail = get_post_meta( $thumbnail_id, '_wpsc_selected_image_size', true );
-		if(!$custom_thumbnail)
-			$custom_thumbnail = array($width, $height);
-		
+		if ( !$custom_thumbnail ) {
+			$custom_thumbnail = 'medium-single-product';
+			
+			// regenerate size metadata in case it's missing
+			if ( ! image_get_intermediate_size( $thumbnail_id, $custom_thumbnail ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/image.php' );
+				$metadata = wp_get_attachment_metadata( $thumbnail_id );
+				$file = get_attached_file( $thumbnail_id );
+				$metadata = array_merge( wp_generate_attachment_metadata( $thumbnail_id, $file ), $metadata );
+				wp_update_attachment_metadata( $thumbnail_id, $metadata );
+			}
+		}
+
 		$src = wp_get_attachment_image_src( $thumbnail_id, $custom_thumbnail );
 
 		if ( !empty( $src ) && is_string( $src[0] ) ) {
-			return $src[0];
+			$thumbnail = $src[0];
 		}
 	}
-	
-	// Return image link...
-	if ( isset($thumbnail_id) &&( $image_link = wpsc_product_image( $thumbnail_id, $width, $height ) ))
-		return $image_link;
 
-	// ... or false as if no image was found.
-	else
-		return false;
+	if ( ! $thumbnail && isset( $thumbnail_id ) )
+		$thumbnail = wpsc_product_image( $thumbnail_id, $width, $height );
+
+	if ( ! empty( $thumbnail ) && is_ssl() )
+		$thumbnail = str_replace( 'http://', 'https://', $thumbnail );
+
+	return $thumbnail;
 }
 
 /**
@@ -1411,8 +1461,9 @@ function wpsc_the_variation_out_of_stock() {
 	// If there is more than one variation group we cannot determine a stock status for individual variations
 	// Also, if the item is not stock limited, there is no need to check variation stock status
 	$product_id = get_the_ID();
-	$stock = get_product_meta( $product_id, 'stock' );
-	if ( ($wpsc_variations->variation_group_count == 1) && (is_numeric( $stock[0] )) ) {
+
+	$stock = get_product_meta( $product_id, 'stock', true );
+	if ( ($wpsc_variations->variation_group_count == 1) && is_numeric( $stock ) && isset( $wpsc_variations->variation->slug ) ) {
 
 		$product_id = get_the_ID();
 		$variation_group_id = $wpsc_variations->variation_group->term_id;

@@ -361,7 +361,7 @@ if ( isset( $_REQUEST['wpsc_admin_action'] ) && ($_REQUEST['wpsc_admin_action'] 
 function wpsc_admin_ajax() {
 	global $wpdb;
 
-	if ( $_POST['action'] == 'product-page-order' ) {
+	if ( isset( $_POST['action'] ) && $_POST['action'] == 'product-page-order' ) {
 		$current_order = get_option( 'wpsc_product_page_order' );
 		$new_order = $_POST['order'];
 
@@ -377,19 +377,19 @@ function wpsc_admin_ajax() {
 	}
 
 
-	if ( ($_POST['save_image_upload_state'] == "true") && is_numeric( $_POST['image_upload_state'] ) ) {
+	if ( isset( $_POST['save_image_upload_state'] ) && $_POST['save_image_upload_state'] == 'true' && is_numeric( $_POST['image_upload_state'] ) ) {
 		$upload_state = (int)(bool)$_POST['image_upload_state'];
 		update_option( 'wpsc_use_flash_uploader', $upload_state );
 		exit( "done" );
 	}
 
-	if ( ($_POST['remove_variation_value'] == "true") && is_numeric( $_POST['variation_value_id'] ) ) {
+	if ( isset( $_POST['remove_variation_value'] ) && $_POST['remove_variation_value'] == "true" && is_numeric( $_POST['variation_value_id'] ) ) {
 		$value_id = absint( $_GET['variation_value_id'] );
 		echo wp_delete_term( $value_id, 'wpsc-variation' );
 		exit();
 	}
 
-	if ( ($_POST['remove_form_field'] == "true") && is_numeric( $_POST['form_id'] ) ) {
+	if ( isset( $_POST['remove_form_field'] ) && $_POST['remove_form_field'] == "true" && is_numeric( $_POST['form_id'] ) ) {
 		if ( current_user_can( 'manage_options' ) ) {
 			$wpdb->query( $wpdb->prepare( "UPDATE `" . WPSC_TABLE_CHECKOUT_FORMS . "` SET `active` = '0' WHERE `id` = %d LIMIT 1 ;", $_POST['form_id'] ) );
 			exit( ' ' );
@@ -397,7 +397,7 @@ function wpsc_admin_ajax() {
 	}
 
 
-	if ( $_POST['hide_ecom_dashboard'] == 'true' ) {
+	if ( isset( $_POST['hide_ecom_dashboard'] ) && $_POST['hide_ecom_dashboard'] == 'true' ) {
 		require_once (ABSPATH . WPINC . '/rss.php');
 		$rss = fetch_rss( 'http://www.instinct.co.nz/feed/' );
 		$rss->items = array_slice( $rss->items, 0, 5 );
@@ -406,7 +406,7 @@ function wpsc_admin_ajax() {
 		exit( 1 );
 	}
 
-	if ( ($_POST['remove_meta'] == 'true') && is_numeric( $_POST['meta_id'] ) ) {
+	if ( isset( $_POST['remove_meta'] ) && $_POST['remove_meta'] == 'true' && is_numeric( $_POST['meta_id'] ) ) {
 		$meta_id = (int)$_POST['meta_id'];
 		if ( delete_meta( $meta_id ) ) {
 			echo $meta_id;
@@ -416,7 +416,7 @@ function wpsc_admin_ajax() {
 		exit();
 	}
 
-	if ( ($_REQUEST['log_state'] == "true") && is_numeric( $_POST['id'] ) && is_numeric( $_POST['value'] ) ) {
+	if ( isset( $_REQUEST['log_state'] ) && $_REQUEST['log_state'] == "true" && is_numeric( $_POST['id'] ) && is_numeric( $_POST['value'] ) ) {
 		$newvalue = $_POST['value'];
 		if ( $_REQUEST['suspend'] == 'true' ) {
 			if ( $_REQUEST['value'] == 1 && function_exists('wpsc_member_dedeactivate_subscriptions'))
@@ -989,6 +989,8 @@ function wpsc_update_page_urls($auto = false) {
 	$changes_made = false;
 	foreach ( $wpsc_pageurl_option as $option_key => $page_string ) {
 		$post_id = $wpdb->get_var( "SELECT `ID` FROM `{$wpdb->posts}` WHERE `post_type` IN('page','post') AND `post_content` LIKE '%$page_string%' LIMIT 1" );
+		if ( ! $post_id )
+			continue;
 		$the_new_link = _get_page_link( $post_id );
 		if ( stristr( get_option( $option_key ), "https://" ) ) {
 			$the_new_link = str_replace( 'http://', "https://", $the_new_link );
@@ -1124,7 +1126,7 @@ if ( isset( $_REQUEST['wpsc_admin_action'] ) && ($_REQUEST['wpsc_admin_action'] 
 function prod_upload() {
 	global $wpdb;
 	$product_id = absint( $_POST["product_id"] );
-
+	$output = '';
 	foreach ( $_POST["select_product_file"] as $selected_file ) {
 		// if we already use this file, there is no point doing anything more.
 
@@ -1132,11 +1134,6 @@ function prod_upload() {
 		$file_post_data = $wpdb->get_row( $sql, ARRAY_A );
 		$selected_file_path = WPSC_FILE_DIR . basename( $selected_file );
 
-		if ( isset( $attached_files_by_file[$selected_file] ) ) {
-			$file_is_attached = true;
-		}
-
-		//if(is_file($selected_file_path)) {
 		if ( empty( $file_post_data ) ) {
 			$type = wpsc_get_mimetype( $selected_file_path );
 			$attachment = array(
@@ -1149,6 +1146,9 @@ function prod_upload() {
 			);
 			$id = wp_insert_post( $attachment );
 		} else {
+			// already attached
+			if ( $file_post_data['post_parent'] == $product_id )
+				continue;
 			$type = $file_post_data["post_mime_type"];
 			$url = $file_post_data["guid"];
 			$title = $file_post_data["post_title"];
@@ -1166,9 +1166,18 @@ function prod_upload() {
 			// Save the data
 			$id = wp_insert_post( $attachment );
 		}
-		//}
-		echo "$id\n";
+		
+		$deletion_url = wp_nonce_url( "admin.php?wpsc_admin_action=delete_file&amp;file_name={$attachment['post_title']}&amp;product_id={$product_id}", 'delete_file_' . $attachment['post_title'] );
+
+		$output .= "<p id='select_product_file_row_id_" . $id . "'>\n";
+		$output .= "  <a class='file_delete_button' href='{$deletion_url}' >\n";
+		$output .= "    <img src='" . WPSC_CORE_IMAGES_URL . "/cross.png' />\n";
+		$output .= "  </a>\n";
+		$output .= "  <label for='select_product_file_row_id_" . $id . "'>" . $attachment['post_title'] . "</label>\n";
+		$output .= "</p>\n";
 	}
+	
+	echo $output;
 }
 if ( isset( $_GET['wpsc_admin_action'] ) && ($_GET['wpsc_admin_action'] == 'product_files_upload') )
 	add_action( 'admin_init', 'prod_upload' );
@@ -1253,16 +1262,11 @@ if ( isset( $_REQUEST['wpsc_admin_action'] ) && ($_REQUEST['wpsc_admin_action'] 
 function wpsc_checkout_settings() {
 	global $wpdb;
 	$wpdb->show_errors = true;
-	if ( isset( $_POST['wpsc_form_set'] ) ) {
-		$filter = $wpdb->escape( $_POST['wpsc_form_set'] );
-	} else {
-		$filter = 0;
-	}
+	$filter = isset( $_POST['selected_form_set'] ) ? $_POST['selected_form_set'] : 0;
 
 	if ( $_POST['new_form_set'] != null ) {
-		$new_form_set = $wpdb->escape( stripslashes( $_POST['new_form_set'] ) );
 		$checkout_sets = get_option( 'wpsc_checkout_form_sets' );
-		$checkout_sets[] = $new_form_set;
+		$checkout_sets[] = $_POST['new_form_set'];
 		update_option( 'wpsc_checkout_form_sets', $checkout_sets );
 	}
 
@@ -1280,16 +1284,20 @@ function wpsc_checkout_settings() {
 			}
 
 			$options = serialize( $options );
-			$sql = "UPDATE `" . WPSC_TABLE_CHECKOUT_FORMS . "` SET `options`='" . $options . "' WHERE id=" . $form_id;
-			$wpdb->query( $sql );
+			$wpdb->update(
+				WPSC_TABLE_CHECKOUT_FORMS, 
+				array( 'options' => $options ), 
+				array( 'id' => $form_id ), 
+				'%s', 
+				'%d'
+			);
 		}
 	}
 
 
 	if ( $_POST['form_name'] != null ) {
 		foreach ( $_POST['form_name'] as $form_id => $form_name ) {
-			$form_name = $wpdb->escape( $form_name );
-			$form_type = $wpdb->escape( $_POST['form_type'][$form_id] );
+			$form_type = $_POST['form_type'][$form_id];
 			$form_mandatory = 0;
 			if ( isset( $_POST['form_mandatory'][$form_id] ) && ($_POST['form_mandatory'][$form_id] == 1) ) {
 				$form_mandatory = 1;
@@ -1302,7 +1310,19 @@ function wpsc_checkout_settings() {
 			if ( $_POST['unique_names'][$form_id] != '-1' ) {
 				$unique_name = $_POST['unique_names'][$form_id];
 			}
-			$wpdb->query( "UPDATE `" . WPSC_TABLE_CHECKOUT_FORMS . "` SET `name` = '$form_name', `type` = '$form_type', `mandatory` = '$form_mandatory', `display_log` = '$form_display_log',`unique_name`='" . $unique_name . "' WHERE `id` ='" . $form_id . "' LIMIT 1 ;" );
+			$wpdb->update(
+				WPSC_TABLE_CHECKOUT_FORMS,
+				array(
+					'name'        => $form_name,
+					'type'        => $form_type,
+					'mandatory'   => $form_mandatory,
+					'display_log' => $form_display_log,
+					'unique_name' => $unique_name,
+				),
+				array( 'id' => $form_id ),
+				'%s',
+				'%d'
+			);
 		}
 	}
 
@@ -1329,7 +1349,21 @@ function wpsc_checkout_settings() {
 				$max_order_sql = $wpdb->get_results( $max_order_sql, ARRAY_A );
 				$order_number = $max_order_sql[0]['checkout_order'] + 1;
 			}
-			$wpdb->query( "INSERT INTO `" . WPSC_TABLE_CHECKOUT_FORMS . "` ( `name`, `type`, `mandatory`, `display_log`, `default`, `active`, `checkout_order` , `unique_name`, `checkout_set`) VALUES ( '$form_name', '$form_type', '$form_mandatory', '$form_display_log', '', '1','" . $order_number . "','" . $form_unique_name . "','" . $filter . "');" );
+			$wpdb->insert(
+				WPSC_TABLE_CHECKOUT_FORMS,
+				array(
+					'name'           => $form_name,
+					'type'           => $form_type,
+					'mandatory'      => $form_mandatory,
+					'display_log'    => $form_display_log,
+					'default'        => '',
+					'active'         => '1',
+					'checkout_order' => $order_number,
+					'unique_name'    => $form_unique_name,
+					'checkout_set'   => $filter,
+				),
+				array( '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s' )
+			);
 			$added++;
 		}
 	}
@@ -1461,9 +1495,9 @@ function wpsc_update_variations() {
 	
 	//Setup postdata
 	$post_data = array( );
-	$post_data['edit_var_val'] = $_POST["edit_var_val"];
-	$post_data['description'] = $_POST["description"];
-	$post_data['additional_description'] = $_POST['additional_description'];
+	$post_data['edit_var_val'] = isset( $_POST['edit_var_val'] ) ? $_POST["edit_var_val"] : '';
+	$post_data['description'] = isset( $_POST['description'] ) ? $_POST["description"] : '';
+	$post_data['additional_description'] = isset( $_POST['additional_description'] ) ? $_POST['additional_description'] : '';
 	$post_data['name'] = (!empty($_POST['name']))?$_POST['name']:$_POST["post_title"];
 
 	//Add or delete variations

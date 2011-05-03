@@ -216,7 +216,7 @@ GROUP BY ".WPSC_TABLE_PRODUCT_LIST.".id", ARRAY_A);
 
 		$post_data['_wpsc_original_id'] = (int)$product['id'];
 		$post_data['_wpsc_price'] = (float)$product['price'];
-		$post_data['_wpsc_special_price'] = (float)$product['special_price'];
+		$post_data['_wpsc_special_price'] = $post_data['_wpsc_price'] - (float)$product['special_price']; // special price get stored in a weird way in 3.7.x
 		$post_data['_wpsc_stock'] = (float)$product['quantity'];
 		$post_data['_wpsc_is_donation'] = $product['donation'];
 		$post_data['_wpsc_sku'] = $sku;
@@ -303,17 +303,9 @@ GROUP BY ".WPSC_TABLE_PRODUCT_LIST.".id", ARRAY_A);
 				);
 				$attachment_id = wp_insert_post($image_post_values);
 			}
-			$image_size_data = @getimagesize($full_image_path);
-			$image_metadata = array(
-				'width' => $image_size_data[0],
-				'height' => $image_size_data[1],
-				'file' => $subdir
-			);
 			
-		
-			update_post_meta( $attachment_id, '_wp_attached_file', $subdir );
-			update_post_meta( $attachment_id, '_wp_attachment_metadata', $image_metadata);
-
+			update_attached_file( $attachment_id, $new_path );
+			wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $new_path ) );
 		}
 
 	}
