@@ -1756,3 +1756,38 @@ float: left;
 .ajax-loading {
 	visibility: hidden;
 }
+
+.dashboard_page_wpsc-update .wpsc-progress-bar {
+	position:relative;
+	height:20px;
+	width:300px;
+	border:1px solid #3a58cf;
+	margin:-0.75em 0 27px;
+}
+
+.dashboard_page_wpsc-update .wpsc-progress-bar * {
+	position:absolute;
+	left:0;
+	top:0;
+	background:#f9f9f9;
+	font-size:12px;
+}
+
+.dashboard_page_wpsc-update .wpsc-progress-bar .block {
+	background-color:#527dff;
+	z-index:-1;
+	height:20px;
+}
+
+.dashboard_page_wpsc-update .wpsc-progress-bar span {
+	display:block;
+	left:310px;
+	line-height:20px;
+	width:200px;
+}
+
+.dashboard_page_wpsc-update .wpsc-progress-bar .eta {
+	top:22px;
+	line-height:15px;
+	width:100%;
+}

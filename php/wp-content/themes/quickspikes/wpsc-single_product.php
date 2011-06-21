@@ -180,7 +180,7 @@ $image_height = get_option('single_view_image_height');
 										<?php	$action =  wpsc_product_external_link(wpsc_the_product_id()); ?>
 										<input class="wpsc_buy_button" type='button' value='<?php echo __('Buy Now', 'wpsc'); ?>' onclick='gotoexternallink("<?php echo $action; ?>")'>
 										<?php else: ?>
-									<input type='image' src='<?php echo WPSC_URL; ?>/themes/marketplace/images/atc.gif' id='product_<?php echo wpsc_the_product_id(); ?>_submit_button' class='wpsc_buy_button' name='Buy'  value="<?php echo __('Add To Cart', 'wpsc'); ?>" />
+									<input type='image' src='<?php bloginfo('template_url');?>/img/wpsc/atc.png' id='product_<?php echo wpsc_the_product_id(); ?>_submit_button' class='wpsc_buy_button' name='Buy'  value="<?php echo __('Add To Cart', 'wpsc'); ?>" />
 										<?php endif; ?>
 							
 							<div class='wpsc_loading_animation'>

@@ -272,6 +272,9 @@ button {  width: auto; overflow: visible; }
 #editorcontainer #content {
 	background: white;
 }
+.wp-admin p{
+	color:#000;
+}
 /*@GLOBAL STYLES*/
 html, body{
 	background-size: 100%;
@@ -301,7 +304,7 @@ img#sunset_bg{
 	min-height: 487px;
 
 }
-.page-id-18 .post, .page-id-4 .post, .page-id-6 .post{
+.page-id-18 .post, .page-id-4 .post, .page-id-6 .post, .page-id-76 .post{
 	background: url('img/backgrounds/tinted_bg.png') repeat-y;
 }
 .entry{ 
@@ -667,6 +670,9 @@ section #sidebar_account_body li, #sidebar_account_body>a {
 #sitemap_heading{	background-position: 0px -210px;}
 #thank_you_heading{	background-position: 0px -245px;}
 #privacy_policy_heading{background-position: 0px -280px;}
+#checkout_heading{	background-position: 0px -315px;}
+#your_account_heading{background-position: 0px -385px;}
+#transactions_heading{background-position: 0px -350px;}
 
 .holding-line{ 
 	background: url('img/holding-line.png');

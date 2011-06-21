@@ -58,27 +58,33 @@ function wpsc_display_php_version_notice() {
 <?php
 }
 
-function wpsc_display_update_page() { ?>
-
+function wpsc_display_update_page() {
+	global $wpdb;
+	
+	?>
+	
 	<div class="wrap">
 		<h2><?php echo esc_html( __('Update WP e-Commerce', 'wpsc') ); ?> </h2>
 		<br />
-
 	<?php
-		if ( isset( $_POST['run_updates'] ) ) :
-			echo __('Updating Categories...', 'wpsc');
-			wpsc_convert_category_groups();
-			echo '<br />' . __('Updating Variations...', 'wpsc');
-			wpsc_convert_variation_sets();
-			echo '<br />' . __('Updating Products...', 'wpsc');
-			wpsc_convert_products_to_posts();
-			echo '<br />' . __('Updating Child Products...', 'wpsc');
-			wpsc_convert_variation_combinations();
-			echo '<br />' . __('Updating Product Files...', 'wpsc');
-			wpsc_update_files();
-			echo '<br />' . __('Updating Database...', 'wpsc');
-			wpsc_create_or_update_tables();
-			wpsc_update_database();
+		if ( isset( $_REQUEST['run_updates'] ) ) :
+			ob_implicit_flush( true );
+			$wpsc_update = WPSC_Update::get_instance();
+			$update_stages = array(
+				'convert_category_groups'        => __( 'Updating Categories...'    , 'wpsc' ),
+				'convert_variation_sets'         => __( 'Updating Variations...'    , 'wpsc' ),
+				'convert_products_to_posts'      => __( 'Updating Products ...'     , 'wpsc' ),
+				'convert_variation_combinations' => __( 'Updating Child Products...', 'wpsc' ),
+				'update_files'                   => __( 'Updating Product Files...' , 'wpsc' ),
+				'update_purchase_logs'           => __( 'Updating Purchase Logs... ', 'wpsc' ),
+				'create_or_update_tables'        => __( 'Updating Database...'      , 'wpsc' ),
+				'update_database'                => '',
+			);
+			
+			foreach ( $update_stages as $function => $message ) {
+				$wpsc_update->run( $function, $message );
+			}
+
 			echo '<br /><br /><strong>' . __('WP e-Commerce updated successfully!', 'wpsc') . '</strong><br />';
 			if( '' != get_option('permalink_structure')){ ?>
 				<em><?php printf(__('Note: It looks like you have custom permalinks, you will need to refresh your permalinks <a href="%s">here</a>','wpsc' ) , admin_url('options-permalink.php') ); ?></em>
@@ -87,6 +93,8 @@ function wpsc_display_update_page() { ?>
 			update_option('wpsc_version', 3.8);
 			update_option('wpsc_hide_update', true);
 			update_option( 'wpsc_needs_update', false );
+			$wpsc_update->clean_up();
+			ob_implicit_flush( false );
 		else:
 
 

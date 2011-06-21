@@ -149,11 +149,21 @@ class wpsc_merchant {
 						$address_data['billing']['state'] = wpsc_get_state_by_id( $country[1], 'code' );
 
 					break;
-
+					
+				case 'shippingcountry' :
+					$country = maybe_unserialize( $collected_form_row['value'] );
+					
+					if ( is_array( $country ) ) {
+						$address_data['shipping']['state'] = wpsc_get_state_by_id( $country[1], 'code' );
+						$country = $country[0];
+					}
+					
+					$address_data[$address_data_set][$address_key] = $country;
+					break;
+					
 				case 'shippingstate' :
-					if ( !empty( $collected_form_row['value'] ) && is_numeric( $collected_form_row['value'] ) )
-						$address_data[$address_data_set][$address_key] = wpsc_get_state_by_id( $collected_form_row['value'], 'code' );
-
+					if ( is_numeric( $collected_form_row['value'] ) && empty( $address_data['shipping']['state'] ) )
+						$address_data['shipping']['state'] = wpsc_get_state_by_id( $collected_form_row['value'], 'code' );
 					break;
 
 				default :
@@ -190,6 +200,7 @@ class wpsc_merchant {
 			'billing_address'         => $address_data['billing'],
 			'shipping_address'        => $address_data['shipping'],
 		);
+
 	} 
 
 	/**
@@ -214,9 +225,10 @@ class wpsc_merchant {
 				$this->cart_data['is_subscription'] = true;
 					
 
-			$rebill_interval = get_post_meta( $cart_row['prodid'], '_wpsc_rebill_interval', true );
+			if ( ! $rebill_interval = get_post_meta( $cart_row['prodid'], '_wpsc_rebill_interval', true ) )
+				$rebill_interval = array();
 			
-	
+
 			$new_cart_item = array(
 				"cart_item_id"         => $cart_row['id'],
 				"product_id"           => $cart_row['prodid'],
@@ -231,14 +243,14 @@ class wpsc_merchant {
 				"is_subscription"      => $is_recurring,
 				"recurring_data"       => array(
 					"rebill_interval"  => array(
-						'unit'         => $rebill_interval['unit'],
-						'length'       => $rebill_interval['number']
+						'unit'         => isset( $rebill_interval['unit'] ) ? $rebill_interval['unit'] : null,
+						'length'       => isset( $rebill_interval['number'] ) ? $rebill_interval['number'] : null,
 					),
 					"charge_to_expiry" => (bool)get_post_meta( $cart_row['prodid'], '_wpsc_charge_to_expiry', true ),
 					"times_to_rebill"  => get_post_meta( $cart_row['prodid'], '_wpsc_rebill_number', true )
 				)
 			);
-			
+
 			$this->cart_items[] = $new_cart_item;
 		}
 	}
@@ -270,7 +282,23 @@ class wpsc_merchant {
 	 * go to transaction results, if this changes and you extend this, your merchant module may go to the wrong place
 	 */
 	function go_to_transaction_results( $session_id ) {
-		global $wpdb;
+		global $wpdb, $purchase_log;
+		
+		//Now to do actions once the payment has been attempted
+		switch ($purchase_log['processed']) {
+			case 3:
+				// payment worked
+				do_action('wpsc_payment_successful');
+				break;
+			case 1:
+				// payment declined
+				do_action('wpsc_payment_failed');
+				break;
+			case 2:
+				// something happened with the payment
+				do_action('wpsc_payment_incomplete');
+				break;
+		}
 
 		$transaction_url_with_sessionid = add_query_arg( 'sessionid', $session_id, get_option( 'transact_url' ) );
 		wp_redirect( $transaction_url_with_sessionid );

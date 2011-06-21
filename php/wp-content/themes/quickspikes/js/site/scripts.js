@@ -96,8 +96,11 @@
 		if(swfobject.hasFlashPlayerVersion("6.0.65"))
 		{
 			if(!swfobject.hasFlashPlayerVersion(FlashManager.swfEmbed.minimumVersion)) FlashManager.swfEmbed.parameters = {};
-			if (pageManager.isHome) swfobject.embedSWF("php/wp-content/themes/quickspikes/swf/logo/logo.swf","logo", "425", "98",FlashManager.swfEmbed.minimumVersion,"../../swf/expressInstall.swf",FlashManager.swfEmbed.flashvars,FlashManager.swfEmbed.parameters,FlashManager.swfEmbed.attributes);
-		}
+			if (pageManager.isHome) { 
+				log("we think we're home"); 
+				swfobject.embedSWF("php/wp-content/themes/quickspikes/swf/logo/logo.swf","logo", "425", "98",FlashManager.swfEmbed.minimumVersion,"../../swf/expressInstall.swf",FlashManager.swfEmbed.flashvars,FlashManager.swfEmbed.parameters,FlashManager.swfEmbed.attributes);
+			}//end if we think we're home.
+		}//end if we have a good enough player
 	}//end function 
 
 	//**********************************************************
