@@ -1,3 +1,6 @@
+# .gitignore
+
+# OS noise
 .svn
 .DS_Store
 profile
@@ -6,3 +9,10 @@ profile
 .project
 .settings
 .settings/*
+
+# proj specific
+staging/
+stats/
+QuickSpikes.swf
+QuickSpikesMainLogo.swf
+Gallery.swf
