@@ -15,21 +15,20 @@
  */
 
 // ** MySQL settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define('DB_NAME', 'quickspikesdb');
 
-/** MySQL database username */
-define('DB_USER', 'quickspikesdb');
-
-/** MySQL database password */
-define('DB_PASSWORD', 'Vamp5near');
-
-/** MySQL hostname */
 //dev on local
+define('DB_NAME', 'quickspikesdb');
+define('DB_USER', 'quickspikesdb');
+define('DB_PASSWORD', 'Vamp5near');
 define('DB_HOST', 'localhost');
 
-//production on ored
-//define('DB_HOST', 'quickspikesdb.db.5977079.hostedresource.com');
+//production
+/*
+define('DB_NAME', 'qsdb');
+define('DB_USER', 'qsdb');
+define('DB_PASSWORD', 'h@ckp40F');
+define('DB_HOST', 'qsdb.db.8039137.hostedresource.com');
+*/
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
