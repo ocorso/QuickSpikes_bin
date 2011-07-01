@@ -41,8 +41,8 @@ function my_init_method() {
   	wp_enqueue_script('niv_slider',get_bloginfo('template_url').'/js/libs/jquery.nivo.slider.pack.js', array('jquery'), $ver, true);
   	
   	//fire php
-  	ob_start();
-  	require_once('FirePHPCore/FirePHP.class.php');
+  	//ob_start();
+  	//require_once('FirePHPCore/FirePHP.class.php');
 
   	
   	//yui profiler and profileviewer - remove for production
@@ -88,8 +88,8 @@ function parse_subheadings($theTitle){
 }//end function parse_subheadings
 
 function we_need_sidebar($isHome, $theTitle){
-  	$firephp = FirePHP::getInstance(true);
-  	$firephp->log("is home: ".($isHome)? "yes":"no");
+  	//$firephp = FirePHP::getInstance(true);
+  	//$firephp->log("is home: ".($isHome)? "yes":"no");
 	if ($isHome) { return false; }		
 	else {
 		switch ($theTitle){
