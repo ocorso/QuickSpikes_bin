@@ -140,9 +140,10 @@ if ( isset( $_REQUEST['wpsc_admin_action'] ) && ($_REQUEST['wpsc_admin_action'] 
  * Purposely not duplicating stick post status (logically, products are most often duplicated because they share many attributes, where products are generally 'featured' uniquely.)
  */
 function wpsc_duplicate_product() {
+    
 	// Get the original post
 	$id = absint( $_GET['product'] );
-	$post = wpsc_duplicate_this_dangit( $id );
+	$post = get_post( $id );
 
 	// Copy the post and insert it
 	if ( isset( $post ) && $post != null ) {
@@ -157,11 +158,6 @@ function wpsc_duplicate_product() {
 	} else {
 		wp_die( __( 'Sorry, for some reason, we couldn\'t duplicate this product because it could not be found in the database, check there for this ID: ' ) . $id );
 	}
-}
-
-function wpsc_duplicate_this_dangit( $id ) {
-	$post = get_post($id);
-	return $post;
 }
 
 function wpsc_duplicate_product_process( $post ) {
@@ -264,6 +260,7 @@ function wpsc_duplicate_children( $old_parent_id, $new_parent_id ) {
 		$comment_status = str_replace( "'", "''", $child_post->comment_status );
 		$ping_status = str_replace( "'", "''", $child_post->ping_status );
 
+                //Definitely doing this wrong.
 		$wpdb->query(
 				"INSERT INTO $wpdb->posts
             (post_author, post_date, post_date_gmt, post_content, post_content_filtered, post_title, post_excerpt,  post_status, post_type, comment_status, ping_status, post_password, to_ping, pinged, post_modified, post_modified_gmt, post_parent, menu_order, post_mime_type)
@@ -281,10 +278,6 @@ function wpsc_duplicate_children( $old_parent_id, $new_parent_id ) {
 			);
 		}
 	}
-}
-
-if ( isset( $_GET['wpsc_admin_action'] ) && ($_GET['wpsc_admin_action'] == 'duplicate_product') ) {
-	add_action( 'admin_init', 'wpsc_duplicate_product' );
 }
 
 function wpsc_purchase_log_csv() {
@@ -921,6 +914,7 @@ function wpsc_submit_options( $selected='' ) {
 	}
 
 	$sendback = add_query_arg( 'page', 'wpsc-settings', $sendback );
+	$sendback = apply_filters( 'wpsc_settings_redirect_url', $sendback );
 	wp_redirect( $sendback );
 	exit();
 }
@@ -1262,8 +1256,10 @@ if ( isset( $_REQUEST['wpsc_admin_action'] ) && ($_REQUEST['wpsc_admin_action'] 
 function wpsc_checkout_settings() {
 	global $wpdb;
 	$wpdb->show_errors = true;
-	$filter = isset( $_POST['selected_form_set'] ) ? $_POST['selected_form_set'] : 0;
-
+	$filter = isset( $_POST['selected_form_set'] ) ? $_POST['selected_form_set'] : '0';
+	if ( ! isset( $_POST['new_form_mandatory'] ) )
+		$_POST['new_form_mandatory'] = array();
+	
 	if ( $_POST['new_form_set'] != null ) {
 		$checkout_sets = get_option( 'wpsc_checkout_form_sets' );
 		$checkout_sets[] = $_POST['new_form_set'];
@@ -1331,13 +1327,14 @@ function wpsc_checkout_settings() {
 		foreach ( $_POST['new_form_name'] as $form_id => $form_name ) {
 			$form_type = $_POST['new_form_type'][$form_id];
 			$form_mandatory = 0;
-			if ( $_POST['new_form_mandatory'][$form_id] == 1 ) {
+			if ( ! empty( $_POST['new_form_mandatory'][$form_id] ) ) {
 				$form_mandatory = 1;
 			}
 			$form_display_log = 0;
 			if ( isset( $_POST['new_form_display_log'][$form_id] ) && $_POST['new_form_display_log'][$form_id] == 1 ) {
 				$form_display_log = 1;
 			}
+			$form_unique_name = '';
 			if ( $_POST['new_form_unique_name'][$form_id] != '-1' ) {
 				$form_unique_name = $_POST['new_form_unique_name'][$form_id];
 			}
@@ -1350,6 +1347,7 @@ function wpsc_checkout_settings() {
 				$max_order_sql = $wpdb->get_results( $max_order_sql, ARRAY_A );
 				$order_number = $max_order_sql[0]['checkout_order'] + 1;
 			}
+
 			$wpdb->insert(
 				WPSC_TABLE_CHECKOUT_FORMS,
 				array(
@@ -1365,6 +1363,7 @@ function wpsc_checkout_settings() {
 				),
 				array( '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s' )
 			);
+			
 			$added++;
 		}
 	}

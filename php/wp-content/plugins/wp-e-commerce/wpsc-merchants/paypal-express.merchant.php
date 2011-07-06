@@ -109,11 +109,10 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 
 		// PayPal Express Checkout Module		
 		$paymentAmount = $this->cart_data['total_price'];
-		$_SESSION['paypalAmount'] = $paymentAmount;
+		$_SESSION['paypalAmount'] = $this->convert( $paymentAmount );
+		$_SESSION['localPaypalAmount'] = $paymentAmount;
 		$_SESSION['paypalexpresssessionid'] = $this->cart_data['session_id'];
-		paypal_express_currencyconverter();
-
-		$currencyCodeType = get_option('paypal_curcode');
+		$currencyCodeType = $this->get_paypal_currency_code();
 		$paymentType = "Sale";
 		
 		if(get_option('permalink_structure') != '')
@@ -124,7 +123,7 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 		$transact_url = get_option('transact_url');
 		$returnURL =  $transact_url.$separator."sessionid=".$this->cart_data['session_id']."&gateway=paypal";
 		$cancelURL = get_option('shopping_cart_url');
-		$resArray = $this->CallShortcutExpressCheckout ($paymentAmount, $currencyCodeType, $paymentType, $returnURL, $cancelURL);
+		$resArray = $this->CallShortcutExpressCheckout ($_SESSION['paypalAmount'], $currencyCodeType, $paymentType, $returnURL, $cancelURL);
 		$ack = strtoupper($resArray["ACK"]);
 		
 		if($ack=="SUCCESS")	{
@@ -168,7 +167,7 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 	function CallShortcutExpressCheckout( $paymentAmount, $currencyCodeType, $paymentType, $returnURL, $cancelURL) {
 		global $wpdb;
 	
-		$nvpstr = "&PAYMENTREQUEST_0_AMT=". $paymentAmount;
+		$nvpstr = '';
 		$nvpstr = $nvpstr . "&PAYMENTREQUEST_0_PAYMENTACTION=" . $paymentType;
 		$nvpstr = $nvpstr . "&RETURNURL=" . $returnURL;
 		$nvpstr = $nvpstr . "&CANCELURL=" . $cancelURL;
@@ -199,19 +198,29 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 		$shipping_total = 0;
 		foreach ( $this->cart_items as $cart_item ) {
 			$data["L_PAYMENTREQUEST_0_NAME{$i}"] = $cart_item['name'];
-			$data["L_PAYMENTREQUEST_0_AMT{$i}"] = $cart_item['price'];
+			$data["L_PAYMENTREQUEST_0_AMT{$i}"] = $this->convert( $cart_item['price'] );
 			$data["L_PAYMENTREQUEST_0_NUMBER{$i}"] = $i;
 			$data["L_PAYMENTREQUEST_0_QTY{$i}"] = $cart_item['quantity'];
-			$item_total += $cart_item['price'] * $cart_item['quantity'];
+			$item_total += $this->convert( $cart_item['price'] ) * $cart_item['quantity'];
 			$shipping_total += $cart_item['shipping'];
 			$i ++;
 		}
-		
+
 		$data["PAYMENTREQUEST_0_ITEMAMT"] = $this->format_price( $item_total );
-		$data["PAYMENTREQUEST_0_SHIPPINGAMT"] = $this->format_price( $this->cart_data['base_shipping'] + $shipping_total );
-		if ( ! wpsc_tax_isincluded() )
-			$data["PAYMENTREQUEST_0_TAXAMT"] = $this->cart_data['cart_tax'];
+		$data["PAYMENTREQUEST_0_SHIPPINGAMT"] = $this->convert( $this->cart_data['base_shipping'] + $shipping_total );
+		$total = $data["PAYMENTREQUEST_0_ITEMAMT"] + $data["PAYMENTREQUEST_0_SHIPPINGAMT"];
 		
+		if ( ! wpsc_tax_isincluded() ) {
+			$data["PAYMENTREQUEST_0_TAXAMT"] = $this->convert( $this->cart_data['cart_tax'] );
+			$total += $data["PAYMENTREQUEST_0_TAXAMT"];
+		}
+		
+		// adjust total amount in case we had to round up after converting currency
+		if ( $this->rate !== 1 && $total != $paymentAmount )
+			$paymentAmount = $total;
+			
+		$data["PAYMENTREQUEST_0_AMT"] = $paymentAmount;
+
 		if(count($data) >= 4) {
 			$temp_data = array();
 			foreach($data as $key => $value)
@@ -241,8 +250,40 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 //		exit();
 	}
 
-	
+	function convert( $amt ){
+		if ( empty( $this->rate ) ) {
+			$this->rate = 1;
+			$paypal_currency_code = $this->get_paypal_currency_code();
+			$local_currency_code = $this->get_local_currency_code();
+			if( $local_currency_code != $paypal_currency_code ) {
+				$curr=new CURRENCYCONVERTER();
+				$this->rate = $curr->convert( 1, $paypal_currency_code, $local_currency_code );
+			}
+		}
 
+		return $this->format_price( $amt / $this->rate );
+	}
+	
+	function get_local_currency_code() {
+		if ( empty( $this->local_currency_code ) ) {
+			global $wpdb;
+			$this->local_currency_code = $wpdb->get_var("SELECT `code` FROM `".WPSC_TABLE_CURRENCY_LIST."` WHERE `id`='".get_option('currency_type')."' LIMIT 1");
+		}
+		
+		return $this->local_currency_code;
+	}
+	
+	function get_paypal_currency_code() {
+		if ( empty( $this->paypal_currency_code ) ) {
+			global $wpsc_gateways;
+			$this->paypal_currency_code = $this->get_local_currency_code();
+			
+			if ( ! in_array( $this->paypal_currency_code, $wpsc_gateways['wpsc_merchant_paypal_express']['supported_currencies']['currency_list'] ) )
+				$this->paypal_currency_code = get_option( 'paypal_curcode', 'USD' );
+		}
+		
+		return $this->paypal_currency_code;
+	}
 	
 } // end of class
 
@@ -359,37 +400,14 @@ function form_paypal_express() {
   	return $output;
 }
 
-  
-function paypal_express_currencyconverter(){
-	global $wpdb;
-	$currency_code = $wpdb->get_var("SELECT `code` FROM `".WPSC_TABLE_CURRENCY_LIST."` WHERE `id`='".get_option('currency_type')."' LIMIT 1");
-	$local_currency_code = $currency_code;
-	$paypal_currency_code = get_option('paypal_curcode');
-	if($paypal_currency_code == '')
-		$paypal_currency_code = 'US';
-	
-	$curr=new CURRENCYCONVERTER();
-	if($paypal_currency_code != $local_currency_code) {
-		$paypal_currency_productprice = $curr->convert($_SESSION['paypalAmount'],$paypal_currency_code,$local_currency_code);
-	} else {
-		$paypal_currency_productprice = $_SESSION['paypalAmount'];
-	}
-	switch($paypal_currency_code) {
-	    case "JPY":
-	    $decimal_places = 0;
-	    break;
-	    
-	    case "HUF":
-	    $decimal_places = 0;
-	    break;
-	    
-	    default:
-	    $decimal_places = 2;
-	    break;
-	}
-	$_SESSION['paypalAmount'] = number_format(sprintf("%01.2f", $paypal_currency_productprice),$decimal_places,'.','');
+function wpsc_get_paypal_currency_code() {
+	global $wpdb, $wpsc_gateways;
+	$paypal_currency_code = $wpdb->get_var("SELECT `code` FROM `".WPSC_TABLE_CURRENCY_LIST."` WHERE `id`='".get_option('currency_type')."' LIMIT 1");
+	if ( ! in_array( $paypal_currency_code, $wpsc_gateways['wpsc_merchant_paypal_express']['supported_currencies']['currency_list'] ) )
+		$paypal_currency_code = get_option( 'paypal_curcode', 'USD' );
+		
+	return $paypal_currency_code;
 }
-
 
 /**
  * prcessing functions, this is where the main logic of paypal express lives
@@ -482,7 +500,7 @@ function paypal_processingfunctions(){
 
 		$paymentAmount =urlencode ($_SESSION['paypalAmount']);
 		$paymentType = urlencode($_SESSION['PaymentType']);
-		$currCodeType = urlencode(get_option('paypal_curcode'));
+		$currCodeType = urlencode(wpsc_get_paypal_currency_code());
 		$payerID = urlencode($_REQUEST['PayerID']);
 		$serverName = urlencode($_SERVER['SERVER_NAME']);
 		$BN='Instinct_e-commerce_wp-shopping-cart_NZ';	
@@ -526,7 +544,7 @@ function paypal_processingfunctions(){
 		$token = $_REQUEST['token'];
 		if(!isset($token)) {
 		   $paymentAmount=$_SESSION['paypalAmount'];
-		   $currencyCodeType=get_option('paypal_curcode');
+		   $currencyCodeType=wpsc_get_paypal_currency_code();
 		   $paymentType='Sale';
 			if(get_option('permalink_structure') != '')
 				$separator ="?";
@@ -632,7 +650,7 @@ function paypal_processingfunctions(){
 				       <table width='400' class='paypal_express_form'>
 				        <tr>
 				            <td align='left' class='firstcol'><b>Order Total:</b></td>
-				            <td align='left'>" . wpsc_currency_display($_SESSION['paypalAmount']) . "</td>
+				            <td align='left'>" . wpsc_currency_display($_SESSION['localPaypalAmount']) . "</td>
 				        </tr>
 						<tr>
 						    <td align='left' colspan='2'><b>" . __('Shipping Address:', 'wpsc' ) . " </b></td>

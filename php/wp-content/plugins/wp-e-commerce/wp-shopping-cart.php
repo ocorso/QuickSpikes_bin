@@ -3,7 +3,7 @@
   * Plugin Name: WP e-Commerce
   * Plugin URI: http://getshopped.org/
   * Description: A plugin that provides a WordPress Shopping Cart. See also: <a href="http://getshopped.org" target="_blank">GetShopped.org</a> | <a href="http://getshopped.org/forums/" target="_blank">Support Forum</a> | <a href="http://docs.getshopped.org/" target="_blank">Documentation</a>
-  * Version: 3.8.3
+  * Version: 3.8.4
   * Author: Instinct Entertainment
   * Author URI: http://getshopped.org/
   **/
@@ -99,7 +99,7 @@ class WP_eCommerce {
 		require_once( WPSC_FILE_PATH . '/wpsc-core/wpsc-functions.php' );
 		require_once( WPSC_FILE_PATH . '/wpsc-core/wpsc-installer.php' );
 		require_once( WPSC_FILE_PATH . '/wpsc-core/wpsc-includes.php' );
-
+		
 		// Any additional file includes can hook in here
 		do_action( 'wpsc_includes' );
 	}

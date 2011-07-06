@@ -397,18 +397,29 @@ function wpsc_serialize_shopping_cart() {
 }
 add_action( 'shutdown', 'wpsc_serialize_shopping_cart' );
 
+add_filter( 'query_string', 'wpsc_filter_query_string' );
+
+/**
+ * Filter query string to make sure no 404 error is thrown for products-page's sub pages
+ *
+ * @param string $q Query String
+ */
+function wpsc_filter_query_string( $q ) {
+	global $wpsc_page_titles;
+	parse_str( $q, $args );
+	if ( ! empty( $args['wpsc_product_category'] ) && in_array( $args['wpsc_product_category'], $wpsc_page_titles ) ) {
+		$q = "pagename={$wpsc_page_titles['products']}/{$args['wpsc_product_category']}";
+	}
+	return $q;
+}
+
 /**
  * wpsc_start_the_query
  */
 function wpsc_start_the_query() {
 	global $wpsc_page_titles, $wp_query, $wpsc_query, $wpsc_query_vars;
 	$is_404 = false;
-	if(isset($wp_query->query_vars['term']) && in_array($wp_query->query_vars['term'], $wpsc_page_titles)){
-		$wp_query = new WP_Query( 'pagename='.$wpsc_page_titles['products'].'/'.$wp_query->query_vars['term'] );
-		global $post;
-		$post = $wp_query->post;
-		setup_postdata( $post );
-	}elseif ( null == $wpsc_query ) {
+	if ( null == $wpsc_query ) {
 		if( ( $wp_query->is_404 && !empty($wp_query->query_vars['paged']) ) || (isset( $wp_query->query['pagename']) && strpos( $wp_query->query['pagename'] , $wpsc_page_titles['products'] ) !== false ) && !isset($wp_query->post)){
 			//what was this for?
 			global $post;
@@ -435,14 +446,14 @@ function wpsc_start_the_query() {
 		
 			if(isset($wp_query->query_vars['product_tag'])){
 				$wpsc_query_vars['product_tag'] = $wp_query->query_vars['product_tag'];
-				$wpsc_query_vars['taxonomy'] = $wp_query->query_vars['taxonomy'];
-				$wpsc_query_vars['term'] = $wp_query->query_vars['term'];
+				$wpsc_query_vars['taxonomy'] = get_query_var( 'taxonomy' );
+				$wpsc_query_vars['term'] = get_query_var( 'term' );
 			
 			
 			}elseif( isset($wp_query->query_vars['wpsc_product_category']) ){
 				$wpsc_query_vars['wpsc_product_category'] = $wp_query->query_vars['wpsc_product_category'];
-				$wpsc_query_vars['taxonomy'] = $wp_query->query_vars['taxonomy'];
-				$wpsc_query_vars['term'] = $wp_query->query_vars['term'];
+				$wpsc_query_vars['taxonomy'] = get_query_var( 'taxonomy' );
+				$wpsc_query_vars['term'] = get_query_var( 'term' );
 			}else{
 				$wpsc_query_vars['post_type'] = 'wpsc-product';		
 				$wpsc_query_vars['pagename'] = 'products-page';			
@@ -1006,15 +1017,14 @@ function wpsc_product_link( $permalink, $post, $leavename ) {
 			$product_category_slugs[] = $product_category->slug;
 		}
 		// If the product is associated with multiple categories, determine which one to pick
-
 		if ( count( $product_categories ) == 0 ) {
 			$category_slug = 'uncategorized';
 		} elseif ( count( $product_categories ) > 1 ) {
 			if ( (isset( $wp_query->query_vars['products'] ) && $wp_query->query_vars['products'] != null) && in_array( $wp_query->query_vars['products'], $product_category_slugs ) ) {
 				$product_category = $wp_query->query_vars['products'];
 			} else {
-				if(isset($wp_query->query_vars['wpsc_product_category']))
-					$link = $wp_query->query_vars['wpsc_product_category'];
+				if( $current_cat = get_query_var( 'wpsc_product_category' ) && in_array( $current_cat, $product_category_slugs ) )
+					$link = $current_cat;
 				else
 					$link = $product_categories[0]->slug;
 

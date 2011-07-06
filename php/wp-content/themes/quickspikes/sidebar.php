@@ -8,8 +8,17 @@ if($post->post_parent){
     . '</a>';
 }else {
 	$isSub = false;
+	
+	switch(get_the_title()){
+		case "Shipping Policy": $sbTitle = "Shipping";
+			break;
+		case "Return Policy": 	$sbTitle = "Returns";
+			break;
+		default: 				$sbTitle = get_the_title();
+	}//end switch
+	
 	$anchor = '<a href="' . get_permalink()
-    . '/" title="' . get_the_title() . '">' . get_the_title()
+    . '/" title="' . get_the_title() . '">' . $sbTitle
     . '</a>';
 }
 ?>

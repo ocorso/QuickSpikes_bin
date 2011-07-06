@@ -625,14 +625,16 @@ function wpsc_enqueue_user_script_and_css() {
 		wp_enqueue_script( 'livequery',                   WPSC_URL 			. '/wpsc-admin/js/jquery.livequery.js',   array( 'jquery' ), '1.0.3' );
 		wp_enqueue_script( 'jquery-rating',               WPSC_CORE_JS_URL 	. '/jquery.rating.js',                 array( 'jquery' ), $version_identifier );
 		wp_enqueue_script( 'wp-e-commerce-legacy',        WPSC_CORE_JS_URL 	. '/user.js',                          array( 'jquery' ), WPSC_VERSION . WPSC_MINOR_VERSION );
-		$lightbox = get_option('wpsc_lightbox', 'thickbox');
-		if( $lightbox == 'thickbox' ) {
-			wp_enqueue_script( 'wpsc-thickbox',				WPSC_CORE_JS_URL . '/thickbox.js',                      array( 'jquery' ), 'Instinct_e-commerce' );
-			wp_enqueue_style( 'wpsc-thickbox',				WPSC_CORE_JS_URL . '/thickbox.css',						false, $version_identifier, 'all' );
-		} elseif( $lightbox == 'colorbox' ) {
-			wp_enqueue_script( 'colorbox-min',				WPSC_CORE_JS_URL . '/jquery.colorbox-min.js',			array( 'jquery' ), 'Instinct_e-commerce' );
-			wp_enqueue_script( 'wpsc_colorbox',				WPSC_CORE_JS_URL . '/wpsc_colorbox.js',					array( 'jquery', 'colorbox-min' ), 'Instinct_e-commerce' );
-			wp_enqueue_style( 'wpsc-colorbox-css',				WPSC_CORE_JS_URL . '/wpsc_colorbox.css',			false, $version_identifier, 'all' );
+		if ( get_option( 'show_thumbnails_thickbox' ) == 1 ){
+			$lightbox = get_option('wpsc_lightbox', 'thickbox');
+			if( $lightbox == 'thickbox' ) {
+				wp_enqueue_script( 'wpsc-thickbox',				WPSC_CORE_JS_URL . '/thickbox.js',                      array( 'jquery' ), 'Instinct_e-commerce' );
+				wp_enqueue_style( 'wpsc-thickbox',				WPSC_CORE_JS_URL . '/thickbox.css',						false, $version_identifier, 'all' );
+			} elseif( $lightbox == 'colorbox' ) {
+				wp_enqueue_script( 'colorbox-min',				WPSC_CORE_JS_URL . '/jquery.colorbox-min.js',			array( 'jquery' ), 'Instinct_e-commerce' );
+				wp_enqueue_script( 'wpsc_colorbox',				WPSC_CORE_JS_URL . '/wpsc_colorbox.js',					array( 'jquery', 'colorbox-min' ), 'Instinct_e-commerce' );
+				wp_enqueue_style( 'wpsc-colorbox-css',				WPSC_CORE_JS_URL . '/wpsc_colorbox.css',			false, $version_identifier, 'all' );
+			}
 		}
 		wp_enqueue_style( 'wpsc-theme-css',               wpsc_get_template_file_url( 'wpsc-' . get_option( 'wpsc_selected_theme' ) . '.css' ), false, $version_identifier, 'all' );
 		wp_enqueue_style( 'wpsc-theme-css-compatibility', WPSC_CORE_THEME_URL . 'compatibility.css',                                    false, $version_identifier, 'all' );
@@ -1090,15 +1092,21 @@ function wpsc_all_products_on_page(){
 	do_action('wpsc_swap_the_template');
 	$products_page_id = wpec_get_the_post_id_by_shortcode('[productspage]');
 	$term = get_query_var( 'wpsc_product_category' );
-	$obj = get_queried_object();
+	$tax_term = get_query_var ('product_tag' );
+	$obj = $wp_query->get_queried_object();
+
 	$id = isset( $obj->ID ) ? $obj->ID : null;
 	
-	if( get_query_var( 'post_type' ) == 'wpsc-product' || $term || ( $id == $products_page_id )){
+	if( get_query_var( 'post_type' ) == 'wpsc-product' || $term || $tax_term || ( $id == $products_page_id )){
 		
 		$templates = array();
 		
 		if ( $term && ! is_single() ) {
 			array_push( $templates, "taxonomy-wpsc_product_category-{$term}.php", 'taxonomy-wpsc_product_category.php' );
+		}
+		
+		if ( $tax_term && ! is_single() ) {
+			array_push( $templates, "taxonomy-product_tag-{$tax_term}.php", 'taxonomy-product_tag.php' );
 		}
 		
 		array_push( $templates, 'page.php', 'single.php' );

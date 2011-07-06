@@ -269,6 +269,12 @@ button {  width: auto; overflow: visible; }
 /* @ADMIN STYLES */
 .wp-admin, .update-php{ background-color: #F7F6F1}
 .wp-admin a:link, .wp-admin a:visited{ color: #999;}
+.wp-admin h4, .wp-admin label{
+	color: #333;
+	font-weight: bold;
+}
+.wp-admin ul, .wp-admin ol{ margin:0;}
+#adminmenuwrap{background-color:#EFF8FF;}
 #editorcontainer #content {
 	background: white;
 }
@@ -673,6 +679,8 @@ section #sidebar_account_body li, #sidebar_account_body>a {
 #checkout_heading{	background-position: 0px -315px;}
 #your_account_heading{background-position: 0px -385px;}
 #transactions_heading{background-position: 0px -350px;}
+#shipping_heading{background-position: 0px -415px;}
+#return_heading{background-position: 0px -455px;}
 
 .holding-line{ 
 	background: url('img/holding-line.png');

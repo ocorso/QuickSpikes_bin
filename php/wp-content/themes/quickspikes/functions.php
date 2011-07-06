@@ -5,6 +5,7 @@
 add_action('init', "my_init_method");
 
 add_shortcode('form-shortcode', 'form_shortcode_handler');    
+add_shortcode('sitemap_link', 'sitemap_link_handler');
 add_shortcode('image','image_shortcode');
 add_shortcode('flash', 'flash_shortcode_handler');
     
@@ -31,13 +32,13 @@ function my_init_method() {
 	$ver = 1.0;
 
     //scripts
-    wp_deregister_script( 'jquery' );
+    //wp_deregister_script( 'jquery' );
 	//wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js' );
 	wp_register_script( 'jquery', get_bloginfo('template_url').'/js/libs/jquery.js' );
     wp_enqueue_script('swfaddress',get_bloginfo('template_url').'/js/libs/swfaddress.js');
  	wp_enqueue_script('modernizr', get_bloginfo('template_url').'/js/libs/modernizr-1.5.min.js');
     wp_enqueue_script('qs_plugins',get_bloginfo('template_url').'/js/site/plugins.js', array('swfobject', 'jquery'), $ver, true);    
-    wp_enqueue_script('qs_scripts',get_bloginfo('template_url').'/js/site/scripts.js', array('swfobject', 'jquery'), $ver, true);
+    wp_enqueue_script('qs_scripts',get_bloginfo('template_url').'/js/site/scripts.js', array('swfobject', 'jquery'), $ver, false);
   	wp_enqueue_script('niv_slider',get_bloginfo('template_url').'/js/libs/jquery.nivo.slider.pack.js', array('jquery'), $ver, true);
   	
   	//fire php
@@ -81,6 +82,12 @@ function parse_subheadings($theTitle){
 			break;
 		case "Transactions" :
 			return "transactions_heading";
+			break;
+		case "Shipping Policy" :
+			return "shipping_heading";
+			break;
+		case "Return Policy" :
+			return "return_heading";
 			break;
 		default : return strtolower(str_replace(" ", "_",$theTitle)."_heading");
 	}//end switch
@@ -207,6 +214,11 @@ function flash_shortcode_handler($atts, $content=null, $code=""){
 		</script>';
 }//end function 
 
+function sitemap_link_handler($atts, $content, $code=""){
+	$href 	= "/".$atts['route'];
+	$title	= ucwords($atts['route']);
+	return '<a href="'.$href.'" title="'.$title.'">'.$title.'</a>';
+}
 
 // =================================================
 // ================ @Utility

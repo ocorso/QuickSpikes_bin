@@ -1,9 +1,11 @@
 /* Author: Owen Corso
 
 */
-	var FlashManager = {};
-		FlashManager.swfEmbed = {};
-	var jsReady = false;
+var pageManager = {};
+  	pageManager.isHome	 = false;
+var FlashManager = {};
+	FlashManager.swfEmbed = {};
+var jsReady = false;
   	
   	function isReady() { return jsReady; }
  	
