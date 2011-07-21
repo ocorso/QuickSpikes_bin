@@ -13,6 +13,7 @@ profile
 # proj specific
 staging/
 stats/
+php/wp-config.php
 QuickSpikes.swf
 QuickSpikesMainLogo.swf
 Gallery.swf
