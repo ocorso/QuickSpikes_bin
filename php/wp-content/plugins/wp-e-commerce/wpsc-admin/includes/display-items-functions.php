@@ -751,10 +751,7 @@ function wpsc_product_advanced_forms() {
 	</tr>
 	<?php
 	}
-	ob_start();
 	do_action( 'wpsc_add_advanced_options', $post->ID );
-	ob_get_contents();
-	ob_end_clean();
 ?>
 	<tr>
 		<td class='itemfirstcol' colspan='2'><br />
@@ -1012,19 +1009,19 @@ function wpsc_attachment_fields( $form_fields, $post ) {
 		$check = get_post_meta( $post->ID, '_wpsc_selected_image_size', true );
 		if ( !$check )
 			$check = 'medium-single-product';
-		
+
 		// regenerate size metadata in case it's missing
 		if ( ! image_get_intermediate_size( $post->ID, $check ) ) {
 			$metadata = wp_get_attachment_metadata( $post->ID );
 			$file = get_attached_file( $post->ID );
-			$metadata = array_merge( wp_generate_attachment_metadata( $post->ID, $file ), $metadata );
+			$generated = wp_generate_attachment_metadata( $thumbnail_id, $file );
+			$metadata['sizes'] = array_merge( $generated['sizes'], $metadata['sizes'] );
 			wp_update_attachment_metadata( $post->ID, $metadata );
 		}
 		
 		//This loop attaches the custom thumbnail/single image sizes to this page
 		foreach ( $size_names as $size => $name ) {
 			$downsize = image_downsize( $post->ID, $size );
-
 			// is this size selectable?
 			$enabled = ( $downsize[3] || 'full' == $size );
 			$css_id = "image-size-{$size}-{$post->ID}";

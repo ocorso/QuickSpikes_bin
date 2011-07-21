@@ -85,6 +85,9 @@ class wpsc_merchant_paypal_pro extends wpsc_merchant {
 		$data['NOTIFYURL']       = add_query_arg( 'gateway', 'wpsc_merchant_paypal_pro', $this->cart_data['notification_url'] );
 		$data['IPADDRESS']       = $_SERVER["REMOTE_ADDR"];
 
+		if ( $this->cart_data['billing_address']['country'] == 'UK' )
+			$this->cart_data['billing_address']['country'] = 'GB';
+
 		// Billing Data
 		$data['FIRSTNAME']   = $this->cart_data['billing_address']['first_name'];
 		$data['LASTNAME']    = $this->cart_data['billing_address']['last_name'];
@@ -104,6 +107,9 @@ class wpsc_merchant_paypal_pro extends wpsc_merchant {
 		if ( is_numeric( $this->cart_data['shipping_address']['state'] ) )
 			$this->cart_data['shipping_address']['state'] = wpsc_get_state_by_id( $this->cart_data['shipping_address']['state'], 'code' );
 
+		if ( $this->cart_data['shipping_address']['country'] == 'UK' )
+			$this->cart_data['shipping_address']['country'] = 'GB';
+
 		$data['SHIPTOSTATE']   = $this->cart_data['shipping_address']['state'];
 		$data['SHIPTOCOUNTRY'] = $this->cart_data['shipping_address']['country'];
 		$data['SHIPTOZIP']     = $this->cart_data['shipping_address']['post_code'];
@@ -120,7 +126,7 @@ class wpsc_merchant_paypal_pro extends wpsc_merchant {
 		$i = $item_total = 0;
 		$tax_total = wpsc_tax_isincluded() ? 0 : $this->cart_data['cart_tax'];
 
-		$shipping_total = $this->cart_data['base_shipping'];
+		$shipping_total = $this->convert( $this->cart_data['base_shipping'] );
 
 		foreach ( $this->cart_items as $cart_row ) {
 			$data['L_NAME' . $i] = $cart_row['name'];
@@ -128,15 +134,30 @@ class wpsc_merchant_paypal_pro extends wpsc_merchant {
 			$data['L_NUMBER' . $i] = $i;
 			$data['L_QTY' . $i] = $cart_row['quantity'];
 			
-			$shipping_total += $cart_row['shipping'];
+			$shipping_total += $this->convert( $cart_row['shipping'] );
 			$item_total += $this->convert( $cart_row['price'] ) * $cart_row['quantity'];
 
 			$i++;
 		}
-
+		
+		if ( $this->cart_data['has_discounts'] ) {
+			$discount_value = $this->convert( $this->cart_data['cart_discount_value'] );
+			
+			if ( $discount_value >= $item_total ) {
+				$discount_value = $item_total - 0.01;
+				$shipping_total -= 0.01;
+			}
+			
+			$data["L_NAME{$i}"] = 'Coupon / Discount';
+			$data["L_AMT{$i}"] = $discount_value;
+			$data["L_NUMBER{$i}"] = $i;
+			$data["L_QTY{$i}"] = 1;
+			$item_total -= $discount_value;
+		}
+		
 		// Cart totals	
-		$data['ITEMAMT'] = $item_total;
-		$data['SHIPPINGAMT'] = $this->convert( $shipping_total );
+		$data['ITEMAMT'] = $this->format_price( $item_total );
+		$data['SHIPPINGAMT'] = $this->format_price( $shipping_total );
 		$data['TAXAMT'] = $this->convert( $tax_total );
 		$data['AMT'] = $data['ITEMAMT'] + $data['SHIPPINGAMT'] + $data['TAXAMT'];
 		$this->collected_gateway_data = $data;
@@ -246,26 +267,41 @@ class wpsc_merchant_paypal_pro extends wpsc_merchant {
 	 * @access public
 	 */
 	function process_gateway_notification() {
+		$status = false;
+		switch ( strtolower( $this->paypal_ipn_values['payment_status'] ) ) {
+			case 'pending':
+				$status = 2;
+				break;
+			case 'completed':
+				$status = 3;
+				break;
+			case 'denied':
+				$status = 6;
+				break;
+		}
+		
 		// Compare the received store owner email address to the set one
 		if ( strtolower( $this->paypal_ipn_values['receiver_email'] ) == strtolower( get_option( 'paypal_multiple_business' ) ) ) {
 			switch ( $this->paypal_ipn_values['txn_type'] ) {
 				case 'cart':
 				case 'express_checkout':
-					if ( (float)$this->paypal_ipn_values['mc_gross'] == (float)$this->cart_data['total_price'] ) {
-						$this->set_transaction_details( $this->paypal_ipn_values['txn_id'], 3 );
-						transaction_results( $this->cart_data['session_id'], false );
-					}
+					if ( $status )
+						$this->set_transaction_details( $this->paypal_ipn_values['txn_id'], $status );
+					if ( in_array( $status, array( 2, 3 ) ) )
+						transaction_results($this->cart_data['session_id'],false);
 					break;
 
 				case 'subscr_signup':
 				case 'subscr_payment':
-					$this->set_transaction_details( $this->paypal_ipn_values['subscr_id'], 3 );
+					if ( in_array( $status, array( 2, 3 ) ) ) {
+						$this->set_transaction_details( $this->paypal_ipn_values['subscr_id'], $status );
+						transaction_results($this->cart_data['session_id'],false);
+					}
 					foreach ( $this->cart_items as $cart_row ) {
 						if ( $cart_row['is_recurring'] == true ) {
 							do_action( 'wpsc_activate_subscription', $cart_row['cart_item_id'], $this->paypal_ipn_values['subscr_id'] );
 						}
 					}
-					transaction_results( $this->cart_data['session_id'], false );
 					break;
 
 				case 'subscr_cancel':
@@ -391,7 +427,13 @@ function form_paypal_pro() {
 		<td>
 			<input type="hidden" name="PayPalPro[testmode]" value="off" /><input type="checkbox" name="PayPalPro[testmode]" id="paypal_pro_testmode" value="on" ' . $selected . ' />
 		</td>
-	</tr>';
+	</tr>
+	<tr>
+  	<td colspan="2">
+  	<span  class="wpscsmall description">
+  	Only enable test mode if you have a sandbox account with PayPal you can find out more about this <a href="https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/howto_testing_sandbox"> here </a></span>
+  	</td>
+  </tr>';
 	
 	$store_currency_code = $wpdb->get_var("SELECT `code` FROM `".WPSC_TABLE_CURRENCY_LIST."` WHERE `id` IN ('".absint(get_option('currency_type'))."')");
 	$current_currency = get_option('paypal_curcode');
@@ -426,7 +468,12 @@ function form_paypal_pro() {
 		$output .= "          </td>\n";
 		$output .= "       </tr>\n";
 	}
-
+		$output .="<tr>
+			<td colspan='2'>
+			<span  class='wpscsmall description'>
+			For more help configuring Paypal Pro, please read our documentation <a href='http://docs.getshopped.org/wiki/documentation/payments/paypal-payments-pro'>here </a>  	</span>
+			</td>
+		</tr>";
 	return $output;
 }
 

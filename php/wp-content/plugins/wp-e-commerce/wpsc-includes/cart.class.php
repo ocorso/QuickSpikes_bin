@@ -1229,13 +1229,14 @@ class wpsc_cart {
   function calculate_base_shipping() {
     global $wpdb, $wpsc_shipping_modules;
     if($this->uses_shipping()) {
-         if ( isset( $this->shipping_quotes ) && empty( $this->shipping_quotes ) && is_callable( array( $wpsc_shipping_modules[$this->selected_shipping_method], "getQuote" ) ) ) {
+         if ( isset( $this->shipping_quotes ) && empty( $this->shipping_quotes ) && isset( $wpec_shipping_modules[$this->selected_shipping_method] ) && is_callable( array( $wpsc_shipping_modules[$this->selected_shipping_method], "getQuote" ) ) ) {
             $this->shipping_quotes = $wpsc_shipping_modules[$this->selected_shipping_method]->getQuote();
          }
          if($this->selected_shipping_option == null){
             $this->get_shipping_option();
          }
-         $total = (float)$this->shipping_quotes[$this->selected_shipping_option];
+
+         $total = isset( $this->shipping_quotes[$this->selected_shipping_option] ) ? (float)$this->shipping_quotes[$this->selected_shipping_option] : 0;
          $this->base_shipping = $total;
       } else {
 
@@ -1626,8 +1627,8 @@ class wpsc_cart_item {
       
    	  $price = apply_filters('wpsc_price', $price, $product_id);
       // create the string containing the product name.
-      $product_name = $product->post_title;
-
+      $product_name = apply_filters( 'wpsc_cart_product_title', $product->post_title, $product_id );
+      
       $this->product_name = $product_name;
       $this->priceandstock_id = $priceandstock_id;
       $this->meta = $product_meta;

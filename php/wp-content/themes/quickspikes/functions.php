@@ -36,8 +36,7 @@ function my_init_method() {
 	//wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js' );
 	wp_register_script( 'jquery', get_bloginfo('template_url').'/js/libs/jquery.js' );
     wp_enqueue_script('swfaddress',get_bloginfo('template_url').'/js/libs/swfaddress.js');
- 	wp_enqueue_script('modernizr', get_bloginfo('template_url').'/js/libs/modernizr-1.5.min.js');
-    wp_enqueue_script('qs_plugins',get_bloginfo('template_url').'/js/site/plugins.js', array('swfobject', 'jquery'), $ver, true);    
+ 	wp_enqueue_script('modernizr', get_bloginfo('template_url').'/js/libs/modernizr-1.5.min.js');  
     wp_enqueue_script('qs_scripts',get_bloginfo('template_url').'/js/site/scripts.js', array('swfobject', 'jquery'), $ver, false);
   	wp_enqueue_script('niv_slider',get_bloginfo('template_url').'/js/libs/jquery.nivo.slider.pack.js', array('jquery'), $ver, true);
   	

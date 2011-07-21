@@ -334,8 +334,6 @@ class wpsc_merchant_paypal_standard extends wpsc_merchant {
 		if( 'VERIFIED' == $response['body'] ) {
 			$this->paypal_ipn_values = $received_values;
 			$this->session_id = $received_values['invoice'];
-			$this->set_purchase_processed_by_sessionid(3);
-
 		} else {
 			exit("IPN Request Failure");
 		}
@@ -346,26 +344,42 @@ class wpsc_merchant_paypal_standard extends wpsc_merchant {
 	* @access public
 	*/
 	function process_gateway_notification() {
+		$status = false;
+		switch ( strtolower( $this->paypal_ipn_values['payment_status'] ) ) {
+			case 'pending':
+				$status = 2;
+				break;
+			case 'completed':
+				$status = 3;
+				break;
+			case 'denied':
+				$status = 6;
+				break;
+		}
+		
+		$paypal_email = strtolower( get_option( 'paypal_multiple_business' ) );
 	  // Compare the received store owner email address to the set one
-		if(strtolower($this->paypal_ipn_values['receiver_email']) == strtolower(get_option('paypal_multiple_business'))) {
+		if( strtolower( $this->paypal_ipn_values['receiver_email'] ) == $paypal_email || strtolower( $this->paypal_ipn_values['business'] ) == $paypal_email ) {
 			switch($this->paypal_ipn_values['txn_type']) {
 				case 'cart':
 				case 'express_checkout':
-					if((float)$this->paypal_ipn_values['mc_gross'] == (float)$this->cart_data['total_price']) {
-						$this->set_transaction_details($this->paypal_ipn_values['txn_id'], 3);
+					if ( $status )
+						$this->set_transaction_details( $this->paypal_ipn_values['txn_id'], $status );
+					if ( in_array( $status, array( 2, 3 ) ) )
 						transaction_results($this->cart_data['session_id'],false);
-					}
 				break;
 
 				case 'subscr_signup':
 				case 'subscr_payment':
-					$this->set_transaction_details($this->paypal_ipn_values['subscr_id'], 3);
+					if ( in_array( $status, array( 2, 3 ) ) ) {
+						$this->set_transaction_details( $this->paypal_ipn_values['subscr_id'], $status );
+						transaction_results($this->cart_data['session_id'],false);
+					}
 					foreach($this->cart_items as $cart_row) {
 						if($cart_row['is_recurring'] == true) {
 							do_action('wpsc_activate_subscription', $cart_row['cart_item_id'], $this->paypal_ipn_values['subscr_id']);
 						}
 					}
-					transaction_results($this->cart_data['session_id'],false);
 				break;
 
 				case 'subscr_cancel':
@@ -483,6 +497,15 @@ function form_paypal_multiple() {
       </td>
   </tr>
   <tr>
+  	<td></td>
+  	<td colspan='1'>
+  	<span  class='wpscsmall description'>
+  	This is your PayPal email address.
+  	</span>
+  	</td>
+  </tr>
+
+  <tr>
       <td>Url:
       </td>
       <td>
@@ -540,6 +563,13 @@ function form_paypal_multiple() {
        <input type='radio' value='1' name='paypal_ipn' id='paypal_ipn1' ".$paypal_ipn1." /> <label for='paypal_ipn1'>".__('Yes', 'wpsc')."</label> &nbsp;
        <input type='radio' value='0' name='paypal_ipn' id='paypal_ipn2' ".$paypal_ipn2." /> <label for='paypal_ipn2'>".__('No', 'wpsc')."</label>
      </td>
+  </tr>
+  <tr>
+  	<td colspan='2'>
+  	<span  class='wpscsmall description'>
+  	IPN (instant payment notification ) will automatically update your sales logs to 'Accepted payment' when a customers payment is successful. For IPN to work you also need to have IPN turned on in your Paypal settings. If it is not turned on, the sales sill remain as 'Order Pending' status until manually changed. It is highly recommend using IPN, especially if you are selling digital products.
+  	</span>
+  	</td>
   </tr>
   <tr>
      <td style='padding-bottom: 0px;'>Send shipping details:
@@ -700,7 +730,15 @@ $output .= "
       ".nzshpcrt_form_field_list(get_option('paypal_form_country'))."
       </select>
       </td>
-  </tr> ";
+  </tr> 
+  <tr>
+  	<td colspan='2'>
+  	<span  class='wpscsmall description'>
+  	  For more help configuring Paypal Standard, please read our documentation <a href='http://docs.getshopped.org/wiki/documentation/payments/paypal-payments-standard'>here </a>  	</span>
+  	</td>
+   </tr>
+
+  ";
 
   return $output;
 }

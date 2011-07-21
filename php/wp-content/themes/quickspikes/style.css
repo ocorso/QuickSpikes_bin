@@ -192,7 +192,14 @@ label, input[type=button], input[type=submit], button { cursor: pointer; }
 button, input, select, textarea { margin: 0; }
 
 /* colors for form validity */
-input:valid, textarea:valid   {  }
+.wpsc_checkout_forms input:valid, textarea:valid   { 
+
+  background-color: #222222;
+  border: medium none;
+  margin: 1px;
+  padding: 3px;
+  width: 300px;
+ }
 input:invalid, textarea:invalid { 
       border-radius: 1px;
     -moz-box-shadow: 0px 0px 5px red; 

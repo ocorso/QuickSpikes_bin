@@ -1,12 +1,12 @@
 // This is the wp-e-commerce front end javascript "library"
 
-jQuery(document).ready(function(){
+jQuery(document).ready(function(){	
 		jQuery('td.hidden_alerts img').each(function(){
 			var t = jQuery(this);
 			t.appendTo(t.parents('tr').find('td.column-title strong'));
 		});
 
-        jQuery('label[for=wpsc-variationdiv-hide]').css('display', 'none');
+        jQuery('label[for="wpsc-variationdiv-hide"]').css('display', 'none');
 
 	jQuery('a.update_variations_action').click(function(){
 		jQuery("<img class='loading' src='images/loading.gif' height='15' width='15' />").insertAfter(this);
@@ -234,7 +234,7 @@ jQuery(document).ready(function(){
 		jQuery(this).click(function(event){
 			this_href = jQuery(this).attr('href');
 			parent_element = jQuery(this).parent();
-			extra_parameters = jQuery("input[type=text]", parent_element).serialize();
+			extra_parameters = jQuery("input[type='text']", parent_element).serialize();
 			window.location = this_href+"&"+extra_parameters;
 			return false;
 		});
@@ -593,7 +593,7 @@ jQuery(document).ready(function(){
 	jQuery("input.limited_stock_checkbox").livequery(function(){
 		jQuery(this).click( function ()  {
 			parent_form = jQuery(this).parents('form');
-			if(jQuery(this).attr('checked') == true) {
+			if(jQuery(this).is(':checked')) {
 				jQuery("div.edit_stock",parent_form).show();
 				jQuery("th.stock, td.stock", parent_form).show();
 			} else {
@@ -974,7 +974,9 @@ function add_form_field(e) {
 	new_element_contents += "<td class='mandatorycol' style='text-align: center;'><input type='checkbox' name='new_form_mandatory["+new_element_number+"]' value='1' /></td>\n\r";
 	new_element_contents += "<td><a class='image_link' href='#' onclick='return remove_new_form_field(\""+new_element_id+"\");'><img src='" + WPSC_CORE_IMAGES_URL + "/trash.gif' alt='"+TXT_WPSC_DELETE+"' title='"+TXT_WPSC_DELETE+"' /></a></td>\n\r";
 	new_element_contents += '</tr>';
+	jQuery('#checkout_message').css('display', 'block');
 	jQuery("#wpsc_checkout_list_body").append(new_element_contents);
+
 	return false;
 }
 

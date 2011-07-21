@@ -79,7 +79,7 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 		}
 	
 		//$collected_gateway_data
-		$paypal_vars = array();		
+		$paypal_vars = array();
 
 		// User settings to be sent to paypal
 		$paypal_vars += array(
@@ -101,14 +101,53 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 	}
 	
 	/**
+	* parse_gateway_notification method, receives data from the payment gateway
+	* @access private
+	*/
+	function parse_gateway_notification() {
+		/// PayPal first expects the IPN variables to be returned to it within 30 seconds, so we do this first.
+		if ('sandbox'  == get_option('paypal_certified_server_type')) {
+			$paypal_url = "https://www.sandbox.paypal.com/webscr";
+		}else{
+			$API_Endpoint = "https://api-3t.paypal.com/nvp";
+			$paypal_url = "https://www.paypal.com/cgi-bin/webscr";
+		}
+		$received_values = array();
+		$received_values['cmd'] = '_notify-validate';
+  		$received_values += $_POST;
+		$options = array(
+			'timeout' => 5,
+			'body' => $received_values,
+			'user-agent' => ('WP e-Commerce/'.WPSC_PRESENTABLE_VERSION)
+		);
+		
+
+		$response = wp_remote_post($paypal_url, $options);
+		
+		if( 'VERIFIED' == $response['body'] ) {
+			$this->paypal_ipn_values = $received_values;
+			$this->session_id = $received_values['invoice'];
+			if ( strtolower( $received_values['payment_status'] ) == 'completed' ) {
+				$this->set_purchase_processed_by_sessionid(3);
+				transaction_results($this->session_id,false);
+			}
+			elseif ( strtolower( $received_values['payment_status'] ) == 'denied' ) {
+				$this->set_purchase_processed_by_sessionid(6);
+			}
+		} else {
+			exit("IPN Request Failure");
+		}
+	}
+	
+	/**
 	* submit method, sends the received data to the payment gateway
 	* @access public
 	*/
 	function submit() {
 		//$_SESSION['paypalExpressMessage']= '<h4>Transaction Canceled</h4>';
-
-		// PayPal Express Checkout Module		
+				// PayPal Express Checkout Module		
 		$paymentAmount = $this->cart_data['total_price'];
+
 		$_SESSION['paypalAmount'] = $this->convert( $paymentAmount );
 		$_SESSION['localPaypalAmount'] = $paymentAmount;
 		$_SESSION['paypalexpresssessionid'] = $this->cart_data['session_id'];
@@ -178,6 +217,10 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 			$this->cart_data['shipping_address']['last_name'] = $this->cart_data['billing_address']['last_name'];
 			
 		}
+				
+		if ( $this->cart_data['shipping_address']['country'] == 'UK' )
+			$this->cart_data['shipping_address']['country'] = 'GB';
+		
 		$data += array(
 			'PAYMENTREQUEST_0_SHIPTONAME'		=> $this->cart_data['shipping_address']['first_name'].' '.$this->cart_data['shipping_address']['last_name'],
 			'PAYMENTREQUEST_0_SHIPTOSTREET' 		=> $this->cart_data['shipping_address']['address'],
@@ -196,6 +239,7 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 		$item_total = 0;
 		$tax_total = 0;
 		$shipping_total = 0;
+		
 		foreach ( $this->cart_items as $cart_item ) {
 			$data["L_PAYMENTREQUEST_0_NAME{$i}"] = $cart_item['name'];
 			$data["L_PAYMENTREQUEST_0_AMT{$i}"] = $this->convert( $cart_item['price'] );
@@ -205,8 +249,24 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 			$shipping_total += $cart_item['shipping'];
 			$i ++;
 		}
-
-		$data["PAYMENTREQUEST_0_ITEMAMT"] = $this->format_price( $item_total );
+		//if we have a discount then include a negative amount with that discount
+		if ( $this->cart_data['cart_discount_value'] ){
+			$discount_value = $this->convert( $this->cart_data['cart_discount_value']); 
+			
+			// if item total < discount amount, leave at least 0.01 unit in item total, then subtract
+			// 0.01 from shipping as well
+			if ( $discount_value >= $item_total ) {
+				$discount_value = $item_total - 0.01;
+				$shipping_total -= 0.01;
+			}
+			
+			$data["L_PAYMENTREQUEST_0_NAME{$i}"] = "Discount / Coupon";
+			$data["L_PAYMENTREQUEST_0_AMT{$i}"] = -$discount_value;
+			$data["L_PAYMENTREQUEST_0_NUMBER{$i}"] = $i;
+			$data["L_PAYMENTREQUEST_0_QTY{$i}"] = 1;
+			$item_total -= $discount_value;
+		}
+		$data["PAYMENTREQUEST_0_ITEMAMT"] = $this->format_price( $item_total ) ;
 		$data["PAYMENTREQUEST_0_SHIPPINGAMT"] = $this->convert( $this->cart_data['base_shipping'] + $shipping_total );
 		$total = $data["PAYMENTREQUEST_0_ITEMAMT"] + $data["PAYMENTREQUEST_0_SHIPPINGAMT"];
 		
@@ -287,6 +347,54 @@ class wpsc_merchant_paypal_express extends wpsc_merchant {
 	
 } // end of class
 
+// terrible code duplication just to hot fix the "missing Description in email receipt" bug
+// see paypal_processingfunctions() for more details
+function wpsc_paypal_express_convert( $amt ) {
+	global $wpdb;
+	
+	static $rate;
+	static $paypal_currency_code;
+	static $local_currency_code;
+	
+	if ( empty( $rate ) ) {
+		$rate = 1;
+		if ( empty( $local_currency_code ) ) {
+			$local_currency_code = $wpdb->get_var("SELECT `code` FROM `".WPSC_TABLE_CURRENCY_LIST."` WHERE `id`='".get_option('currency_type')."' LIMIT 1");
+		}
+		if ( empty( $paypal_currency_code ) ) {
+			global $wpsc_gateways;
+			$paypal_currency_code = $local_currency_code;
+			if ( ! in_array( $paypal_currency_code, $wpsc_gateways['wpsc_merchant_paypal_express']['supported_currencies']['currency_list'] ) )
+				$paypal_currency_code = get_option( 'paypal_curcode', 'USD' );
+		}
+		
+		if ( $local_currency_code != $paypal_currency_code ) {
+			$curr = new CURRENCYCONVERTER();
+			$rate = $curr->convert( 1, $paypal_currency_code, $local_currency_code );
+		}
+	}
+	
+	return wpsc_paypal_express_format( $amt / $rate );
+}
+
+function wpsc_paypal_express_format( $price ) {
+	$paypal_currency_code = get_option('paypal_curcode', 'US');
+
+	switch($paypal_currency_code) {
+	    case "JPY":
+	    $decimal_places = 0;
+	    break;
+
+	    case "HUF":
+	    $decimal_places = 0;
+	    break;
+
+	    default:
+	    $decimal_places = 2;
+	    break;
+	}
+	return number_format(sprintf("%01.2f", $price),$decimal_places,'.','');
+}
 
 /**
  * Saving of PayPal Express Settings
@@ -310,6 +418,10 @@ function submit_paypal_express() {
 	if(isset($_POST['paypal_certified_server_type']))
 		update_option('paypal_certified_server_type', $_POST['paypal_certified_server_type']);
 	
+	if(isset($_POST['paypal_ipn'])) {
+		update_option('paypal_ipn', (int)$_POST['paypal_ipn']);
+	}
+	
 	return true;
 }
 
@@ -331,7 +443,7 @@ function form_paypal_express() {
 		$serverType1="checked='checked'";
 	elseif(get_option('paypal_certified_server_type') == 'production')
 		$serverType2 ="checked='checked'";
-	
+	$paypal_ipn = get_option( 'paypal_ipn' );
 	$output = "
 		<tr>
 		  <td>" . __('API Username', 'wpsc' ) . "
@@ -361,8 +473,34 @@ function form_paypal_express() {
 			<input $serverType1 type='radio' name='paypal_certified_server_type' value='sandbox' /> " . __('Sandbox (For testing)', 'wpsc' ) . "
 			<input $serverType2 type='radio' name='paypal_certified_server_type' value='production' /> " . __('Production', 'wpsc' ) . "
 		 </td>
-		</tr>";
+		</tr>
+		<tr>
+		  	<td colspan='2'>
+		  	<span  class='wpscsmall description'>
+		  	Only use the sandbox server if you have a sandbox account with PayPal you can find out more about this <a href='https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/howto_testing_sandbox'> here </a></span>
+		  	</td>
+  </tr>
+
+		<tr>
+			<td>
+				" . __( 'IPN', 'wpsc' ) . "
+			</td>
+			<td>
+				<input type='radio' value='1' name='paypal_ipn' id='paypal_ipn1' " . checked( $paypal_ipn, 1, false ) . " /> <label for='paypal_ipn1'>".__('Yes', 'wpsc')."</label> &nbsp;
+				<input type='radio' value='0' name='paypal_ipn' id='paypal_ipn2' " . checked( $paypal_ipn, 0, false ) . " /> <label for='paypal_ipn2'>".__('No', 'wpsc')."</label>
+			</td>
+		</tr>
+		<tr>
+		  	<td colspan='2'>
+			  	<span  class='wpscsmall description'>
+				  	IPN (instant payment notification ) will automatically update your sales logs to 'Accepted payment' when a customers payment is successful. For IPN to work you also need to have IPN turned on in your Paypal settings. If it is not turned on, the sales sill remain as 'Order Pending' status until manually changed. It is highly recommend using IPN, especially if you are selling digital products.
+			  	</span>
+		  	</td>
+  </tr>
+
+		";
 		
+		$paypal_ipn = get_option( 'paypal_ipn' );		
 		$store_currency_code = $wpdb->get_var("SELECT `code` FROM `".WPSC_TABLE_CURRENCY_LIST."` WHERE `id` IN ('".absint(get_option('currency_type'))."')");
 		$current_currency = get_option('paypal_curcode');
 
@@ -396,7 +534,13 @@ function form_paypal_express() {
 			$output .= "          </td>\n";
 			$output .= "       </tr>\n";
 		}
- 
+ 	$output .="<tr>
+  	<td colspan='2'>
+  	<span  class='wpscsmall description'>
+  	  For more help configuring Paypal Express, please read our documentation <a href='http://docs.getshopped.org/wiki/documentation/payments/paypal-express-checkout'>here </a>  	</span>
+  	</td>
+   </tr>";
+   
   	return $output;
 }
 
@@ -504,7 +648,66 @@ function paypal_processingfunctions(){
 		$payerID = urlencode($_REQUEST['PayerID']);
 		$serverName = urlencode($_SERVER['SERVER_NAME']);
 		$BN='Instinct_e-commerce_wp-shopping-cart_NZ';	
-		$nvpstr='&TOKEN='.$token.'&PAYERID='.$payerID.'&PAYMENTREQUEST_0_PAYMENTACTION=Sale&PAYMENTREQUEST_0_AMT='.$paymentAmount.'&PAYMENTREQUEST_0_CURRENCYCODE='.$currCodeType.'&IPADDRESS='.$serverName."&BUTTONSOURCE=".$BN ;
+		$nvpstr='&TOKEN='.$token.'&PAYERID='.$payerID.'&PAYMENTREQUEST_0_PAYMENTACTION=Sale&PAYMENTREQUEST_0_CURRENCYCODE='.$currCodeType.'&IPADDRESS='.$serverName."&BUTTONSOURCE=".$BN."&PAYMENTREQUEST_0_INVNUM=".urlencode( $sessionid );
+		// IPN data
+		if (get_option('paypal_ipn') == 1) {
+			$notify_url = add_query_arg( 'wpsc_action', 'gateway_notification', (get_option( 'siteurl' ) . "/index.php" ) );
+			$notify_url = add_query_arg('gateway', 'wpsc_merchant_paypal_express', $notify_url);
+			$notify_url = apply_filters('wpsc_paypal_express_notify_url', $notify_url);
+			$nvpstr .= '&PAYMENTREQUEST_0_NOTIFYURL='.urlencode( $notify_url );
+		}
+		
+		// Horrible code that I had to write to hot fix the issue with missing item detail in email receipts. arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrgh!!!!! @#@$%@#%@##$#$
+		$purchase_log = $wpdb->get_row( "SELECT * FROM `" . WPSC_TABLE_PURCHASE_LOGS . "` WHERE `sessionid` = {$sessionid}", ARRAY_A );
+		$cart_data = $original_cart_data = $wpdb->get_results( "SELECT * FROM `" . WPSC_TABLE_CART_CONTENTS . "` WHERE `purchaseid` = {$purchase_log['id']}", ARRAY_A );
+		$i = 0;
+		$item_total = 0;
+		$shipping_total = 0;
+		foreach ( $cart_data as $cart_item ) {
+			$converted_price = wpsc_paypal_express_convert( $cart_item['price'] );
+			$nvpstr .= "&L_PAYMENTREQUEST_0_NAME{$i}=" . urlencode( $cart_item['name'] );
+			$nvpstr .= "&L_PAYMENTREQUEST_0_AMT{$i}=" . $converted_price;
+			$nvpstr .= "&L_PAYMENTREQUEST_0_NUMBER{$i}=" . $i;
+			$nvpstr .= "&L_PAYMENTREQUEST_0_QTY{$i}=" . $cart_item['quantity'];
+			$item_total += $converted_price * $cart_item['quantity'];
+			$shipping_total += wpsc_paypal_express_convert( $cart_item['pnp'] );
+			$i ++;
+		}
+		//if we have a discount then include a negative amount with that discount
+		if ( $purchase_log['discount_value'] ){
+			$discount_value = wpsc_paypal_express_convert( $purchase_log['discount_value']);
+			
+			// if item total < discount amount, leave at least 0.01 unit in item total, then subtract
+			// 0.01 from shipping as well
+			if ( $discount_value >= $item_total ) {
+				$discount_value = $item_total - 0.01;
+				$shipping_total -= 0.01;
+			}
+			
+			$nvpstr .= "&L_PAYMENTREQUEST_0_NAME{$i}=" . urlencode( "Discount / Coupon" );
+			$nvpstr .= "&L_PAYMENTREQUEST_0_AMT{$i}=-" . urlencode( $discount_value );
+			$nvpstr .= "&L_PAYMENTREQUEST_0_NUMBER{$i}={$i}";
+			$nvpstr .= "&L_PAYMENTREQUEST_0_QTY{$i}=1";
+			$item_total -= $discount_value;
+		}
+		$item_total = wpsc_paypal_express_format( $item_total );
+		$shipping_total = wpsc_paypal_express_convert( $purchase_log['base_shipping'] ) +  $shipping_total;
+		$nvpstr .= '&PAYMENTREQUEST_0_ITEMAMT=' . $item_total;
+		$nvpstr .= '&PAYMENTREQUEST_0_SHIPPINGAMT=' . $shipping_total;
+
+		$total = $item_total + $shipping_total;
+		
+		if ( ! wpsc_tax_isincluded() ) {
+			$tax = wpsc_paypal_express_convert( $purchase_log['wpec_taxes_total'] );
+			$nvpstr .= '&PAYMENTREQUEST_0_TAXAMT=' . $tax;
+			$total += $tax;
+		}
+		
+		// adjust total amount in case we had to round up after converting currency
+		if ( $total != $paymentAmount )
+			$paymentAmount = $total;
+			
+		$nvpstr .= "&PAYMENTREQUEST_0_AMT={$paymentAmount}";
 		$resArray=paypal_hash_call("DoExpressCheckoutPayment",$nvpstr);
 
 		/* Display the API response back to the browser.
@@ -512,6 +715,7 @@ function paypal_processingfunctions(){
 		   If the response was an error, display the errors received using APIError.php. */
 		$ack = strtoupper($resArray["ACK"]);
 		$_SESSION['reshash']=$resArray;
+
 		if($ack!="SUCCESS"){
 			$location = get_option('transact_url')."&act=error";
 		}else{
