@@ -23,7 +23,7 @@
 				<p>golf.com</p></a>
 			</div>
 			<div class="clearfix"></div>
-		   	<p>&copy; 2010 Quick Spikes Golf LLC  |  All Rights Reserved  |  <a href="/shipping-policy" title="Quick Spikes Shipping Policy">Shipping Policy</a>  |  <a href="/return-policy" title="Quick Spikes Return Policy">Return Policy</a>  |  <a href="/privacy_policy" title="Quick Spikes Privacy Policy">Privacy Policy</a>  |  <a href="/sitemap" title="View the Quick Spikes Site Map">Site Map</a>   |  <?php wp_loginout( $redirect ); ?>  </p>
+		   	<p>&copy; 2011 Quick Spikes Golf LLC  |  All Rights Reserved  |  <a href="/shipping-policy" title="Quick Spikes Shipping Policy">Shipping Policy</a>  |  <a href="/return-policy" title="Quick Spikes Return Policy">Return Policy</a>  |  <a href="/privacy_policy" title="Quick Spikes Privacy Policy">Privacy Policy</a>  |  <a href="/sitemap" title="View the Quick Spikes Site Map">Site Map</a>   |  <?php wp_loginout( $redirect ); ?>  </p>
 		</div>
 		<div class="shadow-right-corner"></div>
 		<div class="clearfix"></div>
@@ -43,7 +43,7 @@
 
   <!-- asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet -->
   <script>
-   var _gaq = [['_setAccount', 'UA-19135050-1'], ['_setDomainName', '.ored.net'], ['_trackPageview']];
+   var _gaq = [['_setAccount', 'UA-19135050-7'], ['_trackPageview']];
    (function(d, t) {
     var g = d.createElement(t),
         s = d.getElementsByTagName(t)[0];
