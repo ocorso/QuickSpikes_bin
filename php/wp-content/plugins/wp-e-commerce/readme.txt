@@ -4,24 +4,143 @@ Donate link: http://getshopped.org
 Tags: e-commerce, wp-e-commerce, shop, cart, paypal, authorize, stock control, ecommerce, shipping, tax
 Requires at least: 3.0
 Tested up to: 3.2
-Stable tag: 3.8.5
+Stable tag: 3.8.6
 
-WP e-Commerce is a Web 2.0 application designed with usability, aesthetics, and presentation in mind.
+WP e-Commerce is a free WordPress Shopping Cart Plugin that lets customers buy your products, services and digital downloads online.
 
 == Description ==
 
-The WP e-Commerce shopping cart plugin for WordPress is an elegant easy to use fully featured shopping cart application suitable for selling your products, services, and or fees online.
+We make setting up an ecommerce shop easy, and with over 1.3 Million downloads, we have unparalleled experience.
 
-WP e-Commerce is a Web 2.0 application designed with usability, aesthetics, and presentation in mind. 
- 
-Perfect for:
+Features:
 
-* Bands & Record Labels
-* Clothing Companies
-* Crafters & Artists
-* Books, DVDs & MP3 files
-* Memberships
-* Ticketing
+= WordPress Integration =
+* Easy to install WordPress plugin
+* Works with any standards compliant WordPress theme
+* Plays well with other Plugins
+* Supports regular WordPress widgets, as well as a few snazzy ones of our own
+* Utilizes shortcodes and template tags (just like WordPress)
+* Works out-of-the-box with WordPress MU (make sure you use sub domains with your MU setup)
+
+= 100% Customizable =
+* A designers dream – use your own HTML & CSS and have complete control over the look and feel of your. store
+* Easy to modify templates
+
+= Amazing Support =
+* Lots of video tutorials
+* Guaranteed speedy response (through our premium forums)
+* Access to instant support from our community of users
+
+= Payment Gateways Integration =
+* Manual Payment (checks/money orders) (included)
+* PayPal Payments Standard (included)
+* PayPal Payments Pro (included)
+* PayPal Express Checkout (included)
+* Google Checkout (Level 2) (included)
+* Chronopay (included)
+* PayPal Payflow Pro (available with Gold Cart)
+* Authorize.net (available with Gold Cart)
+* FirstData/LinkPoint (available with Gold Cart)
+* eWay Payment (available with Gold Cart)
+* iDEAL (available with Gold Cart)
+* BluePay (available with Gold Cart)
+* DPS (available with Gold Cart)
+* Paystation (available with Gold Cart)
+* SagePay (available with Gold Cart)
+* If you still aren’t happy, we provide you with the necessary info to write your payment gateway
+
+= Marketing =
+* Flexible coupon/discount pricing rules
+* Product specific sales
+* Quantity discounts
+* Free shipping options
+* Multi-tier pricing for quantity discounts.
+* Search Engine Friendly URLs
+* New Products widget
+* Cross-sells on product pages (in 3.8 this is now available as a Plugin)
+* Google Site Map
+* Uses the popular “Share This” button for easily promoting your products on popular social networking sites
+* Integrates with Facebook Marketplace (Facebook Marketplace API has closed – we’re working on it)
+* Integrates with Google Base
+* Integrates with Campaign Monitor for advanced email marketing
+* Integrates with Intense Debate for shared comments
+* Mail Chimp integration coming soon 
+
+= Search Engine Optimization =
+* 100% Search Engine Friendly
+* Meta-information for products and categories
+* RSS feeds for products and categories
+* Integrates with Google (XML site maps and Google Merchant Centre)
+* Integrates with the All in One SEO plugin for WordPress (which includes Google Analytics)
+
+= Internationalization Support =
+* Multi-lingual (the first Plugin to fully utilize and integrate with GlotPress)
+* Support for multiple currencies
+* Ability to target specific countries
+
+= Shipping =
+* Integrates with UPS, USPS, Australia Post and Shipwire for real-time shipping rates
+* Flexible built-in shipping rate calculators
+* Domestic and global shipping rates
+* Flat rate shipping
+* Table rate shipping
+* Weight rate shipping
+
+= Checkout =
+* One-Page Checkout or Stepped Checkout, whichever you prefer
+* SSL security support for orders on both front-end and back-end
+* Checkout without account/Guest Checkout
+* Shopping Cart with tax and shipping estimates
+* Option to create account at beginning of checkout
+* Fully customizable checkout page
+
+= Managing Orders =
+* Admin dashboard for sales overview
+* Export orders and customers into CSV formats
+* Order history with labels for order processing status
+* Email notifications of orders
+* Print invoices and packing slips
+
+= Catalog Management =
+* Single-page product data entry
+* Ability to duplicate products
+* Quickly edit your products from the store front (saving you heaps of time)
+* Smart Groups allow you to organize your products with hierarchical categories, as well as by brand.
+* Batch import/export of catalog
+* Google Base integration
+* Product variation management
+* Create attributes on the fly
+* Downloadable/Digital Products
+* Support for donations
+* Customer Personalized Products
+* Media Manager with automatic image resizing
+* Handles multiple product images with easy drag-and-drop sorting
+* support for Special Prices
+* Tax rates per location
+* Basic inventory control
+
+= Catalog Browsing =
+* Live product search – mmm just like apple.com (available add on)
+* Cross-sells
+* Product listing in list format
+* Product listing in grid format (available with Gold Cart)
+* Breadcrumbs
+* Product Image Zoom-in Capability
+* Stock Availability
+* Multiple Images Per Product (activated with Gold Cart)
+* Product comments
+* Filter by Product Tags
+* New Products widget
+* Features Products widget
+* Live updating shopping cart (put it wherever you want)
+
+= Additional Modules =
+* Gold Cart & Grid Module – adds more options and functionality to your store
+* Drop Shop – an incredibly snazzy way for buyers to add products to their cart, via a simple drag n drop process.
+* Mp3 Audio Player – Preview audio clips on your website
+* NextGen Gallery Buy Now Buttons – turns your NextGen gallery into an ecommerce solution
+* Product Slider – Display your products in a new and fancy way
+* Members Only Module – Create pay to view subscription sites
 
 For more information visit [http://getshopped.org](http://getshopped.org "http://getshopped.org")
 
@@ -37,6 +156,34 @@ After upgrading from earlier versions look for link "Update Store". This will up
 
 
 == Changelog ==
+= 3.8.6 =
+* New: Filter for 'wpsc_display_product_multicurrency'.
+* New: Additional filters for compatibility with WPML.
+* Change: Discount information is now displayed on the Packing Slip.
+* Fix: Sometimes wpsc_product_has_multicurrency() returns true when it should return false.
+* Fix: Edit product page makes many database queries if you have lots of variations.
+* Fix: Variation prices are not calculated correctly.
+* Fix: Request-URI Too Large error when searching on the Admin Products page with lots of products.
+* Fix: Add to cart shortcode doesn't display fancy notifications, and also doesn't check whether variations are selected.
+* Fix: Infinite AJAX loop on checkout page when Same as Billing is checked.
+* Fix: Per-item shipping total is calculated incorrectly in various places (Packing Slip, Sales Report etc.).
+* Fix: Wrong product link when the product is assigned multiple categories.
+* Fix: Canonical tags are not generated correctly for products with multiple categories.
+* Fix: Edit variations inline messes up columns when stock limitation is disabled.
+* Fix: Product with no category selected is not automatically assigned a default category when sort by drag&drop is enabled.
+* Fix: Unnecessary use of livequery in variations.js causes Product edit page to freeze when there are many variation sets.
+* Fix: Slashes added to checkout form field that has single quotes in it (e.g: O\'Connor).
+* Fix: Multicurrency price is truncated when displayed.
+* Fix: Checkout page keeps refreshing without displaying Google Checkout Button.
+* Fix: Discount doesn't work with Paypal Standard.
+* Fix: wpsc_single_template is not removed from the_content after it's run, causing subsequent the_content() calls to output the single product again.
+* Fix: Sorting product categories is broken.
+* Fix: Coupon rule "In Category" not taken into consideration.
+* Fix: WPEC default stylesheet imposes #content font-size.
+* Fix: Incompatibility with Prototype JS library.
+* Fix: Checking (or unchecking) Stock checkbox when editing product causes variation table columns to break.
+* Fix: jQuery 1.6 incompatibility with attr( 'className' ).
+
 = 3.8.5 =
 * New: Added hooks to support WPML.
 * New: Links to WP e-Commerce documentation for individual payment gateways.
@@ -175,59 +322,6 @@ After upgrading from earlier versions look for link "Update Store". This will up
 * Integrates with WordPress Media Manager
 * Better template integration for designers
 * Optimized for ticketing (Tikipress)
-
-= 3.7.5.3 =
-* Support for WordPress 2.9 canonical URLs for Products and Categories
-
-= 3.7.5.2 =
-* More Fixes to the Paypal Pro merchant file
-* Image thumbnail size fixes
-* Updated readme to mark plugin as working with 2.9
-* Purchase log filtering bug fixed
-* Fix for a bug when no shipping module is used where the shipping country and region were not being changed
-* Remove button on checkout page now clears stock claims
-
-= 3.7.5.1 =
-* Fixes to the Paypal Pro merchant file
-* Fixes to the Paypal Express Checkout merchant file
-* Tracking email improvements
-* HTML in descriptions does not break RSS (thanks to http://www.leewillis.co.uk)
-* Category permalinks will now be regenerated properly on instalation
-* Category list bug preventing viewing a product when viewing a category fixed.
-
-
-= 3.7.5 =
-* Added code for upgrades/additions from nielo.info and lsdev.biz,  we will be using this for new modules in the future.
-* All In One SEO Pack compatibility bugfixes and improvements.
-* CSV has had some work done on it, it now takes larger files, and associates a CSV file to a single category of your choice. We'd love to be able to allow users to add the categories and images as part of the CSV file. We will look into it more at a later date.
-* SSL we fixed the image issue from beta1 and used James Collis recommended fix (using is_ssl() for our conditions) Thanks James!
-* Show list of Product Groupsí shows all Groups <- there may be some backwards compatibility issues (we havent encountered any but nevertheless if you spot any let us know)
-* When duplicating products, their tags do not get duplicated for the new product. <- Oh yes they DO!
-* Google Checkout now sends off Discount Coupons As well. And we fixed the `name` vs `code` Issue people mentioned in the forum
-* Category shortcode backwards compatibility
-* Fix Purchlogs - We had a lot of users that somehow by passed the 'fix purchase logs' page when upgrading from 3.6, so we added some better conditions to the mix and added it on to the debug page (a powerful wp-e-commerce page that is hidden from most users as it's usage is very corrosive backing up your DB and files is strongly recommended if not necessary when you work with this page).
-* Valid XHTML for front end of wpec YAY!
-* Fixed adding variations when adding products
-* Sender from the 'resend email to buyer' link on the purchase log details page has been fixed
-* Shipping Discount Bug that stopped shipping working at all.
-* Categories Widget has had numerous changes ñ
-* Better MU support. 
-* Canadian Tax ñ Fixes
-* US Tax ñFixes
-* Product Categories Caching Issue  Resolved
-* Coupons ñ ëApply to all Productsí and numerous bug fixes
-* ëYour Accountí  done some fixes to it.
-* ëAccepted Paymentí goes straight to ëClosed Orderí
-* Stock claims are now cleared when the cart is emptied
-* Purchase log bulk actions now work
-* PayPal gateway module fixes and improvements
-* HTML Tables can now be added to product descriptions
-* Flat Rate and Weight Rate improvements
-
-
-= 3.7.4 =  
-* Changes to shipping to fix the bugs from 3.7.3 with shipping and the new shipping_discount feature
-* Fixes for variations under grid view
 
 
 == Frequently Asked Questions ==

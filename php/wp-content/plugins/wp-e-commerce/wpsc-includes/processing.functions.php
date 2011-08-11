@@ -9,14 +9,15 @@
  * @return void
  */
 function wpsc_currency_display( $price_in, $args = null ) {
-	global $wpdb, $wpsc_currency_data;
+	global $wpdb;
 	$currency_code = '';
 	$args = apply_filters( 'wpsc_toggle_display_currency_code', $args );
 	$query = shortcode_atts( array(
 		'display_currency_symbol' => true,
 		'display_decimal_point'   => true,
 		'display_currency_code'   => false,
-		'display_as_html'         => true
+		'display_as_html'         => true,
+		'isocode'                 => false,
 	), $args );
 
 	// No decimal point, no decimals
@@ -39,12 +40,18 @@ function wpsc_currency_display( $price_in, $args = null ) {
 	// Format the price for output
 	$price_out = number_format( (double)$price_in, $decimals, $decimal_separator, $thousands_separator );
 
-	// Get currency settings	
-	$currency_type = get_option( 'currency_type' );
-
-	// Load data if it is not set
-	if ( count( $wpsc_currency_data ) < 3 )
-		$wpsc_currency_data = $wpdb->get_row( "SELECT `symbol`, `symbol_html`, `code` FROM `" . WPSC_TABLE_CURRENCY_LIST . "` WHERE `id` = '" . $currency_type . "' LIMIT 1", ARRAY_A );
+	if ( ! $query['isocode'] ) {
+		// Get currency settings
+		$currency_type = get_option( 'currency_type' );
+		
+		if ( ! $wpsc_currency_data = wp_cache_get( $currency_type, 'wpsc_currency_id' ) ) {
+			$wpsc_currency_data = $wpdb->get_row( "SELECT `symbol`, `symbol_html`, `code` FROM `" . WPSC_TABLE_CURRENCY_LIST . "` WHERE `id` = '" . $currency_type . "' LIMIT 1", ARRAY_A );
+			wp_cache_set( $currency_type, $wpsc_currency_data, 'wpsc_currency_id' );
+		}
+	} elseif ( ! $wpsc_currency_data = wp_cache_get( $query['isocode'], 'wpsc_currency_isocode' ) ) {
+		$wpsc_currency_data = $wpdb->get_row( "SELECT `symbol`, `symbol_html`, `code` FROM `" . WPSC_TABLE_CURRENCY_LIST . "` WHERE `isocode` = '" . $query['isocode'] . "' LIMIT 1", ARRAY_A );
+		wp_cache_set( $query['isocode'], $wpsc_currency_data, 'wpsc_currency_isocode' );
+	}
 
 	// Figure out the currency code
 	if ( $query['display_currency_code'] )
@@ -284,7 +291,7 @@ function wpsc_check_stock($state, $product) {
 	$state['state'] = false;
 	$state['messages'] = array();
 	$out_of_stock = false;
-	$is_parent = wpsc_product_has_children( $product->ID );
+	$is_parent = ! $product->post_parent && wpsc_product_has_children( $product->ID );
 	if( !$is_parent ){
 		$stock_count = get_product_meta( $product->ID, 'stock',true );
 		// only do anything if the quantity is limited.
@@ -335,7 +342,7 @@ function wpsc_check_weight($state, $product) {
 	$has_no_weight = false;
 	$shipping_modules = array();
 	$product_meta = get_product_meta( $product->ID, 'product_metadata',true );
-	if(wpsc_product_has_children($product->ID)) return $state;
+	if(! $product->post_parent && wpsc_product_has_children($product->ID)) return $state;
 	// only do anything if UPS is on and shipping is used
 	if( array_search( 'ups', $custom_shipping ) !== false )
 		$shipping_modules[] = 'UPS';

@@ -26,9 +26,9 @@ function wpsc_core_constants() {
 	if(!defined('WPSC_URL'))
 		define( 'WPSC_URL',       plugins_url( '', __FILE__ ) );
 	// Define Plugin version
-	define( 'WPSC_VERSION', '3.8.5' );
-	define( 'WPSC_MINOR_VERSION', '405496' );
-	define( 'WPSC_PRESENTABLE_VERSION', '3.8.5' );
+	define( 'WPSC_VERSION', '3.8.6' );
+	define( 'WPSC_MINOR_VERSION', '419073' );
+	define( 'WPSC_PRESENTABLE_VERSION', '3.8.6' );
 
 	// Define Debug Variables for developers
 	define( 'WPSC_DEBUG', false );
@@ -160,7 +160,8 @@ function wpsc_core_constants_table_names() {
  * Set the Upload related constants
  */
 function wpsc_core_constants_uploads() {
-
+	$upload_path = '';
+	$upload_url = '';
 	$wp_upload_dir_data = wp_upload_dir();
 
 	// Error Message

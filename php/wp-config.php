@@ -18,8 +18,8 @@
 
 //dev on local
 define('DB_NAME', 'qsdb');
-define('DB_USER', 'root');
-define('DB_PASSWORD', 'root');
+define('DB_USER', 'qsdb');
+define('DB_PASSWORD', 'h@ckp40F');
 define('DB_HOST', 'localhost:8888');
 
 //production

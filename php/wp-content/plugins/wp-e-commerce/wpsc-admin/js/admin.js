@@ -10,12 +10,12 @@ jQuery(document).ready(function(){
 
 	jQuery('a.update_variations_action').click(function(){
 		jQuery("<img class='loading' src='images/loading.gif' height='15' width='15' />").insertAfter(this);
-		edit_var_val = jQuery('div.variation_checkboxes input:checked').serialize();
-		description = jQuery('#content_ifr').contents().find('body').html();
-		additional_description = jQuery('textarea#additional_description').text();
-		name = jQuery('input#title').val();
-		product_id = jQuery('input#product_id').val();
-		post_values = edit_var_val + '&description=' + description + '&additional_description=' + additional_description + '&name=' + name + '&product_id=' + product_id;
+		var edit_var_val = jQuery('div.variation_checkboxes input:checked').serialize();
+		var description = jQuery('#content_ifr').contents().find('body').html();
+		var additional_description = jQuery('textarea#additional_description').text();
+		var name = jQuery('input#title').val();
+		var product_id = jQuery('input#product_id').val();
+		var post_values = edit_var_val + '&description=' + description + '&additional_description=' + additional_description + '&name=' + name + '&product_id=' + product_id;
 		jQuery('div#wpsc_product_variation_forms table.widefat tbody').fadeTo(200, 0, function(){
 			jQuery.post(ajaxurl + '?action=wpsc_update_variations',post_values, function(returned_data){
 				jQuery('div#wpsc_product_variation_forms table.widefat tbody').html(returned_data).fadeTo(200, 1);
@@ -291,11 +291,15 @@ jQuery(document).ready(function(){
       }
 	//Added for inline editing capabilities
 	jQuery('#wpsc_product_list a.wpsc_editinline').live('click', function() {
-		jQuery(this).parents('tr:first').find('a.row-title, td > span').hide();
-		jQuery('.wpsc_ie_field').each(function(){
-			jQuery(this).width( (jQuery(this).parents('td:first').innerWidth() - 14) + 'px' );
-		});
-		jQuery(this).parents('tr:first').find('td input.wpsc_ie_field, td .wpsc_inline_actions').show();
+		var t = jQuery(this),
+			tr = t.parents('tr');
+		tr.find('td input[type="text"].wpsc_ie_field').each(function(){
+			var ti = jQuery(this), p = ti.parents('td');
+			if (! p.hasClass('column-stock') || p.css('display') != 'none') {
+				ti.innerWidth(p.width());
+			}
+		}).show();
+		tr.find('td .wpsc_inline_actions').show().end().find('a.row-title, td > span').hide();
 		return false;
 	});
 
@@ -590,17 +594,15 @@ jQuery(document).ready(function(){
 
 
 	// show or hide the stock input forms
-	jQuery("input.limited_stock_checkbox").livequery(function(){
-		jQuery(this).click( function ()  {
-			parent_form = jQuery(this).parents('form');
-			if(jQuery(this).is(':checked')) {
-				jQuery("div.edit_stock",parent_form).show();
-				jQuery("th.stock, td.stock", parent_form).show();
-			} else {
-				jQuery("div.edit_stock", parent_form).hide();
-				jQuery("th.stock, td.stock", parent_form).hide();
-			}
-		});
+	jQuery('input.limited_stock_checkbox').live('click', function ()  {
+		parent_form = jQuery(this).parents('form');
+		if(jQuery(this).is(':checked')) {
+			jQuery("div.edit_stock",parent_form).show();
+			jQuery("th.column-stock, td.stock", parent_form).show();
+		} else {
+			jQuery("div.edit_stock", parent_form).hide();
+			jQuery("th.column-stock, td.stock", parent_form).hide();
+		}
 	});
 
 

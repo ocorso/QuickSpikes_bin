@@ -1202,7 +1202,8 @@ function wpsc_the_product_thumbnail( $width = null, $height = null, $product_id 
 			// regenerate size metadata in case it's missing
 			if ( ! image_get_intermediate_size( $thumbnail_id, $custom_thumbnail ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/image.php' );
-				$metadata = wp_get_attachment_metadata( $thumbnail_id );
+				if ( ! $metadata = wp_get_attachment_metadata( $thumbnail_id ) )
+					$metadata = array();
 				$file = get_attached_file( $thumbnail_id );
 				$generated = wp_generate_attachment_metadata( $thumbnail_id, $file );
 				$metadata['sizes'] = array_merge( $generated['sizes'], $metadata['sizes'] );
@@ -1388,7 +1389,7 @@ function wpsc_product_has_multicurrency() {
 	global $wpdb, $wpsc_query;
 	
 	$currency = get_product_meta(get_the_ID(),'currency',true);
-	if ( count( $currency ) > 0 )
+	if ( ! empty( $currency ) )
 		return true;
 	else
 		return false;
@@ -1400,15 +1401,7 @@ function wpsc_display_product_multicurrency() {
 	$results = get_product_meta(get_the_ID(),'currency',true);
 	if ( count( $results ) > 0 ) {
 		foreach ( (array)$results as $isocode => $curr ) {
-			$currency_data = $wpdb->get_row( "SELECT `symbol`,`symbol_html`,`code` FROM `" . WPSC_TABLE_CURRENCY_LIST . "` WHERE `isocode`='" . $isocode . "' LIMIT 1", ARRAY_A );
-
-			if ( $currency_data['symbol'] != '' )
-				$currency_sign = $currency_data['symbol_html'];
-			else
-				$currency_sign = $currency_data['code'];
-
-			if ( !empty( $currency_sign ) )
-				echo '<span class="wpscsmall pricefloatright pricedisplay">' . $isocode . ' ' . wpsc_currency_display( $curr["meta_value"] ) . '</span><br />';
+			echo apply_filters( 'wpsc_display_product_multicurrency', '<span class="wpscsmall pricefloatright pricedisplay">' . $isocode . ': ' . wpsc_currency_display( $curr, array( 'isocode' => $isocode ) ) . '</span><br />', $isocode, $curr );
 		}
 	}
 

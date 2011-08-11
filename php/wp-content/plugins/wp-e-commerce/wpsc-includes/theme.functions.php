@@ -407,7 +407,7 @@ function wpsc_single_template( $content ) {
 
 	//if we are a paged page
 	if(isset($wpsc_query->query['paged']) && $wpsc_query->post_count <= 1 && $wp_query->is_single != 1){ 
-		remove_filter( "the_content", "wpsc_single_template" );
+		remove_filter( "the_content", "wpsc_single_template", 12 );
 		list($wp_query, $wpsc_query) = array( $wpsc_query, $wp_query ); // swap the wpsc_query object
 		$GLOBALS['nzshpcrt_activateshpcrt'] = true;
 		// get the display type for the productspage		
@@ -435,7 +435,7 @@ function wpsc_single_template( $content ) {
 	}
 	// If we are a single products page
 	if ( 'wpsc-product' == $wp_query->post->post_type && !is_archive() && $wp_query->post_count <= 1 ) {
-		remove_filter( "the_content", "wpsc_single_template" );
+		remove_filter( "the_content", "wpsc_single_template", 12 );
 		$single_theme_path = wpsc_get_template_file_path( 'wpsc-single_product.php' );
 		if( isset( $wp_query->query_vars['preview'] ) && $wp_query->query_vars['preview'])
 			$is_preview = 'true';
@@ -452,7 +452,7 @@ function wpsc_single_template( $content ) {
 		
 	}elseif( is_archive() && wpsc_is_viewable_taxonomy() || ($wp_query->post_count > 1 && 1 == $wp_query->is_product)){
 		// If we are a category page
-		remove_filter( "the_content", "wpsc_single_template" );		
+		remove_filter( "the_content", "wpsc_single_template", 12 );		
 		list( $wp_query, $wpsc_query ) = array( $wpsc_query, $wp_query ); // swap the wpsc_query object
 		if(isset($wp_query->query['pagename']))
 			$display_type = get_option( 'product_view' );
@@ -1211,7 +1211,7 @@ function wpec_get_the_post_id_by_shortcode($shortcode){
 	global $wpdb;
 	$sql = "SELECT `ID` FROM `{$wpdb->posts}` WHERE `post_type` IN('page','post') AND `post_content` LIKE '%$shortcode%' LIMIT 1";
 	$page_id = $wpdb->get_var($sql);
-	return $page_id;
+	return apply_filters( 'wpec_get_the_post_id_by_shortcode', $page_id );
 }
 
 function wpec_remap_shop_subpages($vars) {
@@ -1272,12 +1272,17 @@ add_filter('request', 'wpsc_remove_page_from_query_string');
 
 function add_to_cart_shortcode( $content = '' ) {
 	//exit($content);
+	static $fancy_notification_output = false;
 	if ( preg_match_all( "/\[add_to_cart=([\d]+)\]/", $content, $matches ) ) {
 		foreach ( $matches[1] as $key => $product_id ) {
 			$original_string = $matches[0][$key];
 			$output = wpsc_add_to_cart_button( $product_id, true );
 			$content = str_replace( $original_string, $output, $content );
 		}
+	}
+	if ( ! $fancy_notification_output ) {
+		$content .= fancy_notifications();
+		$fancy_notification_output = true;
 	}
 	return $content;
 }
