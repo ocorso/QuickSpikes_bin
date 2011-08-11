@@ -418,10 +418,8 @@ input:valid.custom_gateway{
 .checkout_cart{
 	width: 580px;
 }
-div.productdisplay select{
-	border:white;
-}
-.make_purchase, input.wpsc_buy_button{
+
+.wpsc_make_purchase input.wpsc_buy_button{
 	background: url('img/wpsc/makePurchaseBtn.png') no-repeat;
 	width: 214px;
 	height: 67px;
