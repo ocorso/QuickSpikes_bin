@@ -46,6 +46,7 @@ O Red Table of Contents
 @admin
 @global
 @form
+@wpec
 @header
 @logo
 @nav
@@ -408,7 +409,30 @@ h5{
 }
 ul, ol{ margin: 0 1.8em;}
 
-	/*@form styles*/
+/*********************
+	@wpec styles 
+*********************/
+input:valid.custom_gateway{
+	width: 25px;
+}
+.checkout_cart{
+	width: 580px;
+}
+div.productdisplay select{
+	border:white;
+}
+.make_purchase, input.wpsc_buy_button{
+	background: url('img/wpsc/makePurchaseBtn.png') no-repeat;
+	width: 214px;
+	height: 67px;
+	text-indent: -9999px;
+}
+/*********************
+	@form styles 
+*********************/
+#qs_form textarea.comment{
+	width: 250px;
+}
 #qs_form, #contact_form { 
 	padding: 7px;
 	margin-top: 5px;
@@ -429,6 +453,8 @@ ul, ol{ margin: 0 1.8em;}
 #qs_form li input, #contact_form li input{
 	width: 260px;
 	height: 20px;
+	background-color: #222;
+	border: none;	
 }
 #form_labels, #form_inputs{ 
 	float: left;
@@ -438,8 +464,11 @@ ul, ol{ margin: 0 1.8em;}
 	width: 70px;
 	height: 20px;
 }
-#form_inputs select{
+#qs_form select{
 	margin-top: 16px;
+	background-color: #222;
+	border: none;
+	color: #aaa;
 }
 #faq_question_list{
 	margin: 0;
