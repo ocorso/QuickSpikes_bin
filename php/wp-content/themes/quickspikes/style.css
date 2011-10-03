@@ -428,6 +428,12 @@ input:valid.custom_gateway{
 /*********************
 	@form styles 
 *********************/
+html.js body.page div#container div#content_wrapper div#content div#body_container div.post div#post-4.entry div#checkout_page_container div#wpsc_shopping_cart_container form.wpsc_checkout_forms table.wpsc_checkout_table tbody tr td.wpsc_gateway_container div.custom_gateway table.wpsc_checkout_table tbody tr td div#checkorcc_select div#creditCardForms.paymentType fieldset div#creditCardNew table tbody tr td.wpsc_CC_details{
+	
+}
+.wpsc_email_address_p img {
+display: none;
+}
 #qs_form textarea.comment{
 	width: 250px;
 }
@@ -751,7 +757,39 @@ section #sidebar_account_body li, #sidebar_account_body>a {
 	margin: 0 auto;
 	width: 515px;
 }
-
+	/*@PRODUCT STYLES*/
+#sizing_chart{
+position: absolute;
+left: -305px;
+top: 255px;
+	background: black;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px; 
+	padding: 20px;
+	margin: 20px;
+}	
+#sizing_chart h2{
+	color: white;
+	text-transform: none;
+	padding: 0px;
+}
+#sizing_chart table{
+	width: 350px;
+	border-style: solid;
+	border-color: #fff;
+	border-width: 2px; 
+	margin: auto;
+	
+}
+#sizing_chart table th{
+	color: #eee;
+}
+#sizing_chart table td{
+	text-align: center;
+	border: 1px solid #fff;
+	color: #ddd;
+}
 	/*@FOOTER STYLES*/
 footer p{
 	font-size: 93%;

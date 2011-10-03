@@ -80,9 +80,9 @@ $image_height = get_option('single_view_image_height');
 
 					<?php do_action('wpsc_product_addon_after_descr', wpsc_the_product_id()); ?>
 
-
 				
 					<?php /** the custom meta HTML and loop */?>
+					 
 					<div class="custom_meta">
 						<?php while (wpsc_have_custom_meta()) : wpsc_the_custom_meta(); 	
 								if (stripos(wpsc_custom_meta_name(),'g:') !== FALSE){
@@ -167,7 +167,7 @@ $image_height = get_option('single_view_image_height');
 						
 					<input type="hidden" value="add_to_cart" name="wpsc_ajax_action"/>
 					<input type="hidden" value="<?php echo wpsc_the_product_id(); ?>" name="product_id"/>
-							
+					
 					<?php if(wpsc_product_is_customisable()) : ?>				
 						<input type="hidden" value="true" name="is_customisable"/>
 					<?php endif; ?>
@@ -218,7 +218,7 @@ $image_height = get_option('single_view_image_height');
 		</div>
 		
 		<?php echo wpsc_product_comments(); ?>
-<?php endwhile; ?>
+<?php endwhile; ?>	
 <?php /** end the product loop here */?>
 
 		<?php

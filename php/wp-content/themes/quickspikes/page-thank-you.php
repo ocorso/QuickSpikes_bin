@@ -19,7 +19,7 @@ get_header(); ?>
 			</div>
 		    <div class="entry" id="post-<?php the_ID(); ?>">	
 			      <?php the_content("[Read more &rarr;]"); 
-			      print_r($_POST);?>
+			     // print_r($_POST);?>
 		    </div>
 	  	</div>
 		<?php endwhile; ?>

@@ -57,7 +57,7 @@ if(in_array('wpsc_merchant_authorize',(array)get_option('custom_gateway_options'
 		</td>
 	</tr>
 	<tr>
-		<td>CVV </td>
+		<td>CVV What's this?</td>
 		<td><input type='text' size='4' value='' maxlength='4' name='card_code' /></td>
 	</tr>
 ";
