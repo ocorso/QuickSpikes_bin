@@ -4,6 +4,7 @@
 //log 
 window.log=function(){log.history=log.history||[];log.history.push(arguments);arguments.callee=arguments.callee.caller;if(this.console){console.log(Array.prototype.slice.call(arguments))}};(function(e){function h(){}for(var g="assert,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,markTimeline,profile,profileEnd,time,timeEnd,trace,warn".split(","),f;f=g.pop();){e[f]=e[f]||h}})(window.console=window.console||{});
 
+
 var pageManager = {};
   	pageManager.isHome	 = false;
 var FlashManager = {};
@@ -37,10 +38,27 @@ var jsReady = false;
  	setupHomepageCarousel();
  	embedFlash();
 	cookieMonster();
-	
+	$.fn.clearForm = function() {
+      // iterate each matching form
+      return this.each(function() {
+        // iterate the elements within the form
+        $(':input', this).each(function() {
+          var type = this.type, tag = this.tagName.toLowerCase();
+          if (type == 'text' || type == 'password' || tag == 'textarea')
+            this.value = '';
+          else if (type == 'checkbox' || type == 'radio')
+            this.checked = false;
+          else if (tag == 'select')
+            this.selectedIndex = -1;
+        });
+      });
+    };
+	$(".wpsc_checkout_forms").clearForm();
 	//**********************************************************
 	//						Workers
 	//**********************************************************
+
+
 
 	function setupHomepageCarousel(){
 

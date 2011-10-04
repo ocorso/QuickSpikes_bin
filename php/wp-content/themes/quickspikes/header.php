@@ -29,7 +29,6 @@
   <?php wp_head(); ?>
   <script>
   	pageManager.isHome	 = <?php echo is_home() ? "true" : "false"; ?>;
-  	!window.jQuery && document.write('<script src="<?= get_bloginfo('template_directory'); ?>/js/libs/jquery.js"><\/script>')
   </script>
 </head>
 

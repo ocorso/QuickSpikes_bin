@@ -39,16 +39,7 @@ function my_init_method() {
  	wp_enqueue_script('modernizr', get_bloginfo('template_url').'/js/libs/modernizr-1.5.min.js');  
     wp_enqueue_script('qs_scripts',get_bloginfo('template_url').'/js/site/scripts.js', array('swfobject', 'jquery'), $ver, false);
   	wp_enqueue_script('niv_slider',get_bloginfo('template_url').'/js/libs/jquery.nivo.slider.pack.js', array('jquery'), $ver, true);
-  	
-  	//fire php
-  	//ob_start();
-  	//require_once('FirePHPCore/FirePHP.class.php');
 
-  	
-  	//yui profiler and profileviewer - remove for production
-  //	wp_enqueue_script('yahoo_profiling', get_bloginfo('template_url').'/js/libs/profiling/yahoo-profiling.min.js', null, $ver, true);
-  //	wp_enqueue_script('config_profiling', get_bloginfo('template_url').'/js/libs/profiling/config.js?v='.$ver, null, $ver, true);
- 	
     //styles
     wp_enqueue_style( 'qs-theme-css', get_bloginfo('template_url').'/style.css', false, $ver, 'all');
     wp_enqueue_style( 'nivo-css', get_bloginfo('template_url').'/css/nivo-slider.css', false, $ver, 'all');
@@ -111,7 +102,15 @@ function we_need_sidebar($isHome, $theTitle){
 function handle_form_results($postData){
 	//todo: send email with form results to brendan
 	//todo: send email to the submitter.
-	
+	$to      = 'owen@strattonimaging.com';
+	$subject = 'Quick Spikes '.$postData['type'].'Form Submission';
+	$message = 'hello';
+	$headers = 'From: info@quickspikes.com' . "\r\n" .
+    'Reply-To: info@quickspikes.com' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+
+mail($to, $subject, $message, $headers);
+
 	foreach ($postData as $key => $value){
 		$key;
 	}

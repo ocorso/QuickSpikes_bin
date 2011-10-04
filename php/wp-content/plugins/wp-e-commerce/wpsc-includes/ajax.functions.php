@@ -368,6 +368,10 @@ function wpsc_update_shipping_price() {
 		jQuery('.pricedisplay.checkout-shipping').html(\"" . wpsc_cart_shipping() . "\");
 	";
 	echo "jQuery('.pricedisplay.checkout-total').html(\"" . wpsc_cart_total() . "\");\n\r";
+	
+	//oc: fix total on bottom of checkout
+	echo "jQuery('#checkout_shipping .pricedisplay').html(\"" . wpsc_cart_shipping() . "\");\n\r";
+	echo "jQuery('#checkout_total .pricedisplay').html(\"" . wpsc_cart_total() . "\");\n\r";
 	exit();
 }
 

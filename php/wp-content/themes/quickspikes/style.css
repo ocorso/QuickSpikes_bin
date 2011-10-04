@@ -194,7 +194,7 @@ button, input, select, textarea { margin: 0; }
 
 /* colors for form validity */
 .wpsc_checkout_forms input:valid, textarea:valid   { 
-
+  color: #eee;
   background-color: #222222;
   border: medium none;
   margin: 1px;
@@ -455,6 +455,7 @@ display: none;
 	list-style: none;
 }
 #qs_form li input, #contact_form li input{
+	color: #eee;
 	width: 260px;
 	height: 20px;
 	background-color: #222;
@@ -789,6 +790,9 @@ top: 255px;
 	text-align: center;
 	border: 1px solid #fff;
 	color: #ddd;
+}
+.additional_description_span{
+	display:none;
 }
 	/*@FOOTER STYLES*/
 footer p{
