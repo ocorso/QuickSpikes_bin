@@ -102,19 +102,21 @@ function we_need_sidebar($isHome, $theTitle){
 function handle_form_results($postData){
 	//todo: send email with form results to brendan
 	//todo: send email to the submitter.
-	$to     	= 'owen@strattonimaging.com';
-	$type		= isset($postData['type']);
+	$to     	= 'info@quickspikesgolf.com';
 	$subject 	= 'Quick Spikes '.$postData['type'].'Form Submission';
 
-	$headers 	= 'From: info@quickspikes.com' . "\r\n" .
-    'Reply-To: info@quickspikes.com' . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
-	$message = 'Hello There! \r\n\r\n';
+	$headers 	= 'From: info@quickspikes.com' . "\r\n";
+   	$headers .=  'Reply-To: info@quickspikes.com' . "\r\n";
+    $headers .=  'X-Mailer: PHP/' . phpversion()."\r\n";
+    $headers .=  "MIME-Version: 1.0\r\n";
+    $headers .= "CC: owen@strattonimaging.com\r\n";
+	$headers .=  "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	$message = '<html><body bgcolor="#DCEEFC"> <h1>Hello There! </h1><h2>A Form was submitted on quickspikesgolf.com</h2>';
 	
 	//make a table
 	$in			= "<tr><td>";
 	$out		= "</td></tr>";
-	$table		= "<table style='padding: 10px;position:absolute; top: 150px;width: 400px; border: black 1px solid; text-align:left;'><tr><th>Form Field</th><th>Value</th></tr>";
+	$table		= "<table style='padding: 10px; width: 400px; border: black 1px solid; text-align:left;'><tr><th>Form Field</th><th>Value</th></tr>";
 	
 	//name
 	if (isset($postData['form_fname']) && isset($postData['form_lname']) ) {
@@ -161,7 +163,7 @@ function handle_form_results($postData){
 	
 
 	$table 		.= "</table>";
-	$message	.= $table;
+	$message	.= $table.'</body></html>';
 	mail($to, $subject, $message, $headers);
 	
 }//end function handle_form_results
