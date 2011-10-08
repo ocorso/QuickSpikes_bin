@@ -102,18 +102,68 @@ function we_need_sidebar($isHome, $theTitle){
 function handle_form_results($postData){
 	//todo: send email with form results to brendan
 	//todo: send email to the submitter.
-	$to      = 'owen@strattonimaging.com';
-	$subject = 'Quick Spikes '.$postData['type'].'Form Submission';
-	$message = 'hello';
-	$headers = 'From: info@quickspikes.com' . "\r\n" .
+	$to     	= 'owen@strattonimaging.com';
+	$type		= isset($postData['type']);
+	$subject 	= 'Quick Spikes '.$postData['type'].'Form Submission';
+
+	$headers 	= 'From: info@quickspikes.com' . "\r\n" .
     'Reply-To: info@quickspikes.com' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
-
-mail($to, $subject, $message, $headers);
-
-	foreach ($postData as $key => $value){
-		$key;
+	$message = 'Hello There! \r\n\r\n';
+	
+	//make a table
+	$in			= "<tr><td>";
+	$out		= "</td></tr>";
+	$table		= "<table style='padding: 10px;position:absolute; top: 150px;width: 400px; border: black 1px solid; text-align:left;'><tr><th>Form Field</th><th>Value</th></tr>";
+	
+	//name
+	if (isset($postData['form_fname']) && isset($postData['form_lname']) ) {
+		$name 	= $postData['form_fname']. " ".$postData['form_lname'];
+		$table 	.= $in."Name:</td><td>".$name.$out; 
+	}//end if name
+	
+	//phone
+	if (isset($postData['form_phone'])){
+		$table 	.= $in."Phone:</td><td>".$postData['form_phone'].$out; 
 	}
+	//fax
+	if (isset($postData['form_fax'])){
+		$table 	.= $in."Fax:</td><td>".$postData['form_fax'].$out; 
+	}
+	//email
+	if (isset($postData['form_email'])){
+		$table 	.= $in."Email:</td><td>".$postData['form_email'].$out; 
+	}
+	//address1
+	if (isset($postData['form_address1'])){
+		$table 	.= $in."Address 1:</td><td>".$postData['form_address1'].$out; 
+	}
+	//address2
+	if (isset($postData['form_address2'])){
+		$table 	.= $in."Address 2:</td><td>".$postData['form_address2'].$out; 
+	}
+	//city
+	if (isset($postData['form_city'])){
+		$table 	.= $in."City:</td><td>".$postData['form_city'].$out; 
+	}
+	//state
+	if (isset($postData['form_state'])){
+		$table 	.= $in."State:</td><td>".$postData['form_state'].$out; 
+	}
+	//zip
+	if (isset($postData['form_zip'])){
+		$table 	.= $in."Zip:</td><td>".$postData['form_zip'].$out; 
+	}
+	//comment
+	if (isset($postData['form_comment'])){
+		$table 	.= $in."Comment/Question:</td><td>".$postData['form_comment'].$out; 
+	}
+	
+
+	$table 		.= "</table>";
+	$message	.= $table;
+	mail($to, $subject, $message, $headers);
+	
 }//end function handle_form_results
         
 // =================================================
@@ -280,7 +330,7 @@ function _get_state_select(){
 				'WV'=>"West Virginia",  
 				'WI'=>"Wisconsin",  
 				'WY'=>"Wyoming");
-	$select = "<select name='state_names'>";
+	$select = "<select name='form_state'>";
 	foreach ($state_list as $key => $value) {
 		$select.="<option value='$key'>$value</option>";
 	}//end foreach

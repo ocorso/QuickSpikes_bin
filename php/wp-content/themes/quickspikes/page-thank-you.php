@@ -2,13 +2,13 @@
 /*
 Template Name: Thank You      
 */
-if (isset($_POST['form_type']))	handle_form_results($_POST);
 get_header(); ?>
 <!-- this is where page stuff goes -->
 <?php if (we_need_sidebar(is_home(), get_the_title())) get_sidebar(); ?>
 <div id="body_container">
 
-	<?php if(have_posts()): ?>
+	<?php if (isset($_POST['form_type']))	handle_form_results($_POST); 
+	if(have_posts()): ?>
 		<?php while(have_posts()):the_post(); ?>	
 		<div class="post">
 			<div id="heading">
@@ -31,6 +31,7 @@ get_header(); ?>
 		
 		  </div>
 	<?php endif; ?>
+	
 	<div class="clear-both"></div>
 </div>
 

@@ -25,11 +25,13 @@
 	<meta property="og:description" content="Quick Spikes is the tempory golf spike solution. The perfect golf gear for any golfer."/>
 	<meta name="viewport" content="width=device-width; initial-scale=1.0">
 
-  <!-- hook the head -->
+    <!-- hook the head -->
   <?php wp_head(); ?>
   <script>
-  	pageManager.isHome	 = <?php echo is_home() ? "true" : "false"; ?>;
+  	pageManager.isHome	= <?php echo is_home() ? "true" : "false"; ?>;
+  	baseUrl				= "<?= get_bloginfo('template_directory'); ?>";
   </script>
+
 </head>
 
 <body <?php body_class(); ?>>

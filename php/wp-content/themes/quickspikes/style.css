@@ -425,6 +425,15 @@ input:valid.custom_gateway{
 	height: 67px;
 	text-indent: -9999px;
 }
+.whats-this{
+	margin-left: 4px;
+	font-size: 80%; 
+	cursor:pointer; 
+	color:red;
+}
+#whats_this_div{
+	position: absolute;
+}
 /*********************
 	@form styles 
 *********************/
