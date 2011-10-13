@@ -54,10 +54,56 @@ var jsReady = false;
       });
     };
 	$(".wpsc_checkout_forms").clearForm();
+	
+	//oc: add CVV what's this?
+	if ($('.wpsc_CC_details:contains("CVV")').length == 1) {
+		var whatsThis 		= $('.wpsc_CC_details:contains("CVV")');
+		var whatsThisDiv	= document.createElement('div');
+		whatsThisDiv.setAttribute('id', 'whats_this_div');
+		whatsThisDiv.style.display = "none";
+		var img				= document.createElement('img');
+		img.src				= baseUrl+"/img/cvv.gif";
+		whatsThisDiv.appendChild(img);
+		$('body').append(whatsThisDiv);
+		
+		var newContent = "<span class='whats-this'> What's This?</span>";
+		whatsThis.append(newContent).hover(
+			function ($e) {
+    		//todo: show whats_this_div where the mouse is
+    		
+    		offset	= $('.whats-this').offset();
+    		
+    		log("over, x: "+offset.top+" y: "+offset.left);
+    		
+    		$('#whats_this_div').css('top', offset.top).css('left', offset.left+70).show();
+    					},
+  			function () {
+    		//hide div
+    		log("out");
+    		$('#whats_this_div').hide();
+  			});
+	}
 	//**********************************************************
 	//						Workers
 	//**********************************************************
 
+function findMouseCoords(e) {
+	var posx = 0;
+	var posy = 0;
+	if (!e) var e = window.event;
+	if (e.pageX || e.pageY) 	{
+		posx = e.pageX;
+		posy = e.pageY;
+	}
+	else if (e.clientX || e.clientY) 	{
+		posx = e.clientX + document.body.scrollLeft
+			+ document.documentElement.scrollLeft;
+		posy = e.clientY + document.body.scrollTop
+			+ document.documentElement.scrollTop;
+	}
+	// posx and posy contain the mouse position relative to the document
+	return {x:posx, y:posy};
+}
 
 
 	function setupHomepageCarousel(){
