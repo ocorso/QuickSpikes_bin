@@ -3456,4 +3456,3 @@ CREATE TABLE `wp_wpsc_variation_values_assoc` (
 INSERT INTO `wp_wpsc_variation_values_assoc` VALUES(1, 2, 1, '1', 1);
 INSERT INTO `wp_wpsc_variation_values_assoc` VALUES(2, 2, 2, '1', 1);
 INSERT INTO `wp_wpsc_variation_values_assoc` VALUES(3, 2, 3, '0', 1);
-quickspikesgolf.com
