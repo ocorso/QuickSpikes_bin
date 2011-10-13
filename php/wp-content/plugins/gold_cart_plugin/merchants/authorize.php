@@ -34,7 +34,7 @@ if(in_array('authorize',(array)get_option('custom_gateway_options'))) {
 		</td>
 	</tr>
 	<tr %s>
-		<td>CVV What's This? </td>
+		<td>CVV </td>
 		<td><input type='text' size='4' value='' maxlength='4' name='card_code' />
 		<p class='validation-error'>%s</p>
 		</td>

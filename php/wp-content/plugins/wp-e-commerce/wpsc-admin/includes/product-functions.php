@@ -114,9 +114,6 @@ function wpsc_admin_submit_product( $post_ID, $post ) {
 	$post_data['meta']['_wpsc_product_metadata']['can_have_uploaded_image'] = (int)(bool)$post_data['meta']['_wpsc_product_metadata']['can_have_uploaded_image'];
 	if(!isset($post_data['meta']['_wpsc_product_metadata']['google_prohibited'])) $post_data['meta']['_wpsc_product_metadata']['google_prohibited'] = '';
 	$post_data['meta']['_wpsc_product_metadata']['google_prohibited'] = (int)(bool)$post_data['meta']['_wpsc_product_metadata']['google_prohibited'];
-	$post_data['meta']['_wpsc_product_metadata']['external_link'] = (string)$post_data['meta']['_wpsc_product_metadata']['external_link'];
-	$post_data['meta']['_wpsc_product_metadata']['external_link_text'] = (string)$post_data['meta']['_wpsc_product_metadata']['external_link_text'];
-	$post_data['meta']['_wpsc_product_metadata']['external_link_target'] = (string)$post_data['meta']['_wpsc_product_metadata']['external_link_target'];
 	
 	$post_data['meta']['_wpsc_product_metadata']['enable_comments'] = $post_data['meta']['_wpsc_product_metadata']['enable_comments'];
 	$post_data['meta']['_wpsc_product_metadata']['merchant_notes'] = $post_data['meta']['_wpsc_product_metadata']['merchant_notes'];
@@ -203,7 +200,7 @@ function wpsc_admin_submit_product( $post_ID, $post ) {
 function wpsc_pre_update( $data , $postarr ) {
  	if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || $postarr["post_type"] != 'wpsc-product' )
         return $data;
-    if( isset( $postarr["additional_description"] ) && !empty( $postarr["additional_description"] ) )
+    if( isset( $postarr["additional_description"] ) )
         $data["post_excerpt"] = $postarr["additional_description"];
 
 	 if( isset( $postarr["parent_post"] ) && !empty( $postarr["parent_post"] ) )
@@ -712,7 +709,8 @@ function wpsc_edit_product_variations($product_id, $post_data) {
 		}
 		//JS - 7.9 - Adding loop to include meta data in child product.
 		if(!$already_a_variation){
-			foreach ($child_product_meta as $meta_key => $meta_value ) :
+			$this_child_product_meta = apply_filters( 'insert_child_product_meta', $child_product_meta, $product_id, $combination_terms );
+			foreach ($this_child_product_meta as $meta_key => $meta_value ) :
 				if ($meta_key == "_wpsc_product_metadata") {
 					update_post_meta($child_product_id, $meta_key, unserialize($meta_value[0]));
 				} else {

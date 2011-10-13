@@ -47,7 +47,7 @@ function wpsc_intermediate_image_sizes_advanced($sizes){
 }
 
 /**
- * 
+ *
  * wpsc_core_load_thumbnail_sizes()
  *
  * Load up the WPEC core thumbnail sizes
@@ -65,7 +65,7 @@ function wpsc_core_load_thumbnail_sizes() {
 /**
  * wpsc_core_load_checkout_data()
  *
- * 
+ *
  */
 
 function wpsc_core_load_checkout_data() {
@@ -90,21 +90,21 @@ function wpsc_core_load_checkout_data() {
 
 	$unique_names = Array(
 		'billingfirstname',
-		'billinglastname', 
-		'billingaddress', 
-		'billingcity', 
+		'billinglastname',
+		'billingaddress',
+		'billingcity',
 		'billingstate',
-		'billingcountry', 
-		'billingemail', 
-		'billingphone', 
-		'billingpostcode', 
-		'delivertoafriend' , 
-		'shippingfirstname' , 
-		'shippinglastname' , 
-		'shippingaddress' , 
-		'shippingcity' , 
-		'shippingstate' , 
-		'shippingcountry' , 
+		'billingcountry',
+		'billingemail',
+		'billingphone',
+		'billingpostcode',
+		'delivertoafriend' ,
+		'shippingfirstname' ,
+		'shippinglastname' ,
+		'shippingaddress' ,
+		'shippingcity' ,
+		'shippingstate' ,
+		'shippingcountry' ,
 		'shippingpostcode'
 	);
 
@@ -238,11 +238,17 @@ function wpsc_core_load_shipping_modules() {
  */
 function wpsc_update_notice() {
 	$info_title = __( 'Please backup your website before updating!', 'wpsc' );
-	$info_text =  __( 'Lots of things have changed in this version. Before updating please backup your database and files in case anything goes wrong.', 'wpsc' );
+	$info_text =  __( 'Before updating please backup your database and files in case anything goes wrong.', 'wpsc' );
 	echo '<div style="border-top:1px solid #CCC; margin-top:3px; padding-top:3px; font-weight:normal;"><strong style="color:#CC0000">' . strip_tags( $info_title ) . '</strong> ' . strip_tags( $info_text, '<br><a><strong><em><span>' ) . '</div>';
 }
-if ( is_admin() )
+
+function wpsc_in_plugin_update_message() {
 	add_action( 'in_plugin_update_message-' . WPSC_DIR_NAME . '/wp-shopping-cart.php', 'wpsc_update_notice' );
+}
+
+if ( is_admin() )
+	add_action( 'init', 'wpsc_in_plugin_update_message' );
+
 
 function wpsc_add_product_price_to_rss() {
 	global $post;
@@ -324,7 +330,7 @@ function wpsc_register_post_types() {
 
 	// Product categories, is heirarchical and can use permalinks
 	$labels = array(
-		'name' => _x( 'Categories', 'taxonomy general name', 'wpsc' ),
+		'name' => _x( 'Product Categories', 'taxonomy general name', 'wpsc' ),
 		'singular_name' => _x( 'Product Category', 'taxonomy singular name', 'wpsc' ),
 		'search_items' => __( 'Search Product Categories', 'wpsc' ),
 		'all_items' => __( 'All Product Categories', 'wpsc' ),
@@ -333,15 +339,18 @@ function wpsc_register_post_types() {
 		'edit_item' => __( 'Edit Product Category', 'wpsc' ),
 		'update_item' => __( 'Update Product Category', 'wpsc' ),
 		'add_new_item' => __( 'Add New Product Category', 'wpsc' ),
-		'new_item_name' => __( 'New Product Category Name', 'wpsc' )
+		'new_item_name' => __( 'New Product Category Name', 'wpsc' ),
+		'menu_name' => _x( 'Categories', 'taxonomy general name', 'wpsc' )
 	);
+
 	register_taxonomy( 'wpsc_product_category', 'wpsc-product', array(
 		'hierarchical' => true,
 		'rewrite' => array(
 			'slug' => $wpsc_page_titles['products'],
-			'with_front' => false
+			'with_front' => false,
+			'hierarchical' => (bool) get_option( 'product_category_hierarchical_url', 0 ),
 		),
-            'labels' => $labels
+		'labels' => $labels,
 	) );
 	$labels = array(
 		'name' => _x( 'Variations', 'taxonomy general name', 'wpsc' ),
@@ -370,6 +379,33 @@ function wpsc_register_post_types() {
 }
 add_action( 'init', 'wpsc_register_post_types', 8 );
 
+/**
+ * Post Updated Messages
+ */
+function wpsc_post_updated_messages( $messages ) {
+	global $post, $post_ID;
+
+	$messages['wpsc-product'] = array(
+		0  => '', // Unused. Messages start at index 1.
+		1  => sprintf( __( 'Product updated. <a href="%s">View product</a>', 'wpsc' ), esc_url( get_permalink( $post_ID ) ) ),
+		2  => __( 'Custom field updated.', 'wpsc' ),
+		3  => __( 'Custom field deleted.', 'wpsc' ),
+		4  => __( 'Product updated.', 'wpsc' ),
+		// translators: %s: date and time of the revision
+		5  => isset( $_GET['revision'] ) ? sprintf( __('Product restored to revision from %s', 'wpsc' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6  => sprintf( __( 'Product published. <a href="%s">View product</a>', 'wpsc' ), esc_url( get_permalink( $post_ID ) ) ),
+		7  => __( 'Product saved.', 'wpsc' ),
+		8  => sprintf( __( 'Product submitted. <a target="_blank" href="%s">Preview product</a>', 'wpsc' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+		9  => sprintf( __( 'Product scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview product</a>', 'wpsc' ),
+			// translators: Publish box date format, see http://php.net/date
+			date_i18n( __( 'M j, Y @ G:i', 'wpsc' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ) ),
+		10 => sprintf( __( 'Product draft updated. <a target="_blank" href="%s">Preview product</a>', 'wpsc' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) ),
+	);
+
+	return $messages;
+}
+add_filter( 'post_updated_messages', 'wpsc_post_updated_messages' );
+
 function wpsc_check_thumbnail_support() {
 	if ( !current_theme_supports( 'post-thumbnails' ) ) {
 		add_theme_support( 'post-thumbnails' );
@@ -382,6 +418,33 @@ function wpsc_remove_post_type_thumbnail_support() {
 	remove_post_type_support( 'post', 'thumbnail' );
 	remove_post_type_support( 'page', 'thumbnail' );
 }
+
+function wpsc_filter_request( $q ) {
+	if ( empty( $q['wpsc-product'] ) )
+		return $q;
+
+	$components = explode( '/', $q['wpsc-product'] );
+	$end_node = array_pop( $components );
+	$parent_node = array_pop( $components );
+
+	$posts = get_posts( array(
+		'post_type' => 'wpsc-product',
+		'name' => $end_node,
+	) );
+
+	if ( ! empty( $posts ) ) {
+		$q['wpsc-product'] = $q['name'] = $end_node;
+		$q['wpsc_product_category'] = $parent_node;
+	} else {
+		$q['wpsc_product_category'] = $end_node;
+		unset( $q['name'] );
+		unset( $q['wpsc-product'] );
+	}
+	return $q;
+}
+
+if ( get_option( 'product_category_hierarchical_url' ) )
+	add_filter( 'request', 'wpsc_filter_request' );
 
 /**
  * This serializes the shopping cart variable as a backup in case the
@@ -402,18 +465,54 @@ add_action( 'shutdown', 'wpsc_serialize_shopping_cart' );
 add_filter( 'query_string', 'wpsc_filter_query_string' );
 
 /**
- * Filter query string to make sure no 404 error is thrown for products-page's sub pages
+ * Fixes for some inconsistencies about $wp_query when viewing WPEC pages
  *
  * @param string $q Query String
  */
 function wpsc_filter_query_string( $q ) {
 	global $wpsc_page_titles;
 	parse_str( $q, $args );
+
+	// Make sure no 404 error is thrown for products-page's sub pages
 	if ( ! empty( $args['wpsc_product_category'] ) && in_array( $args['wpsc_product_category'], $wpsc_page_titles ) ) {
 		$q = "pagename={$wpsc_page_titles['products']}/{$args['wpsc_product_category']}";
 	}
+
+	// When product page is set to display all products or a category, and pagination is enabled, $wp_query is messed up
+	// and is_home() is true. This fixes that.
+	if ( ! is_admin() && isset( $args['post_type'] ) && $args['post_type'] == 'wpsc-product' && ! empty( $args['paged'] ) && empty( $args['wpsc_product_category'] ) ) {
+		$default_category = get_option( 'wpsc_default_category' );
+		if ( $default_category == 'all' || $default_category != 'list' )
+			$q = "pagename={$wpsc_page_titles['products']}&page={$args['paged']}";
+	}
 	return $q;
 }
+
+/**
+ * Switch $wp_query and $wpsc_query when outputting the navigation menu, but only if we're on a product
+ * category page.
+ *
+ * We need to do this because the function _wp_menu_item_classes_by_context(), which generates classes
+ * for menu items, depends on $wp_query. As a result, without this fix, when viewing a product category
+ * page, the corresponding product category menu item will not be highlighted.
+ *
+ * Because there are no action hooks in wp_nav_menu(), we have to use two filters that are applied at
+ * the beginning and the end of the function.
+ *
+ * @param mixed $stuff
+ * @return mixed
+ */
+function wpsc_switch_the_query( $stuff ) {
+	global $wp_query, $wpsc_query;
+	$qv = $wpsc_query->query_vars;
+	if ( ! empty( $qv['wpsc_product_category'] ) && ! empty( $qv['taxonomy'] ) && ! empty( $qv['term'] ) && ! is_single() )
+		list( $wp_query, $wpsc_query ) = array( $wpsc_query, $wp_query );
+	return $stuff;
+}
+
+// switch $wp_query and $wpsc_query at the beginning and the end of wp_nav_menu()
+add_filter( 'wp_nav_menu_args', 'wpsc_switch_the_query' );
+add_filter( 'wp_nav_menu', 'wpsc_switch_the_query' );
 
 /**
  * wpsc_start_the_query
@@ -423,7 +522,6 @@ function wpsc_start_the_query() {
 	$is_404 = false;
 	if ( null == $wpsc_query ) {
 		if( ( $wp_query->is_404 && !empty($wp_query->query_vars['paged']) ) || (isset( $wp_query->query['pagename']) && strpos( $wp_query->query['pagename'] , $wpsc_page_titles['products'] ) !== false ) && !isset($wp_query->post)){
-			//what was this for?
 			global $post;
 			$is_404 = true;
 			if( !isset( $wp_query->query_vars['wpsc_product_category'] ) )
@@ -441,24 +539,24 @@ function wpsc_start_the_query() {
 				'order'       => apply_filters('wpsc_product_order','ASC')
 			);
 			if($wp_query->query_vars['preview'])
-				$wpsc_query_vars['post_status'] = 'any';	
-			
+				$wpsc_query_vars['post_status'] = 'any';
+
 			if( isset( $_GET['product_order'] ) )
 				$wpsc_query_vars['order'] = $_GET['product_order'];
-		
+
 			if(isset($wp_query->query_vars['product_tag'])){
 				$wpsc_query_vars['product_tag'] = $wp_query->query_vars['product_tag'];
 				$wpsc_query_vars['taxonomy'] = get_query_var( 'taxonomy' );
 				$wpsc_query_vars['term'] = get_query_var( 'term' );
-			
-			
+
+
 			}elseif( isset($wp_query->query_vars['wpsc_product_category']) ){
 				$wpsc_query_vars['wpsc_product_category'] = $wp_query->query_vars['wpsc_product_category'];
 				$wpsc_query_vars['taxonomy'] = get_query_var( 'taxonomy' );
 				$wpsc_query_vars['term'] = get_query_var( 'term' );
 			}else{
-				$wpsc_query_vars['post_type'] = 'wpsc-product';		
-				$wpsc_query_vars['pagename'] = 'products-page';			
+				$wpsc_query_vars['post_type'] = 'wpsc-product';
+				$wpsc_query_vars['pagename'] = 'products-page';
 			}
 			if(1 == get_option('use_pagination')){
 				$wpsc_query_vars['nopaging'] = false;
@@ -466,15 +564,15 @@ function wpsc_start_the_query() {
 				$wpsc_query_vars['posts_per_page'] = get_option('wpsc_products_per_page');
 				$wpsc_query_vars['paged'] = get_query_var('paged');
 				if(isset($wpsc_query_vars['paged']) && empty($wpsc_query_vars['paged'])){
-					$wpsc_query_vars['paged'] = get_query_var('page');						
-								
+					$wpsc_query_vars['paged'] = get_query_var('page');
+
 				}
-				
+
 			}
 			$orderby = get_option( 'wpsc_sort_by' );
 			if( isset( $_GET['product_order'] ) )
 				$orderby = 'title';
-			
+
 			switch ( $orderby ) {
 
 				case "dragndrop":
@@ -497,11 +595,12 @@ function wpsc_start_the_query() {
 					$wpsc_query_vars["orderby"] = 'ID';
 					break;
 			}
-		
+
 			add_filter( 'pre_get_posts', 'wpsc_generate_product_query', 11 );
 
 			$wpsc_query = new WP_Query( $wpsc_query_vars );
-			//for 3.1 :| 
+
+			//for 3.1 :|
 			if(empty($wpsc_query->posts) && isset($wpsc_query->tax_query) && isset($wp_query->query_vars['wpsc_product_category'])){
 				$wpsc_query_vars = array();
 				$wpsc_query_vars['wpsc_product_category'] = $wp_query->query_vars['wpsc_product_category'];
@@ -509,11 +608,11 @@ function wpsc_start_the_query() {
 					$wpsc_query_vars['posts_per_page'] = get_option('wpsc_products_per_page');
 					$wpsc_query_vars['paged'] = get_query_var('paged');
 					if(empty($wpsc_query_vars['paged']))
-						$wpsc_query_vars['paged'] = get_query_var('page');						
+						$wpsc_query_vars['paged'] = get_query_var('page');
 				}
-				$wpsc_query = new WP_Query( $wpsc_query_vars );				
-				
-				
+				$wpsc_query = new WP_Query( $wpsc_query_vars );
+
+
 			}
 		}
 	}
@@ -546,7 +645,7 @@ function wpsc_add_meta_table_where($where){
 	global $wpdb;
 
 	remove_filter( 'posts_where', 'wpsc_add_meta_table_where' );
-			
+
 	return $where . ' AND ' . $wpdb->postmeta . '.meta_key = "_wpsc_price"';
 }
 
@@ -705,7 +804,6 @@ function wpsc_generate_product_query( $query ) {
 	$query->query_vars['taxonomy'] = null;
 	$query->query_vars['term'] = null;
 
-
 	// default product selection
 	if ( $query->query_vars['pagename'] != '' ) {
 		$query->query_vars['post_type'] = 'wpsc-product';
@@ -728,8 +826,7 @@ function wpsc_generate_product_query( $query ) {
 			$query->query_vars['name'] = $query->query_vars['wpsc_item'];
 		}
 	}
-	
-	
+
 	if ( isset( $query->query_vars['products'] ) && ($query->query_vars['products'] != null) && ($query->query_vars['name'] != null) ) {
 		unset( $query->query_vars['taxonomy'] );
 		unset( $query->query_vars['term'] );
@@ -738,7 +835,6 @@ function wpsc_generate_product_query( $query ) {
 		$query->is_archive  = true;
 		$query->is_singular = false;
 		$query->is_single   = false;
-
 	}
 	if( isset($wp_query->query_vars['wpsc_product_category']) && !isset($wp_query->query_vars['wpsc-product'])){
 		$query->query_vars['wpsc_product_category'] = $wp_query->query_vars['wpsc_product_category'];
@@ -791,7 +887,6 @@ function wpsc_generate_product_query( $query ) {
 	}
 	if ( $query->is_tax == true )
 		new wpsc_products_by_category( $query );
-
 	return $query;
 }
 
@@ -837,7 +932,7 @@ class wpsc_products_by_category {
 			";
 			if(isset($q['meta_key']))
 				$join .= " INNER JOIN $wpdb->postmeta ON ($wpdb->posts.ID = $wpdb->postmeta.post_id) ";
-		
+
 			$whichcat = " AND $wpdb->term_taxonomy.taxonomy = '{$q['taxonomy']}' ";
 
 			$term_data = get_term_by( 'slug', $q['term'], $q['taxonomy'] );
@@ -854,21 +949,21 @@ class wpsc_products_by_category {
 				$whichcat .= "AND $wpdb->term_taxonomy.term_id IN ($in_cats)";
 			}
 			$whichcat .= " AND $wpdb->posts.post_status IN ('publish', 'locked', 'private') ";
-			
+
 			$groupby = "{$wpdb->posts}.ID";
 
 			$this->sql_components['join']     = $join;
 			$this->sql_components['fields']   = "{$wpdb->posts}.*, {$wpdb->term_taxonomy}.term_id";
 			$this->sql_components['group_by'] = $groupby;
-	
+
 			//what about ordering by price
 			if(isset($q['meta_key']) && '_wpsc_price' == $q['meta_key']){
-				$whichcat .= " AND $wpdb->postmeta.meta_key = '_wpsc_price'";	
+				$whichcat .= " AND $wpdb->postmeta.meta_key = '_wpsc_price'";
 			}else{
 
 				$this->sql_components['order_by'] = "{$wpdb->term_taxonomy}.term_id";
 			}
-			$this->sql_components['where']    = $whichcat;		
+			$this->sql_components['where']    = $whichcat;
 			add_filter( 'posts_join', array( &$this, 'join_sql' ) );
 			add_filter( 'posts_where', array( &$this, 'where_sql' ) );
 			add_filter( 'posts_fields', array( &$this, 'fields_sql' ) );
@@ -1003,7 +1098,7 @@ function wpsc_product_link( $permalink, $post, $leavename ) {
 
 	// Only applies to WPSC products, don't stop on permalinks of other CPTs
 	// Fixes http://code.google.com/p/wp-e-commerce/issues/detail?id=271
-	if ($post->post_type != 'wpsc-product') 
+	if ($post->post_type != 'wpsc-product')
 		return $permalink;
 
 	$permalink_structure = get_option( 'permalink_structure' );
@@ -1053,10 +1148,18 @@ function wpsc_product_link( $permalink, $post, $leavename ) {
 		}
 
 		$post_name = $post->post_name;
-	/*
-	if ( in_array( $post_name, $product_category_slugs ) )
-			$post_name = "product/{$post_name}";
-	*/
+
+		if ( get_option( 'product_category_hierarchical_url', 0 ) ) {
+			$selected_term = get_term_by( 'slug', $category_slug, 'wpsc_product_category' );
+			if ( is_object( $selected_term ) ) {
+				$term_chain = array( $selected_term->slug );
+				while ( $selected_term->parent ) {
+					$selected_term = get_term( $selected_term->parent, 'wpsc_product_category' );
+					array_unshift( $term_chain, $selected_term->slug );
+				}
+				$category_slug = implode( '/', $term_chain );
+			}
+		}
 
 		if(isset($category_slug) && empty($category_slug)) $category_slug = 'product';
 
@@ -1207,4 +1310,13 @@ if ( is_ssl() ) {
 	add_filter( 'option_transact_url',      'wpsc_add_https_to_page_url_options' );
 	add_filter( 'option_user_account_url',  'wpsc_add_https_to_page_url_options' );
 }
+
+function wpsc_cron() {
+	foreach ( wp_get_schedules() as $cron => $schedule ) {
+		if ( ! wp_next_scheduled( "wpsc_{$cron}_cron_task" ) )
+			wp_schedule_event( time(), $cron, "wpsc_{$cron}_cron_task" );
+	}
+}
+
+add_action( 'init', 'wpsc_cron' );
 ?>

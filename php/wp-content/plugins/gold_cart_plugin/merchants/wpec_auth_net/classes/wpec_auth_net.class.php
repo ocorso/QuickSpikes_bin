@@ -653,10 +653,9 @@ EOF;
 		foreach($wpsc_cart->cart_items as $item){
 			if($is_recurring = (bool)get_post_meta( $item->product_id, '_wpsc_is_recurring', true )) $this->conf['cimon'] = false;
 		}
-/*
+
 		$output = <<<EOF
-		
-<div id='checkorcc_select'>
+		<div id='checkorcc_select'>
 		<script>
 			var shown = 'none';
 			jQuery(document).ready( function() {
@@ -685,10 +684,9 @@ EOF;
 			<option value='checkForms'>E-Check</option>
 		</select>
 EOF;
-		//$output .= $this->showCheckForm();
-*/
+		$output .= $this->showCheckForm();
 		$output .= $this->showCCForm();
-		//$output .= '</div>';
+		$output .= '</div>';
 		return $output;
 	}
 	

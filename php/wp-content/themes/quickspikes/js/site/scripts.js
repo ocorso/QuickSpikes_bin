@@ -38,6 +38,8 @@ var jsReady = false;
  	setupHomepageCarousel();
  	embedFlash();
 	cookieMonster();
+	
+/*
 	$.fn.clearForm = function() {
       // iterate each matching form
       return this.each(function() {
@@ -55,6 +57,7 @@ var jsReady = false;
     };
 	$(".wpsc_checkout_forms").clearForm();
 	
+*/
 	//oc: add CVV what's this?
 	if ($('.wpsc_CC_details:contains("CVV")').length == 1) {
 		var whatsThis 		= $('.wpsc_CC_details:contains("CVV")');

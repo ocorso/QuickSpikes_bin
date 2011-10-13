@@ -359,22 +359,18 @@ function wpsc_update_shipping_price() {
 	global $wpdb, $wpsc_cart;
 	$quote_shipping_method = $_POST['key1'];
 	$quote_shipping_option = $_POST['key'];
-	$wpsc_cart->update_shipping( $quote_shipping_method, $quote_shipping_option );
-	echo "
-	if(jQuery('.pricedisplay.checkout-shipping .pricedisplay')){
-		jQuery('.pricedisplay.checkout-shipping > .pricedisplay:first').html(\"" . wpsc_cart_shipping() . "\");
-		jQuery('.shoppingcart .pricedisplay.checkout-shipping > .pricedisplay:first').html(\"" . wpsc_cart_shipping() . "\");
-	} else
-		jQuery('.pricedisplay.checkout-shipping').html(\"" . wpsc_cart_shipping() . "\");
-	";
-	echo "jQuery('.pricedisplay.checkout-total').html(\"" . wpsc_cart_total() . "\");\n\r";
-	
-	//oc: fix total on bottom of checkout
-	echo "jQuery('#checkout_shipping .pricedisplay').html(\"" . wpsc_cart_shipping() . "\");\n\r";
-	echo "jQuery('#checkout_total .pricedisplay').html(\"" . wpsc_cart_total() . "\");\n\r";
+	if(!empty($quote_shipping_option) && !empty($quote_shipping_method)){
+		$wpsc_cart->update_shipping( $quote_shipping_method, $quote_shipping_option );
+		echo "
+		if(jQuery('.pricedisplay.checkout-shipping .pricedisplay')){
+			jQuery('.pricedisplay.checkout-shipping > .pricedisplay:first').html(\"" . wpsc_cart_shipping() . "\");
+			jQuery('.shoppingcart .pricedisplay.checkout-shipping > .pricedisplay:first').html(\"" . wpsc_cart_shipping() . "\");
+		} else {
+			jQuery('.pricedisplay.checkout-shipping').html(\"" . wpsc_cart_shipping() . "\");}";
+		echo "jQuery('.pricedisplay.checkout-total').html(\"" . wpsc_cart_total() . "\");\n\r";
+	}
 	exit();
 }
-
 // execute on POST and GET
 if ( isset( $_REQUEST['wpsc_ajax_action'] ) && ($_REQUEST['wpsc_ajax_action'] == 'update_shipping_price') ) {
 	add_action( 'init', 'wpsc_update_shipping_price' );
@@ -405,37 +401,55 @@ function wpsc_update_product_price() {
 	global $wpdb, $wpsc_cart;
 	$from = '';
 	$change_price = true;
-	foreach ( (array)$_POST['variation'] as $variation ) {
-		if ( is_numeric( $variation ) ) {
-			$variations[] = (int)$variation;
+	$product_id = (int) $_POST['product_id'];
+	$variations = array();
+	$response = array(
+		'product_id' => $product_id,
+		'variation_found' => false,
+	);
+	if ( ! empty( $_POST['variation'] ) ) {
+		foreach ( $_POST['variation'] as $variation ) {
+			if ( is_numeric( $variation ) ) {
+				$variations[] = (int)$variation;
+			}
 		}
-		if($variation == 0){
-			$from = ' from ';
-			$from = apply_filters('wpsc_product_variation_text',$from);
-			$change_price = false;
+		
+		do_action( 'wpsc_update_variation_product', $product_id, $variations );
+
+		$stock = wpsc_check_variation_stock_availability( $product_id, $variations );
+
+		if ( $stock !== false ) {
+			$response['variation_found'] = true;
+			if ( $stock === 0 ) {
+				$response += array(
+					'product_msg'     =>  __( 'Sorry, but this variation is out of stock.', 'wpsc' ),
+					'variation_msg'   => __( 'Variation not in stock', 'wpsc' ),
+					'stock_available' => false,
+				);
+			} else {
+				$response += array(
+					'variation_msg'   => __( 'Product in stock', 'wpsc' ),
+					'stock_available' => true,
+				);
+			}
+
+			if ( $change_price ) {
+				$old_price = wpsc_calculate_price( $product_id, $variations, false );
+				$you_save_amount = wpsc_you_save( array( 'product_id' => $product_id, 'type' => 'amount', 'variations' => $variations ) );
+				$you_save_percentage = wpsc_you_save( array( 'product_id' => $product_id, 'variations' => $variations ) );
+				$price = wpsc_calculate_price( $product_id, $variations, true );
+				$response += array(
+					'old_price'         => wpsc_currency_display( $old_price, array( 'display_as_html' => false ) ),
+					'numeric_old_price' => (float) number_format( $old_price ),
+					'you_save'          => wpsc_currency_display( $you_save_amount, array( 'display_as_html' => false ) ) . "! (" . $you_save_percentage . "%)",
+					'price'             => $from . wpsc_currency_display( $price, array( 'display_as_html' => false ) ),
+					'numeric_price'     => (float) number_format( $price ),
+				);
+			}
 		}
 	}
-
-	do_action( 'wpsc_update_variation_product', (int)$_POST['product_id'], $variations );
-
-	$stock = wpsc_check_variation_stock_availability( (int)$_POST['product_id'], $variations );
-	if ( is_numeric( $stock ) && $stock == 0 ) {
-		echo "product_msg=\"" . __( 'Sorry, but this variation is out of stock.', 'wpsc' ) . "\";\n";
-		echo "variation_msg=\"" . __( 'Variation not in stock', 'wpsc' ) . "\";\n";
-		echo "variation_status= false \n";
-	}else{
-		echo "variation_msg=\"" . __( 'Product in stock', 'wpsc' ) . "\";\n";
-		echo "variation_status= true \n";
-	}
-
-	echo "product_id=" . (int)$_POST['product_id'] . ";\n";
-	if($change_price){
-		echo "old_price=\"" . wpsc_currency_display( wpsc_calculate_price( (int)$_POST['product_id'], $variations, false ), array( 'display_as_html' => false ) ) . "\";\n";
-		echo "numeric_old_price=\"" . number_format( wpsc_calculate_price( (int)$_POST['product_id'], $variations, false ) ) . "\";\n";
-		echo "you_save=\"" . wpsc_currency_display( wpsc_you_save( array( 'product_id' => (int)$_POST['product_id'], 'type' => 'amount', 'variations' => $variations ) ), array( 'display_as_html' => false ) ) . "! (".wpsc_you_save( array( 'product_id' => (int)$_POST['product_id'], 'variations' => $variations ) ) . "%)\";\n";
-		echo "price=\"" . $from.wpsc_currency_display( wpsc_calculate_price( (int)$_POST['product_id'], $variations, true ),array( 'display_as_html' => false ) ) . "\";\n";
-		echo "numeric_price=\"" . number_format( wpsc_calculate_price( (int)$_POST['product_id'], $variations, true ) ) . "\";\n";
-		}
+	
+	echo json_encode( $response );
 	exit();
 }
 
@@ -646,6 +660,7 @@ function wpsc_submit_checkout() {
 		if ( isset( $current_gateway_data['api_version'] ) && $current_gateway_data['api_version'] >= 2.0 ) {
 			$merchant_instance = new $current_gateway_data['class_name']( $purchase_log_id );
 			$merchant_instance->construct_value_array();
+                                                        do_action_ref_array( 'wpsc_pre_submit_gateway', array( &$merchant_instance ) );
 			$merchant_instance->submit();
 		} elseif ( ($current_gateway_data['internalname'] == $submitted_gateway) && ($current_gateway_data['internalname'] != 'google') ) {
 			$gateway_used = $current_gateway_data['internalname'];
@@ -765,7 +780,7 @@ function wpsc_change_tax() {
 	$tax = $wpsc_cart->calculate_total_tax();
 	$total = wpsc_cart_total();
 	$total_input = wpsc_cart_total(false);
-	if($wpsc_cart->coupons_amount >= wpsc_cart_total() && !empty($wpsc_cart->coupons_amount)){
+	if($wpsc_cart->coupons_amount >= wpsc_cart_total(false) && !empty($wpsc_cart->coupons_amount)){
 		$total = 0;
 	}
 	if ( $wpsc_cart->total_price < 0 ) { 

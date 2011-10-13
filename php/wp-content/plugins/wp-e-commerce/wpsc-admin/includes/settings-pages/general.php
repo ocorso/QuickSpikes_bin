@@ -77,6 +77,35 @@ function wpsc_options_general() {
 ?>
 					</td>
 				</tr>
+				<?php 
+					$stock_keeping_time = get_option( 'wpsc_stock_keeping_time', 1 );
+					$stock_keeping_interval = get_option( 'wpsc_stock_keeping_interval', 'day' );
+				?>
+				<tr>
+					<th scope="row">
+						<label for="wpsc-stock-keeping-time"><?php _e( 'Keep stock in cart for' ); ?>:</label>
+					</th>
+					<td>
+						<input type="text" name="wpsc_options[wpsc_stock_keeping_time]" id="wpsc-stock-keeping-time" size="2" value="<?php echo esc_attr( $stock_keeping_time ); ?>" />
+						<select name="wpsc_options[wpsc_stock_keeping_interval]">
+							<option value="hour" <?php selected( 'hour', $stock_keeping_interval ); ?>><?php echo _n( 'hour', 'hours', $stock_keeping_time, 'wpsc' ); ?></option>
+							<option value="day" <?php selected( 'day', $stock_keeping_interval ); ?>><?php echo _n( 'day', 'days', $stock_keeping_time, 'wpsc' ) ?></option>
+							<option value="week" <?php selected( 'week', $stock_keeping_interval ); ?>><?php echo _n( 'week', 'weeks', $stock_keeping_time, 'wpsc' ) ?></option>
+						</select><br />
+						<?php _e( "Set the amount of time items in a customer's cart are reserved. You can also specify decimal amounts such as '0.5 days' or '1.25 weeks'. Note that the minimum interval you can enter is 1 hour, i.e. you can't schedule it to run every 0.5 hour.") ?>
+					</td>
+				</tr>
+				<?php $hierarchical_category = get_option( 'product_category_hierarchical_url', 0 ); ?>
+				<tr>
+					<th scope="row">
+						<?php _e( 'Use Hierarchical Product Category URL:' ); ?>
+					</th>
+					<td>
+						<label><input type="radio" <?php checked( $hierarchical_category, 1 ); ?> name="wpsc_options[product_category_hierarchical_url]" value="1" /> <?php _e( 'Yes', 'wpsc' ); ?></label>&nbsp;&nbsp;
+						<label><input type="radio" <?php checked( $hierarchical_category, 0 ); ?>name="wpsc_options[product_category_hierarchical_url]" value="0" /> <?php _e( 'No', 'wpsc' ); ?></label><br />
+						<?php _e( 'When Hierarchical Product Category URL is enabled, parent product categories are also included in the product URL.<br />For example: example.com/products-page/parent-cat/sub-cat/product-name', 'wpsc' ); ?>
+					</td>	
+				</tr>
 			</table>
 
 			<h3 class="form_group"><?php _e( 'Currency Settings', 'wpsc' ); ?>:</h3>

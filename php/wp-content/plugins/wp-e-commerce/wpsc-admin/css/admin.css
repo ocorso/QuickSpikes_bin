@@ -322,7 +322,7 @@ div#icon_card
 {
 	float: left;
 	height: 36px;
-	margin: 20px 6px 0px 0px;
+	margin: 7px 8px 0 0;
 	width: 36px;
 	background: url(../../wpsc-core/images/icon32.png) no-repeat center center;
 }
@@ -1693,9 +1693,6 @@ padding-right:10px;
 }
 body.edit-php form#posts-filter {
     min-width:830px;
-}
-div#wpsc-variationdiv {
-    display:none;
 }
 input.wpsc_cat_image_size {
     width:40px

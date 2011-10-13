@@ -57,24 +57,16 @@ function wpsc_coupon_amount($forDisplay=true) {
 * cart total function, no parameters
 * @return string the total price of the cart, with a currency sign
 */
-function wpsc_cart_total($forDisplay=true) {
+function wpsc_cart_total( $forDisplay = true ) {
    global $wpsc_cart;
-   $total = $wpsc_cart->calculate_subtotal();
-   $total += $wpsc_cart->calculate_total_shipping();
-   if(wpsc_tax_isincluded() == false){
-      $total += $wpsc_cart->calculate_total_tax();
-   }
 
-   $total -= $wpsc_cart->coupons_amount;
-   if ( $total < 0 ) {
-       $wpsc_cart->coupons_amount += $total;
-       $total = 0;
-   }
-   if($forDisplay){
-      return wpsc_currency_display($total);
-   }else{
-      return $total;
-   }
+   $total = $wpsc_cart->calculate_total_price();
+
+    if( $forDisplay )
+        return wpsc_currency_display( $total );
+    else
+        return $total;
+
 }
 
 /**
@@ -115,14 +107,11 @@ function wpsc_cart_total_widget( $shipping = true, $tax = true, $coupons = true 
 * @return string the total price of the cart, with a currency sign
 */
 function nzshpcrt_overall_total_price() {
+
    global $wpsc_cart;
-   $total = $wpsc_cart->calculate_subtotal();
-   $total += $wpsc_cart->calculate_total_shipping();
-   if(wpsc_tax_isincluded() == false){
-      $total += $wpsc_cart->calculate_total_tax();
-   }
-   $total -= $wpsc_cart->coupons_amount;
-  return $total;
+
+   return  $wpsc_cart->calculate_total_price();
+
 }
 
 /**
@@ -180,11 +169,11 @@ function wpsc_cart_show_plus_postage() {
 function wpsc_uses_shipping() {
 //This currently requires
    global $wpsc_cart;
-   $shippingoptions = get_option('custom_shipping_options');
+   $shippingoptions = get_option( 'custom_shipping_options' );
    if(get_option('do_not_use_shipping')){
       return false;
    }
-   if( (!((get_option('shipping_discount')== 1) && (get_option('shipping_discount_value') <= $wpsc_cart->calculate_subtotal()))) || ( count($shippingoptions) >= 1 && $shippingoptions[0] != '') ) {
+   if( ( ! ( ( get_option( 'shipping_discount' )== 1 ) && (get_option('shipping_discount_value') <= $wpsc_cart->calculate_subtotal()))) || ( count($shippingoptions) >= 1 && $shippingoptions[0] != '') ) {
       $status = (bool) $wpsc_cart->uses_shipping();
    } else {
      $status = false;
@@ -347,7 +336,7 @@ function wpsc_cart_item_image( $width = 31, $height = 31 ) {
    global $wpsc_cart;
 
    $cart_image = wpsc_the_product_thumbnail( $width, $height, $wpsc_cart->cart_item->product_id, "shopping_cart");
-    
+
     if( is_ssl() )
 		$cart_image = str_replace( 'http://', 'https://', $cart_image );
 
@@ -501,7 +490,7 @@ function wpsc_have_morethanone_shipping_quote(){
 		$quotes = $wpsc_shipping_modules['flatrate']->getQuote();
 		if ( empty( $quotes ) )
 			return false;
-		
+
         foreach ((array)$quotes as $name => $quote) {
             if (!$first_quote_name) $first_quote_name = $name;
             if ($last_price !== false && $quote != $last_price) return true;
@@ -623,11 +612,11 @@ class wpsc_cart {
    * @access public
    */
    function update_location() {
-	
+
       if(!isset($_SESSION['wpsc_selected_country']) && !isset($_SESSION['wpsc_delivery_country'])) {
       	$_SESSION['wpsc_delivery_country'] = get_option('base_country');
 	    $_SESSION['wpsc_selected_country'] = get_option('base_country');
-        
+
       } else {
          if(!isset($_SESSION['wpsc_selected_country'])) {
             $_SESSION['wpsc_selected_country'] = $_SESSION['wpsc_delivery_country'];
@@ -640,7 +629,7 @@ class wpsc_cart {
          $_SESSION['wpsc_selected_region'] = get_option('base_region');
          $_SESSION['wpsc_delivery_region'] = get_option('base_region');
       }
-	  
+
       $this->delivery_country =& $_SESSION['wpsc_delivery_country'];
       $this->selected_country =& $_SESSION['wpsc_selected_country'];
       $this->delivery_region =& $_SESSION['wpsc_delivery_region'];
@@ -1038,6 +1027,7 @@ class wpsc_cart {
       $this->uses_shipping = null;
       $this->shipping_quotes = null;
       $this->get_shipping_option();
+	  do_action ( 'wpsc_after_cart_clear_cache', $this );
    }
 
    /**
@@ -1069,22 +1059,28 @@ class wpsc_cart {
     * @return float returns the price as a floating point value
    */
   function calculate_total_price() {
-    if($this->total_price == null) {
-         $total = $this->calculate_subtotal();
-         $total += $this->calculate_total_shipping();
-         if(wpsc_tax_isincluded() == false){
-            $total += $this->calculate_total_tax();
-         }
-         $total -= $this->coupons_amount;
-         $this->total_price = $total;
-      } else {
-        $total = $this->total_price;
-      }
-       if ( $total < 0 ) {
-          $wpsc_cart->coupons_amount += $total;
-          $total = 0;
-       }
+
+      // Calculate individual component that comprise the cart total
+      $subtotal = $this->calculate_subtotal();
+      $shipping = $this->calculate_total_shipping();
+
+      // Get tax only if it is included
+      $tax = ( ! wpsc_tax_isincluded() ) ? $this->calculate_total_tax() : 0.00;
+
+      // Get coupon amount
+      $coupons_amount = $this->coupons_amount;
+
+      // Calculate the total
+      $total = ( ( $subtotal + $shipping + $tax ) > $coupons_amount ) ? ( $subtotal + $shipping + $tax - $coupons_amount ) : 0.00;
+
+      // Filter total
+      $total = apply_filters( 'wpsc_calculate_total_price', $total, $subtotal, $shipping, $tax, $coupons_amount );
+
+      // Set variable and return
+      $this->total_price = $total;
+
       return $total;
+
   }
 
 
@@ -1229,6 +1225,7 @@ class wpsc_cart {
    */
   function calculate_base_shipping() {
     global $wpdb, $wpsc_shipping_modules;
+
     if($this->uses_shipping()) {
          if ( isset( $this->shipping_quotes ) && empty( $this->shipping_quotes ) && isset( $wpsc_shipping_modules[$this->selected_shipping_method] ) && is_callable( array( $wpsc_shipping_modules[$this->selected_shipping_method], "getQuote" ) ) ) {
             $this->shipping_quotes = $wpsc_shipping_modules[$this->selected_shipping_method]->getQuote();
@@ -1267,27 +1264,30 @@ class wpsc_cart {
   }
 
 
-  /**
-    * uses shipping method, to determine if shipping is used.
-    * @access public
-    *  (!(get_option('shipping_discount')== 1) && (get_option('shipping_discount_value') <= $wpsc_cart->calculate_subtotal()))
-    * @return float returns the price as a floating point value
-   */
-  function uses_shipping() {
-    global $wpdb;
-    $uses_shipping = 0;
-    if(($this->uses_shipping == null)) {
-         foreach($this->cart_items as $key => $cart_item) {
-            $uses_shipping += (int)$cart_item->uses_shipping;
-         }
-      } else {
-        $uses_shipping = $this->uses_shipping;
-      }
+	/**
+	* uses shipping method, to determine if shipping is used.
+	* @access public
+	*  (!(get_option('shipping_discount')== 1) && (get_option('shipping_discount_value') <= $wpsc_cart->calculate_subtotal()))
+	* @return float returns the price as a floating point value
+	*/
+	function uses_shipping() {
+		global $wpdb;
+		if(get_option('do_not_use_shipping')){
+			return false;
+		}
+		$uses_shipping = 0;
+		if( ( $this->uses_shipping == null ) ) {
+			foreach($this->cart_items as $key => $cart_item) {
+				$uses_shipping += (int)$cart_item->uses_shipping;
+			}
+		} else {
+			$uses_shipping = $this->uses_shipping;
+		}
 
-      $this->uses_shipping = $uses_shipping;
+		$this->uses_shipping = $uses_shipping;
 
-      return $uses_shipping;
-  }
+		return $uses_shipping;
+	}
 
    /**
     * process_as_currency method
@@ -1407,7 +1407,7 @@ class wpsc_cart {
 	      $num++;
 	    }
 	}
-    
+
     $this->shipping_quote_count = count($this->shipping_quotes);
   }
 
@@ -1585,137 +1585,132 @@ class wpsc_cart_item {
 
    }
 
-   /**
-    * refresh_item method, refreshes the item, calculates the prices, gets the name
-    * @access public
-    *
-    * @return array array of monetary and other values
-   */
-   function refresh_item() {
-      global $wpdb, $wpsc_shipping_modules, $wpsc_cart;
-      $product_id = $this->product_id;
-      $product = get_post($this->product_id);
-      $product_meta = get_metadata('post', $this->product_id);
-      $this->sku = get_post_meta($product_id, '_wpsc_sku', true);
-      $price = get_post_meta($product_id, '_wpsc_price', true);
-      $special_price = get_post_meta($product_id, '_wpsc_special_price', true);
-      $product_meta = get_post_meta($product_id, '_wpsc_product_metadata');
-      $this->stock = get_post_meta($product_id, '_wpsc_stock', true);
-      $this->is_donation = get_post_meta($product_id, '_wpsc_is_donation', true);
+/**
+ * refresh_item method, refreshes the item, calculates the prices, gets the name
+ * @access public
+ *
+ * @return array array of monetary and other values
+ */
+function refresh_item() {
+	global $wpdb, $wpsc_shipping_modules, $wpsc_cart;
+	$product_id = $this->product_id;
+	$product = get_post( $this->product_id );
+	$product_meta = get_metadata( 'post', $this->product_id );
+	$this->sku = get_post_meta( $product_id, '_wpsc_sku', true );
+	$price = get_post_meta( $product_id, '_wpsc_price', true );
+	$special_price = get_post_meta( $product_id, '_wpsc_special_price', true );
+	$product_meta = get_post_meta( $product_id, '_wpsc_product_metadata' );
+	$this->stock = get_post_meta( $product_id, '_wpsc_stock', true );
+	$this->is_donation = get_post_meta( $product_id, '_wpsc_is_donation', true );
 
 
-      if ( isset($special_price) && $special_price > 0 && $special_price < $price )
-         $price = $special_price;
-
-
-      $priceandstock_id = 0;
-
-      $this->weight = $product_meta[0]["weight"];
-      // if we are using table rate price
+	if ( isset( $special_price ) && $special_price > 0 && $special_price < $price )
+		$price = $special_price;
+	$priceandstock_id = 0;
+	$this->weight = $product_meta[0]["weight"];
+	// if we are using table rate price
 	if ( isset( $product_meta[0]['table_rate_price'] ) ) {
 		$levels = $product_meta[0]['table_rate_price'];
-	      if ( ! empty( $levels['quantity'] ) ) {
-	         foreach((array)$levels['quantity'] as $key => $qty) {
-	            if ($this->quantity >= $qty) {
-	               $unit_price = $levels['table_price'][$key];
-	               if ($unit_price != '')
-	                  $price = $unit_price;
-
-	            }
-	         }
-	      }
+		if ( ! empty( $levels['quantity'] ) ) {
+			foreach((array)$levels['quantity'] as $key => $qty) {
+				if ($this->quantity >= $qty) {
+					$unit_price = $levels['table_price'][$key];
+					if ($unit_price != '')
+						$price = $unit_price;
+				}
+			}
+		}
 	}
-      
-   	  $price = apply_filters('wpsc_price', $price, $product_id);
-      // create the string containing the product name.
-      $product_name = apply_filters( 'wpsc_cart_product_title', $product->post_title, $product_id );
-      
-      $this->product_name = $product_name;
-      $this->priceandstock_id = $priceandstock_id;
-      $this->meta = $product_meta;
 
-      // change no_shipping to boolean and invert it
-     if(isset($product_meta[0]['no_shipping']) && $product_meta[0]['no_shipping'] == 1)
-         $this->uses_shipping = 0 ;
-     else
-      $this->uses_shipping = 1;
+	$price = apply_filters('wpsc_price', $price, $product_id);
+	// create the string containing the product name.
+	$product_name = apply_filters( 'wpsc_cart_product_title', $product->post_title, $product_id );
 
-     $quantity_limited = get_product_meta($product_id, 'stock', true);
-     $this->has_limited_stock = (bool)$quantity_limited;
+	$this->product_name = $product_name;
+	$this->priceandstock_id = $priceandstock_id;
+	$this->meta = $product_meta;
 
-      if($this->is_donation == 1)
-         $this->unit_price = $this->provided_price;
-      else
-         $this->unit_price = $price;
+	// change no_shipping to boolean and invert it
+	if( isset( $product_meta[0]['no_shipping'] ) && $product_meta[0]['no_shipping'] == 1)
+		$this->uses_shipping = 0 ;
+	else
+		$this->uses_shipping = 1;
 
-      $this->total_price = $this->unit_price * $this->quantity;
+	$quantity_limited = get_product_meta($product_id, 'stock', true);
+	$this->has_limited_stock = (bool)$quantity_limited;
 
-      $category_data = get_the_product_category($product_id);
+	if($this->is_donation == 1)
+		$this->unit_price = $this->provided_price;
+	else
+		$this->unit_price = $price;
 
+	$this->total_price = $this->unit_price * $this->quantity;
+	if ( $product->post_parent )
+		$category_data = get_the_product_category( $product->post_parent );
+	else
+		$category_data = get_the_product_category( $product_id );
 
+	$this->category_list = array();
+	$this->category_id_list = array();
 
-      $this->category_list = array();
-      $this->category_id_list = array();
+	foreach( (array) $category_data as $category_row ) {
+		$this->category_list[] = $category_row->slug;
+		$this->category_id_list[] = $category_row->term_id;
+	}
 
-      foreach((array)$category_data as $category_row) {
-         $this->category_list[] = $category_row->slug;
-         $this->category_id_list[] = $category_row->term_id;
-      }
+	//wpec_taxes - calculate product tax and add to total price
+	$wpec_taxes_controller = new wpec_taxes_controller();
+	if ( $wpec_taxes_controller->wpec_taxes_isincluded() && $wpec_taxes_controller->wpec_taxes_isenabled() ){
+		$taxes = $wpec_taxes_controller->wpec_taxes_calculate_included_tax($this);
+		$this->tax_rate = $taxes['rate'];
+		$this->tax = $taxes['tax'];
+	}
 
+	$this->product_url = wpsc_product_url( $product_id );
 
-      //wpec_taxes - calculate product tax and add to total price
-      $wpec_taxes_controller = new wpec_taxes_controller();
-      if($wpec_taxes_controller->wpec_taxes_isincluded() && $wpec_taxes_controller->wpec_taxes_isenabled()){
-         $taxes = $wpec_taxes_controller->wpec_taxes_calculate_included_tax($this);
-         $this->tax_rate = $taxes['rate'];
-         $this->tax = $taxes['tax'];
-      }
-
-      $this->product_url = wpsc_product_url($product_id);
-
-      if(!is_array($this->variation_values))
-         $attach_parent = $product_id;
-      else
-         $attach_parent = $wpdb->get_var($wpdb->prepare("SELECT post_parent FROM $wpdb->posts WHERE ID = %d", $product_id));
-
-
-      $att_img_args = array(
-         'post_type' => 'attachment',
-         'numberposts' => 1,
-         'post_parent' => $attach_parent,
-         'orderby' => 'menu_order',
-         'order' => 'DESC'
-      );
-
-      $attached_image = get_posts($att_img_args);
+	if( ! is_array( $this->variation_values ) )
+		$attach_parent = $product_id;
+	else
+		$attach_parent = $wpdb->get_var( $wpdb->prepare("SELECT post_parent FROM $wpdb->posts WHERE ID = %d", $product_id ) );
 
 
-      if($attached_image != null)
-         $this->thumbnail_image = array_shift($attached_image);
+	$att_img_args = array(
+		'post_type'   => 'attachment',
+		'numberposts' => 1,
+		'post_parent' => $attach_parent,
+		'orderby'     => 'menu_order',
+		'order'       => 'DESC'
+	);
 
-      $product_files = (array)get_posts(array(
-         'post_type' => 'wpsc-product-file',
-         'post_parent' => $this->product_id,
-         'numberposts' => -1,
-         'post_status' => 'inherit'
-      ));
-
-      if(count($product_files) > 0) {
-         $this->file_id = null;
-         $this->is_downloadable = true;
-      } else {
-         $this->file_id = null;
-         $this->is_downloadable = false;
-      }
-
-      if (isset($this->cart->selected_shipping_method) && isset( $wpsc_shipping_modules[$this->cart->selected_shipping_method] ) && is_callable( array( $wpsc_shipping_modules[$this->cart->selected_shipping_method], "get_item_shipping" ) ) )
-         $this->shipping = $wpsc_shipping_modules[$this->cart->selected_shipping_method]->get_item_shipping($this);
-
-     // update the claimed stock here
-     $this->update_claimed_stock();
+	$attached_image = get_posts( $att_img_args );
 
 
-   }
+	if ( $attached_image != null )
+	$this->thumbnail_image = array_shift( $attached_image );
+
+	$product_files = (array) get_posts( array(
+		'post_type'   => 'wpsc-product-file',
+		'post_parent' => $this->product_id,
+		'numberposts' => -1,
+		'post_status' => 'inherit'
+	) );
+
+	if(count($product_files) > 0) {
+		$this->file_id = null;
+		$this->is_downloadable = true;
+	} else {
+		$this->file_id = null;
+		$this->is_downloadable = false;
+	}
+
+	if ( isset( $this->cart->selected_shipping_method ) && isset( $wpsc_shipping_modules[$this->cart->selected_shipping_method] ) && is_callable( array( $wpsc_shipping_modules[$this->cart->selected_shipping_method], "get_item_shipping" ) ) )
+		$this->shipping = $wpsc_shipping_modules[$this->cart->selected_shipping_method]->get_item_shipping( $this );
+
+	 // update the claimed stock here
+	$this->update_claimed_stock();
+        
+    do_action_ref_array( 'wpsc_refresh_item', array( &$this ) );
+}
 
    /**
     * Calculate shipping method
@@ -1731,13 +1726,13 @@ class wpsc_cart_item {
       $shipping = '';
       if($method === null)
         $method = $this->cart->selected_shipping_method;
-      
+
       if(method_exists( $wpsc_shipping_modules[$method], "get_item_shipping"  ))
          $shipping = $wpsc_shipping_modules[$method]->get_item_shipping($this);
-      
+
       if($method == $this->cart->selected_shipping_method && !empty( $shipping ) )
          $this->shipping = $shipping;
-      
+
       return $shipping;
    }
 
@@ -1913,7 +1908,6 @@ class wpsc_cart_item {
          }
 
       }
-
 
       do_action('wpsc_save_cart_item', $cart_id, $this->product_id);
    }

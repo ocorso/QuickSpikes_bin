@@ -70,14 +70,14 @@ function wpsc_also_bought( $product_id ) {
 		//returns nothing if this is off
 		return '';
 	}
-	
+
 
 	// to be made customiseable in a future release
 	$also_bought_limit = 3;
 	$element_widths = 96;
 	$image_display_height = 96;
 	$image_display_width = 96;
-	
+
 	$output = '';
 	$also_bought = $wpdb->get_results( "SELECT `" . $wpdb->posts . "`.* FROM `" . WPSC_TABLE_ALSO_BOUGHT . "`, `" . $wpdb->posts . "` WHERE `selected_product`='" . $product_id . "' AND `" . WPSC_TABLE_ALSO_BOUGHT . "`.`associated_product` = `" . $wpdb->posts . "`.`id` AND `" . $wpdb->posts . "`.`post_status` IN('publish','protected') ORDER BY `" . WPSC_TABLE_ALSO_BOUGHT . "`.`quantity` DESC LIMIT $also_bought_limit", ARRAY_A );
 	if ( count( $also_bought ) > 0 ) {
@@ -126,7 +126,15 @@ function wpsc_loading_animation_url() {
 	return apply_filters( 'wpsc_loading_animation_url', WPSC_CORE_THEME_URL . 'wpsc-images/indicator.gif' );
 }
 
-function fancy_notifications() {
+function fancy_notifications() {	
+	return wpsc_fancy_notifications( true );
+}
+function wpsc_fancy_notifications( $return = false ) {
+	static $already_output = false;
+	
+	if ( $already_output )
+		return '';
+	
 	$output = "";
 	if ( get_option( 'fancy_notifications' ) == 1 ) {
 		$output = "";
@@ -139,10 +147,12 @@ function fancy_notifications() {
 		$output .= "</div>\n\r";
 	}
 	
-	return $output;
-}
-function wpsc_fancy_notifications(){
-	echo fancy_notifications();
+	$already_output = true;
+	
+	if ( $return )
+		return $output;
+	else
+		echo $output;
 }
 add_action( 'wpsc_theme_footer', 'wpsc_fancy_notifications' );
 
@@ -185,41 +195,40 @@ function external_link( $product_id ) {
  * add cart button function used for php template tags and shortcodes
  */
 
-function wpsc_add_to_cart_button( $product_id, $replaced_shortcode = false ) {
+function wpsc_add_to_cart_button( $product_id, $return = false ) {
 	global $wpdb,$wpsc_variations;
 	$output = '';
 	if ( $product_id > 0 ) {
 		// grab the variation form fields here
 		$wpsc_variations = new wpsc_variations( $product_id );
-		$output .= "<div class='wpsc-add-to-cart-button'>";
-		$output .= "<form class = 'wpsc-add-to-cart-button-form' id='product_" . $product_id . "' action='' method='post'>";
-		/** the variation group HTML and loop */
-		$output .= "<div class='wpsc_variation_forms'>";
-		while (wpsc_have_variation_groups()) : wpsc_the_variation_group();
-			$output .=  "<p>";
-			$output .=  "<label for='".wpsc_vargrp_form_id()."'>".wpsc_the_vargrp_name().":</label>";
-			/** the variation HTML and loop */
-			$output .=  "<select class='wpsc_select_variation' name='variation[".wpsc_vargrp_id()."]' id='".wpsc_vargrp_form_id()."'>";
-			while (wpsc_have_variations()) : wpsc_the_variation();
-				$output .=  "<option value='".wpsc_the_variation_id()."' ".wpsc_the_variation_out_of_stock().">". wpsc_the_variation_name()."</option>";
-			endwhile;
-			$output .=  "</select> ";
-			$output .=  "</p>";
-		endwhile;
-		$output .=  "</div>";
-		/** the variation group HTML and loop ends here */
-										
-
-		$output .= "<input type='hidden' name='wpsc_ajax_action' value='add_to_cart' />";
-		$output .= "<input type='hidden' name='product_id' value='" . $product_id . "' />";
-		$output .= "<input type='hidden' name='item' value='" . $product_id . "' />";
-		$output .= "<input type='submit' id='product_" . $product_id . "_submit_button' class='wpsc_buy_button' name='Buy' value='" . __( 'Add To Cart', 'wpsc' ) . "'  />";
-		$output .= '</form></div>';
-		if ( $replaced_shortcode == true ) {
-			return $output;
-		} else {
-			echo $output;
-		}
+		if ( $return )
+			ob_start();
+		?>
+			<div class='wpsc-add-to-cart-button'>
+				<form class='wpsc-add-to-cart-button-form' id='product_<?php echo esc_attr( $product_id ) ?>' action='' method='post'>
+					<?php do_action( 'wpsc_add_to_cart_button_form_begin' ); ?>
+					<div class='wpsc_variation_forms'>
+						<?php while ( wpsc_have_variation_groups() ) : wpsc_the_variation_group(); ?>
+							<p>
+								<label for='<?php echo wpsc_vargrp_form_id(); ?>'><?php echo esc_html( wpsc_the_vargrp_name() ) ?>:</label>
+								<select class='wpsc_select_variation' name='variation[<?php echo wpsc_vargrp_id(); ?>]' id='<?php echo wpsc_vargrp_form_id(); ?>'>
+									<?php while ( wpsc_have_variations() ): wpsc_the_variation(); ?>
+										<option value='<?php echo wpsc_the_variation_id(); ?>' <?php echo wpsc_the_variation_out_of_stock(); ?>><?php echo esc_html( wpsc_the_variation_name() ); ?></option>
+									<?php endwhile; ?>
+								</select>
+							</p>
+						<?php endwhile; ?>
+					</div>
+					<input type='hidden' name='wpsc_ajax_action' value='add_to_cart' />
+					<input type='hidden' name='product_id' value='<?php echo $product_id; ?>' />
+					<input type='submit' id='product_<?php echo $product_id; ?>_submit_button' class='wpsc_buy_button' name='Buy' value='<?php echo __( 'Add To Cart', 'wpsc' ); ?>'  />
+					<?php do_action( 'wpsc_add_to_cart_button_form_end' ); ?>
+				</form>
+			</div>
+		<?php
+		
+		if ( $return )
+			return ob_get_clean();
 	}
 }
 
@@ -272,12 +281,12 @@ function wpsc_obtain_the_title() {
 	$category_id = null;
 	if( !isset( $wp_query->query_vars['wpsc_product_category']) &&  !isset( $wp_query->query_vars['wpsc-product']))
 		return;
-		
+
 	if ( !isset( $wp_query->query_vars['wpsc_product_category'] ) && isset($wp_query->query_vars['wpsc-product']) )
 		$wp_query->query_vars['wpsc_product_category'] = 0;
 
 
-	if ( isset( $wp_query->query_vars['taxonomy'] ) && 'wpsc_product_category' ==  $wp_query->query_vars['taxonomy'] || isset($wp_query->query_vars['wpsc_product_category'])) 
+	if ( isset( $wp_query->query_vars['taxonomy'] ) && 'wpsc_product_category' ==  $wp_query->query_vars['taxonomy'] || isset($wp_query->query_vars['wpsc_product_category']))
 		$category_id = wpsc_get_the_category_id($wp_query->query_vars['wpsc_product_category'],'slug');
 
 	if ( $category_id > 0 ) {
@@ -316,7 +325,7 @@ function wpsc_obtain_the_title() {
 				//This has to exist, otherwise we would have bailed earlier.
 				$category = $wp_query->query_vars['wpsc_product_category'];
 				$cat_term = get_term_by('slug',$wp_query->query_vars['wpsc_product_category'], 'wpsc_product_category');
-				$full_product_name = $cat_term->name;		
+				$full_product_name = $cat_term->name;
 			}
 		}
 		$output = $full_product_name;
